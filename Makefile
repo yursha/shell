@@ -1,5 +1,3 @@
-# Makefile for bash-4.4, version 4.18
-#
 # Copyright (C) 1996-2015 Free Software Foundation, Inc.
 
 #   This program is free software: you can redistribute it and/or modify
@@ -18,36 +16,36 @@
 # Make sure the first target in the makefile is the right one
 all: .made
 
-PACKAGE = @PACKAGE_NAME@
-VERSION = @PACKAGE_VERSION@
+PACKAGE = shell
+VERSION = 0.1.0-SNAPSHOT
 
-PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
-PACKAGE_NAME = @PACKAGE_NAME@
-PACKAGE_STRING = @PACKAGE_STRING@
-PACKAGE_VERSION = @PACKAGE_VERSION@
+PACKAGE_BUGREPORT = 
+PACKAGE_NAME = shell
+PACKAGE_STRING = shell 0.1.0-SNAPSHOT
+PACKAGE_VERSION = 0.1.0-SNAPSHOT
 
-PACKAGE_TARNAME = @PACKAGE_TARNAME@
+PACKAGE_TARNAME = shell
 
 # Include some boilerplate Gnu makefile definitions.
-prefix = @prefix@
+prefix = /usr/local
 
-exec_prefix = @exec_prefix@
+exec_prefix = ${prefix}
 
-datarootdir = @datarootdir@
+datarootdir = ${prefix}/share
 
-bindir = @bindir@
-libdir = @libdir@
-infodir = @infodir@
-includedir = @includedir@
-datadir = @datadir@
-localedir = @localedir@
+bindir = ${exec_prefix}/bin
+libdir = ${exec_prefix}/lib
+infodir = ${datarootdir}/info
+includedir = ${prefix}/include
+datadir = ${datarootdir}
+localedir = ${datarootdir}/locale
 
-loadablesdir = @loadablesdir@
-headersdir = @headersdir@
+loadablesdir = ${libdir}/bash
+headersdir = $(includedir)/$(PACKAGE_NAME)
 
-docdir = @docdir@
+docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 
-mandir = @mandir@
+mandir = ${datarootdir}/man
 manpfx = man
 
 man1ext = .1
@@ -55,39 +53,39 @@ man1dir = $(mandir)/$(manpfx)1
 man3ext = .3
 man3dir = $(mandir)/$(manpfx)3
 
-htmldir = @htmldir@
+htmldir = ${docdir}
 
 # Support an alternate destination root directory for package building
 DESTDIR =
 
-topdir = @top_srcdir@
-BUILD_DIR = @BUILD_DIR@
-top_builddir = @BUILD_DIR@
-srcdir = @srcdir@
-VPATH = @srcdir@
+topdir = .
+BUILD_DIR = /home/ayursha/code/shell
+top_builddir = /home/ayursha/code/shell
+srcdir = .
 
-@SET_MAKE@
-CC = @CC@
-CC_FOR_BUILD = @CC_FOR_BUILD@
-YACC = @YACC@
-SHELL = @MAKE_SHELL@
+
+
+CC = gcc
+CC_FOR_BUILD = $(CC)
+YACC = bison -y
+SHELL = /bin/sh
 CP = cp
 RM = rm -f
-AR = @AR@
-ARFLAGS = @ARFLAGS@
-RANLIB = @RANLIB@
-SIZE = @SIZE@
+AR = ar
+ARFLAGS = cr
+RANLIB = ranlib
+SIZE = size
 
-INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
-INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_DATA = @INSTALL_DATA@
+INSTALL = /usr/bin/install -c
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
 INSTALLMODE= -m 0755
 INSTALLMODE2 = -m 0555
 
-TESTSCRIPT = @TESTSCRIPT@
+TESTSCRIPT = run-all
 
-DEBUGGER_START_FILE = @DEBUGGER_START_FILE@
+DEBUGGER_START_FILE = ${datadir}/bashdb/bashdb-main.inc
 
 #If you have purify, and want to use it, run the make as `make PURIFY=purify'
 #PURIFY = @PURIFY@
@@ -98,8 +96,8 @@ DEBUGGER_START_FILE = @DEBUGGER_START_FILE@
 	$(RM) $@
 	$(CC) $(CCFLAGS) -c $<
 
-EXEEXT = @EXEEXT@
-OBJEXT = @OBJEXT@
+EXEEXT = 
+OBJEXT = o
 
 # The name of this program and some version information.
 VERSPROG = bashversion$(EXEEXT)
@@ -108,39 +106,39 @@ VERSOBJ = bashversion.$(OBJEXT)
 Program = bash$(EXEEXT)
 PatchLevel = `$(BUILD_DIR)/$(VERSPROG) -p`
 RELSTATUS = "development"
-Version = @VERSION@
+Version = 0.1.0-SNAPSHOT
 
-Machine = @host_cpu@
-OS = @host_os@
-VENDOR = @host_vendor@
-MACHTYPE = @host@
+Machine = x86_64
+OS = linux-gnu
+VENDOR = unknown
+MACHTYPE = x86_64-unknown-linux-gnu
 
 # comment out for release
-DEBUG = @DEBUG@
-MALLOC_DEBUG = @MALLOC_DEBUG@
+DEBUG = -DDEBUG
+MALLOC_DEBUG = -DMALLOC_DEBUG
 
 THIS_SH = $(BUILD_DIR)/$(Program)
 
 # PROFILE_FLAGS is either -pg, to generate profiling info for use
 # with gprof, or nothing (the default).
-PROFILE_FLAGS= @PROFILE_FLAGS@
+PROFILE_FLAGS= 
 
-CFLAGS = @CFLAGS@
-CFLAGS_FOR_BUILD = @CFLAGS_FOR_BUILD@ @CROSS_COMPILE@
-CPPFLAGS = @CPPFLAGS@
-CPPFLAGS_FOR_BUILD = @CPPFLAGS_FOR_BUILD@
-LOCAL_CFLAGS = @LOCAL_CFLAGS@ ${DEBUG} ${MALLOC_DEBUG}
-DEFS = @DEFS@
-LOCAL_DEFS = @LOCAL_DEFS@
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
+CFLAGS_FOR_BUILD = -g -O2 -Wno-parentheses -Wno-format-security 
+CPPFLAGS = 
+CPPFLAGS_FOR_BUILD = 
+LOCAL_CFLAGS =  ${DEBUG} ${MALLOC_DEBUG}
+DEFS = -DHAVE_CONFIG_H
+LOCAL_DEFS = -DSHELL
 
 LOCALE_DEFS = -DLOCALEDIR='"$(localedir)"' -DPACKAGE='"$(PACKAGE)"'
 
-LOCAL_LIBS = @LOCAL_LIBS@
-LIBS = $(BUILTINS_LIB) $(LIBRARIES) @LIBS@
+LOCAL_LIBS = 
+LIBS = $(BUILTINS_LIB) $(LIBRARIES) -ldl 
 LIBS_FOR_BUILD = 
 
-STATIC_LD = @STATIC_LD@
-LOCAL_LDFLAGS = @LOCAL_LDFLAGS@
+STATIC_LD = 
+LOCAL_LDFLAGS = -rdynamic
 
 SYSTEM_FLAGS = -DPROGRAM='"$(Program)"' -DCONF_HOSTTYPE='"$(Machine)"' -DCONF_OSTYPE='"$(OS)"' -DCONF_MACHTYPE='"$(MACHTYPE)"' -DCONF_VENDOR='"$(VENDOR)"' $(LOCALE_DEFS)
 
@@ -151,10 +149,10 @@ CCFLAGS = $(BASE_CCFLAGS) $(CPPFLAGS) $(CFLAGS)
 
 CCFLAGS_FOR_BUILD = $(BASE_CCFLAGS) $(CPPFLAGS_FOR_BUILD) $(CFLAGS_FOR_BUILD)
 
-LDFLAGS = @LDFLAGS@ $(STATIC_LD) $(LOCAL_LDFLAGS) $(PROFILE_FLAGS) $(CFLAGS)
-LDFLAGS_FOR_BUILD = @LDFLAGS_FOR_BUILD@ $(LOCAL_LDFLAGS) $(CFLAGS_FOR_BUILD)
+LDFLAGS =  $(STATIC_LD) $(LOCAL_LDFLAGS) $(PROFILE_FLAGS) $(CFLAGS)
+LDFLAGS_FOR_BUILD = $(LDFLAGS) $(LOCAL_LDFLAGS) $(CFLAGS_FOR_BUILD)
 
-INCLUDES = -I. @RL_INCLUDE@ -I$(srcdir) -I$(BASHINCDIR) -I$(LIBSRC) $(INTL_INC)
+INCLUDES = -I.  -I$(srcdir) -I$(BASHINCDIR) -I$(LIBSRC) $(INTL_INC)
 
 # Maybe add: -Wextra
 GCC_LINT_FLAGS = -O -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wno-parentheses \
@@ -176,10 +174,10 @@ LIBSRC = $(srcdir)/$(LIBSUBDIR)
 
 LIBBUILD = ${BUILD_DIR}/${LIBSUBDIR}
 
-SUBDIR_INCLUDES = -I. @RL_INCLUDE@ -I$(topdir) -I$(topdir)/$(LIBSUBDIR)
+SUBDIR_INCLUDES = -I.  -I$(topdir) -I$(topdir)/$(LIBSUBDIR)
 
-BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+BUILD_INCLUDED_LIBINTL = no
+USE_INCLUDED_LIBINTL = no
 
 # the bash library
 # the library is a mix of functions that the C library does not provide on
@@ -233,15 +231,15 @@ SHLIB_DEP = ${SHLIB_LIBRARY}
 # we assume for now that readline source is being shipped with bash
 RL_LIBSRC = $(LIBSRC)/readline
 RL_LIBDOC = $(RL_LIBSRC)/doc
-RL_LIBDIR = @RL_LIBDIR@
+RL_LIBDIR = $(dot)/$(LIBSUBDIR)/readline
 RL_ABSSRC = ${topdir}/$(RL_LIBDIR)
 
-RL_INCLUDEDIR = @RL_INCLUDEDIR@
+RL_INCLUDEDIR = 
 
-READLINE_LIB = @READLINE_LIB@
+READLINE_LIB = -lreadline
 READLINE_LIBRARY = $(RL_LIBDIR)/libreadline.a
 READLINE_LDFLAGS = -L${RL_LIBDIR}
-READLINE_DEP = @READLINE_DEP@
+READLINE_DEP = $(READLINE_LIBRARY)
 
 # The source, object and documentation of the GNU Readline library.
 READLINE_SOURCE	= $(RL_LIBSRC)/rldefs.h $(RL_LIBSRC)/rlconf.h \
@@ -287,13 +285,13 @@ READLINE_OBJ	= $(RL_LIBDIR)/readline.o $(RL_LIBDIR)/funmap.o \
 		  $(RL_LIBDIR)/colors.o $(RL_LIBDIR)/parse-colors.o
 
 HIST_LIBSRC = $(LIBSRC)/readline
-HIST_LIBDIR = @HIST_LIBDIR@
+HIST_LIBDIR = $(dot)/$(LIBSUBDIR)/readline
 HIST_ABSSRC = ${topdir}/$(HIST_LIBDIR)
 
-HISTORY_LIB = @HISTORY_LIB@
+HISTORY_LIB = -lhistory
 HISTORY_LIBRARY = $(HIST_LIBDIR)/libhistory.a
 HISTORY_LDFLAGS = -L$(HIST_LIBDIR)
-HISTORY_DEP = @HISTORY_DEP@
+HISTORY_DEP = $(HISTORY_LIBRARY)
 
 # The source, object and documentation of the history library.
 HISTORY_SOURCE	= $(HIST_LIBSRC)/history.c $(HIST_LIBSRC)/histexpand.c \
@@ -309,10 +307,10 @@ TERM_LIBSRC = $(LIBSRC)/termcap
 TERM_LIBDIR = $(dot)/$(LIBSUBDIR)/termcap
 TERM_ABSSRC = ${topdir}/$(TERM_LIBDIR)
 
-TERMCAP_LIB = @TERMCAP_LIB@
+TERMCAP_LIB = -ltermcap
 TERMCAP_LIBRARY = $(TERM_LIBDIR)/libtermcap.a
 TERMCAP_LDFLAGS = -L$(TERM_LIBDIR)
-TERMCAP_DEP = @TERMCAP_DEP@
+TERMCAP_DEP = 
 
 TERMCAP_SOURCE	= $(TERM_LIBSRC)/termcap.c $(TERM_LIBSRC)/tparam.c
 TERMCAP_OBJ	= $(TERM_LIBDIR)/termcap.o $(TERM_LIBDIR)/tparam.o
@@ -340,7 +338,7 @@ TILDE_LIBSRC = $(LIBSRC)/tilde
 TILDE_LIBDIR = $(dot)/$(LIBSUBDIR)/tilde
 TILDE_ABSSRC = ${topdir}/$(TILDE_LIBDIR)
 
-TILDE_LIB = @TILDE_LIB@
+TILDE_LIB = -ltilde
 TILDE_LIBRARY = $(TILDE_LIBDIR)/libtilde.a
 TILDE_LDFLAGS = -L$(TILDE_LIBDIR)
 TILDE_DEP = $(TILDE_LIBRARY)
@@ -354,42 +352,42 @@ INTL_LIBDIR = $(dot)/$(LIBSUBDIR)/intl
 INTL_ABSSRC = ${topdir}/$(INTL_LIB)
 INTL_BUILDDIR = ${LIBBUILD}/intl
 
-INTL_LIB     = @LIBINTL@
+INTL_LIB     = 
 INTL_LIBRARY = $(INTL_LIBDIR)/libintl.a
-INTL_DEP = @INTL_DEP@
-INTL_INC = @INTL_INC@
+INTL_DEP = 
+INTL_INC = 
 
-LIBINTL_H = @LIBINTL_H@
+LIBINTL_H = 
 
 # libiconv
-LIBICONV = @LIBICONV@
+LIBICONV = 
 
 # tests
-LIBINTL = @LIBINTL@
-LTLIBINTL = @LTLIBINTL@
-INTLLIBS = @INTLLIBS@
-INTLOBJS = @INTLOBJS@
+LIBINTL = 
+LTLIBINTL = 
+INTLLIBS = 
+INTLOBJS = 
 
 # Our malloc.
-MALLOC_TARGET = @MALLOC_TARGET@
+MALLOC_TARGET = malloc
 
 # set to alloca.o if we are using the C alloca in lib/malloc
-ALLOCA = @ALLOCA@
+ALLOCA = 
 
 ALLOC_LIBSRC = $(LIBSRC)/malloc
 ALLOC_LIBDIR = $(dot)/$(LIBSUBDIR)/malloc
 ALLOC_ABSSRC = ${topdir}/$(ALLOC_LIBDIR)
 
-MALLOC_SRC = @MALLOC_SRC@
+MALLOC_SRC = malloc.c
 MALLOC_OTHERSRC = ${ALLOC_LIBSRC}/trace.c ${ALLOC_LIBSRC}/stats.c \
 		  ${ALLOC_LIBSRC}/table.c ${ALLOC_LIBSRC}/watch.c
 MALLOC_SOURCE = ${ALLOC_LIBSRC}/${MALLOC_SRC} ${MALLOC_OTHERSRC}
 MALLOC_CFLAGS = -DRCHECK -Dbotch=programming_error ${MALLOC_DEBUG}
 
-MALLOC_LIB     = @MALLOC_LIB@
-MALLOC_LIBRARY = @MALLOC_LIBRARY@
-MALLOC_LDFLAGS = @MALLOC_LDFLAGS@
-MALLOC_DEP = @MALLOC_DEP@
+MALLOC_LIB     = -lmalloc
+MALLOC_LIBRARY = $(ALLOC_LIBDIR)/libmalloc.a
+MALLOC_LDFLAGS = -L$(ALLOC_LIBDIR)
+MALLOC_DEP = $(MALLOC_LIBRARY)
 
 ALLOC_HEADERS = $(ALLOC_LIBSRC)/getpagesize.h $(ALLOC_LIBSRC)/shmalloc.h \
 		$(ALLOC_LIBSRC)/imalloc.h $(ALLOC_LIBSRC)/mstats.h \
@@ -457,13 +455,11 @@ INSTALLED_INCFILES =	 posixstat.h ansi_stdlib.h filecntl.h posixdir.h \
 	unionwait.h maxpath.h shtty.h typemax.h ocache.h chartypes.h gettext.h \
 	posixstat.h shmbchar.h shmbutil.h stat-time.h
 
-# header files chosen based on running of configure
-SIGNAMES_H = @SIGNAMES_H@
+SIGNAMES_H = lsignames.h
 
-# object files chosen based on running of configure
-JOBS_O = @JOBS_O@
-SIGLIST_O = @SIGLIST_O@
-SIGNAMES_O = @SIGNAMES_O@
+JOBS_O = jobs.o
+SIGLIST_O = 
+SIGNAMES_O = 
 
 # Matching object files.
 OBJECTS	 = shell.o eval.o y.tab.o general.o make_cmd.o print_cmd.o $(GLOBO) \
@@ -544,8 +540,6 @@ CREATED_SUPPORT = signames.h recho$(EXEEXT) zecho$(EXEEXT) printenv$(EXEEXT) \
 		  mksignames$(EXEEXT) lsignames.h \
 		  mksyntax${EXEEXT} syntax.c $(VERSPROG) $(VERSOBJ) \
 		  buildversion.o mksignames.o signames.o buildsignames.o
-CREATED_CONFIGURE = config.h config.cache config.status config.log \
-		    stamp-h po/POTFILES config.status.lineno
 CREATED_MAKEFILES = Makefile builtins/Makefile doc/Makefile \
 		    lib/readline/Makefile lib/glob/Makefile \
 		    lib/sh/Makefile lib/tilde/Makefile lib/malloc/Makefile \
@@ -721,21 +715,7 @@ $(SDIR)/man2html$(EXEEXT):	${SUPPORT_SRC}/man2html.c
 # For the justification of the following Makefile rules, see node
 # `Automatic Remaking' in GNU Autoconf documentation.
 
-Makefile makefile:	config.status $(srcdir)/Makefile.in
-	CONFIG_FILES=Makefile CONFIG_HEADERS= $(SHELL) ./config.status
-
-Makefiles makefiles:	config.status $(srcdir)/Makefile.in
-	@for mf in $(CREATED_MAKEFILES); do \
-		CONFIG_FILES=$$mf CONFIG_HEADERS= $(SHELL) ./config.status ; \
-	done
-
 config.h:	stamp-h 
-
-stamp-h:	config.status $(srcdir)/config.h.in $(srcdir)/config-top.h $(srcdir)/config-bot.h
-	CONFIG_FILES= CONFIG_HEADERS=config.h $(SHELL) ./config.status
-
-config.status:	$(srcdir)/configure
-	$(SHELL) ./config.status --recheck
 
 pathnames.h:		Makefile $(srcdir)/pathnames.h.in
 	@sed -e 's|@DEBUGGER_START_FILE\@|${DEBUGGER_START_FILE}|g' $(srcdir)/pathnames.h.in > pathnames.tmp
@@ -745,14 +725,6 @@ pathnames.h:		Makefile $(srcdir)/pathnames.h.in
 		mv pathnames.tmp $@; \
 	fi
 	@${RM} pathnames.tmp
-
-# comment out for distribution
-$(srcdir)/configure:	$(srcdir)/configure.ac $(srcdir)/aclocal.m4 $(srcdir)/config.h.in
-	cd $(srcdir) && autoconf
-
-# for chet
-reconfig: force
-	sh $(srcdir)/configure -C
 
 loadables:
 	cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) all
@@ -881,7 +853,7 @@ distclean:	basic-clean maybe-clean
 	done
 	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
 	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	$(RM) $(CREATED_CONFIGURE) tags TAGS 
+	$(RM) tags TAGS 
 	$(RM) $(CREATED_SUPPORT) Makefile $(CREATED_MAKEFILES) pathnames.h
 
 maintainer-clean:	basic-clean
@@ -896,7 +868,7 @@ maintainer-clean:	basic-clean
 	done
 	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
 	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	$(RM) $(CREATED_CONFIGURE) $(CREATED_MAKEFILES)
+	$(RM) $(CREATED_MAKEFILES)
 	$(RM) $(CREATED_SUPPORT) Makefile pathnames.h
 
 maybe-clean:

@@ -22,11 +22,11 @@
 srcdir = .
 
 topdir = ../..
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
 libdir = ${exec_prefix}/lib
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 

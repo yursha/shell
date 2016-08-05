@@ -56,9 +56,9 @@ man1dir = $(mandir)/$(manpfx)1
 man3ext = .3
 man3dir = $(mandir)/$(manpfx)3
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
 SUPPORT_SRCDIR = $(topdir)/support
 

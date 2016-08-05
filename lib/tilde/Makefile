@@ -22,9 +22,9 @@
 srcdir = .
 
 topdir = ../..
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -41,9 +41,9 @@ SHELL = /bin/sh
 PROFILE_FLAGS = 
 
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
-LOCAL_CFLAGS = -DMACOSX
+LOCAL_CFLAGS = 
 CPPFLAGS = 
-LDFLAGS =  
+LDFLAGS =  -rdynamic
 
 DEFS = -DHAVE_CONFIG_H
 LOCAL_DEFS = -DSHELL

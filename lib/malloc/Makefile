@@ -18,9 +18,9 @@
 srcdir = .
 
 topdir = ../..
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -37,7 +37,7 @@ SHELL = /bin/sh
 PROFILE_FLAGS = 
 
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
-LOCAL_CFLAGS = -DMACOSX
+LOCAL_CFLAGS = 
 CPPFLAGS = 
 LDFLAGS = 
 
@@ -50,8 +50,8 @@ BASHINCDIR = ${topdir}/include
 
 INTL_LIBSRC = ${topdir}/lib/intl
 INTL_BUILDDIR = ${LIBBUILD}/intl
-INTL_INC = -I${INTL_LIBSRC} -I${INTL_BUILDDIR}
-LIBINTL_H = ${INTL_BUILDDIR}/libintl.h
+INTL_INC = 
+LIBINTL_H = 
 
 INCLUDES = -I. -I../.. -I$(topdir) -I$(BASHINCDIR) -I$(topdir)/lib $(INTL_INC)
 
@@ -70,7 +70,7 @@ STUB_SOURCE = stub.c
 ALLOCA_SOURCE = alloca.c
 ALLOCA_OBJECT = alloca.o
 
-MALLOC_SRC = 
+MALLOC_SRC = malloc.c
 MALLOC = @MALLOC@
 ALLOCA = 
 

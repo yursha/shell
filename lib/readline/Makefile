@@ -30,11 +30,11 @@ PACKAGE_VERSION = 0.1.0-SNAPSHOT
 srcdir = .
 
 topdir = ../..
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
 datarootdir = ${prefix}/share
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -55,7 +55,7 @@ CTAGS = ctags -tw
 DEBUG = -DDEBUG
 
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
-LOCAL_CFLAGS = -DMACOSX ${DEBUG}
+LOCAL_CFLAGS =  ${DEBUG}
 CPPFLAGS = 
 LDFLAGS = 
 

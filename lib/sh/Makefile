@@ -28,7 +28,7 @@ PACKAGE_VERSION = 0.1.0-SNAPSHOT
 srcdir = .
 
 topdir = ../..
-BUILD_DIR = /Users/ayursha/code/c++/bash
+BUILD_DIR = /home/ayursha/code/shell
 
 LIBBUILD = ${BUILD_DIR}/lib
 
@@ -36,12 +36,12 @@ BASHINCDIR = ${topdir}/include
 
 INTL_LIBSRC = ${topdir}/lib/intl
 INTL_BUILDDIR = ${LIBBUILD}/intl
-INTL_INC = -I${INTL_LIBSRC} -I${INTL_BUILDDIR}
-LIBINTL_H = ${INTL_BUILDDIR}/libintl.h
+INTL_INC = 
+LIBINTL_H = 
 
 datarootdir = ${prefix}/share
 
-INSTALL = /usr/local/bin/ginstall -c
+INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -56,9 +56,9 @@ MV = mv
 SHELL = /bin/sh
 
 CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
-LOCAL_CFLAGS = -DMACOSX ${DEBUG}
+LOCAL_CFLAGS =  ${DEBUG}
 CPPFLAGS = 
-LDFLAGS =  
+LDFLAGS =  -rdynamic
 
 PROFILE_FLAGS = 
 
@@ -98,7 +98,7 @@ CSOURCES = clktck.c clock.c getcwd.c getenv.c oslib.c setlinebuf.c \
 HSOURCES = 
 
 # The object files contained in $(LIBRARY_NAME)
-LIBOBJS =  ${LIBOBJDIR}strchrnul$U.o ${LIBOBJDIR}mktime$U.o ${LIBOBJDIR}mbschr$U.o
+LIBOBJS =  ${LIBOBJDIR}mbschr$U.o
 OBJECTS = clktck.o clock.o getenv.o oslib.o setlinebuf.o strnlen.o \
 	  itos.o zread.o zwrite.o shtty.o shmatch.o eaccess.o \
 	  netconn.o netopen.o timeval.o makepath.o pathcanon.o \
