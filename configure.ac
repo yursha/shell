@@ -49,33 +49,10 @@ dnl some systems should be configured without the bash malloc by default
 dnl and some need a special compiler or loader
 dnl look in the NOTES file for more
 case "${host_cpu}-${host_os}" in
-alpha*-*)	opt_bash_malloc=no ;;	# alpha running osf/1 or linux
-*[[Cc]]ray*-*)	opt_bash_malloc=no ;;	# Crays
-*-osf1*)	opt_bash_malloc=no ;;	# other osf/1 machines
-sparc-svr4*)	opt_bash_malloc=no ;;	# sparc SVR4, SVR4.2
-sparc-netbsd*)	opt_bash_malloc=no ;;	# needs 8-byte alignment
-mips-irix6*)	opt_bash_malloc=no ;;	# needs 8-byte alignment
-m68k-sysv)	opt_bash_malloc=no ;;	# fixes file descriptor leak in closedir
-sparc-linux*)	opt_bash_malloc=no ;;	# sparc running linux; requires ELF
 #*-freebsd*-gnu)	opt_bash_malloc=no ;;	# there's some undetermined problem here
 #*-freebsd*)	opt_bash_malloc=no ;;	# they claim it's better; I disagree
 *-openbsd*)	opt_bash_malloc=no ;;	# they claim it needs eight-bit alignment
-*-mirbsd*)	opt_bash_malloc=no ;;	# they claim it needs eight-bit alignment
-*-aix*)		opt_bash_malloc=no ;;	# AIX machines
-*-nextstep*)	opt_bash_malloc=no ;;	# NeXT machines running NeXTstep
-*-openstep*)	opt_bash_malloc=no ;;	# i386/Sparc/HP machines running Openstep
-*-macos*)	opt_bash_malloc=no ;;	# Apple MacOS X
-*-rhapsody*)	opt_bash_malloc=no ;;	# Apple Rhapsody (MacOS X)
 *-darwin*)	opt_bash_malloc=no ;;	# Apple Darwin (MacOS X)
-*-dgux*)	opt_bash_malloc=no ;;	# DG/UX machines
-*-qnx*)		opt_bash_malloc=no ;;	# QNX 4.2, QNX 6.x
-*-machten4)	opt_bash_malloc=no ;;	# MachTen 4.x
-*-bsdi2.1|*-bsdi3.?)	opt_bash_malloc=no ; : ${CC:=shlicc2} ;; # for loadable builtins
-*-beos*)	opt_bash_malloc=no ;;	# they say it's suitable
-*-cygwin*)	opt_bash_malloc=no ;;	# Cygnus's CYGWIN environment
-*-opennt*|*-interix*)	opt_bash_malloc=no ;;	# Interix, now owned by Microsoft
-*-nsk*)		opt_bash_malloc=no ;;	# HP NonStop
-*-haiku*)	opt_bash_malloc=no ;;	# Haiku OS
 esac
 
 # memory scrambling on free()
