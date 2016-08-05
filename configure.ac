@@ -13,8 +13,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_REVISION([for Bash 4.4, version 4.080])dnl
-
 define(bashvers, 4.4)
 define(relstatus, beta2)
 
