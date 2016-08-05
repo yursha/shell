@@ -1,12 +1,4 @@
-dnl
-dnl Configure script for bash-4.4
-dnl
-dnl report bugs to chet@po.cwru.edu
-dnl
-dnl Process this file with autoconf to produce a configure script.
-
 # Copyright (C) 1987-2016 Free Software Foundation, Inc.
-
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
