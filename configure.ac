@@ -16,7 +16,7 @@
 define(bashvers, 4.4)
 define(relstatus, beta2)
 
-AC_INIT([bash], bashvers-relstatus, [bug-bash@gnu.org])
+AC_INIT([bash], bashvers-relstatus)
 
 dnl make sure we are using a recent autoconf version
 AC_PREREQ(2.61)
