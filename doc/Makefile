@@ -15,15 +15,15 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-PACKAGE = bash
-VERSION = 4.4-beta2
+PACKAGE = shell
+VERSION = 0.1.0-SNAPSHOT
 
-PACKAGE_BUGREPORT = bug-bash@gnu.org
-PACKAGE_NAME = bash
-PACKAGE_STRING = bash 4.4-beta2
-PACKAGE_VERSION = 4.4-beta2
+PACKAGE_BUGREPORT = 
+PACKAGE_NAME = shell
+PACKAGE_STRING = shell 0.1.0-SNAPSHOT
+PACKAGE_VERSION = 0.1.0-SNAPSHOT
 
-PACKAGE_TARNAME = bash
+PACKAGE_TARNAME = shell
 
 #
 SHELL = /bin/sh

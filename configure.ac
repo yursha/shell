@@ -13,10 +13,9 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-define(bashvers, 4.4)
-define(relstatus, beta2)
+define(shell_version, 0.1.0-SNAPSHOT)
 
-AC_INIT([bash], bashvers-relstatus)
+AC_INIT([shell], shell_version)
 
 dnl make sure we are using a recent autoconf version
 AC_PREREQ(2.61)
@@ -27,14 +26,11 @@ AC_CONFIG_AUX_DIR(./support)
 AC_CONFIG_HEADERS(config.h)
 
 dnl checks for version info
-BASHVERS=bashvers
-RELSTATUS=relstatus
+VERSION=shell_version
 
-dnl defaults for debug settings
-case "$RELSTATUS" in
-alp*|bet*|dev*|rc*|maint*)	DEBUG='-DDEBUG' MALLOC_DEBUG='-DMALLOC_DEBUG' ;;
-*)	DEBUG= MALLOC_DEBUG= ;;
-esac
+dnl debugging configuration
+DEBUG='-DDEBUG' MALLOC_DEBUG='-DMALLOC_DEBUG'
+# DEBUG= MALLOC_DEBUG=
 
 dnl canonicalize the host and os so we can do some tricky things before
 dnl parsing options
@@ -391,7 +387,7 @@ else
 fi
 
 echo ""
-echo "Beginning configuration for bash-$BASHVERS-$RELSTATUS for ${host_cpu}-${host_vendor}-${host_os}"
+echo "Beginning configuration for shell-$VERSION for ${host_cpu}-${host_vendor}-${host_os}"
 echo ""
 
 dnl compilation checks
@@ -1191,8 +1187,7 @@ AC_SUBST(YACC)
 AC_SUBST(AR)
 AC_SUBST(ARFLAGS)
 
-AC_SUBST(BASHVERS)
-AC_SUBST(RELSTATUS)
+AC_SUBST(VERSION)
 AC_SUBST(DEBUG)
 AC_SUBST(MALLOC_DEBUG)
 

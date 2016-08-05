@@ -15,8 +15,8 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-PACKAGE = bash
-VERSION = 4.4-beta2
+PACKAGE = shell
+VERSION = 0.1.0-SNAPSHOT
 
 SHELL = /bin/sh
 
