@@ -559,7 +559,7 @@ LOADABLES_DIR = ${top_builddir}/examples/loadables
 # Keep GNU Make from exporting the entire environment for small machines.
 .NOEXPORT:
 
-.made: $(Program) bashbug $(SDIR)/man2html$(EXEEXT)
+.made: $(Program) $(SDIR)/man2html$(EXEEXT)
 	@echo "$(Program) last made for a $(Machine) running $(OS)" >.made
 
 $(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
@@ -576,14 +576,6 @@ $(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
 	@echo "	  *                                                         *"
 	@echo "	  ***********************************************************"
 	@echo
-
-bashbug: $(SUPPORT_SRC)bashbug.sh config.h Makefile $(VERSPROG)
-	@sed -e "s%!MACHINE!%$(Machine)%" -e "s%!OS!%$(OS)%" \
-	     -e "s%!CFLAGS!%$(CCFLAGS)%" -e "s%!CC!%$(CC)%" \
-	     -e "s%!RELEASE!%$(Version)%" -e "s%!PATCHLEVEL!%$(PatchLevel)%" \
-	     -e "s%!MACHTYPE!%$(MACHTYPE)%" -e "s%!RELSTATUS!%$(RELSTATUS)%" \
-	     $(SUPPORT_SRC)bashbug.sh > $@
-	@chmod a+rx bashbug
 
 strip:	$(Program) .made
 	strip $(Program)
@@ -761,7 +753,7 @@ installdirs:
 
 install:	.made installdirs
 	$(INSTALL_PROGRAM) $(INSTALLMODE) $(Program) $(DESTDIR)$(bindir)/$(Program)
-	$(INSTALL_SCRIPT) $(INSTALLMODE2) bashbug $(DESTDIR)$(bindir)/bashbug
+	$(INSTALL_SCRIPT) $(INSTALLMODE2)
 	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
 		man1dir=$(man1dir) man1ext=$(man1ext) \
@@ -805,7 +797,7 @@ uninstall-headers:
 	-( rm -f $(DESTDIR)$(libdir)/pkgconfig/bash.pc )
 
 uninstall:	.made
-	rm -f $(DESTDIR)$(bindir)/$(Program) $(DESTDIR)$(bindir)/bashbug
+	rm -f $(DESTDIR)$(bindir)/$(Program)
 	-( cd $(DESTDIR)$(docdir) && ${RM} ${OTHER_INSTALLED_DOCS} )
 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
 		man1dir=$(man1dir) man1ext=$(man1ext) \
@@ -820,7 +812,7 @@ LIB_SUBDIRS = ${RL_LIBDIR}  ${HIST_LIBDIR} ${TERM_LIBDIR} ${GLOB_LIBDIR} \
 		${INTL_LIBDIR} ${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
 
 clean:
-	rm -f $(OBJECTS) $(Program) bashbug
+	rm -f $(OBJECTS) $(Program)
 
 recho$(EXEEXT):		$(SUPPORT_SRC)recho.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)recho.c ${LIBS_FOR_BUILD}
