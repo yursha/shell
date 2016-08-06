@@ -122,14 +122,6 @@ struct user_info {
 
 extern struct user_info current_user;
 
-/* Force gcc to not clobber X on a longjmp().  Old versions of gcc mangle
-   this badly. */
-#if (__GNUC__ > 2) || (__GNUC__ == 2 && __GNUC_MINOR__ > 8)
-#  define USE_VAR(x)	((void) &(x))
-#else
-#  define USE_VAR(x)
-#endif
-
 #define HEREDOC_MAX 16
 
 /* Structure in which to save partial parsing state when doing things like

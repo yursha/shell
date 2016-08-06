@@ -100,7 +100,6 @@ wait_builtin (list)
   int status, code, opt, nflag;
   volatile int old_interrupt_immediately;
 
-  USE_VAR(list);
 
   nflag = 0;
   reset_internal_getopt ();

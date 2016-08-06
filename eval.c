@@ -72,7 +72,6 @@ reader_loop ()
   int our_indirection_level;
   COMMAND * volatile current_command;
 
-  USE_VAR(current_command);
 
   current_command = (COMMAND *)NULL;
 

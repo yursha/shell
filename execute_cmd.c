@@ -1434,11 +1434,6 @@ execute_in_subshell (command, asynchronous, pipe_in, pipe_out, fds_to_close)
   int result;
   volatile COMMAND *tcom;
 
-  USE_VAR(user_subshell);
-  USE_VAR(user_coproc);
-  USE_VAR(invert);
-  USE_VAR(tcom);
-  USE_VAR(asynchronous);
 
   subshell_level++;
   should_redir_stdin = (asynchronous && (command->flags & CMD_STDIN_REDIR) &&
@@ -4609,7 +4604,6 @@ execute_function (var, words, flags, fds_to_close, async, subshell)
   sh_getopt_state_t *gs;
   SHELL_VAR *gv;
 
-  USE_VAR(fc);
 
   if (funcnest_max > 0 && funcnest >= funcnest_max)
     {

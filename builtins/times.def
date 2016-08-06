@@ -65,7 +65,6 @@ times_builtin (list)
 #if defined (HAVE_GETRUSAGE) && defined (HAVE_TIMEVAL) && defined (RUSAGE_SELF)
   struct rusage self, kids;
 
-  USE_VAR(list);
 
   if (no_options (list))
     return (EX_USAGE);
@@ -88,7 +87,6 @@ times_builtin (list)
      `struct tms' with values of type clock_t. */
   struct tms t;
 
-  USE_VAR(list);
 
   if (no_options (list))
     return (EX_USAGE);
@@ -106,7 +104,6 @@ times_builtin (list)
 
 #  else /* !HAVE_TIMES */
 
-  USE_VAR(list);
 
   if (no_options (list))
     return (EX_USAGE);

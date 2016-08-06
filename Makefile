@@ -1,25 +1,8 @@
-# Copyright (C) 1996-2015 Free Software Foundation, Inc.
-
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Make sure the first target in the makefile is the right one
 all: .made
 
 PACKAGE = shell
 VERSION = 0.1.0-SNAPSHOT
 
-PACKAGE_BUGREPORT = 
 PACKAGE_NAME = shell
 PACKAGE_STRING = shell 0.1.0-SNAPSHOT
 PACKAGE_VERSION = 0.1.0-SNAPSHOT
@@ -63,8 +46,6 @@ BUILD_DIR = /home/ayursha/code/shell
 top_builddir = /home/ayursha/code/shell
 srcdir = .
 
-
-
 CC = gcc
 CC_FOR_BUILD = $(CC)
 YACC = bison -y
@@ -96,28 +77,25 @@ DEBUGGER_START_FILE = ${datadir}/bashdb/bashdb-main.inc
 	rm -f $@
 	$(CC) $(CCFLAGS) -c $<
 
-EXEEXT = 
-OBJEXT = o
-
 # The name of this program and some version information.
-VERSPROG = bashversion$(EXEEXT)
-VERSOBJ = bashversion.$(OBJEXT)
+VERSPROG = bashversion
+VERSOBJ = bashversion.o
 
-Program = bash$(EXEEXT)
+Program = bash
 PatchLevel = `$(BUILD_DIR)/$(VERSPROG) -p`
 RELSTATUS = "development"
 Version = 0.1.0-SNAPSHOT
 
 Machine = x86_64
 OS = linux-gnu
-VENDOR = unknown
-MACHTYPE = x86_64-unknown-linux-gnu
+VENDOR = Fedora
+MACHTYPE = x86_64-Fedora-linux-gnu
 
 # comment out for release
 DEBUG = -DDEBUG
 MALLOC_DEBUG = -DMALLOC_DEBUG
 
-THIS_SH = $(BUILD_DIR)/$(Program)
+THIS_SH = $(BUILD_DIR)/bash
 
 # PROFILE_FLAGS is either -pg, to generate profiling info for use
 # with gprof, or nothing (the default).
@@ -140,7 +118,7 @@ LIBS_FOR_BUILD =
 STATIC_LD = 
 LOCAL_LDFLAGS = -rdynamic
 
-SYSTEM_FLAGS = -DPROGRAM='"$(Program)"' -DCONF_HOSTTYPE='"$(Machine)"' -DCONF_OSTYPE='"$(OS)"' -DCONF_MACHTYPE='"$(MACHTYPE)"' -DCONF_VENDOR='"$(VENDOR)"' $(LOCALE_DEFS)
+SYSTEM_FLAGS = -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"$(Machine)"' -DCONF_OSTYPE='"$(OS)"' -DCONF_MACHTYPE='"$(MACHTYPE)"' -DCONF_VENDOR='"$(VENDOR)"' $(LOCALE_DEFS)
 
 BASE_CCFLAGS = $(PROFILE_FLAGS) $(SYSTEM_FLAGS) $(LOCAL_DEFS) \
 	  $(DEFS) $(LOCAL_CFLAGS) $(INCLUDES)
@@ -167,8 +145,6 @@ GCC_LINT_CFLAGS = $(BASE_CCFLAGS) $(CPPFLAGS) $(GCC_LINT_FLAGS)
 # Support libraries
 # 
 
-dot = .
-
 LIBSUBDIR = lib
 LIBSRC = $(srcdir)/$(LIBSUBDIR)
 
@@ -183,7 +159,7 @@ USE_INCLUDED_LIBINTL = no
 # the library is a mix of functions that the C library does not provide on
 # some platforms and general shell utility functions
 SH_LIBSRC = $(LIBSRC)/sh
-SH_LIBDIR = $(dot)/${LIBSUBDIR}/sh
+SH_LIBDIR = ./${LIBSUBDIR}/sh
 SH_ABSSRC = ${topdir}/${SH_LIBSRC}
 
 SHLIB_SOURCE =	${SH_LIBSRC}/clktck.c ${SH_LIBSRC}/getcwd.c \
@@ -231,7 +207,7 @@ SHLIB_DEP = ${SHLIB_LIBRARY}
 # we assume for now that readline source is being shipped with bash
 RL_LIBSRC = $(LIBSRC)/readline
 RL_LIBDOC = $(RL_LIBSRC)/doc
-RL_LIBDIR = $(dot)/$(LIBSUBDIR)/readline
+RL_LIBDIR = ./$(LIBSUBDIR)/readline
 RL_ABSSRC = ${topdir}/$(RL_LIBDIR)
 
 RL_INCLUDEDIR = 
@@ -285,7 +261,7 @@ READLINE_OBJ	= $(RL_LIBDIR)/readline.o $(RL_LIBDIR)/funmap.o \
 		  $(RL_LIBDIR)/colors.o $(RL_LIBDIR)/parse-colors.o
 
 HIST_LIBSRC = $(LIBSRC)/readline
-HIST_LIBDIR = $(dot)/$(LIBSUBDIR)/readline
+HIST_LIBDIR = ./$(LIBSUBDIR)/readline
 HIST_ABSSRC = ${topdir}/$(HIST_LIBDIR)
 
 HISTORY_LIB = -lhistory
@@ -304,7 +280,7 @@ HISTORY_OBJ	= $(HIST_LIBDIR)/history.o $(HIST_LIBDIR)/histexpand.o \
 
 # You only need termcap (or curses) if you are linking with GNU Readline.
 TERM_LIBSRC = $(LIBSRC)/termcap
-TERM_LIBDIR = $(dot)/$(LIBSUBDIR)/termcap
+TERM_LIBDIR = ./$(LIBSUBDIR)/termcap
 TERM_ABSSRC = ${topdir}/$(TERM_LIBDIR)
 
 TERMCAP_LIB = -ltermcap
@@ -316,7 +292,7 @@ TERMCAP_SOURCE	= $(TERM_LIBSRC)/termcap.c $(TERM_LIBSRC)/tparam.c
 TERMCAP_OBJ	= $(TERM_LIBDIR)/termcap.o $(TERM_LIBDIR)/tparam.o
 
 GLOB_LIBSRC = $(LIBSRC)/glob
-GLOB_LIBDIR = $(dot)/$(LIBSUBDIR)/glob
+GLOB_LIBDIR = ./$(LIBSUBDIR)/glob
 GLOB_ABSSRC = ${topdir}/$(GLOB_LIBDIR)
 
 GLOB_LIB     = -lglob
@@ -335,7 +311,7 @@ GLOB_OBJ    = $(GLOB_LIBDIR)/glob.o $(GLOB_LIBDIR)/strmatch.o \
 
 # The source, object and documentation for the GNU Tilde library.
 TILDE_LIBSRC = $(LIBSRC)/tilde
-TILDE_LIBDIR = $(dot)/$(LIBSUBDIR)/tilde
+TILDE_LIBDIR = ./$(LIBSUBDIR)/tilde
 TILDE_ABSSRC = ${topdir}/$(TILDE_LIBDIR)
 
 TILDE_LIB = -ltilde
@@ -348,7 +324,7 @@ TILDE_OBJ	= $(TILDE_LIBDIR)/tilde.o
 
 # libintl
 INTL_LIBSRC = $(LIBSRC)/intl
-INTL_LIBDIR = $(dot)/$(LIBSUBDIR)/intl
+INTL_LIBDIR = ./$(LIBSUBDIR)/intl
 INTL_ABSSRC = ${topdir}/$(INTL_LIB)
 INTL_BUILDDIR = ${LIBBUILD}/intl
 
@@ -375,7 +351,7 @@ MALLOC_TARGET = malloc
 ALLOCA = 
 
 ALLOC_LIBSRC = $(LIBSRC)/malloc
-ALLOC_LIBDIR = $(dot)/$(LIBSUBDIR)/malloc
+ALLOC_LIBDIR = ./$(LIBSUBDIR)/malloc
 ALLOC_ABSSRC = ${topdir}/$(ALLOC_LIBDIR)
 
 MALLOC_SRC = malloc.c
@@ -423,24 +399,24 @@ LIBRARY_LDFLAGS = $(READLINE_LDFLAGS) $(HISTORY_LDFLAGS) $(GLOB_LDFLAGS) \
 
 # The main source code for the Bourne Again SHell.
 CSOURCES = shell.c eval.c parse.y general.c make_cmd.c print_cmd.c y.tab.c \
-	   dispose_cmd.c execute_cmd.c variables.c $(GLOBC) version.c \
-	   expr.c copy_cmd.c flags.c subst.c hashcmd.c hashlib.c mailcheck.c \
-	   test.c trap.c alias.c jobs.c nojobs.c $(ALLOC_FILES) braces.c \
-	   input.c bashhist.c array.c arrayfunc.c assoc.c sig.c pathexp.c \
-	   unwind_prot.c siglist.c bashline.c bracecomp.c error.c \
-	   list.c stringlib.c locale.c findcmd.c redir.c \
-	   pcomplete.c pcomplib.c syntax.c xmalloc.c
+	dispose_cmd.c execute_cmd.c variables.c version.c \
+	expr.c copy_cmd.c flags.c subst.c hashcmd.c hashlib.c mailcheck.c \
+	test.c trap.c alias.c jobs.c nojobs.c braces.c \
+	input.c bashhist.c array.c arrayfunc.c assoc.c sig.c pathexp.c \
+	unwind_prot.c siglist.c bashline.c bracecomp.c error.c \
+	list.c stringlib.c locale.c findcmd.c redir.c \
+	pcomplete.c pcomplib.c syntax.c xmalloc.c
 
 HSOURCES = shell.h flags.h trap.h hashcmd.h hashlib.h jobs.h builtins.h \
-	   general.h variables.h config.h $(ALLOC_HEADERS) alias.h \
-	   quit.h unwind_prot.h syntax.h ${GRAM_H} \
-	   command.h input.h error.h bashansi.h dispose_cmd.h make_cmd.h \
-	   subst.h externs.h siglist.h bashhist.h bashline.h bashtypes.h \
-	   array.h arrayfunc.h sig.h mailcheck.h bashintl.h bashjmp.h \
-	   execute_cmd.h parser.h pathexp.h pathnames.h pcomplete.h assoc.h \
-	   $(BASHINCFILES)
+	general.h variables.h config.h $(ALLOC_HEADERS) alias.h \
+	quit.h unwind_prot.h syntax.h ${GRAM_H} \
+	command.h input.h error.h bashansi.h dispose_cmd.h make_cmd.h \
+	subst.h externs.h siglist.h bashhist.h bashline.h bashtypes.h \
+	array.h arrayfunc.h sig.h mailcheck.h bashintl.h bashjmp.h \
+	execute_cmd.h parser.h pathexp.h pathnames.h pcomplete.h assoc.h \
+	$(BASHINCFILES)
 
-SOURCES	 = $(CSOURCES) $(HSOURCES) $(BUILTIN_DEFS)
+SOURCES = $(CSOURCES) $(HSOURCES) $(BUILTIN_DEFS)
 
 # headers in top-level source directory that get installed by install-headers
 INSTALLED_HEADERS = shell.h bashjmp.h command.h syntax.h general.h error.h \
@@ -474,8 +450,8 @@ OBJECTS	 = shell.o eval.o y.tab.o general.o make_cmd.o print_cmd.o $(GLOBO) \
 BUILTIN_SRCDIR=$(srcdir)/builtins
 DEFSRC=$(BUILTIN_SRCDIR)
 BUILTIN_ABSSRC=${topdir}/builtins
-DEFDIR = $(dot)/builtins
-DEBUGGER_DIR = $(dot)/debugger
+DEFDIR = ./builtins
+DEBUGGER_DIR = ./debugger
 
 BUILTIN_DEFS = $(DEFSRC)/alias.def $(DEFSRC)/bind.def $(DEFSRC)/break.def \
 	       $(DEFSRC)/builtin.def $(DEFSRC)/cd.def $(DEFSRC)/colon.def \
@@ -522,22 +498,22 @@ BUILTINS_DEP = $(BUILTINS_LIBRARY)
 
 # Documentation for the shell.
 DOCSRC = $(srcdir)/doc
-DOCDIR = $(dot)/doc
+DOCDIR = ./doc
 
 # Translations and other i18n support files
 PO_SRC = $(srcdir)/po/
-PO_DIR = $(dot)/po/
+PO_DIR = ./po/
 
 SIGNAMES_SUPPORT = $(SUPPORT_SRC)mksignames.c
 
 SUPPORT_SRC = $(srcdir)/support/
-SDIR = $(dot)/support
+SDIR = ./support
 
-TESTS_SUPPORT = recho$(EXEEXT) zecho$(EXEEXT) printenv$(EXEEXT) xcase$(EXEEXT)
-CREATED_SUPPORT = signames.h recho$(EXEEXT) zecho$(EXEEXT) printenv$(EXEEXT) \
-		  tests/recho$(EXEEXT) tests/zecho$(EXEEXT) \
-		  tests/printenv$(EXEEXT) xcase$(EXEEXT) tests/xcase$(EXEEXT) \
-		  mksignames$(EXEEXT) lsignames.h \
+TESTS_SUPPORT = recho zecho printenv xcase
+CREATED_SUPPORT = signames.h recho zecho printenv \
+		  tests/recho tests/zecho \
+		  tests/printenv xcase tests/xcase \
+		  mksignames lsignames.h \
 		  mksyntax${EXEEXT} syntax.c $(VERSPROG) $(VERSOBJ) \
 		  buildversion.o mksignames.o signames.o buildsignames.o
 CREATED_MAKEFILES = Makefile builtins/Makefile doc/Makefile \
@@ -559,14 +535,14 @@ LOADABLES_DIR = ${top_builddir}/examples/loadables
 # Keep GNU Make from exporting the entire environment for small machines.
 .NOEXPORT:
 
-.made: $(Program) $(SDIR)/man2html$(EXEEXT)
-	@echo "$(Program) last made for a $(Machine) running $(OS)" >.made
+.made: bash $(SDIR)/man2html
+	@echo "bash last made for a $(Machine) running $(OS)" >.made
 
-$(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
+bash:  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
 	rm -f $@
-	$(PURIFY) $(CC) $(BUILTINS_LDFLAGS) $(LIBRARY_LDFLAGS) $(LDFLAGS) -o $(Program) $(OBJECTS) $(LIBS)
-	ls -l $(Program)
-	-$(SIZE) $(Program)
+	$(PURIFY) $(CC) $(BUILTINS_LDFLAGS) $(LIBRARY_LDFLAGS) $(LDFLAGS) -o bash $(OBJECTS) $(LIBS)
+	ls -l bash
+	-$(SIZE) bash
 
 .build:	$(SOURCES) config.h Makefile version.h $(VERSPROG)
 	@echo
@@ -577,17 +553,17 @@ $(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
 	@echo "	  ***********************************************************"
 	@echo
 
-strip:	$(Program) .made
-	strip $(Program)
-	ls -l $(Program)
-	-$(SIZE) $(Program)
+strip:	bash .made
+	strip bash
+	ls -l bash
+	-$(SIZE) bash
 
 lint:
 	${MAKE} ${MFLAGS} CFLAGS='${GCC_LINT_FLAGS}' .made
 
 version.h:  $(SOURCES) config.h Makefile patchlevel.h
 
-bashversion$(EXEEXT):	patchlevel.h conftypes.h version.h buildversion.o $(SUPPORT_SRC)bashversion.c
+bashversion:	patchlevel.h conftypes.h version.h buildversion.o $(SUPPORT_SRC)bashversion.c
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)bashversion.c buildversion.o ${LIBS_FOR_BUILD}
 
 buildversion.o: version.h conftypes.h patchlevel.h $(srcdir)/version.c
@@ -666,19 +642,19 @@ mksignames.o:	$(SUPPORT_SRC)mksignames.c
 	rm -f $@
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c $(SUPPORT_SRC)mksignames.c
 
-mksignames$(EXEEXT):	mksignames.o buildsignames.o
+mksignames:	mksignames.o buildsignames.o
 	rm -f $@
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ mksignames.o buildsignames.o ${LIBS_FOR_BUILD}
 
-mksyntax$(EXEEXT):	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
+mksyntax:	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
 	rm -f $@
 	${CC_FOR_BUILD} ${CCFLAGS_FOR_BUILD} ${LDFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
 
 # make a list of signals for the local system -- this is done when we're
 # *not* cross-compiling
-lsignames.h:   mksignames$(EXEEXT)
+lsignames.h:   mksignames
 	rm -f $@
-	./mksignames$(EXEEXT) $@
+	./mksignames $@
 
 # copy the correct signames header file to signames.h
 signames.h: $(SIGNAMES_H)
@@ -686,7 +662,7 @@ signames.h: $(SIGNAMES_H)
 
 syntax.c:	mksyntax${EXEEXT} $(srcdir)/syntax.h 
 	rm -f $@
-	./mksyntax$(EXEEXT) -o $@
+	./mksyntax -o $@
 
 $(BUILTINS_LIBRARY): $(BUILTIN_DEFS) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h $(DEFDIR)/builtext.h version.h
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} targets ) || exit 1
@@ -701,7 +677,7 @@ ${DEFDIR}/bashgetopt.o:	$(BUILTIN_SRCDIR)/bashgetopt.c
 ${DEFDIR}/builtext.h: $(BUILTIN_DEFS)
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) builtext.h ) || exit 1
 
-$(SDIR)/man2html$(EXEEXT):	${SUPPORT_SRC}/man2html.c
+$(SDIR)/man2html:	${SUPPORT_SRC}/man2html.c
 	@(cd $(SDIR) && $(MAKE) $(MFLAGS) all ) || exit 1
 
 # For the justification of the following Makefile rules, see node
@@ -752,7 +728,7 @@ installdirs:
 	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
 
 install:	.made installdirs
-	$(INSTALL_PROGRAM) $(INSTALLMODE) $(Program) $(DESTDIR)$(bindir)/$(Program)
+	$(INSTALL_PROGRAM) $(INSTALLMODE) bash $(DESTDIR)$(bindir)/bash
 	$(INSTALL_SCRIPT) $(INSTALLMODE2)
 	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
@@ -797,7 +773,7 @@ uninstall-headers:
 	-( rm -f $(DESTDIR)$(libdir)/pkgconfig/bash.pc )
 
 uninstall:	.made
-	rm -f $(DESTDIR)$(bindir)/$(Program)
+	rm -f $(DESTDIR)$(bindir)/bash
 	-( cd $(DESTDIR)$(docdir) && ${RM} ${OTHER_INSTALLED_DOCS} )
 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
 		man1dir=$(man1dir) man1ext=$(man1ext) \
@@ -812,21 +788,21 @@ LIB_SUBDIRS = ${RL_LIBDIR}  ${HIST_LIBDIR} ${TERM_LIBDIR} ${GLOB_LIBDIR} \
 		${INTL_LIBDIR} ${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
 
 clean:
-	rm -f $(OBJECTS) $(Program)
+	rm -f $(OBJECTS) bash
 
-recho$(EXEEXT):		$(SUPPORT_SRC)recho.c
+recho:		$(SUPPORT_SRC)recho.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)recho.c ${LIBS_FOR_BUILD}
 
-zecho$(EXEEXT):		$(SUPPORT_SRC)zecho.c
+zecho:		$(SUPPORT_SRC)zecho.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)zecho.c ${LIBS_FOR_BUILD}
 
-printenv$(EXEEXT):	$(SUPPORT_SRC)printenv.c
+printenv:	$(SUPPORT_SRC)printenv.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)printenv.c ${LIBS_FOR_BUILD}
 
-xcase$(EXEEXT):	$(SUPPORT_SRC)xcase.c
+xcase:	$(SUPPORT_SRC)xcase.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)xcase.c ${LIBS_FOR_BUILD}
 
-test tests check:	force $(Program) $(TESTS_SUPPORT)
+test tests check:	force bash $(TESTS_SUPPORT)
 	@-test -d tests || mkdir tests
 	@cp $(TESTS_SUPPORT) tests
 	@( cd $(srcdir)/tests && \
@@ -838,7 +814,7 @@ symlinks:
 dist:	force
 	@echo Bash distributions are created using $(srcdir)/support/mkdist.
 	@echo Here is a sample of the necessary commands:
-	@echo $(Program) $(srcdir)/support/mkdist -m $(srcdir)/MANIFEST -s $(srcdir) -r ${PACKAGE} -t $(PACKAGE_VERSION)
+	@echo bash $(srcdir)/support/mkdist -m $(srcdir)/MANIFEST -s $(srcdir) -r ${PACKAGE} -t $(PACKAGE_VERSION)
 
 xdist:	force
 	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
@@ -847,7 +823,7 @@ xdist:	force
 depend:	depends
 
 depends: force
-	$(Program) $(SUPPORT_SRC)mkdep -c ${CC} -- ${CCFLAGS} ${CSOURCES}
+	bash $(SUPPORT_SRC)mkdep -c ${CC} -- ${CCFLAGS} ${CSOURCES}
 
 #### PRIVATE TARGETS ####
 hashtest:	hashlib.c

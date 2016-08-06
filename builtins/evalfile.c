@@ -102,7 +102,6 @@ _evalfile (filename, flags)
   char *t, tt[2];
 #endif
 
-  USE_VAR(pflags);
 
 #if defined (ARRAY_VARS)
   GET_ARRAY_FROM_VAR ("FUNCNAME", funcname_v, funcname_a);

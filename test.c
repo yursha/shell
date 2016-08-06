@@ -852,7 +852,6 @@ test_command (margc, margv)
   int value;
   int code;
 
-  USE_VAR(margc);
 
   code = setjmp_nosigs (test_exit_buf);
 

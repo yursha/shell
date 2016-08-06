@@ -337,35 +337,7 @@ static void shell_reinitialize __P((void));
 
 static void show_shell_usage __P((FILE *, int));
 
-#ifdef __CYGWIN__
-static void
-_cygwin32_check_tmp ()
-{
-  struct stat sb;
-
-  if (stat ("/tmp", &sb) < 0)
-    internal_warning (_("could not find /tmp, please create!"));
-  else
-    {
-      if (S_ISDIR (sb.st_mode) == 0)
-	internal_warning (_("/tmp must be a valid directory name"));
-    }
-}
-#endif /* __CYGWIN__ */
-
-#if defined (NO_MAIN_ENV_ARG)
-/* systems without third argument to main() */
-int
-main (argc, argv)
-     int argc;
-     char **argv;
-#else /* !NO_MAIN_ENV_ARG */
-int
-main (argc, argv, env)
-     int argc;
-     char **argv, **env;
-#endif /* !NO_MAIN_ENV_ARG */
-{
+int main (int argc, char **argv, char **env) {
   register int i;
   int code, old_errexit_flag;
 #if defined (RESTRICTED_SHELL)
@@ -379,13 +351,7 @@ main (argc, argv, env)
   env = environ;
 #endif /* __OPENNT */
 
-  USE_VAR(argc);
-  USE_VAR(argv);
-  USE_VAR(env);
-  USE_VAR(code);
-  USE_VAR(old_errexit_flag);
 #if defined (RESTRICTED_SHELL)
-  USE_VAR(saverst);
 #endif
 
   /* Catch early SIGINTs. */
