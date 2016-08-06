@@ -93,7 +93,7 @@ DEBUGGER_START_FILE = ${datadir}/bashdb/bashdb-main.inc
 # Here is a rule for making .o files from .c files that does not
 # force the type of the machine (like -M_MACHINE) into the flags.
 .c.o:
-	$(RM) $@
+	rm -f $@
 	$(CC) $(CCFLAGS) -c $<
 
 EXEEXT = 
@@ -563,7 +563,7 @@ LOADABLES_DIR = ${top_builddir}/examples/loadables
 	@echo "$(Program) last made for a $(Machine) running $(OS)" >.made
 
 $(Program):  .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
-	$(RM) $@
+	rm -f $@
 	$(PURIFY) $(CC) $(BUILTINS_LDFLAGS) $(LIBRARY_LDFLAGS) $(LDFLAGS) -o $(Program) $(OBJECTS) $(LIBS)
 	ls -l $(Program)
 	-$(SIZE) $(Program)
@@ -663,37 +663,37 @@ ${INTL_LIBRARY}: config.h ${INTL_LIBDIR}/Makefile
 ${LIBINTL_H}:	${INTL_DEP}
 
 signames.o: $(SUPPORT_SRC)signames.c
-	$(RM) $@
+	rm -f $@
 	$(CC) $(CCFLAGS) -c $(SUPPORT_SRC)signames.c
 
 buildsignames.o:	$(SUPPORT_SRC)signames.c
-	$(RM) $@
+	rm -f $@
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -o $@ -c $(SUPPORT_SRC)signames.c
 
 mksignames.o:	$(SUPPORT_SRC)mksignames.c
-	$(RM) $@
+	rm -f $@
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c $(SUPPORT_SRC)mksignames.c
 
 mksignames$(EXEEXT):	mksignames.o buildsignames.o
-	$(RM) $@
+	rm -f $@
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ mksignames.o buildsignames.o ${LIBS_FOR_BUILD}
 
 mksyntax$(EXEEXT):	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
-	$(RM) $@
+	rm -f $@
 	${CC_FOR_BUILD} ${CCFLAGS_FOR_BUILD} ${LDFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
 
 # make a list of signals for the local system -- this is done when we're
 # *not* cross-compiling
 lsignames.h:   mksignames$(EXEEXT)
-	$(RM) $@
+	rm -f $@
 	./mksignames$(EXEEXT) $@
 
 # copy the correct signames header file to signames.h
 signames.h: $(SIGNAMES_H)
-	-if cmp -s $(SIGNAMES_H) $@ ; then :; else $(RM) $@ ; $(CP) $(SIGNAMES_H) $@ ; fi
+	-if cmp -s $(SIGNAMES_H) $@ ; then :; else rm -f $@ ; $(CP) $(SIGNAMES_H) $@ ; fi
 
 syntax.c:	mksyntax${EXEEXT} $(srcdir)/syntax.h 
-	$(RM) $@
+	rm -f $@
 	./mksyntax$(EXEEXT) -o $@
 
 $(BUILTINS_LIBRARY): $(BUILTIN_DEFS) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h $(DEFDIR)/builtext.h version.h
@@ -730,7 +730,7 @@ loadables:
 	cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) all
 
 #newversion:	mkversion
-#	$(RM) .build
+#	rm -f .build
 #	./mkversion -dir $(srcdir) -dist
 #	mv -f newversion.h version.h
 #	$(MAKE) -f $(srcdir)/Makefile $(MFLAGS) srcdir=$(srcdir)
@@ -798,14 +798,14 @@ install-headers: install-headers-dirs
 	$(INSTALL_DATA) $(SDIR)/bash.pc $(DESTDIR)$(libdir)/pkgconfig/bash.pc
 
 uninstall-headers:
-	-( cd $(DESTDIR)$(headersdir) && $(RM) $(INSTALLED_HEADERS) )
-	-( cd $(DESTDIR)$(headersdir)/include && $(RM) $(INSTALLED_INCFILES) )
-	-( cd $(DESTDIR)$(headersdir)/builtins && $(RM) $(INSTALLED_BUILTINS_HEADERS) )
-	-( cd $(DESTDIR)$(headersdir) && $(RM) $(CREATED_HEADERS) )
-	-( $(RM) $(DESTDIR)$(libdir)/pkgconfig/bash.pc )
+	-( cd $(DESTDIR)$(headersdir) && rm -f $(INSTALLED_HEADERS) )
+	-( cd $(DESTDIR)$(headersdir)/include && rm -f $(INSTALLED_INCFILES) )
+	-( cd $(DESTDIR)$(headersdir)/builtins && rm -f $(INSTALLED_BUILTINS_HEADERS) )
+	-( cd $(DESTDIR)$(headersdir) && rm -f $(CREATED_HEADERS) )
+	-( rm -f $(DESTDIR)$(libdir)/pkgconfig/bash.pc )
 
 uninstall:	.made
-	$(RM) $(DESTDIR)$(bindir)/$(Program) $(DESTDIR)$(bindir)/bashbug
+	rm -f $(DESTDIR)$(bindir)/$(Program) $(DESTDIR)$(bindir)/bashbug
 	-( cd $(DESTDIR)$(docdir) && ${RM} ${OTHER_INSTALLED_DOCS} )
 	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
 		man1dir=$(man1dir) man1ext=$(man1ext) \
@@ -814,67 +814,13 @@ uninstall:	.made
 	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
 	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
 
-.PHONY: basic-clean clean realclean maintainer-clean distclean mostlyclean maybe-clean
+.PHONY: clean
 
 LIB_SUBDIRS = ${RL_LIBDIR}  ${HIST_LIBDIR} ${TERM_LIBDIR} ${GLOB_LIBDIR} \
 		${INTL_LIBDIR} ${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
 
-basic-clean:
-	$(RM) $(OBJECTS) $(Program) bashbug
-	$(RM) .build .made version.h 
-
-clean:	basic-clean
-	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
-	( cd builtins && $(MAKE) $(MFLAGS) $@ )
-	-( cd $(SDIR) && $(MAKE) $(MFLAGS) $@ )
-	-for libdir in ${LIB_SUBDIRS}; do \
-		(cd $$libdir && test -f Makefile && $(MAKE) $(MFLAGS) $@) ;\
-	done
-	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	$(RM) $(CREATED_SUPPORT)
-
-mostlyclean: basic-clean
-	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
-	( cd builtins && $(MAKE) $(MFLAGS) $@ )
-	-( cd $(SDIR) && $(MAKE) $(MFLAGS) $@ )
-	-for libdir in ${LIB_SUBDIRS}; do \
-		(cd $$libdir && test -f Makefile && $(MAKE) $(MFLAGS) $@) ;\
-	done
-	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-
-distclean:	basic-clean maybe-clean
-	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
-	( cd builtins && $(MAKE) $(MFLAGS) $@ )
-	-( cd $(SDIR) && $(MAKE) $(MFLAGS) $@ )
-	-for libdir in ${LIB_SUBDIRS}; do \
-		(cd $$libdir && test -f Makefile && $(MAKE) $(MFLAGS) $@) ;\
-	done
-	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	$(RM) tags TAGS 
-	$(RM) $(CREATED_SUPPORT) Makefile $(CREATED_MAKEFILES) pathnames.h
-
-maintainer-clean:	basic-clean
-	@echo This command is intended for maintainers to use.
-	@echo It deletes files that may require special tools to rebuild.
-	$(RM) y.tab.c y.tab.h parser-built tags TAGS
-	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
-	( cd builtins && $(MAKE) $(MFLAGS) $@ )
-	( cd $(SDIR) && $(MAKE) $(MFLAGS) $@ )
-	-for libdir in ${LIB_SUBDIRS}; do \
-		(cd $$libdir && test -f Makefile && $(MAKE) $(MFLAGS) $@) ;\
-	done
-	-( cd $(PO_DIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	$(RM) $(CREATED_MAKEFILES)
-	$(RM) $(CREATED_SUPPORT) Makefile pathnames.h
-
-maybe-clean:
-	-if test "X$(topdir)" != "X$(BUILD_DIR)" ; then \
-		$(RM) parser-built y.tab.c y.tab.h ; \
-	fi
+clean:
+	rm -f $(OBJECTS) $(Program) bashbug
 
 recho$(EXEEXT):		$(SUPPORT_SRC)recho.c
 	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)recho.c ${LIBS_FOR_BUILD}
