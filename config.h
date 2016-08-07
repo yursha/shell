@@ -1,8 +1,6 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#define _GNU_SOURCE 1
-
 /* Define JOB_CONTROL if your operating system supports
    BSD-like job control. */
 #define JOB_CONTROL 1
@@ -208,16 +206,6 @@
 
 /* Characteristics of the system's header files and libraries that affect
    the compilation environment. */
-
-/* Define if the system does not provide POSIX.1 features except
-   with this defined.  */
-/* #undef _POSIX_1_SOURCE */
-
-/* Define if you need to in order for stat and other things to work.  */
-/* #undef _POSIX_SOURCE */
-
-/* Define to use GNU libc extensions */
-#define _GNU_SOURCE 1
 
 /* Define if you have the ANSI C header files.  */
 #define STDC_HEADERS 1
