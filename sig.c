@@ -90,7 +90,7 @@ volatile sig_atomic_t terminating_signal = 0;
 
 /* The environment at the top-level R-E loop.  We use this in
    the case of error return. */
-procenv_t top_level;
+sigjmp_buf top_level;
 
 #if defined(JOB_CONTROL) || defined(HAVE_POSIX_SIGNALS)
 /* The signal masks that this shell runs with. */
@@ -437,7 +437,7 @@ void throw_to_top_level() {
 
 /* This is just here to isolate the longjmp calls. */
 void jump_to_top_level(value) int value;
-{ sh_longjmp(top_level, value); }
+{ siglongjmp(top_level, value); }
 
 sighandler termsig_sighandler(sig) int sig;
 {

@@ -98,12 +98,12 @@ extern int errno;
 
 #define TEST_ERREXIT_STATUS 2
 
-static procenv_t test_exit_buf;
+static sigjmp_buf test_exit_buf;
 static int test_error_return;
 #define test_exit(val)            \
   do {                            \
     test_error_return = val;      \
-    sh_longjmp(test_exit_buf, 1); \
+    siglongjmp(test_exit_buf, 1); \
   } while (0)
 
 extern int sh_stat(const char *, struct stat *);
@@ -797,7 +797,7 @@ char **margv;
   int value;
   int code;
 
-  code = setjmp_nosigs(test_exit_buf);
+  code = sigsetjmp(test_exit_buf, 0);
 
   if (code) return (test_error_return);
 

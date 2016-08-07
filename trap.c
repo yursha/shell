@@ -91,13 +91,13 @@ extern int last_command_exit_value;
 extern int line_number;
 
 extern int sigalrm_seen;
-extern procenv_t alrmbuf;
+extern sigjmp_buf alrmbuf;
 
 extern volatile int from_return_trap;
 
 extern char *this_command_name;
 extern sh_builtin_func_t *this_shell_builtin;
-extern procenv_t wait_intr_buf;
+extern sigjmp_buf wait_intr_buf;
 extern int wait_intr_flag;
 extern int return_catch_flag, return_catch_value;
 extern int subshell_level;
@@ -435,7 +435,7 @@ sighandler trap_handler(sig) int sig;
 
     if (this_shell_builtin && (this_shell_builtin == wait_builtin)) {
       wait_signal_received = sig;
-      if (interrupt_immediately && wait_intr_flag) sh_longjmp(wait_intr_buf, 1);
+      if (interrupt_immediately && wait_intr_flag) siglongjmp(wait_intr_buf, 1);
     }
 
 #if defined(READLINE)
@@ -772,10 +772,10 @@ int run_exit_trap() {
     retval = trap_saved_exit_value;
     running_trap = 1;
 
-    code = setjmp_nosigs(top_level);
+    code = sigsetjmp(top_level, 0);
 
     /* If we're in a function, make sure return longjmps come here, too. */
-    if (return_catch_flag) function_code = setjmp_nosigs(return_catch);
+    if (return_catch_flag) function_code = sigsetjmp(return_catch, 0);
 
     if (code == 0 && function_code == 0) {
       reset_parser();
@@ -818,7 +818,7 @@ char *tag;
   int trap_exit_value, *token_state;
   volatile int save_return_catch_flag, function_code, top_level_code, old_int;
   int flags;
-  procenv_t save_return_catch;
+  sigjmp_buf save_return_catch;
   WORD_LIST *save_subst_varlist;
   HASH_TABLE *save_tempenv;
   sh_parser_state_t pstate;
@@ -869,7 +869,7 @@ char *tag;
     save_return_catch_flag = return_catch_flag;
     if (return_catch_flag) {
       COPY_PROCENV(return_catch, save_return_catch);
-      function_code = setjmp_nosigs(return_catch);
+      function_code = sigsetjmp(return_catch, 0);
     }
 
     flags = SEVAL_NONINT | SEVAL_NOHIST;
@@ -918,7 +918,7 @@ char *tag;
 #if 0
 	      from_return_trap = sig == RETURN_TRAP;
 #endif
-        sh_longjmp(return_catch, 1);
+        siglongjmp(return_catch, 1);
       }
     }
     }
@@ -964,7 +964,7 @@ int run_debug_trap() {
        a function or sourced script, we force a `return'. */
     if (debugging_mode && trap_exit_value == 2 && return_catch_flag) {
       return_catch_value = trap_exit_value;
-      sh_longjmp(return_catch, 1);
+      siglongjmp(return_catch, 1);
     }
 #endif
   }

@@ -255,7 +255,7 @@ int flags;
     /* Provide a location for functions which `longjmp (top_level)' to
        jump to.  This prevents errors in substitution from restarting
        the reader loop directly, for example. */
-    code = setjmp_nosigs(top_level);
+    code = sigsetjmp(top_level, 0);
 
     if (code) {
       should_jump_to_top_level = 0;
@@ -473,7 +473,7 @@ char **endp;
 
     /* Provide a location for functions which `longjmp (top_level)' to
        jump to. */
-    code = setjmp_nosigs(top_level);
+    code = sigsetjmp(top_level, 0);
 
     if (code) {
 #if defined(DEBUG)
@@ -587,7 +587,7 @@ int flags;
     unwind_protect_jmp_buf(return_catch);
 
     return_catch_flag++; /* increment so we have a counter */
-    rcatch = setjmp_nosigs(return_catch);
+    rcatch = sigsetjmp(return_catch, 0);
   }
 
   if (rcatch) {
@@ -601,7 +601,7 @@ int flags;
     run_unwind_frame("evalstring");
     if (rcatch && return_catch_flag) {
       return_catch_value = r;
-      sh_longjmp(return_catch, 1);
+      siglongjmp(return_catch, 1);
     }
   }
 

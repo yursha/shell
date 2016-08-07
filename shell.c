@@ -20,12 +20,15 @@
 
 #define INSTALL_DEBUG_MODE
 
+
 #include "config.h"
 
 #include "bashtypes.h"
+
 #if !defined(_MINIX) && defined(HAVE_SYS_FILE_H)
 #include <sys/file.h>
 #endif
+
 #include "posixstat.h"
 #include "posixtime.h"
 #include "bashansi.h"
@@ -45,12 +48,13 @@
 
 #define NEED_SH_SETLINEBUF_DECL /* used in externs.h */
 
-#include "shell.h"
+#include "shell.h" /* bashjmp.h -> <setjmp.h> */
 #include "flags.h"
 #include "trap.h"
 #include "mailcheck.h"
 #include "builtins.h"
 #include "builtins/common.h"
+
 
 #if defined(JOB_CONTROL)
 #include "jobs.h"
@@ -84,6 +88,7 @@ extern int get_tty_state(void);
 #if defined(__OPENNT)
 #include <opennt/opennt.h>
 #endif
+
 
 #if !defined(HAVE_GETPW_DECLS)
 extern struct passwd *getpwuid();
@@ -268,7 +273,7 @@ static const struct {
    longjmp back to main to execute a shell script, instead of calling
    main () again and resulting in indefinite, possibly fatal, stack
    growth. */
-procenv_t subshell_top_level;
+sigjmp_buf subshell_top_level;
 int subshell_argc;
 char **subshell_argv;
 char **subshell_envp;
@@ -335,7 +340,7 @@ int main(int argc, char **argv, char **env) {
   volatile int arg_index, top_level_arg_index;
 
   /* Catch early SIGINTs. */
-  code = setjmp_nosigs(top_level);
+  code = sigsetjmp(top_level, 0);
   if (code) exit(2);
 
   xtrace_init();
@@ -361,7 +366,7 @@ int main(int argc, char **argv, char **env) {
   mcheck(programming_error, (void (*)())0);
 #endif /* USE_GNU_MALLOC_LIBRARY */
 
-  if (setjmp_sigs(subshell_top_level)) {
+  if (sigsetjmp(subshell_top_level, 1)) {
     argc = subshell_argc;
     argv = subshell_argv;
     env = subshell_envp;
@@ -391,7 +396,7 @@ int main(int argc, char **argv, char **env) {
     if (*shell_name == '-') shell_name++;
 
     shell_reinitialize();
-    if (setjmp_nosigs(top_level)) exit(2);
+    if (sigsetjmp(top_level, 0)) exit(2);
   }
 
   shell_environment = env;
@@ -546,7 +551,7 @@ int main(int argc, char **argv, char **env) {
   /* Give this shell a place to longjmp to before executing the
      startup files.  This allows users to press C-c to abort the
      lengthy startup. */
-  code = setjmp_sigs(top_level);
+  code = sigsetjmp(top_level, 1);
   if (code) {
     if (code == EXITPROG || code == ERREXIT)
       exit_shell(last_command_exit_value);
@@ -1150,7 +1155,7 @@ static int run_wordexp(words) char *words;
   int code, nw, nb;
   WORD_LIST *wl, *tl, *result;
 
-  code = setjmp_nosigs(top_level);
+  code = sigsetjmp(top_level, 0);
 
   if (code != NOT_JUMPED) {
     switch (code) {
@@ -1213,7 +1218,7 @@ static int run_one_command(command) char *command;
 {
   int code;
 
-  code = setjmp_nosigs(top_level);
+  code = sigsetjmp(top_level, 0);
 
   if (code != NOT_JUMPED) {
 #if defined(PROCESS_SUBSTITUTION)

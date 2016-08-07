@@ -26,6 +26,7 @@
 #include <config.h>
 #endif
 
+
 #include <sys/types.h>
 #include "posixstat.h"
 #include <fcntl.h>
@@ -48,7 +49,6 @@
 #endif
 
 #include <stdio.h>
-#include "posixjmp.h"
 #include <errno.h>
 
 #if !defined(errno)
@@ -168,7 +168,7 @@ int rl_done;
 rl_command_func_t *rl_last_func = (rl_command_func_t *)NULL;
 
 /* Top level environment for readline_internal (). */
-procenv_t _rl_top_level;
+sigjmp_buf _rl_top_level;
 
 /* The streams we interact with. */
 FILE *_rl_in_stream, *_rl_out_stream;

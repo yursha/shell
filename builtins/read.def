@@ -139,7 +139,7 @@ static sighandler sigalrm __P((int));
 static void reset_alarm __P((void));
 
 /* Try this to see what the rest of the shell can do with the information. */
-procenv_t alrmbuf;
+sigjmp_buf alrmbuf;
 int sigalrm_seen;
 
 static int reading, tty_modified;
@@ -399,7 +399,7 @@ read_builtin (list)
 
   if (tmsec > 0 || tmusec > 0)
     {
-      code = setjmp_nosigs (alrmbuf);
+      code = sigsetjmp(alrmbuf, 0);
       if (code)
 	{
 	  sigalrm_seen = 0;

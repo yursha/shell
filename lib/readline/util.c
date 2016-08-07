@@ -27,7 +27,6 @@
 
 #include <sys/types.h>
 #include <fcntl.h>
-#include "posixjmp.h"
 
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h> /* for _POSIX_VERSION */
@@ -103,7 +102,7 @@ int _rl_abort_internal() {
 
   rl_last_func = (rl_command_func_t *)NULL;
 
-  _rl_longjmp(_rl_top_level, 1);
+  siglongjmp(_rl_top_level, 1);
   return (0);
 }
 

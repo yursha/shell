@@ -120,14 +120,14 @@ rl_vcpfunc_t *linefunc;
 void rl_callback_read_char() {
   char *line;
   int eof, jcode;
-  static procenv_t olevel;
+  static sigjmp_buf olevel;
 
   if (rl_linefunc == NULL) {
     _rl_errmsg("readline_callback_read_char() called with no handler!");
     abort();
   }
 
-  memcpy((void *)olevel, (void *)_rl_top_level, sizeof(procenv_t));
+  memcpy((void *)olevel, (void *)_rl_top_level, sizeof(sigjmp_buf));
 #if defined(HAVE_POSIX_SIGSETJMP)
   jcode = sigsetjmp(_rl_top_level, 0);
 #else
@@ -136,7 +136,7 @@ void rl_callback_read_char() {
   if (jcode) {
     (*rl_redisplay_function)();
     _rl_want_redisplay = 0;
-    memcpy((void *)_rl_top_level, (void *)olevel, sizeof(procenv_t));
+    memcpy((void *)_rl_top_level, (void *)olevel, sizeof(sigjmp_buf));
     CALLBACK_READ_RETURN();
   }
 

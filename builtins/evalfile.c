@@ -82,7 +82,7 @@ static int _evalfile(filename, flags) const char *filename;
 int flags;
 {
   volatile int old_interactive;
-  procenv_t old_return_catch;
+  sigjmp_buf old_return_catch;
   int return_val, fd, result, pflags, i, nnull;
   ssize_t nr; /* return value from read(2) */
   char *string;
@@ -250,7 +250,7 @@ int flags;
 
   if (flags & FEVAL_BUILTIN) result = EXECUTION_SUCCESS;
 
-  return_val = setjmp_nosigs(return_catch);
+  return_val = sigsetjmp(return_catch, 0);
 
   /* If `return' was seen outside of a function, but in the script, then
      force parse_and_execute () to clean up. */

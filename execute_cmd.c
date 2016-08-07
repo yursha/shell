@@ -220,7 +220,7 @@ char *the_printed_command_except_trap;
 /* For catching RETURN in a function. */
 int return_catch_flag;
 int return_catch_value;
-procenv_t return_catch;
+sigjmp_buf return_catch;
 
 /* The value returned by the last synchronous command. */
 volatile int last_command_exit_value;
@@ -1208,7 +1208,7 @@ struct fd_bitmap *fds_to_close;
   int rsf, usf, ssf;
   int cpu;
   char *time_format;
-  volatile procenv_t save_top_level;
+  volatile sigjmp_buf save_top_level;
 
 #if defined(HAVE_GETRUSAGE) && defined(HAVE_GETTIMEOFDAY)
   struct timeval real, user, sys;
@@ -1261,7 +1261,7 @@ struct fd_bitmap *fds_to_close;
   old_flags = command->flags;
   COPY_PROCENV(top_level, save_top_level);
   command->flags &= ~(CMD_TIME_PIPELINE | CMD_TIME_POSIX);
-  code = setjmp_nosigs(top_level);
+  code = sigsetjmp(top_level, 0);
   if (code == NOT_JUMPED)
     rv = execute_command_internal(command, asynchronous, pipe_in, pipe_out,
                                   fds_to_close);
@@ -1326,7 +1326,7 @@ struct fd_bitmap *fds_to_close;
   if (time_format && *time_format)
     print_formatted_time(stderr, time_format, rs, rsf, us, usf, ss, ssf, cpu);
 
-  if (code) sh_longjmp(top_level, code);
+  if (code) siglongjmp(top_level, code);
 
   return rv;
 }
@@ -1503,12 +1503,12 @@ struct fd_bitmap *fds_to_close;
   invert = (tcom->flags & CMD_INVERT_RETURN) != 0;
   tcom->flags &= ~CMD_INVERT_RETURN;
 
-  result = setjmp_nosigs(top_level);
+  result = sigsetjmp(top_level, 0);
 
   /* If we're inside a function while executing this subshell, we
      need to handle a possible `return'. */
   function_value = 0;
-  if (return_catch_flag) function_value = setjmp_nosigs(return_catch);
+  if (return_catch_flag) function_value = sigsetjmp(return_catch, 0);
 
   /* If we're going to exit the shell, we don't want to invert the return
      status. */
@@ -4266,7 +4266,7 @@ int async, subshell;
   from_return_trap = 0;
 
   return_catch_flag++;
-  return_val = setjmp_nosigs(return_catch);
+  return_val = sigsetjmp(return_catch, 0);
 
   if (return_val) {
     result = return_catch_value;
@@ -4410,13 +4410,13 @@ int flags;
   if (builtin) {
     /* Give builtins a place to jump back to on failure,
        so we don't go back up to main(). */
-    result = setjmp_nosigs(top_level);
+    result = sigsetjmp(top_level, 0);
 
     /* Give the return builtin a place to jump to when executed in a subshell
        or pipeline */
     funcvalue = 0;
     if (return_catch_flag && builtin == return_builtin)
-      funcvalue = setjmp_nosigs(return_catch);
+      funcvalue = sigsetjmp(return_catch, 0);
 
     if (result == EXITPROG)
       exit(last_command_exit_value);
@@ -5020,7 +5020,7 @@ char **args, **env;
   clear_fifo_list(); /* pipe fds are what they are now */
 #endif
 
-  sh_longjmp(subshell_top_level, 1);
+  siglongjmp(subshell_top_level, 1);
   /*NOTREACHED*/
 }
 

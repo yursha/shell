@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined(_PATHNAMES_H_)
+#if !defined (_PATHNAMES_H_)
 #define _PATHNAMES_H_
 
 /* The default file for hostname completion. */
@@ -28,6 +28,6 @@
 #define SYS_PROFILE "/etc/profile"
 
 /* The default location of the bash debugger initialization/startup file. */
-#define DEBUGGER_START_FILE "/usr/local/share/bashdb/bashdb-main.inc"
+#define DEBUGGER_START_FILE	"/usr/local/share/bashdb/bashdb-main.inc"
 
 #endif /* _PATHNAMES_H */

@@ -168,7 +168,7 @@ static int assigntok;    /* the OP in OP= */
 static char *tokstr;     /* current token string */
 static intmax_t tokval;  /* current token value */
 static int noeval;       /* set to 1 if no assignment to be done */
-static procenv_t evalbuf;
+static sigjmp_buf evalbuf;
 
 static struct lvalue curlval = {0, 0, 0, -1};
 static struct lvalue lastlval = {0, 0, 0, -1};
@@ -304,7 +304,7 @@ static void expr_bind_variable(lhs, rhs) char *lhs, *rhs;
 
   v = bind_int_variable(lhs, rhs);
   if (v && (readonly_p(v) || noassign_p(v)))
-    sh_longjmp(evalbuf, 1); /* variable assignment error */
+    siglongjmp(evalbuf, 1); /* variable assignment error */
   stupidly_hack_special_variables(lhs);
 }
 
@@ -352,14 +352,14 @@ int *validp;
 {
   intmax_t val;
   int c;
-  procenv_t oevalbuf;
+  sigjmp_buf oevalbuf;
 
   val = 0;
   noeval = 0;
 
   FASTCOPY(evalbuf, oevalbuf, sizeof(evalbuf));
 
-  c = setjmp_nosigs(evalbuf);
+  c = sigsetjmp(evalbuf, 0);
 
   if (c) {
     FREE(tokstr);
@@ -987,7 +987,7 @@ struct lvalue *lvalue;
     if (e == ']') FREE(value); /* array_variable_name returns new memory */
 #endif
 
-    if (no_longjmp_on_fatal_error && interactive_shell) sh_longjmp(evalbuf, 1);
+    if (no_longjmp_on_fatal_error && interactive_shell) siglongjmp(evalbuf, 1);
 
     if (interactive_shell) {
       expr_unwind();
@@ -1239,7 +1239,7 @@ static void evalerror(msg) const char *msg;
     ;
   internal_error(_("%s%s%s: %s (error token is \"%s\")"), name ? name : "",
                  name ? ": " : "", t, msg, (lasttp && *lasttp) ? lasttp : "");
-  sh_longjmp(evalbuf, 1);
+  siglongjmp(evalbuf, 1);
 }
 
 /* Convert a string to an intmax_t integer, with an arbitrary base.
@@ -1324,7 +1324,7 @@ SHELL_VAR *bind_variable() { return 0; }
 
 char *get_string_value() { return 0; }
 
-procenv_t top_level;
+sigjmp_buf top_level;
 
 main(argc, argv) int argc;
 char **argv;

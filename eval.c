@@ -77,7 +77,7 @@ int reader_loop() {
   while (EOF_Reached == 0) {
     int code;
 
-    code = setjmp_nosigs(top_level);
+    code = sigsetjmp(top_level, 0);
 
 #if defined(PROCESS_SUBSTITUTION)
     unlink_fifo_list();

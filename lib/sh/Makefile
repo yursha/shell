@@ -295,7 +295,7 @@ getcwd.o: ${BASHINCDIR}/posixstat.h ${BASHINCDIR}/posixdir.h
 getcwd.o: ${BASHINCDIR}/memalloc.h ${BASHINCDIR}/ansi_stdlib.h
 
 getenv.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
-getenv.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+getenv.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 getenv.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 getenv.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 getenv.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -308,7 +308,7 @@ inet_aton.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 inet_aton.o: ${BASHINCDIR}/stdc.h
 
 itos.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
-itos.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+itos.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 itos.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 itos.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 itos.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -318,7 +318,7 @@ itos.o: ${BUILD_DIR}/pathnames.h ${topdir}/externs.h
 #itos.o: ${BUILD_DIR}/version.h
 
 makepath.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
-makepath.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+makepath.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 makepath.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 makepath.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 makepath.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -331,7 +331,7 @@ netconn.o: ${BASHINCDIR}/posixstat.h ${BASHINCDIR}/filecntl.h
 netconn.o: ${topdir}/bashtypes.h
 
 netopen.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h ${topdir}/xmalloc.h
-netopen.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+netopen.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 netopen.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 netopen.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 netopen.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -342,7 +342,7 @@ netopen.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 #netopen.o: ${BUILD_DIR}/version.h
 
 oslib.o: ${topdir}/bashtypes.h ${topdir}/bashansi.h ${BASHINCDIR}/maxpath.h
-oslib.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+oslib.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 oslib.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 oslib.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 oslib.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -354,7 +354,7 @@ oslib.o: ${BASHINCDIR}/ansi_stdlib.h ${BASHINCDIR}/chartypes.h
 #oslib.o: ${BUILD_DIR}/version.h
 
 pathcanon.o: ${topdir}/bashtypes.h ${topdir}/bashansi.h ${BASHINCDIR}/maxpath.h
-pathcanon.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+pathcanon.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 pathcanon.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 pathcanon.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 pathcanon.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -366,7 +366,7 @@ pathcanon.o: ${BASHINCDIR}/ansi_stdlib.h ${BASHINCDIR}/chartypes.h
 #pathcanon.o: ${BUILD_DIR}/version.h
 
 pathphys.o: ${topdir}/bashtypes.h ${topdir}/bashansi.h ${BASHINCDIR}/maxpath.h
-pathphys.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+pathphys.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 pathphys.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 pathphys.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 pathphys.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -388,7 +388,7 @@ eaccess.o: ${BASHINCDIR}/posixstat.h
 eaccess.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 eaccess.o: ${BASHINCDIR}/filecntl.h
 eaccess.o: ${BASHINCDIR}/stdc.h
-eaccess.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+eaccess.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 eaccess.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 eaccess.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 eaccess.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -399,7 +399,7 @@ eaccess.o: ${BUILD_DIR}/pathnames.h ${topdir}/externs.h
 
 shmatch.o: ${BASHINCDIR}/stdc.h ${topdir}/bashansi.h
 shmatch.o: ${BASHINCDIR}/ansi_stdlib.h ${topdir}/xmalloc.h
-shmatch.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+shmatch.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 shmatch.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 shmatch.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 shmatch.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -427,7 +427,7 @@ strcasecmp.o: ${BASHINCDIR}/stdc.h ${topdir}/bashansi.h
 strcasecmp.o: ${BASHINCDIR}/ansi_stdlib.h ${BASHINCDIR}/chartypes.h
 
 strerror.o: ${topdir}/bashtypes.h
-strerror.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+strerror.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 strerror.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 strerror.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 strerror.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -440,7 +440,7 @@ strcasestr.o: ${BASHINCDIR}/stdc.h ${topdir}/bashansi.h
 strcasestr.o: ${BASHINCDIR}/ansi_stdlib.h ${BASHINCDIR}/chartypes.h
 
 stringlist.o: ${topdir}/bashansi.h
-stringlist.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+stringlist.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 stringlist.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 stringlist.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 stringlist.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -450,7 +450,7 @@ stringlist.o: ${BUILD_DIR}/pathnames.h ${topdir}/externs.h
 #stringlist.o: ${BUILD_DIR}/version.h
 
 stringvec.o: ${topdir}/bashansi.h ${BASHINCDIR}/chartypes.h
-stringvec.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+stringvec.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 stringvec.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 stringvec.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 stringvec.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -488,7 +488,7 @@ strtoumax.o: ${BASHINCDIR}/stdc.h
 
 strtrans.o: ${topdir}/bashansi.h
 strtrans.o: ${BASHINCDIR}/ansi_stdlib.h ${BASHINCDIR}/chartypes.h
-strtrans.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+strtrans.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 strtrans.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 strtrans.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 strtrans.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -507,7 +507,7 @@ tmpfile.o: ${topdir}/bashtypes.h
 tmpfile.o: ${BASHINCDIR}/chartypes.h
 tmpfile.o: ${BASHINCDIR}/posixstat.h
 tmpfile.o: ${BASHINCDIR}/filecntl.h
-tmpfile.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+tmpfile.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 tmpfile.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 tmpfile.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 tmpfile.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
@@ -517,7 +517,7 @@ tmpfile.o: ${BUILD_DIR}/pathnames.h ${topdir}/externs.h
 
 uconvert.o: ${topdir}/bashtypes.h
 uconvert.o: ${BASHINCDIR}/chartypes.h
-uconvert.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h
+uconvert.o: ${topdir}/shell.h ${topdir}/syntax.h ${topdir}/bashjmp.h
 uconvert.o: ${topdir}/command.h ${BASHINCDIR}/stdc.h ${topdir}/error.h
 uconvert.o: ${topdir}/general.h ${topdir}/bashtypes.h ${topdir}/variables.h ${topdir}/conftypes.h
 uconvert.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h

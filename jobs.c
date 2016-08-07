@@ -168,7 +168,7 @@ extern int running_trap;
 extern sh_builtin_func_t *this_shell_builtin;
 extern char *shell_name, *this_command_name;
 extern sigset_t top_level_mask;
-extern procenv_t wait_intr_buf;
+extern sigjmp_buf wait_intr_buf;
 extern int wait_intr_flag;
 extern int wait_signal_received;
 extern WORD_LIST *subst_assign_varlist;
@@ -2173,7 +2173,7 @@ static sighandler wait_sigint_handler(sig) int sig;
       wait_signal_received = SIGINT;
       if (interrupt_immediately && wait_intr_flag) {
         interrupt_immediately = 0;
-        sh_longjmp(wait_intr_buf, 1);
+        siglongjmp(wait_intr_buf, 1);
       } else
         /* Let CHECK_WAIT_INTR handle it in wait_for/waitchld */
         SIGRETURN(0);
@@ -3141,7 +3141,7 @@ itrace("waitchld: waitpid returns %d block = %d children_exited = %d", pid, bloc
       wait_signal_received = SIGCHLD;
       /* If we're in a signal handler, let CHECK_WAIT_INTR pick it up;
          run_pending_traps will call run_sigchld_trap later  */
-      if (sigchld == 0 && wait_intr_flag) sh_longjmp(wait_intr_buf, 1);
+      if (sigchld == 0 && wait_intr_flag) siglongjmp(wait_intr_buf, 1);
     }
     /* If not in posix mode and not executing the wait builtin, queue the
        signal for later handling.  Run the trap immediately if we are

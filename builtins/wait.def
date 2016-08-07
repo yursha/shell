@@ -75,7 +75,7 @@ $END
 extern int wait_signal_received;
 extern int last_command_exit_signal;
 
-procenv_t wait_intr_buf;
+sigjmp_buf wait_intr_buf;
 int wait_intr_flag;
 
 /* Wait for the pid in LIST to stop or die.  If no arguments are given, then
@@ -134,7 +134,7 @@ wait_builtin (list)
      We handle SIGINT here; it's the only one that needs to be treated
      specially (I think), since it's handled specially in {no,}jobs.c. */
   wait_intr_flag = 1;
-  code = setjmp_sigs (wait_intr_buf);
+  code = sigsetjmp(wait_intr_buf, 1);
 
   if (code)
     {

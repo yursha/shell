@@ -5398,13 +5398,13 @@ int quoted;
     startup_state = 2; /* see if we can avoid a fork */
     /* Give command substitution a place to jump back to on failure,
        so we don't go back up to main (). */
-    result = setjmp_nosigs(top_level);
+    result = sigsetjmp(top_level, 0);
 
     /* If we're running a command substitution inside a shell function,
        trap `return' so we don't return from the function in the subshell
        and go off to never-never land. */
     if (result == 0 && return_catch_flag)
-      function_value = setjmp_nosigs(return_catch);
+      function_value = sigsetjmp(return_catch, 0);
     else
       function_value = 0;
 

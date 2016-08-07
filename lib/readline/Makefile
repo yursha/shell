@@ -90,7 +90,7 @@ CSOURCES = $(srcdir)/readline.c $(srcdir)/funmap.c $(srcdir)/keymaps.c \
 
 # The header files for this library.
 HSOURCES = readline.h rldefs.h chardefs.h keymaps.h history.h histlib.h \
-	   posixstat.h posixdir.h posixjmp.h tilde.h rlconf.h rltty.h \
+	   posixstat.h posixdir.h  tilde.h rlconf.h rltty.h \
 	   ansi_stdlib.h rlstdc.h tcap.h xmalloc.h rlprivate.h rlshell.h \
 	   rltypedefs.h rlmbutil.h colors.h parse-colors.h
 
@@ -236,7 +236,7 @@ parens.o: readline.h keymaps.h rltypedefs.h chardefs.h tilde.h rlstdc.h
 readline.o: readline.h keymaps.h rltypedefs.h chardefs.h tilde.h
 readline.o: rldefs.h ${BUILD_DIR}/config.h rlconf.h
 readline.o: history.h rlstdc.h
-readline.o: posixstat.h ansi_stdlib.h posixjmp.h
+readline.o: posixstat.h ansi_stdlib.h 
 rltty.o: rldefs.h ${BUILD_DIR}/config.h rlconf.h
 rltty.o: rltty.h
 rltty.o: readline.h keymaps.h rltypedefs.h chardefs.h tilde.h rlstdc.h
@@ -263,7 +263,7 @@ undo.o: ansi_stdlib.h
 undo.o: rldefs.h ${BUILD_DIR}/config.h rlconf.h
 undo.o: readline.h keymaps.h rltypedefs.h chardefs.h tilde.h
 undo.o: history.h rlstdc.h xmalloc.h
-util.o: posixjmp.h ansi_stdlib.h
+util.o:  ansi_stdlib.h
 util.o: rldefs.h ${BUILD_DIR}/config.h rlconf.h
 util.o: readline.h keymaps.h rltypedefs.h chardefs.h tilde.h rlstdc.h
 vi_mode.o: rldefs.h ${BUILD_DIR}/config.h rlconf.h

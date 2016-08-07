@@ -330,7 +330,7 @@ bashgetopt.o: $(topdir)/make_cmd.h $(topdir)/subst.h $(topdir)/sig.h
 bashgetopt.o: ../pathnames.h $(topdir)/externs.h $(srcdir)/common.h
 bashgetopt.o: $(BASHINCDIR)/chartypes.h
 common.o: $(topdir)/bashtypes.h $(BASHINCDIR)/posixstat.h $(topdir)/bashansi.h $(BASHINCDIR)/ansi_stdlib.h
-common.o: $(topdir)/shell.h $(topdir)/syntax.h ../config.h $(topdir)/bashjmp.h $(BASHINCDIR)/posixjmp.h
+common.o: $(topdir)/shell.h $(topdir)/syntax.h ../config.h $(topdir)/bashjmp.h
 common.o: $(topdir)/sig.h $(topdir)/command.h
 common.o: $(topdir)/general.h $(topdir)/xmalloc.h $(BASHINCDIR)/stdc.h $(BASHINCDIR)/memalloc.h
 common.o: $(topdir)/variables.h $(topdir)/conftypes.h $(topdir)/input.h
@@ -352,7 +352,7 @@ evalfile.o: $(topdir)/jobs.h $(topdir)/builtins.h $(topdir)/flags.h
 evalfile.o: $(topdir)/input.h $(topdir)/execute_cmd.h
 evalfile.o: $(topdir)/bashhist.h $(srcdir)/common.h
 evalstring.o: ../config.h $(topdir)/bashansi.h $(BASHINCDIR)/ansi_stdlib.h
-evalstring.o: $(topdir)/shell.h $(topdir)/syntax.h $(topdir)/bashjmp.h $(BASHINCDIR)/posixjmp.h
+evalstring.o: $(topdir)/shell.h $(topdir)/syntax.h $(topdir)/bashjmp.h
 evalstring.o: $(topdir)/sig.h $(topdir)/command.h $(topdir)/siglist.h
 evalstring.o: $(BASHINCDIR)/memalloc.h $(topdir)/variables.h $(topdir)/conftypes.h $(topdir)/input.h
 evalstring.o: $(topdir)/quit.h $(topdir)/unwind_prot.h
@@ -638,7 +638,7 @@ wait.o: $(topdir)/jobs.h $(topdir)/sig.h
 wait.o: $(BASHINCDIR)/chartypes.h ../pathnames.h
 
 complete.o: ../config.h ../pathnames.h
-complete.o: ${topdir}/shell.h $(topdir)/syntax.h ${topdir}/bashjmp.h ${BASHINCDIR}/posixjmp.h ${topdir}/sig.h  
+complete.o: ${topdir}/shell.h $(topdir)/syntax.h ${topdir}/bashjmp.h ${topdir}/sig.h  
 complete.o: ${topdir}/unwind_prot.h ${topdir}/variables.h
 complete.o: $(topdir)/quit.h $(topdir)/dispose_cmd.h $(topdir)/make_cmd.h $(topdir)/sig.h
 complete.o: ${topdir}/bashtypes.h ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h

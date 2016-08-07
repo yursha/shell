@@ -27,7 +27,6 @@
 
 #include <sys/types.h>
 #include <fcntl.h>
-#include "posixjmp.h"
 
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h> /* for _POSIX_VERSION */

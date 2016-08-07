@@ -82,7 +82,7 @@ extern sh_builtin_func_t *this_shell_builtin;
 #if defined(HAVE_POSIX_SIGNALS)
 extern sigset_t top_level_mask;
 #endif
-extern procenv_t wait_intr_buf;
+extern sigjmp_buf wait_intr_buf;
 extern int wait_intr_flag;
 extern int wait_signal_received;
 
