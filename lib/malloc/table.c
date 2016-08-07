@@ -30,14 +30,14 @@
 
 #ifdef SHELL
 extern int interrupt_immediately, running_trap;
-extern int signal_is_trapped __P((int));
+extern int signal_is_trapped(int);
 #endif
 
 extern int malloc_register;
 
 #ifdef MALLOC_REGISTER
 
-extern FILE *_imalloc_fopen __P((char *, char *, char *, char *, size_t));
+extern FILE *_imalloc_fopen(char *, char *, char *, char *, size_t);
 
 #define FIND_ALLOC	0x01	/* find slot for new allocation */
 #define FIND_EXIST	0x02	/* find slot for existing entry for free() or search */

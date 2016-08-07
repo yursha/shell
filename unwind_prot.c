@@ -76,15 +76,15 @@ typedef union uwp {
   } sv;
 } UNWIND_ELT;
 
-static void without_interrupts __P((VFunction *, char *, char *));
-static void unwind_frame_discard_internal __P((char *, char *));
-static void unwind_frame_run_internal __P((char *, char *));
-static void add_unwind_protect_internal __P((Function *, char *));
-static void remove_unwind_protect_internal __P((char *, char *));
-static void run_unwind_protects_internal __P((char *, char *));
-static void clear_unwind_protects_internal __P((char *, char *));
-static inline void restore_variable __P((SAVED_VAR *));
-static void unwind_protect_mem_internal __P((char *, char *));
+static void without_interrupts(VFunction *, char *, char *);
+static void unwind_frame_discard_internal(char *, char *);
+static void unwind_frame_run_internal(char *, char *);
+static void add_unwind_protect_internal(Function *, char *);
+static void remove_unwind_protect_internal(char *, char *);
+static void run_unwind_protects_internal(char *, char *);
+static void clear_unwind_protects_internal(char *, char *);
+static inline void restore_variable(SAVED_VAR *);
+static void unwind_protect_mem_internal(char *, char *);
 
 static UNWIND_ELT *unwind_protect_list = (UNWIND_ELT *)NULL;
 

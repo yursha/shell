@@ -40,8 +40,8 @@
 #include <maxpath.h>
 #include <stdc.h>
 
-static int mindist __P((char *, char *, char *));
-static int spdist __P((char *, char *));
+static int mindist(char *, char *, char *);
+static int spdist(char *, char *);
 
 /*
  * `spname' and its helpers are inspired by the code in "The UNIX

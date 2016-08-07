@@ -32,7 +32,7 @@
 #endif
 
 #if defined (JOB_CONTROL)
-extern int set_job_control __P((int));
+extern int set_job_control(int);
 #endif
 
 #if defined (RESTRICTED_SHELL)

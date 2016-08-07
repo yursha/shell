@@ -45,7 +45,7 @@
 #  define MP_IGNDOT	0x08
 #endif
 
-extern char *get_working_directory __P((char *));
+extern char *get_working_directory(char *);
 
 static char *nullpath = "";
 

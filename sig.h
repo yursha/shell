@@ -32,7 +32,7 @@
 #endif
 
 #define sighandler RETSIGTYPE
-typedef RETSIGTYPE SigHandler __P((int));
+typedef RETSIGTYPE SigHandler(int);
 
 #if defined (VOID_SIGHANDLER)
 #  define SIGRETURN(n)	return
@@ -46,7 +46,7 @@ typedef RETSIGTYPE SigHandler __P((int));
 #if !defined (HAVE_POSIX_SIGNALS)
 #  define set_signal_handler(sig, handler) (SigHandler *)signal (sig, handler)
 #else
-extern SigHandler *set_signal_handler __P((int, SigHandler *));	/* in sig.c */
+extern SigHandler *set_signal_handler(int, SigHandler *);	/* in sig.c */
 #endif /* _POSIX_VERSION */
 
 #if !defined (SIGCHLD) && defined (SIGCLD)
@@ -113,25 +113,25 @@ extern int interrupt_immediately;	/* no longer used */
 extern int terminate_immediately;
 
 /* Functions from sig.c. */
-extern sighandler termsig_sighandler __P((int));
-extern void termsig_handler __P((int));
-extern sighandler sigint_sighandler __P((int));
-extern void initialize_signals __P((int));
-extern void initialize_terminating_signals __P((void));
-extern void reset_terminating_signals __P((void));
-extern void top_level_cleanup __P((void));
-extern void throw_to_top_level __P((void));
-extern void jump_to_top_level __P((int)) __attribute__((__noreturn__));
+extern sighandler termsig_sighandler(int);
+extern void termsig_handler(int);
+extern sighandler sigint_sighandler(int);
+extern void initialize_signals(int);
+extern void initialize_terminating_signals(void);
+extern void reset_terminating_signals(void);
+extern void top_level_cleanup(void);
+extern void throw_to_top_level(void);
+extern void jump_to_top_level(int) __attribute__((__noreturn__));
 
-extern sighandler sigwinch_sighandler __P((int));
-extern void set_sigwinch_handler __P((void));
-extern void unset_sigwinch_handler __P((void));
+extern sighandler sigwinch_sighandler(int);
+extern void set_sigwinch_handler(void);
+extern void unset_sigwinch_handler(void);
 
-extern sighandler sigterm_sighandler __P((int));
+extern sighandler sigterm_sighandler(int);
 
 /* Functions defined in trap.c. */
-extern SigHandler *set_sigint_handler __P((void));
-extern SigHandler *trap_to_sighandler __P((int));
-extern sighandler trap_handler __P((int));
+extern SigHandler *set_sigint_handler(void);
+extern SigHandler *trap_to_sighandler(int);
+extern sighandler trap_handler(int);
 
 #endif /* _SIG_H_ */

@@ -38,7 +38,7 @@ extern int hashing_enabled;
 
 HASH_TABLE *hashed_filenames = (HASH_TABLE *)NULL;
 
-static void phash_freedata __P((PTR_T));
+static void phash_freedata(PTR_T);
 
 void
 phash_create ()

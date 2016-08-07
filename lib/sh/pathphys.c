@@ -46,7 +46,7 @@
 extern int errno;
 #endif /* !errno */
 
-extern char *get_working_directory __P((char *));
+extern char *get_working_directory(char *);
 
 static int
 _path_readlink (path, buf, bufsiz)

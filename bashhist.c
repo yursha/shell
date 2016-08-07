@@ -63,10 +63,10 @@ extern int rl_done, rl_dispatching;	/* should really include readline.h */
 extern int errno;
 #endif
 
-static int histignore_item_func __P((struct ign *));
-static int check_history_control __P((char *));
-static void hc_erasedups __P((char *));
-static void really_add_history __P((char *));
+static int histignore_item_func(struct ign *);
+static int check_history_control(char *);
+static void hc_erasedups(char *);
+static void really_add_history(char *);
 
 static struct ignorevar histignore =
 {
@@ -189,17 +189,17 @@ extern struct dstack dstack;
 extern int parser_state;
 
 #if defined (BANG_HISTORY)
-static int bash_history_inhibit_expansion __P((char *, int));
+static int bash_history_inhibit_expansion(char *, int);
 #endif
 #if defined (READLINE)
-static void re_edit __P((char *));
+static void re_edit(char *);
 #endif
-static int history_expansion_p __P((char *));
-static int shell_comment __P((char *));
-static int should_expand __P((char *));
-static HIST_ENTRY *last_history_entry __P((void));
-static char *expand_histignore_pattern __P((char *));
-static int history_should_ignore __P((char *));
+static int history_expansion_p(char *);
+static int shell_comment(char *);
+static int should_expand(char *);
+static HIST_ENTRY *last_history_entry(void);
+static char *expand_histignore_pattern(char *);
+static int history_should_ignore(char *);
 
 #if defined (BANG_HISTORY)
 /* Is the history expansion starting at string[i] one that should not

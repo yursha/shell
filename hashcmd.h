@@ -35,9 +35,9 @@ typedef struct _pathdata {
 
 #define pathdata(x) ((PATH_DATA *)(x)->data)
 
-extern void phash_create __P((void));
-extern void phash_flush __P((void));
+extern void phash_create(void);
+extern void phash_flush(void);
 
-extern void phash_insert __P((char *, char *, int, int));
-extern int phash_remove __P((const char *));
-extern char *phash_search __P((const char *));
+extern void phash_insert(char *, char *, int, int);
+extern int phash_remove(const char *);
+extern char *phash_search(const char *);

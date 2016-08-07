@@ -43,7 +43,7 @@
 
 HASH_TABLE *prog_completes = (HASH_TABLE *)NULL;
 
-static void free_progcomp __P((PTR_T));
+static void free_progcomp(PTR_T);
 
 COMPSPEC *
 compspec_create ()

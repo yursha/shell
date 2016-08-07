@@ -52,10 +52,10 @@ extern int errno;
 #define F_OK 0
 #endif /* R_OK */
 
-static int path_is_devfd __P((const char *));
-static int sh_stataccess __P((char *, int));
+static int path_is_devfd(const char *);
+static int sh_stataccess(char *, int);
 #if HAVE_DECL_SETREGID
-static int sh_euidaccess __P((char *, int));
+static int sh_euidaccess(char *, int);
 #endif
 
 static int

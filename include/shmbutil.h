@@ -29,12 +29,12 @@
 #if defined (HANDLE_MULTIBYTE)
 #include "shmbchar.h"
 
-extern size_t xmbsrtowcs __P((wchar_t *, const char **, size_t, mbstate_t *));
-extern size_t xdupmbstowcs __P((wchar_t **, char ***, const char *));
+extern size_t xmbsrtowcs(wchar_t *, const char **, size_t, mbstate_t *);
+extern size_t xdupmbstowcs(wchar_t **, char ***, const char *);
 
-extern size_t mbstrlen __P((const char *));
+extern size_t mbstrlen(const char *);
 
-extern char *xstrchr __P((const char *, int));
+extern char *xstrchr(const char *, int);
 
 extern int locale_mb_cur_max;	/* XXX */
 

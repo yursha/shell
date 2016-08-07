@@ -101,7 +101,7 @@ THIS_SH = $(BUILD_DIR)/bash
 # with gprof, or nothing (the default).
 PROFILE_FLAGS= 
 
-CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wfatal-errors
 CFLAGS_FOR_BUILD = -g -O2 -Wno-parentheses -Wno-format-security 
 CPPFLAGS = 
 CPPFLAGS_FOR_BUILD = 

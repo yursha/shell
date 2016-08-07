@@ -83,11 +83,11 @@ struct globval
     char *name;
   };
 
-extern void throw_to_top_level __P((void));
-extern int sh_eaccess __P((char *, int));
-extern char *sh_makepath __P((const char *, const char *, int));
-extern int signal_is_pending __P((int));
-extern void run_pending_traps __P((void));
+extern void throw_to_top_level(void);
+extern int sh_eaccess(char *, int);
+extern char *sh_makepath(const char *, const char *, int);
+extern int signal_is_pending(int);
+extern void run_pending_traps(void);
 
 extern int extended_glob;
 
@@ -105,25 +105,25 @@ char *glob_error_return;
 static struct globval finddirs_error_return;
 
 /* Some forward declarations. */
-static int skipname __P((char *, char *, int));
+static int skipname(char *, char *, int);
 #if HANDLE_MULTIBYTE
-static int mbskipname __P((char *, char *, int));
+static int mbskipname(char *, char *, int);
 #endif
 #if HANDLE_MULTIBYTE
-static void udequote_pathname __P((char *));
-static void wdequote_pathname __P((char *));
+static void udequote_pathname(char *);
+static void wdequote_pathname(char *);
 #else
 #  define dequote_pathname udequote_pathname
 #endif
-static void dequote_pathname __P((char *));
-static int glob_testdir __P((char *, int));
-static char **glob_dir_to_array __P((char *, char **, int));
+static void dequote_pathname(char *);
+static int glob_testdir(char *, int);
+static char **glob_dir_to_array(char *, char **, int);
 
 /* Make sure these names continue to agree with what's in smatch.c */
-extern char *glob_patscan __P((char *, char *, int));
-extern wchar_t *glob_patscan_wc __P((wchar_t *, wchar_t *, int));
+extern char *glob_patscan(char *, char *, int);
+extern wchar_t *glob_patscan_wc(wchar_t *, wchar_t *, int);
 
-extern char *glob_dirscan __P((char *, int));
+extern char *glob_dirscan(char *, int);
 
 /* Compile `glob_loop.c' for single-byte characters. */
 #define CHAR	unsigned char

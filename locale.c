@@ -65,10 +65,10 @@ static char *lang;
 
 /* Called to reset all of the locale variables to their appropriate values
    if (and only if) LC_ALL has not been assigned a value. */
-static int reset_locale_vars __P((void));
+static int reset_locale_vars(void);
 
-static void locale_setblanks __P((void));
-static int locale_isutf8 __P((char *));
+static void locale_setblanks(void);
+static int locale_isutf8(char *);
 
 /* Set the value of default_locale and make the current locale the
    system default locale.  This should be called very early in main(). */

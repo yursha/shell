@@ -100,10 +100,10 @@ struct bucket_stats {
   int ncoalesce;
 };
 
-extern struct bucket_stats malloc_bucket_stats __P((int));
-extern struct _malstats malloc_stats __P((void));
-extern void print_malloc_stats __P((char *));
-extern void trace_malloc_stats __P((char *, char *));
+extern struct bucket_stats malloc_bucket_stats(int);
+extern struct _malstats malloc_stats(void);
+extern void print_malloc_stats(char *);
+extern void trace_malloc_stats(char *, char *);
 
 #endif /* MALLOC_STATS */
 

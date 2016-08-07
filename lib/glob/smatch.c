@@ -255,7 +255,7 @@ is_cclass (c, name)
 #  define STREQ(s1, s2) ((wcscmp (s1, s2) == 0))
 #  define STREQN(a, b, n) ((a)[0] == (b)[0] && wcsncmp(a, b, n) == 0)
 
-extern char *mbsmbchar __P((const char *));
+extern char *mbsmbchar(const char *);
 
 static int
 rangecmp_wc (c1, c2, forcecoll)

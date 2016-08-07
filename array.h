@@ -42,52 +42,52 @@ typedef struct array_element {
 	struct array_element *next, *prev;
 } ARRAY_ELEMENT;
 
-typedef int sh_ae_map_func_t __P((ARRAY_ELEMENT *, void *));
+typedef int sh_ae_map_func_t(ARRAY_ELEMENT *, void *);
 
 /* Basic operations on entire arrays */
-extern ARRAY	*array_create __P((void));
-extern void	array_flush __P((ARRAY *));
-extern void	array_dispose __P((ARRAY *));
-extern ARRAY	*array_copy __P((ARRAY *));
-extern ARRAY	*array_slice __P((ARRAY *, ARRAY_ELEMENT *, ARRAY_ELEMENT *));
-extern void	array_walk __P((ARRAY   *, sh_ae_map_func_t *, void *));
+extern ARRAY	*array_create(void);
+extern void	array_flush(ARRAY *);
+extern void	array_dispose(ARRAY *);
+extern ARRAY	*array_copy(ARRAY *);
+extern ARRAY	*array_slice(ARRAY *, ARRAY_ELEMENT *, ARRAY_ELEMENT *);
+extern void	array_walk(ARRAY   *, sh_ae_map_func_t *, void *);
 
-extern ARRAY_ELEMENT *array_shift __P((ARRAY *, int, int));
-extern int	array_rshift __P((ARRAY *, int, char *));
-extern ARRAY_ELEMENT *array_unshift_element __P((ARRAY *));
-extern int	array_shift_element __P((ARRAY *, char *));
+extern ARRAY_ELEMENT *array_shift(ARRAY *, int, int);
+extern int	array_rshift(ARRAY *, int, char *);
+extern ARRAY_ELEMENT *array_unshift_element(ARRAY *);
+extern int	array_shift_element(ARRAY *, char *);
 
-extern ARRAY	*array_quote __P((ARRAY *));
-extern ARRAY	*array_quote_escapes __P((ARRAY *));
-extern ARRAY	*array_dequote __P((ARRAY *));
-extern ARRAY	*array_dequote_escapes __P((ARRAY *));
-extern ARRAY	*array_remove_quoted_nulls __P((ARRAY *));
+extern ARRAY	*array_quote(ARRAY *);
+extern ARRAY	*array_quote_escapes(ARRAY *);
+extern ARRAY	*array_dequote(ARRAY *);
+extern ARRAY	*array_dequote_escapes(ARRAY *);
+extern ARRAY	*array_remove_quoted_nulls(ARRAY *);
 
-extern char	*array_subrange __P((ARRAY *, arrayind_t, arrayind_t, int, int));
-extern char	*array_patsub __P((ARRAY *, char *, char *, int));
-extern char	*array_modcase __P((ARRAY *, char *, int, int));
+extern char	*array_subrange(ARRAY *, arrayind_t, arrayind_t, int, int);
+extern char	*array_patsub(ARRAY *, char *, char *, int);
+extern char	*array_modcase(ARRAY *, char *, int, int);
 
 /* Basic operations on array elements. */
-extern ARRAY_ELEMENT *array_create_element __P((arrayind_t, char *));
-extern ARRAY_ELEMENT *array_copy_element __P((ARRAY_ELEMENT *));
-extern void	array_dispose_element __P((ARRAY_ELEMENT *));
+extern ARRAY_ELEMENT *array_create_element(arrayind_t, char *);
+extern ARRAY_ELEMENT *array_copy_element(ARRAY_ELEMENT *);
+extern void	array_dispose_element(ARRAY_ELEMENT *);
 
-extern int	array_insert __P((ARRAY *, arrayind_t, char *));
-extern ARRAY_ELEMENT *array_remove __P((ARRAY *, arrayind_t));
-extern char	*array_reference __P((ARRAY *, arrayind_t));
+extern int	array_insert(ARRAY *, arrayind_t, char *);
+extern ARRAY_ELEMENT *array_remove(ARRAY *, arrayind_t);
+extern char	*array_reference(ARRAY *, arrayind_t);
 
 /* Converting to and from arrays */
-extern WORD_LIST *array_to_word_list __P((ARRAY *));
-extern ARRAY *array_from_word_list __P((WORD_LIST *));
-extern WORD_LIST *array_keys_to_word_list __P((ARRAY *));
+extern WORD_LIST *array_to_word_list(ARRAY *);
+extern ARRAY *array_from_word_list(WORD_LIST *);
+extern WORD_LIST *array_keys_to_word_list(ARRAY *);
 
-extern ARRAY *array_assign_list __P((ARRAY *, WORD_LIST *));
+extern ARRAY *array_assign_list(ARRAY *, WORD_LIST *);
 
-extern char **array_to_argv __P((ARRAY *));
+extern char **array_to_argv(ARRAY *);
 
-extern char *array_to_assign __P((ARRAY *, int));
-extern char *array_to_string __P((ARRAY *, char *, int));
-extern ARRAY *array_from_string __P((char *, char *));
+extern char *array_to_assign(ARRAY *, int);
+extern char *array_to_string(ARRAY *, char *, int);
+extern ARRAY *array_from_string(char *, char *);
 
 /* Flags for array_shift */
 #define AS_DISPOSE	0x01

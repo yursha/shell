@@ -167,7 +167,7 @@ do {									\
 
 #include <signal.h>
 
-extern void _malloc_block_signals __P((sigset_t *, sigset_t *));
-extern void _malloc_unblock_signals __P((sigset_t *, sigset_t *));
+extern void _malloc_block_signals(sigset_t *, sigset_t *);
+extern void _malloc_unblock_signals(sigset_t *, sigset_t *);
 
 #endif /* _IMALLOC_H */

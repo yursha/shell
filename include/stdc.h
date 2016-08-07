@@ -26,7 +26,7 @@
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
-	extern char *func __P((char *, char *, int)); */
+	extern char *func(char *, char *, int); */
 
 #if !defined (__P)
 #  if defined (__STDC__) || defined (__GNUC__) || defined (__cplusplus) || defined (PROTOTYPES)

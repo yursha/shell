@@ -59,7 +59,7 @@ extern int sh_optopt;
 /* Set to 1 when an unrecognized option is encountered. */
 extern int sh_badopt;
 
-extern int sh_getopt __P((int, char *const *, const char *));
+extern int sh_getopt(int, char *const *, const char *);
 
 typedef struct sh_getopt_state
 {
@@ -71,12 +71,12 @@ typedef struct sh_getopt_state
   int gs_flags;
 } sh_getopt_state_t;
 
-extern void sh_getopt_restore_state __P((char **));
+extern void sh_getopt_restore_state(char **);
 
-extern sh_getopt_state_t *sh_getopt_alloc_istate __P((void));
-extern void sh_getopt_dispose_istate __P((sh_getopt_state_t *));
+extern sh_getopt_state_t *sh_getopt_alloc_istate(void);
+extern void sh_getopt_dispose_istate(sh_getopt_state_t *);
 
-extern sh_getopt_state_t *sh_getopt_save_istate __P((void));
-extern void sh_getopt_restore_istate __P((sh_getopt_state_t *));
+extern sh_getopt_state_t *sh_getopt_save_istate(void);
+extern void sh_getopt_restore_istate(sh_getopt_state_t *);
 
 #endif /* _SH_GETOPT_H */

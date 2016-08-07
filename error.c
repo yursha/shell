@@ -51,20 +51,20 @@ extern int errno;
 #  include "bashhist.h"
 #endif
 
-extern int executing_line_number __P((void));
+extern int executing_line_number(void);
 
 extern int last_command_exit_value;
 extern char *shell_name;
 #if defined (JOB_CONTROL)
 extern pid_t shell_pgrp;
-extern int give_terminal_to __P((pid_t, int));
+extern int give_terminal_to(pid_t, int);
 #endif /* JOB_CONTROL */
 
 #if defined (ARRAY_VARS)
 extern const char * const bash_badsub_errmsg;
 #endif
 
-static void error_prolog __P((int));
+static void error_prolog(int);
 
 /* The current maintainer of the shell.  You change this in the
    Makefile. */

@@ -45,14 +45,14 @@
 "this configure-time declaration test was not run"
 #endif
 #if !HAVE_DECL_STRTOUL
-extern unsigned long strtoul __P((const char *, char **, int));
+extern unsigned long strtoul(const char *, char **, int);
 #endif
 
 #ifndef HAVE_DECL_STRTOULL
 "this configure-time declaration test was not run"
 #endif
 #if !HAVE_DECL_STRTOULL && HAVE_UNSIGNED_LONG_LONG
-extern unsigned long long strtoull __P((const char *, char **, int));
+extern unsigned long long strtoull(const char *, char **, int);
 #endif
 
 #ifdef strtoumax

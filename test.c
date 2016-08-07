@@ -103,31 +103,31 @@ static int test_error_return;
 #define test_exit(val) \
 	do { test_error_return = val; sh_longjmp (test_exit_buf, 1); } while (0)
 
-extern int sh_stat __P((const char *, struct stat *));
+extern int sh_stat(const char *, struct stat *);
 
 static int pos;		/* The offset of the current argument in ARGV. */
 static int argc;	/* The number of arguments present in ARGV. */
 static char **argv;	/* The argument list. */
 static int noeval;
 
-static void test_syntax_error __P((char *, char *)) __attribute__((__noreturn__));
-static void beyond __P((void)) __attribute__((__noreturn__));
-static void integer_expected_error __P((char *)) __attribute__((__noreturn__));
+static void test_syntax_error(char *, char *) __attribute__((__noreturn__));
+static void beyond(void) __attribute__((__noreturn__));
+static void integer_expected_error(char *) __attribute__((__noreturn__));
 
-static int unary_operator __P((void));
-static int binary_operator __P((void));
-static int two_arguments __P((void));
-static int three_arguments __P((void));
-static int posixtest __P((void));
+static int unary_operator(void);
+static int binary_operator(void);
+static int two_arguments(void);
+static int three_arguments(void);
+static int posixtest(void);
 
-static int expr __P((void));
-static int term __P((void));
-static int and __P((void));
-static int or __P((void));
+static int expr(void);
+static int term(void);
+static int and(void);
+static int or(void);
 
-static int filecomp __P((char *, char *, int));
-static int arithcomp __P((char *, char *, int, int));
-static int patcomp __P((char *, char *, int));
+static int filecomp(char *, char *, int);
+static int arithcomp(char *, char *, int, int);
+static int patcomp(char *, char *, int);
 
 static void
 test_syntax_error (format, arg)

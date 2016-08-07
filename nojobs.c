@@ -85,7 +85,7 @@ extern procenv_t wait_intr_buf;
 extern int wait_intr_flag;
 extern int wait_signal_received;
 
-extern void set_original_signal __P((int, SigHandler *));
+extern void set_original_signal(int, SigHandler *);
 
 volatile pid_t last_made_pid = NO_PID;
 volatile pid_t last_asynchronous_pid = NO_PID;
@@ -131,32 +131,32 @@ static int wait_sigint_received;
 
 static long child_max = -1L;
 
-static void alloc_pid_list __P((void));
-static int find_proc_slot __P((pid_t));
-static int find_index_by_pid __P((pid_t));
-static int find_status_by_pid __P((pid_t));
-static int process_exit_status __P((WAIT));
-static int find_termsig_by_pid __P((pid_t));
-static int get_termsig __P((WAIT));
-static void set_pid_status __P((pid_t, WAIT));
-static void set_pid_flags __P((pid_t, int));
-static void unset_pid_flags __P((pid_t, int));
-static int get_pid_flags __P((pid_t));
-static void add_pid __P((pid_t, int));
-static void mark_dead_jobs_as_notified __P((int));
+static void alloc_pid_list(void);
+static int find_proc_slot(pid_t);
+static int find_index_by_pid(pid_t);
+static int find_status_by_pid(pid_t);
+static int process_exit_status(WAIT);
+static int find_termsig_by_pid(pid_t);
+static int get_termsig(WAIT);
+static void set_pid_status(pid_t, WAIT);
+static void set_pid_flags(pid_t, int);
+static void unset_pid_flags(pid_t, int);
+static int get_pid_flags(pid_t);
+static void add_pid(pid_t, int);
+static void mark_dead_jobs_as_notified(int);
 
-static sighandler wait_sigint_handler __P((int));
-static char *j_strsignal __P((int));
+static sighandler wait_sigint_handler(int);
+static char *j_strsignal(int);
 
 #if defined (HAVE_WAITPID)
-static void reap_zombie_children __P((void));
+static void reap_zombie_children(void);
 #endif
 
 #if !defined (HAVE_SIGINTERRUPT) && defined (HAVE_POSIX_SIGNALS)
-static int siginterrupt __P((int, int));
+static int siginterrupt(int, int);
 #endif
 
-static void restore_sigint_handler __P((void));
+static void restore_sigint_handler(void);
 
 /* Allocate new, or grow existing PID_LIST. */
 static void

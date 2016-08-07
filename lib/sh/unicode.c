@@ -50,9 +50,9 @@
 #endif /* !STREQ */
 
 #if defined (HAVE_LOCALE_CHARSET)
-extern const char *locale_charset __P((void));
+extern const char *locale_charset(void);
 #else
-extern char *get_locale_var __P((char *));
+extern char *get_locale_var(char *);
 #endif
 
 static int u32init = 0;

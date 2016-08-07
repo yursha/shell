@@ -60,7 +60,7 @@ extern int errno;
 #  define X_EWOULDBLOCK -99
 #endif
 
-extern void termsig_handler __P((int));
+extern void termsig_handler(int);
 
 /* Functions to handle reading input on systems that don't restart read(2)
    if a signal is received. */

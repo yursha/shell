@@ -98,7 +98,7 @@ char *helpfile_directory;
 
 /* Forward declarations. */
 
-int write_helpfiles __P((struct builtin *));
+int write_helpfiles(struct builtin *);
 
 /* For each file mentioned on the command line, process it and
    write the information to STRUCTFILE and EXTERNFILE, while

@@ -28,15 +28,15 @@
 #define CMDSRCH_STDPATH		0x02
 #define CMDSRCH_TEMPENV		0x04
 
-extern int file_status __P((const char *));
-extern int executable_file __P((const char *));
-extern int is_directory __P((const char *));
-extern int executable_or_directory __P((const char *));
-extern char *find_user_command __P((const char *));
-extern char *find_in_path __P((const char *, char *, int));
-extern char *find_path_file __P((const char *));
-extern char *search_for_command __P((const char *, int));
-extern char *user_command_matches __P((const char *, int, int));
-extern void setup_exec_ignore __P((char *));
+extern int file_status(const char *);
+extern int executable_file(const char *);
+extern int is_directory(const char *);
+extern int executable_or_directory(const char *);
+extern char *find_user_command(const char *);
+extern char *find_in_path(const char *, char *, int);
+extern char *find_path_file(const char *);
+extern char *search_for_command(const char *, int);
+extern char *user_command_matches(const char *, int, int);
+extern void setup_exec_ignore(char *);
 
 #endif /* _FINDCMD_H_ */

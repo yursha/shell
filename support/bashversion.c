@@ -47,8 +47,8 @@ extern char *optarg;
 extern char *dist_version;
 extern int patch_level;
 
-extern char *shell_version_string __P((void));
-extern void show_shell_version __P((int));
+extern char *shell_version_string(void);
+extern void show_shell_version(int);
 
 char *shell_name = "bash";
 char *progname;

@@ -60,8 +60,8 @@
 #if defined (JOB_CONTROL)
 #include "jobs.h"
 #else
-extern int initialize_job_control __P((int));
-extern int get_tty_state __P((void));
+extern int initialize_job_control(int);
+extern int get_tty_state(void);
 #endif /* JOB_CONTROL */
 
 #include "input.h"
@@ -307,35 +307,35 @@ static FILE *default_input;
 static STRING_INT_ALIST *shopt_alist;
 static int shopt_ind = 0, shopt_len = 0;
 
-static int parse_long_options __P((char **, int, int));
-static int parse_shell_options __P((char **, int, int));
-static int bind_args __P((char **, int, int, int));
+static int parse_long_options(char **, int, int);
+static int parse_shell_options(char **, int, int);
+static int bind_args(char **, int, int, int);
 
-static void start_debugger __P((void));
+static void start_debugger(void);
 
-static void add_shopt_to_alist __P((char *, int));
-static void run_shopt_alist __P((void));
+static void add_shopt_to_alist(char *, int);
+static void run_shopt_alist(void);
 
-static void execute_env_file __P((char *));
-static void run_startup_files __P((void));
-static int open_shell_script __P((char *));
-static void set_bash_input __P((void));
-static int run_one_command __P((char *));
+static void execute_env_file(char *);
+static void run_startup_files(void);
+static int open_shell_script(char *);
+static void set_bash_input(void);
+static int run_one_command(char *);
 #if defined (WORDEXP_OPTION)
-static int run_wordexp __P((char *));
+static int run_wordexp(char *);
 #endif
 
-static int uidget __P((void));
+static int uidget(void);
 
-static void init_interactive __P((void));
-static void init_noninteractive __P((void));
-static void init_interactive_script __P((void));
+static void init_interactive(void);
+static void init_noninteractive(void);
+static void init_interactive_script(void);
 
-static void set_shell_name __P((char *));
-static void shell_initialize __P((void));
-static void shell_reinitialize __P((void));
+static void set_shell_name(char *);
+static void shell_initialize(void);
+static void shell_reinitialize(void);
 
-static void show_shell_usage __P((FILE *, int));
+static void show_shell_usage(FILE *, int);
 
 int main (int argc, char **argv, char **env) {
   register int i;

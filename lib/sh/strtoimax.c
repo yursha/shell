@@ -45,14 +45,14 @@
 "this configure-time declaration test was not run"
 #endif
 #if !HAVE_DECL_STRTOL
-extern long strtol __P((const char *, char **, int));
+extern long strtol(const char *, char **, int);
 #endif
 
 #ifndef HAVE_DECL_STRTOLL
 "this configure-time declaration test was not run"
 #endif
 #if !HAVE_DECL_STRTOLL && HAVE_LONG_LONG
-extern long long strtoll __P((const char *, char **, int));
+extern long long strtoll(const char *, char **, int);
 #endif
 
 #ifdef strtoimax

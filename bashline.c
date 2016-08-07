@@ -87,115 +87,115 @@
 #define RL_BOOLEAN_VARIABLE_VALUE(s)	((s)[0] == 'o' && (s)[1] == 'n' && (s)[2] == '\0')
 
 #if defined (BRACE_COMPLETION)
-extern int bash_brace_completion __P((int, int));
+extern int bash_brace_completion(int, int);
 #endif /* BRACE_COMPLETION */
 
 /* To avoid including curses.h/term.h/termcap.h and that whole mess. */
 #ifdef _MINIX
-extern int tputs __P((const char *string, int nlines, void (*outx)(int)));
+extern int tputs(const char *string, int nlines, void (*outx)(int));
 #else
-extern int tputs __P((const char *string, int nlines, int (*outx)(int)));
+extern int tputs(const char *string, int nlines, int (*outx)(int));
 #endif
 
 /* Forward declarations */
 
 /* Functions bound to keys in Readline for Bash users. */
-static int shell_expand_line __P((int, int));
-static int display_shell_version __P((int, int));
-static int operate_and_get_next __P((int, int));
+static int shell_expand_line(int, int);
+static int display_shell_version(int, int);
+static int operate_and_get_next(int, int);
 
-static int bash_ignore_filenames __P((char **));
-static int bash_ignore_everything __P((char **));
+static int bash_ignore_filenames(char **);
+static int bash_ignore_everything(char **);
 
 #if defined (BANG_HISTORY)
-static char *history_expand_line_internal __P((char *));
-static int history_expand_line __P((int, int));
-static int tcsh_magic_space __P((int, int));
+static char *history_expand_line_internal(char *);
+static int history_expand_line(int, int);
+static int tcsh_magic_space(int, int);
 #endif /* BANG_HISTORY */
 #ifdef ALIAS
-static int alias_expand_line __P((int, int));
+static int alias_expand_line(int, int);
 #endif
 #if defined (BANG_HISTORY) && defined (ALIAS)
-static int history_and_alias_expand_line __P((int, int));
+static int history_and_alias_expand_line(int, int);
 #endif
 
-static int bash_forward_shellword __P((int, int));
-static int bash_backward_shellword __P((int, int));
-static int bash_kill_shellword __P((int, int));
-static int bash_backward_kill_shellword __P((int, int));
+static int bash_forward_shellword(int, int);
+static int bash_backward_shellword(int, int);
+static int bash_kill_shellword(int, int);
+static int bash_backward_kill_shellword(int, int);
 
 /* Helper functions for Readline. */
-static char *restore_tilde __P((char *, char *));
-static char *maybe_restore_tilde __P((char *, char *));
+static char *restore_tilde(char *, char *);
+static char *maybe_restore_tilde(char *, char *);
 
-static char *bash_filename_rewrite_hook __P((char *, int));
+static char *bash_filename_rewrite_hook(char *, int);
 
-static void bash_directory_expansion __P((char **));
-static int bash_filename_stat_hook __P((char **));
-static int bash_command_name_stat_hook __P((char **));
-static int bash_directory_completion_hook __P((char **));
-static int filename_completion_ignore __P((char **));
-static int bash_push_line __P((void));
+static void bash_directory_expansion(char **);
+static int bash_filename_stat_hook(char **);
+static int bash_command_name_stat_hook(char **);
+static int bash_directory_completion_hook(char **);
+static int filename_completion_ignore(char **);
+static int bash_push_line(void);
 
-static int executable_completion __P((const char *, int));
+static int executable_completion(const char *, int);
 
-static rl_icppfunc_t *save_directory_hook __P((void));
-static void restore_directory_hook __P((rl_icppfunc_t));
+static rl_icppfunc_t *save_directory_hook(void);
+static void restore_directory_hook(rl_icppfunc_t);
 
-static int directory_exists __P((const char *));
+static int directory_exists(const char *);
 
-static void cleanup_expansion_error __P((void));
-static void maybe_make_readline_line __P((char *));
-static void set_up_new_line __P((char *));
+static void cleanup_expansion_error(void);
+static void maybe_make_readline_line(char *);
+static void set_up_new_line(char *);
 
-static int check_redir __P((int));
-static char **attempt_shell_completion __P((const char *, int, int));
-static char *variable_completion_function __P((const char *, int));
-static char *hostname_completion_function __P((const char *, int));
-static char *command_subst_completion_function __P((const char *, int));
+static int check_redir(int);
+static char **attempt_shell_completion(const char *, int, int);
+static char *variable_completion_function(const char *, int);
+static char *hostname_completion_function(const char *, int);
+static char *command_subst_completion_function(const char *, int);
 
-static void build_history_completion_array __P((void));
-static char *history_completion_generator __P((const char *, int));
-static int dynamic_complete_history __P((int, int));
-static int bash_dabbrev_expand __P((int, int));
+static void build_history_completion_array(void);
+static char *history_completion_generator(const char *, int);
+static int dynamic_complete_history(int, int);
+static int bash_dabbrev_expand(int, int);
 
-static void initialize_hostname_list __P((void));
-static void add_host_name __P((char *));
-static void snarf_hosts_from_file __P((char *));
-static char **hostnames_matching __P((char *));
+static void initialize_hostname_list(void);
+static void add_host_name(char *);
+static void snarf_hosts_from_file(char *);
+static char **hostnames_matching(char *);
 
-static void _ignore_completion_names __P((char **, sh_ignore_func_t *));
-static int name_is_acceptable __P((const char *));
-static int test_for_directory __P((const char *));
-static int return_zero __P((const char *));
+static void _ignore_completion_names(char **, sh_ignore_func_t *);
+static int name_is_acceptable(const char *);
+static int test_for_directory(const char *);
+static int return_zero(const char *);
 
-static char *bash_dequote_filename __P((char *, int));
-static char *quote_word_break_chars __P((char *));
-static void set_filename_bstab __P((const char *));
-static char *bash_quote_filename __P((char *, int, char *));
+static char *bash_dequote_filename(char *, int);
+static char *quote_word_break_chars(char *);
+static void set_filename_bstab(const char *);
+static char *bash_quote_filename(char *, int, char *);
 
 #ifdef _MINIX
-static void putx __P((int));
+static void putx(int);
 #else
-static int putx __P((int));
+static int putx(int);
 #endif
-static int bash_execute_unix_command __P((int, int));
-static void init_unix_command_map __P((void));
-static int isolate_sequence __P((char *, int, int, int *));
+static int bash_execute_unix_command(int, int);
+static void init_unix_command_map(void);
+static int isolate_sequence(char *, int, int, int *);
 
-static int set_saved_history __P((void));
+static int set_saved_history(void);
 
 #if defined (ALIAS)
-static int posix_edit_macros __P((int, int));
+static int posix_edit_macros(int, int);
 #endif
 
-static int bash_event_hook __P((void));
+static int bash_event_hook(void);
 
 #if defined (PROGRAMMABLE_COMPLETION)
-static int find_cmd_start __P((int));
-static int find_cmd_end __P((int));
-static char *find_cmd_name __P((int, int *, int *));
-static char *prog_complete_return __P((const char *, int));
+static int find_cmd_start(int);
+static int find_cmd_end(int);
+static char *find_cmd_name(int, int *, int *);
+static char *prog_complete_return(const char *, int);
 
 static char **prog_complete_matches;
 #endif
@@ -221,39 +221,39 @@ extern sh_builtin_func_t *last_shell_builtin, *this_shell_builtin;
 #define SPECIFIC_COMPLETION_FUNCTIONS
 
 #if defined (SPECIFIC_COMPLETION_FUNCTIONS)
-static int bash_specific_completion __P((int, rl_compentry_func_t *));
+static int bash_specific_completion(int, rl_compentry_func_t *);
 
-static int bash_complete_filename_internal __P((int));
-static int bash_complete_username_internal __P((int));
-static int bash_complete_hostname_internal __P((int));
-static int bash_complete_variable_internal __P((int));
-static int bash_complete_command_internal __P((int));
+static int bash_complete_filename_internal(int);
+static int bash_complete_username_internal(int);
+static int bash_complete_hostname_internal(int);
+static int bash_complete_variable_internal(int);
+static int bash_complete_command_internal(int);
 
-static int bash_complete_filename __P((int, int));
-static int bash_possible_filename_completions __P((int, int));
-static int bash_complete_username __P((int, int));
-static int bash_possible_username_completions __P((int, int));
-static int bash_complete_hostname __P((int, int));
-static int bash_possible_hostname_completions __P((int, int));
-static int bash_complete_variable __P((int, int));
-static int bash_possible_variable_completions __P((int, int));
-static int bash_complete_command __P((int, int));
-static int bash_possible_command_completions __P((int, int));
+static int bash_complete_filename(int, int);
+static int bash_possible_filename_completions(int, int);
+static int bash_complete_username(int, int);
+static int bash_possible_username_completions(int, int);
+static int bash_complete_hostname(int, int);
+static int bash_possible_hostname_completions(int, int);
+static int bash_complete_variable(int, int);
+static int bash_possible_variable_completions(int, int);
+static int bash_complete_command(int, int);
+static int bash_possible_command_completions(int, int);
 
-static char *glob_complete_word __P((const char *, int));
-static int bash_glob_completion_internal __P((int));
-static int bash_glob_complete_word __P((int, int));
-static int bash_glob_expand_word __P((int, int));
-static int bash_glob_list_expansions __P((int, int));
+static char *glob_complete_word(const char *, int);
+static int bash_glob_completion_internal(int);
+static int bash_glob_complete_word(int, int);
+static int bash_glob_expand_word(int, int);
+static int bash_glob_list_expansions(int, int);
 
 #endif /* SPECIFIC_COMPLETION_FUNCTIONS */
 
-static int edit_and_execute_command __P((int, int, int, char *));
+static int edit_and_execute_command(int, int, int, char *);
 #if defined (VI_MODE)
-static int vi_edit_and_execute_command __P((int, int));
-static int bash_vi_complete __P((int, int));
+static int vi_edit_and_execute_command(int, int);
+static int bash_vi_complete(int, int);
 #endif
-static int emacs_edit_and_execute_command __P((int, int));
+static int emacs_edit_and_execute_command(int, int);
 
 /* Non-zero once initalize_readline () has been called. */
 int bash_readline_initialized = 0;

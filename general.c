@@ -60,9 +60,9 @@ extern int source_searches_cwd;
 extern int posixly_correct;
 extern int inherit_errexit;
 
-static char *bash_special_tilde_expansions __P((char *));
-static int unquoted_tilde_word __P((const char *));
-static void initialize_group_array __P((void));
+static char *bash_special_tilde_expansions(char *);
+static int unquoted_tilde_word(const char *);
+static void initialize_group_array(void);
 
 /* A standard error message to use when getcwd() returns NULL. */
 const char * const bash_getcwd_errstr = N_("getcwd: cannot access parent directories");
@@ -938,7 +938,7 @@ extract_colon_unit (string, p_index)
 /* **************************************************************** */
 
 #if defined (PUSHD_AND_POPD)
-extern char *get_dirstack_from_string __P((char *));
+extern char *get_dirstack_from_string(char *);
 #endif
 
 static char **bash_tilde_prefixes;

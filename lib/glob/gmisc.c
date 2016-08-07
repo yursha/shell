@@ -48,8 +48,8 @@
 #define WRPAREN         L')'
 
 /* Make sure these names continue to agree with what's in smatch.c */
-extern char *glob_patscan __P((char *, char *, int));
-extern wchar_t *glob_patscan_wc __P((wchar_t *, wchar_t *, int));
+extern char *glob_patscan(char *, char *, int);
+extern wchar_t *glob_patscan_wc(wchar_t *, wchar_t *, int);
 
 #define FOLD(c) ((flags & FNM_CASEFOLD) && iswupper (c) ? towlower (c) : (c))
 

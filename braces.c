@@ -53,7 +53,7 @@ extern int errno;
 
 #define BRACE_SEQ_SPECIFIER	".."
 
-extern int asprintf __P((char **, const char *, ...)) __attribute__((__format__ (printf, 2, 3)));
+extern int asprintf(char **, const char *, ...) __attribute__((__format__ (printf, 2, 3)));
 
 extern int last_command_exit_value;
 
@@ -70,11 +70,11 @@ extern int last_command_exit_value;
 static const int brace_arg_separator = ',';
 
 #if defined (__P)
-static int brace_gobbler __P((char *, size_t, int *, int));
-static char **expand_amble __P((char *, size_t, int));
-static char **expand_seqterm __P((char *, size_t));
-static char **mkseq __P((intmax_t, intmax_t, intmax_t, int, int));
-static char **array_concat __P((char **, char **));
+static int brace_gobbler(char *, size_t, int *, int);
+static char **expand_amble(char *, size_t, int);
+static char **expand_seqterm(char *, size_t);
+static char **mkseq(intmax_t, intmax_t, intmax_t, int, int);
+static char **array_concat(char **, char **);
 #else
 static int brace_gobbler ();
 static char **expand_amble ();

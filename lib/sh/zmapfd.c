@@ -36,7 +36,7 @@
 extern int errno;
 #endif
 
-extern ssize_t zread __P((int, char *, size_t));
+extern ssize_t zread(int, char *, size_t);
 
 /* Dump contents of file descriptor FD to *OSTR.  FN is the filename for
    error messages (not used right now). */

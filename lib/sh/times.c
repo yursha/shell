@@ -30,7 +30,7 @@
 #  include <sys/resource.h>
 #endif /* HAVE_SYS_RESOURCE_H && HAVE_GETRUSAGE */
 
-extern long	get_clk_tck __P((void));
+extern long	get_clk_tck(void);
 
 #define CONVTCK(r)      (r.tv_sec * clk_tck + r.tv_usec / (1000000 / clk_tck))
 

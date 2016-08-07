@@ -31,11 +31,11 @@
 #define GX_ADDCURDIR	0x200	/* internal -- add passed directory name */
 #define GX_GLOBSTAR	0x400	/* turn on special handling of ** */
 
-extern int glob_pattern_p __P((const char *));
-extern char **glob_vector __P((char *, char *, int));
-extern char **glob_filename __P((char *, int));
+extern int glob_pattern_p(const char *);
+extern char **glob_vector(char *, char *, int);
+extern char **glob_filename(char *, int);
 
-extern int extglob_pattern_p __P((const char *));
+extern int extglob_pattern_p(const char *);
 
 extern char *glob_error_return;
 extern int noglob_dot_filenames;

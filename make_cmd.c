@@ -67,11 +67,11 @@ sh_obj_cache_t wlcache = {0, 0, 0};
 #define WDCACHESIZE	128
 #define WLCACHESIZE	128
 
-static COMMAND *make_for_or_select __P((enum command_type, WORD_DESC *, WORD_LIST *, COMMAND *, int));
+static COMMAND *make_for_or_select(enum command_type, WORD_DESC *, WORD_LIST *, COMMAND *, int);
 #if defined (ARITH_FOR_COMMAND)
-static WORD_LIST *make_arith_for_expr __P((char *));
+static WORD_LIST *make_arith_for_expr(char *);
 #endif
-static COMMAND *make_until_or_while __P((enum command_type, COMMAND *, COMMAND *));
+static COMMAND *make_until_or_while(enum command_type, COMMAND *, COMMAND *);
 
 void
 cmd_init ()

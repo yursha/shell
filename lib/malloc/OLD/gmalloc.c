@@ -166,7 +166,7 @@ extern genptr_t memalign __P ((size_t __alignment, size_t __size));
 extern struct mstats mstats __P ((void));
 
 #ifdef RCHECK
-extern enum mcheck_status mprobe __P((genptr_t ptr));
+extern enum mcheck_status mprobe(genptr_t ptr);
 #endif
 
 /* End of exported functions. */
@@ -284,9 +284,9 @@ static int malloc_initialized;
 static int malloc_initialize __P ((void));
 
 #ifdef RCHECK
-static void zmemset __P((genptr_t, int, size_t));
-static enum mcheck_status checkhdr __P((const struct hdr *));
-static void mabort __P((enum mcheck_status));
+static void zmemset(genptr_t, int, size_t);
+static enum mcheck_status checkhdr(const struct hdr *);
+static void mabort(enum mcheck_status);
 #endif
 
 /* Instrumentation.  */

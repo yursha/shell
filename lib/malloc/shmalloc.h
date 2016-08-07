@@ -41,30 +41,30 @@
 #endif /* PTR_T */
 
 
-extern PTR_T sh_malloc __P((size_t, const char *, int));
-extern PTR_T sh_realloc __P((PTR_T, size_t, const char *, int));
-extern void sh_free __P((PTR_T, const char *, int));
+extern PTR_T sh_malloc(size_t, const char *, int);
+extern PTR_T sh_realloc(PTR_T, size_t, const char *, int);
+extern void sh_free(PTR_T, const char *, int);
 
-extern PTR_T sh_memalign __P((size_t, size_t, const char *, int));
+extern PTR_T sh_memalign(size_t, size_t, const char *, int);
 
-extern PTR_T sh_calloc __P((size_t, size_t, const char *, int));
-extern void sh_cfree __P((PTR_T, const char *, int));
+extern PTR_T sh_calloc(size_t, size_t, const char *, int);
+extern void sh_cfree(PTR_T, const char *, int);
 
-extern PTR_T sh_valloc __P((size_t, const char *, int));
+extern PTR_T sh_valloc(size_t, const char *, int);
 
 /* trace.c */
-extern int malloc_set_trace __P((int));
+extern int malloc_set_trace(int);
 extern void malloc_set_tracefp ();	/* full prototype requires stdio.h */
-extern void malloc_set_tracefn __P((char *, char *));
+extern void malloc_set_tracefn(char *, char *);
 
 /* table.c */
-extern void mregister_dump_table __P((void));
-extern void mregister_table_init __P((void));
-extern int malloc_set_register __P((int));
+extern void mregister_dump_table(void);
+extern void mregister_table_init(void);
+extern int malloc_set_register(int);
 
 /* stats.c */
-extern void print_malloc_stats __P((char *));
+extern void print_malloc_stats(char *);
 extern void fprint_malloc_stats ();	/* full prototype requires stdio.h */
-extern void trace_malloc_stats __P((char *, char *));
+extern void trace_malloc_stats(char *, char *);
 
 #endif

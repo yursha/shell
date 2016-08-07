@@ -48,17 +48,17 @@
 
 #define ALIAS_HASH_BUCKETS	64	/* must be power of two */
 
-typedef int sh_alias_map_func_t __P((alias_t *));
+typedef int sh_alias_map_func_t(alias_t *);
 
-static void free_alias_data __P((PTR_T));
-static alias_t **map_over_aliases __P((sh_alias_map_func_t *));
-static void sort_aliases __P((alias_t **));
-static int qsort_alias_compare __P((alias_t **, alias_t **));
+static void free_alias_data(PTR_T);
+static alias_t **map_over_aliases(sh_alias_map_func_t *);
+static void sort_aliases(alias_t **);
+static int qsort_alias_compare(alias_t **, alias_t **);
 
 #if defined (READLINE)
-static int skipquotes __P((char *, int));
-static int skipws __P((char *, int));
-static int rd_token __P((char *, int));
+static int skipquotes(char *, int);
+static int skipws(char *, int);
+static int rd_token(char *, int);
 #endif
 
 /* Non-zero means expand all words on the line.  Otherwise, expand

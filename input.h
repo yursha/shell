@@ -32,8 +32,8 @@ typedef char *CPFunction ();		/* no longer used */
 typedef char **CPPFunction ();		/* no longer used */
 #endif /* _FUNCTION_DEF */
 
-typedef int sh_cget_func_t __P((void));		/* sh_ivoidfunc_t */
-typedef int sh_cunget_func_t __P((int));	/* sh_intfunc_t */
+typedef int sh_cget_func_t(void);		/* sh_ivoidfunc_t */
+typedef int sh_cunget_func_t(int);	/* sh_intfunc_t */
 
 enum stream_type {st_none, st_stdin, st_stream, st_string, st_bstream};
 
@@ -90,44 +90,44 @@ extern BASH_INPUT bash_input;
 
 /* Functions from parse.y whose use directly or indirectly depends on the
    definitions in this file. */
-extern void initialize_bash_input __P((void));
-extern void init_yy_io __P((sh_cget_func_t *, sh_cunget_func_t *, enum stream_type, const char *, INPUT_STREAM));
-extern char *yy_input_name __P((void));
-extern void with_input_from_stdin __P((void));
-extern void with_input_from_string __P((char *, const char *));
-extern void with_input_from_stream __P((FILE *, const char *));
-extern void push_stream __P((int));
-extern void pop_stream __P((void));
-extern int stream_on_stack __P((enum stream_type));
-extern char *read_secondary_line __P((int));
-extern int find_reserved_word __P((char *));
-extern void gather_here_documents __P((void));
-extern void execute_variable_command __P((char *, char *));
+extern void initialize_bash_input(void);
+extern void init_yy_io(sh_cget_func_t *, sh_cunget_func_t *, enum stream_type, const char *, INPUT_STREAM);
+extern char *yy_input_name(void);
+extern void with_input_from_stdin(void);
+extern void with_input_from_string(char *, const char *);
+extern void with_input_from_stream(FILE *, const char *);
+extern void push_stream(int);
+extern void pop_stream(void);
+extern int stream_on_stack(enum stream_type);
+extern char *read_secondary_line(int);
+extern int find_reserved_word(char *);
+extern void gather_here_documents(void);
+extern void execute_variable_command(char *, char *);
 
-extern int *save_token_state __P((void));
-extern void restore_token_state __P((int *));
+extern int *save_token_state(void);
+extern void restore_token_state(int *);
 
 /* Functions from input.c */
-extern int getc_with_restart __P((FILE *));
-extern int ungetc_with_restart __P((int, FILE *));
+extern int getc_with_restart(FILE *);
+extern int ungetc_with_restart(int, FILE *);
 
 #if defined (BUFFERED_INPUT)
 /* Functions from input.c. */
-extern int fd_is_bash_input __P((int));
-extern int set_bash_input_fd __P((int));
-extern int save_bash_input __P((int, int));
-extern int check_bash_input __P((int));
-extern int duplicate_buffered_stream __P((int, int));
-extern BUFFERED_STREAM *fd_to_buffered_stream __P((int));
-extern BUFFERED_STREAM *set_buffered_stream __P((int, BUFFERED_STREAM *));
-extern BUFFERED_STREAM *open_buffered_stream __P((char *));
-extern void free_buffered_stream __P((BUFFERED_STREAM *));
-extern int close_buffered_stream __P((BUFFERED_STREAM *));
-extern int close_buffered_fd __P((int));
-extern int sync_buffered_stream __P((int));
-extern int buffered_getchar __P((void));
-extern int buffered_ungetchar __P((int));
-extern void with_input_from_buffered_stream __P((int, char *));
+extern int fd_is_bash_input(int);
+extern int set_bash_input_fd(int);
+extern int save_bash_input(int, int);
+extern int check_bash_input(int);
+extern int duplicate_buffered_stream(int, int);
+extern BUFFERED_STREAM *fd_to_buffered_stream(int);
+extern BUFFERED_STREAM *set_buffered_stream(int, BUFFERED_STREAM *);
+extern BUFFERED_STREAM *open_buffered_stream(char *);
+extern void free_buffered_stream(BUFFERED_STREAM *);
+extern int close_buffered_stream(BUFFERED_STREAM *);
+extern int close_buffered_fd(int);
+extern int sync_buffered_stream(int);
+extern int buffered_getchar(void);
+extern int buffered_ungetchar(int);
+extern void with_input_from_buffered_stream(int, char *);
 #endif /* BUFFERED_INPUT */
 
 #endif /* _INPUT_H_ */

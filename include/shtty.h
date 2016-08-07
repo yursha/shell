@@ -67,24 +67,24 @@
 
 /* Get and set terminal attributes for the file descriptor passed as
    an argument. */
-extern int ttgetattr __P((int, TTYSTRUCT *));
-extern int ttsetattr __P((int, TTYSTRUCT *));
+extern int ttgetattr(int, TTYSTRUCT *);
+extern int ttsetattr(int, TTYSTRUCT *);
 
 /* Save and restore the terminal's attributes from static storage. */
-extern void ttsave __P((void));
-extern void ttrestore __P((void));
+extern void ttsave(void);
+extern void ttrestore(void);
 
 /* Return the attributes corresponding to the file descriptor (0 or 1)
    passed as an argument. */
-extern TTYSTRUCT *ttattr __P((int));
+extern TTYSTRUCT *ttattr(int);
 
 /* These functions only operate on the passed TTYSTRUCT; they don't
    actually change anything with the kernel's current tty settings. */
-extern int tt_setonechar __P((TTYSTRUCT *));
-extern int tt_setnoecho __P((TTYSTRUCT *));
-extern int tt_seteightbit __P((TTYSTRUCT *));
-extern int tt_setnocanon __P((TTYSTRUCT *));
-extern int tt_setcbreak __P((TTYSTRUCT *));
+extern int tt_setonechar(TTYSTRUCT *);
+extern int tt_setnoecho(TTYSTRUCT *);
+extern int tt_seteightbit(TTYSTRUCT *);
+extern int tt_setnocanon(TTYSTRUCT *);
+extern int tt_setcbreak(TTYSTRUCT *);
 
 /* These functions are all generally mutually exclusive.  If you call
    more than one (bracketed with calls to ttsave and ttrestore, of
@@ -94,19 +94,19 @@ extern int tt_setcbreak __P((TTYSTRUCT *));
 
 /* These functions work with a given file descriptor and set terminal
    attributes */
-extern int ttfd_onechar __P((int, TTYSTRUCT *));
-extern int ttfd_noecho __P((int, TTYSTRUCT *));
-extern int ttfd_eightbit __P((int, TTYSTRUCT *));
-extern int ttfd_nocanon __P((int, TTYSTRUCT *));
+extern int ttfd_onechar(int, TTYSTRUCT *);
+extern int ttfd_noecho(int, TTYSTRUCT *);
+extern int ttfd_eightbit(int, TTYSTRUCT *);
+extern int ttfd_nocanon(int, TTYSTRUCT *);
 
-extern int ttfd_cbreak __P((int, TTYSTRUCT *));
+extern int ttfd_cbreak(int, TTYSTRUCT *);
 
 /* These functions work with fd 0 and the TTYSTRUCT saved with ttsave () */
-extern int ttonechar __P((void));
-extern int ttnoecho __P((void));
-extern int tteightbit __P((void));
-extern int ttnocanon __P((void));
+extern int ttonechar(void);
+extern int ttnoecho(void);
+extern int tteightbit(void);
+extern int ttnocanon(void);
 
-extern int ttcbreak __P((void));
+extern int ttcbreak(void);
 
 #endif

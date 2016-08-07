@@ -48,7 +48,7 @@
 #include "builtins/common.h"
 
 #if !HAVE_DECL_PRINTF
-extern int printf __P((const char *, ...));	/* Yuck.  Double yuck. */
+extern int printf(const char *, ...);	/* Yuck.  Double yuck. */
 #endif
 
 extern int indirection_level;
@@ -58,50 +58,50 @@ static int indentation;
 static int indentation_amount = 4;
 
 #if defined (PREFER_STDARG)
-typedef void PFUNC __P((const char *, ...));
+typedef void PFUNC(const char *, ...);
 
-static void cprintf __P((const char *, ...))  __attribute__((__format__ (printf, 1, 2)));
-static void xprintf __P((const char *, ...))  __attribute__((__format__ (printf, 1, 2)));
+static void cprintf(const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
+static void xprintf(const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
 #else
 #define PFUNC VFunction
 static void cprintf ();
 static void xprintf ();
 #endif
 
-static void reset_locals __P((void));
-static void newline __P((char *));
-static void indent __P((int));
-static void semicolon __P((void));
-static void the_printed_command_resize __P((int));
+static void reset_locals(void);
+static void newline(char *);
+static void indent(int);
+static void semicolon(void);
+static void the_printed_command_resize(int);
 
-static void make_command_string_internal __P((COMMAND *));
-static void _print_word_list __P((WORD_LIST *, char *, PFUNC *));
-static void command_print_word_list __P((WORD_LIST *, char *));
-static void print_case_clauses __P((PATTERN_LIST *));
-static void print_redirection_list __P((REDIRECT *));
-static void print_redirection __P((REDIRECT *));
-static void print_heredoc_header __P((REDIRECT *));
-static void print_heredoc_body __P((REDIRECT *));
-static void print_heredocs __P((REDIRECT *));
-static void print_deferred_heredocs __P((const char *));
+static void make_command_string_internal(COMMAND *);
+static void _print_word_list(WORD_LIST *, char *, PFUNC *);
+static void command_print_word_list(WORD_LIST *, char *);
+static void print_case_clauses(PATTERN_LIST *);
+static void print_redirection_list(REDIRECT *);
+static void print_redirection(REDIRECT *);
+static void print_heredoc_header(REDIRECT *);
+static void print_heredoc_body(REDIRECT *);
+static void print_heredocs(REDIRECT *);
+static void print_deferred_heredocs(const char *);
 
-static void print_for_command __P((FOR_COM *));
+static void print_for_command(FOR_COM *);
 #if defined (ARITH_FOR_COMMAND)
-static void print_arith_for_command __P((ARITH_FOR_COM *));
+static void print_arith_for_command(ARITH_FOR_COM *);
 #endif
 #if defined (SELECT_COMMAND)
-static void print_select_command __P((SELECT_COM *));
+static void print_select_command(SELECT_COM *);
 #endif
-static void print_group_command __P((GROUP_COM *));
-static void print_case_command __P((CASE_COM *));
-static void print_while_command __P((WHILE_COM *));
-static void print_until_command __P((WHILE_COM *));
-static void print_until_or_while __P((WHILE_COM *, char *));
-static void print_if_command __P((IF_COM *));
+static void print_group_command(GROUP_COM *);
+static void print_case_command(CASE_COM *);
+static void print_while_command(WHILE_COM *);
+static void print_until_command(WHILE_COM *);
+static void print_until_or_while(WHILE_COM *, char *);
+static void print_if_command(IF_COM *);
 #if defined (COND_COMMAND)
-static void print_cond_node __P((COND_COM *));
+static void print_cond_node(COND_COM *);
 #endif
-static void print_function_def __P((FUNCTION_DEF *));
+static void print_function_def(FUNCTION_DEF *);
 
 #define PRINTED_COMMAND_INITIAL_SIZE 64
 #define PRINTED_COMMAND_GROW_SIZE 128

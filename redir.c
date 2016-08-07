@@ -69,24 +69,24 @@ extern REDIRECT *redirection_undo_list;
 extern REDIRECT *exec_redirection_undo_list;
 
 /* Static functions defined and used in this file. */
-static void add_exec_redirect __P((REDIRECT *));
-static int add_undo_redirect __P((int, enum r_instruction, int));
-static int add_undo_close_redirect __P((int));
-static int expandable_redirection_filename __P((REDIRECT *));
-static int stdin_redirection __P((enum r_instruction, int));
-static int undoablefd __P((int));
-static int do_redirection_internal __P((REDIRECT *, int));
+static void add_exec_redirect(REDIRECT *);
+static int add_undo_redirect(int, enum r_instruction, int);
+static int add_undo_close_redirect(int);
+static int expandable_redirection_filename(REDIRECT *);
+static int stdin_redirection(enum r_instruction, int);
+static int undoablefd(int);
+static int do_redirection_internal(REDIRECT *, int);
 
-static int write_here_document __P((int, WORD_DESC *));
-static int write_here_string __P((int, WORD_DESC *));
-static int here_document_to_fd __P((WORD_DESC *, enum r_instruction));
+static int write_here_document(int, WORD_DESC *);
+static int write_here_string(int, WORD_DESC *);
+static int here_document_to_fd(WORD_DESC *, enum r_instruction);
 
-static int redir_special_open __P((int, char *, int, int, enum r_instruction));
-static int noclobber_open __P((char *, int, int, enum r_instruction));
-static int redir_open __P((char *, int, int, enum r_instruction));
+static int redir_special_open(int, char *, int, int, enum r_instruction);
+static int noclobber_open(char *, int, int, enum r_instruction);
+static int redir_open(char *, int, int, enum r_instruction);
 
-static int redir_varassign __P((REDIRECT *, int));
-static int redir_varvalue __P((REDIRECT *));
+static int redir_varassign(REDIRECT *, int);
+static int redir_varvalue(REDIRECT *);
 
 /* Spare redirector used when translating [N]>&WORD[-] or [N]<&WORD[-] to
    a new redirection and when creating the redirection undo list. */

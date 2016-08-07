@@ -42,7 +42,7 @@
 extern int errno;
 #endif
 
-typedef int unix_link_syscall_t __P((const char *, const char *));
+typedef int unix_link_syscall_t(const char *, const char *);
 
 #define LN_SYMLINK 0x01
 #define LN_UNLINK  0x02

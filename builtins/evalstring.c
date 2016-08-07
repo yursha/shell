@@ -75,7 +75,7 @@ extern char *the_printed_command_except_trap;
 
 int parse_and_execute_level = 0;
 
-static int cat_file __P((REDIRECT *));
+static int cat_file(REDIRECT *);
 
 #define PE_TAG "parse_and_execute top"
 #define PS_TAG "parse_string top"

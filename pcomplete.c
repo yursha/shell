@@ -81,7 +81,7 @@
 typedef SHELL_VAR **SVFUNC ();
 
 #ifndef HAVE_STRPBRK
-extern char *strpbrk __P((char *, char *));
+extern char *strpbrk(char *, char *);
 #endif
 
 extern int array_needs_making;
@@ -95,36 +95,36 @@ static void debug_printf (const char *, ...)  __attribute__((__format__ (printf,
 #endif
 #endif /* DEBUG */
 
-static int it_init_joblist __P((ITEMLIST *, int));
+static int it_init_joblist(ITEMLIST *, int);
 
-static int it_init_aliases __P((ITEMLIST *));
-static int it_init_arrayvars __P((ITEMLIST *));
-static int it_init_bindings __P((ITEMLIST *));
-static int it_init_builtins __P((ITEMLIST *));
-static int it_init_disabled __P((ITEMLIST *));
-static int it_init_enabled __P((ITEMLIST *));
-static int it_init_exported __P((ITEMLIST *));
-static int it_init_functions __P((ITEMLIST *));
-static int it_init_helptopics __P((ITEMLIST *));
-static int it_init_hostnames __P((ITEMLIST *));
-static int it_init_jobs __P((ITEMLIST *));
-static int it_init_running __P((ITEMLIST *));
-static int it_init_stopped __P((ITEMLIST *));
-static int it_init_keywords __P((ITEMLIST *));
-static int it_init_signals __P((ITEMLIST *));
-static int it_init_variables __P((ITEMLIST *));
-static int it_init_setopts __P((ITEMLIST *));
-static int it_init_shopts __P((ITEMLIST *));
+static int it_init_aliases(ITEMLIST *);
+static int it_init_arrayvars(ITEMLIST *);
+static int it_init_bindings(ITEMLIST *);
+static int it_init_builtins(ITEMLIST *);
+static int it_init_disabled(ITEMLIST *);
+static int it_init_enabled(ITEMLIST *);
+static int it_init_exported(ITEMLIST *);
+static int it_init_functions(ITEMLIST *);
+static int it_init_helptopics(ITEMLIST *);
+static int it_init_hostnames(ITEMLIST *);
+static int it_init_jobs(ITEMLIST *);
+static int it_init_running(ITEMLIST *);
+static int it_init_stopped(ITEMLIST *);
+static int it_init_keywords(ITEMLIST *);
+static int it_init_signals(ITEMLIST *);
+static int it_init_variables(ITEMLIST *);
+static int it_init_setopts(ITEMLIST *);
+static int it_init_shopts(ITEMLIST *);
 
-static int shouldexp_filterpat __P((char *));
-static char *preproc_filterpat __P((char *, const char *));
+static int shouldexp_filterpat(char *);
+static char *preproc_filterpat(char *, const char *);
 
-static void init_itemlist_from_varlist __P((ITEMLIST *, SVFUNC *));
+static void init_itemlist_from_varlist(ITEMLIST *, SVFUNC *);
 
-static STRINGLIST *gen_matches_from_itemlist __P((ITEMLIST *, const char *));
-static STRINGLIST *gen_action_completions __P((COMPSPEC *, const char *));
-static STRINGLIST *gen_globpat_matches __P((COMPSPEC *, const char *));
-static STRINGLIST *gen_wordlist_matches __P((COMPSPEC *, const char *));
+static STRINGLIST *gen_matches_from_itemlist(ITEMLIST *, const char *);
+static STRINGLIST *gen_action_completions(COMPSPEC *, const char *);
+static STRINGLIST *gen_globpat_matches(COMPSPEC *, const char *);
+static STRINGLIST *gen_wordlist_matches(COMPSPEC *, const char *);
 static STRINGLIST *gen_shell_function_matches __P((COMPSPEC *, const char *,
 						   const char *,
 						   char *, int, WORD_LIST *,
@@ -139,15 +139,15 @@ static STRINGLIST *gen_progcomp_completions __P((const char *, const char *,
 						 int, int, int *, int *,
 						 COMPSPEC **));
 
-static char *pcomp_filename_completion_function __P((const char *, int));
+static char *pcomp_filename_completion_function(const char *, int);
 
 #if defined (ARRAY_VARS)
-static SHELL_VAR *bind_comp_words __P((WORD_LIST *));
+static SHELL_VAR *bind_comp_words(WORD_LIST *);
 #endif
-static void bind_compfunc_variables __P((char *, int, WORD_LIST *, int, int));
-static void unbind_compfunc_variables __P((int));
-static WORD_LIST *build_arg_list __P((char *, const char *, const char *, WORD_LIST *, int));
-static WORD_LIST *command_line_to_word_list __P((char *, int, int, int *, int *));
+static void bind_compfunc_variables(char *, int, WORD_LIST *, int, int);
+static void unbind_compfunc_variables(int);
+static WORD_LIST *build_arg_list(char *, const char *, const char *, WORD_LIST *, int);
+static WORD_LIST *command_line_to_word_list(char *, int, int, int *, int *);
 
 #ifdef DEBUG
 static int progcomp_debug = 0;

@@ -43,12 +43,12 @@ extern char *this_command_name;
 extern int last_command_exit_value;
 extern int array_needs_making;
 
-static SHELL_VAR *bind_array_var_internal __P((SHELL_VAR *, arrayind_t, char *, char *, int));
-static SHELL_VAR *assign_array_element_internal __P((SHELL_VAR *, char *, char *, char *, int, char *, int));
+static SHELL_VAR *bind_array_var_internal(SHELL_VAR *, arrayind_t, char *, char *, int);
+static SHELL_VAR *assign_array_element_internal(SHELL_VAR *, char *, char *, char *, int, char *, int);
 
-static char *quote_assign __P((const char *));
-static void quote_array_assignment_chars __P((WORD_LIST *));
-static char *array_value_internal __P((char *, int, int, int *, arrayind_t *));
+static char *quote_assign(const char *);
+static void quote_array_assignment_chars(WORD_LIST *);
+static char *array_value_internal(char *, int, int, int *, arrayind_t *);
 
 /* Standard error message to use when encountering an invalid array subscript */
 const char * const bash_badsub_errmsg = N_("bad array subscript");

@@ -45,26 +45,26 @@ typedef struct hash_table {
   int nentries;			/* How many entries does this table have. */
 } HASH_TABLE;
 
-typedef int hash_wfunc __P((BUCKET_CONTENTS *));
+typedef int hash_wfunc(BUCKET_CONTENTS *);
 
 /* Operations on tables as a whole */
-extern HASH_TABLE *hash_create __P((int));
-extern HASH_TABLE *hash_copy __P((HASH_TABLE *, sh_string_func_t *));
-extern void hash_flush __P((HASH_TABLE *, sh_free_func_t *));
-extern void hash_dispose __P((HASH_TABLE *));
-extern void hash_walk __P((HASH_TABLE *, hash_wfunc *));
+extern HASH_TABLE *hash_create(int);
+extern HASH_TABLE *hash_copy(HASH_TABLE *, sh_string_func_t *);
+extern void hash_flush(HASH_TABLE *, sh_free_func_t *);
+extern void hash_dispose(HASH_TABLE *);
+extern void hash_walk(HASH_TABLE *, hash_wfunc *);
 
 /* Operations to extract information from or pieces of tables */
-extern int hash_bucket __P((const char *, HASH_TABLE *));
-extern int hash_size __P((HASH_TABLE *));
+extern int hash_bucket(const char *, HASH_TABLE *);
+extern int hash_size(HASH_TABLE *);
 
 /* Operations on hash table entries */
-extern BUCKET_CONTENTS *hash_search __P((const char *, HASH_TABLE *, int));
-extern BUCKET_CONTENTS *hash_insert __P((char *, HASH_TABLE *, int));
-extern BUCKET_CONTENTS *hash_remove __P((const char *, HASH_TABLE *, int));
+extern BUCKET_CONTENTS *hash_search(const char *, HASH_TABLE *, int);
+extern BUCKET_CONTENTS *hash_insert(char *, HASH_TABLE *, int);
+extern BUCKET_CONTENTS *hash_remove(const char *, HASH_TABLE *, int);
 
 /* Miscellaneous */
-extern unsigned int hash_string __P((const char *));
+extern unsigned int hash_string(const char *);
 
 /* Redefine the function as a macro for speed. */
 #define hash_items(bucket, table) \

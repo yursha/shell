@@ -32,25 +32,25 @@
 
 #include "shell.h"
 
-static PATTERN_LIST *copy_case_clause __P((PATTERN_LIST *));
-static PATTERN_LIST *copy_case_clauses __P((PATTERN_LIST *));
-static FOR_COM *copy_for_command __P((FOR_COM *));
+static PATTERN_LIST *copy_case_clause(PATTERN_LIST *);
+static PATTERN_LIST *copy_case_clauses(PATTERN_LIST *);
+static FOR_COM *copy_for_command(FOR_COM *);
 #if defined (ARITH_FOR_COMMAND)
-static ARITH_FOR_COM *copy_arith_for_command __P((ARITH_FOR_COM *));
+static ARITH_FOR_COM *copy_arith_for_command(ARITH_FOR_COM *);
 #endif
-static GROUP_COM *copy_group_command __P((GROUP_COM *));
-static SUBSHELL_COM *copy_subshell_command __P((SUBSHELL_COM *));
-static COPROC_COM *copy_coproc_command __P((COPROC_COM *));
-static CASE_COM *copy_case_command __P((CASE_COM *));
-static WHILE_COM *copy_while_command __P((WHILE_COM *));
-static IF_COM *copy_if_command __P((IF_COM *));
+static GROUP_COM *copy_group_command(GROUP_COM *);
+static SUBSHELL_COM *copy_subshell_command(SUBSHELL_COM *);
+static COPROC_COM *copy_coproc_command(COPROC_COM *);
+static CASE_COM *copy_case_command(CASE_COM *);
+static WHILE_COM *copy_while_command(WHILE_COM *);
+static IF_COM *copy_if_command(IF_COM *);
 #if defined (DPAREN_ARITHMETIC)
-static ARITH_COM *copy_arith_command __P((ARITH_COM *));
+static ARITH_COM *copy_arith_command(ARITH_COM *);
 #endif
 #if defined (COND_COMMAND)
-static COND_COM *copy_cond_command __P((COND_COM *));
+static COND_COM *copy_cond_command(COND_COM *);
 #endif
-static SIMPLE_COM *copy_simple_command __P((SIMPLE_COM *));
+static SIMPLE_COM *copy_simple_command(SIMPLE_COM *);
 
 WORD_DESC *
 copy_word (w)

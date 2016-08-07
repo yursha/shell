@@ -129,8 +129,8 @@
 #  define FL_ADDBASE    0x02    /* add base# prefix to converted value */
 #  define FL_HEXUPPER   0x04    /* use uppercase when converting to hex */
 #  define FL_UNSIGNED   0x08    /* don't add any sign */
-extern char *fmtulong __P((unsigned long int, int, char *, size_t, int));
-extern char *fmtullong __P((unsigned long long int, int, char *, size_t, int));
+extern char *fmtulong(unsigned long int, int, char *, size_t, int);
+extern char *fmtullong(unsigned long long int, int, char *, size_t, int);
 #endif
 
 #ifndef FREE
@@ -269,38 +269,38 @@ struct DATA
 
 /* the floating point stuff */
 #ifdef FLOATING_POINT
-static double pow_10 __P((int));
-static int log_10 __P((double));
-static double integral __P((double, double *));
-static char *numtoa __P((double, int, int, char **));
+static double pow_10(int);
+static int log_10(double);
+static double integral(double, double *);
+static char *numtoa(double, int, int, char **);
 #endif
 
-static void init_data __P((struct DATA *, char *, size_t, const char *, int));
-static void init_conv_flag __P((struct DATA *));
+static void init_data(struct DATA *, char *, size_t, const char *, int);
+static void init_conv_flag(struct DATA *);
 
 /* for the format */
 #ifdef FLOATING_POINT
-static void floating __P((struct DATA *, double));
-static void exponent __P((struct DATA *, double));
+static void floating(struct DATA *, double);
+static void exponent(struct DATA *, double);
 #endif
-static void number __P((struct DATA *, unsigned long, int));
+static void number(struct DATA *, unsigned long, int);
 #ifdef HAVE_LONG_LONG
-static void lnumber __P((struct DATA *, unsigned long long, int));
+static void lnumber(struct DATA *, unsigned long long, int);
 #endif
-static void pointer __P((struct DATA *, unsigned long));
-static void strings __P((struct DATA *, char *));
+static void pointer(struct DATA *, unsigned long);
+static void strings(struct DATA *, char *);
 
 #ifdef FLOATING_POINT
 #  define FALLBACK_FMTSIZE	32
 #  define FALLBACK_BASE		4096
 #  define LFALLBACK_BASE	5120
 #  ifdef HAVE_LONG_DOUBLE
-static void ldfallback __P((struct DATA *, const char *, const char *, long double));
+static void ldfallback(struct DATA *, const char *, const char *, long double);
 #  endif
-static void dfallback __P((struct DATA *, const char *, const char *, double));
+static void dfallback(struct DATA *, const char *, const char *, double);
 #endif
 
-static char *groupnum __P((char *));
+static char *groupnum(char *);
 
 #if defined (HAVE_LONG_DOUBLE)
 #  define LONGDOUBLE long double
@@ -330,9 +330,9 @@ static char *groupnum __P((char *));
 
 #ifdef DRIVER
 static void memory_error_and_abort ();
-static void *xmalloc __P((size_t));
-static void *xrealloc __P((void *, size_t));
-static void xfree __P((void *));
+static void *xmalloc(size_t);
+static void *xrealloc(void *, size_t);
+static void xfree(void *);
 #else
 #  include <xmalloc.h>
 #endif

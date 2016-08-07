@@ -36,8 +36,8 @@
 #include "shmbchar.h"
 #include "shmbutil.h"
 
-extern char *ansic_quote __P((char *, int, int *));
-extern int ansic_shouldquote __P((const char *));
+extern char *ansic_quote(char *, int, int *);
+extern int ansic_shouldquote(const char *);
 
 /* Default set of characters that should be backslash-quoted in strings */
 static const char bstab[256] =

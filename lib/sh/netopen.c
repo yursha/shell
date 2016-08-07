@@ -63,18 +63,18 @@ extern int errno;
 #endif
 
 #if !defined (HAVE_INET_ATON)
-extern int inet_aton __P((const char *, struct in_addr *));
+extern int inet_aton(const char *, struct in_addr *);
 #endif
 
 #ifndef HAVE_GETADDRINFO
-static int _getaddr __P((char *, struct in_addr *));
-static int _getserv __P((char *, int, unsigned short *));
-static int _netopen4 __P((char *, char *, int));
+static int _getaddr(char *, struct in_addr *);
+static int _getserv(char *, int, unsigned short *);
+static int _netopen4(char *, char *, int);
 #else /* HAVE_GETADDRINFO */
-static int _netopen6 __P((char *, char *, int));
+static int _netopen6(char *, char *, int);
 #endif
 
-static int _netopen __P((char *, char *, int));
+static int _netopen(char *, char *, int);
 
 #ifndef HAVE_GETADDRINFO
 /* Stuff the internet address corresponding to HOST into AP, in network

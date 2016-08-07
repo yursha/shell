@@ -32,7 +32,7 @@
 #include <stdio.h>
 #include <stdc.h>
 
-extern long get_clk_tck __P((void));
+extern long get_clk_tck(void);
 
 void
 clock_t_to_secs (t, sp, sfp)

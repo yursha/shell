@@ -241,24 +241,24 @@ static const unsigned long binsizes[NBUCKETS] = {
 #define binsize(x)	binsizes[(x)]
 
 /* Declarations for internal functions */
-static PTR_T internal_malloc __P((size_t, const char *, int, int));
-static PTR_T internal_realloc __P((PTR_T, size_t, const char *, int, int));
-static void internal_free __P((PTR_T, const char *, int, int));
-static PTR_T internal_memalign __P((size_t, size_t, const char *, int, int));
+static PTR_T internal_malloc(size_t, const char *, int, int);
+static PTR_T internal_realloc(PTR_T, size_t, const char *, int, int);
+static void internal_free(PTR_T, const char *, int, int);
+static PTR_T internal_memalign(size_t, size_t, const char *, int, int);
 #ifndef NO_CALLOC
-static PTR_T internal_calloc __P((size_t, size_t, const char *, int, int));
-static void internal_cfree __P((PTR_T, const char *, int, int));
+static PTR_T internal_calloc(size_t, size_t, const char *, int, int);
+static void internal_cfree(PTR_T, const char *, int, int);
 #endif
 #ifndef NO_VALLOC
-static PTR_T internal_valloc __P((size_t, const char *, int, int));
+static PTR_T internal_valloc(size_t, const char *, int, int);
 #endif
 
 #if defined (botch)
 extern void botch ();
 #else
-static void botch __P((const char *, const char *, int));
+static void botch(const char *, const char *, int);
 #endif
-static void xbotch __P((PTR_T, int, const char *, const char *, int));
+static void xbotch(PTR_T, int, const char *, const char *, int);
 
 #if !HAVE_DECL_SBRK
 extern char *sbrk ();
@@ -266,7 +266,7 @@ extern char *sbrk ();
 
 #ifdef SHELL
 extern int interrupt_immediately, running_trap;
-extern int signal_is_trapped __P((int));
+extern int signal_is_trapped(int);
 #endif
 
 #ifdef MALLOC_STATS
@@ -282,8 +282,8 @@ int malloc_register = 0;	/* future use */
 char _malloc_trace_buckets[NBUCKETS];
 
 /* These should really go into a header file. */
-extern void mtrace_alloc __P((const char *, PTR_T, size_t, const char *, int));
-extern void mtrace_free __P((PTR_T, int, const char *, int));
+extern void mtrace_alloc(const char *, PTR_T, size_t, const char *, int);
+extern void mtrace_free(PTR_T, int, const char *, int);
 #endif
 
 #if !defined (botch)

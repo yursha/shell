@@ -80,7 +80,7 @@ extern int errno;
 #endif /* !errno */
 
 #if !defined (HAVE_KILLPG)
-extern int killpg __P((pid_t, int));
+extern int killpg(pid_t, int);
 #endif
 
 #if !DEFAULT_CHILD_MAX
@@ -155,7 +155,7 @@ extern int killpg __P((pid_t, int));
 /* The number of additional slots to allocate when we run out. */
 #define JOB_SLOTS 8
 
-typedef int sh_job_map_func_t __P((JOB *, int, int, int));
+typedef int sh_job_map_func_t(JOB *, int, int, int);
 
 /* Variables used here but defined in other files. */
 extern int subshell_environment, line_number;
@@ -175,7 +175,7 @@ extern WORD_LIST *subst_assign_varlist;
 
 extern SigHandler **original_signals;
 
-extern void set_original_signal __P((int, SigHandler *));
+extern void set_original_signal(int, SigHandler *);
 
 static struct jobstats zerojs = { -1L, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NO_JOB, NO_JOB, 0, 0 };
 struct jobstats js = { -1L, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NO_JOB, NO_JOB, 0, 0 };
@@ -247,72 +247,72 @@ PROCESS *last_procsub_child = (PROCESS *)NULL;
 
 /* Functions local to this file. */
 
-static sighandler wait_sigint_handler __P((int));
-static sighandler sigchld_handler __P((int));
-static sighandler sigcont_sighandler __P((int));
-static sighandler sigstop_sighandler __P((int));
+static sighandler wait_sigint_handler(int);
+static sighandler sigchld_handler(int);
+static sighandler sigcont_sighandler(int);
+static sighandler sigstop_sighandler(int);
 
-static int waitchld __P((pid_t, int));
+static int waitchld(pid_t, int);
 
-static PROCESS *find_pipeline __P((pid_t, int, int *));
-static PROCESS *find_process __P((pid_t, int, int *));
+static PROCESS *find_pipeline(pid_t, int, int *);
+static PROCESS *find_process(pid_t, int, int *);
 
-static char *current_working_directory __P((void));
-static char *job_working_directory __P((void));
-static char *j_strsignal __P((int));
-static char *printable_job_status __P((int, PROCESS *, int));
+static char *current_working_directory(void);
+static char *job_working_directory(void);
+static char *j_strsignal(int);
+static char *printable_job_status(int, PROCESS *, int);
 
-static PROCESS *find_last_proc __P((int, int));
-static pid_t find_last_pid __P((int, int));
+static PROCESS *find_last_proc(int, int);
+static pid_t find_last_pid(int, int);
 
-static int set_new_line_discipline __P((int));
-static int map_over_jobs __P((sh_job_map_func_t *, int, int));
-static int job_last_stopped __P((int));
-static int job_last_running __P((int));
-static int most_recent_job_in_state __P((int, JOB_STATE));
-static int find_job __P((pid_t, int, PROCESS **));
-static int print_job __P((JOB *, int, int, int));
-static int process_exit_status __P((WAIT));
-static int process_exit_signal __P((WAIT));
-static int set_job_status_and_cleanup __P((int));
+static int set_new_line_discipline(int);
+static int map_over_jobs(sh_job_map_func_t *, int, int);
+static int job_last_stopped(int);
+static int job_last_running(int);
+static int most_recent_job_in_state(int, JOB_STATE);
+static int find_job(pid_t, int, PROCESS **);
+static int print_job(JOB *, int, int, int);
+static int process_exit_status(WAIT);
+static int process_exit_signal(WAIT);
+static int set_job_status_and_cleanup(int);
 
-static WAIT job_signal_status __P((int));
-static WAIT raw_job_exit_status __P((int));
+static WAIT job_signal_status(int);
+static WAIT raw_job_exit_status(int);
 
-static void notify_of_job_status __P((void));
-static void reset_job_indices __P((void));
-static void cleanup_dead_jobs __P((void));
-static int processes_in_job __P((int));
-static void realloc_jobs_list __P((void));
-static int compact_jobs_list __P((int));
-static void add_process __P((char *, pid_t));
-static void print_pipeline __P((PROCESS *, int, int, FILE *));
-static void pretty_print_job __P((int, int, FILE *));
-static void set_current_job __P((int));
-static void reset_current __P((void));
-static void set_job_running __P((int));
-static void setjstatus __P((int));
-static int maybe_give_terminal_to __P((pid_t, pid_t, int));
-static void mark_all_jobs_as_dead __P((void));
-static void mark_dead_jobs_as_notified __P((int));
-static void restore_sigint_handler __P((void));
+static void notify_of_job_status(void);
+static void reset_job_indices(void);
+static void cleanup_dead_jobs(void);
+static int processes_in_job(int);
+static void realloc_jobs_list(void);
+static int compact_jobs_list(int);
+static void add_process(char *, pid_t);
+static void print_pipeline(PROCESS *, int, int, FILE *);
+static void pretty_print_job(int, int, FILE *);
+static void set_current_job(int);
+static void reset_current(void);
+static void set_job_running(int);
+static void setjstatus(int);
+static int maybe_give_terminal_to(pid_t, pid_t, int);
+static void mark_all_jobs_as_dead(void);
+static void mark_dead_jobs_as_notified(int);
+static void restore_sigint_handler(void);
 #if defined (PGRP_PIPE)
-static void pipe_read __P((int *));
+static void pipe_read(int *);
 #endif
 
 /* Hash table manipulation */
 
-static ps_index_t *pshash_getbucket __P((pid_t));
-static void pshash_delindex __P((ps_index_t));
+static ps_index_t *pshash_getbucket(pid_t);
+static void pshash_delindex(ps_index_t);
 
 /* Saved background process status management */
-static struct pidstat *bgp_add __P((pid_t, int));
-static int bgp_delete __P((pid_t));
-static void bgp_clear __P((void));
-static int bgp_search __P((pid_t));
+static struct pidstat *bgp_add(pid_t, int);
+static int bgp_delete(pid_t);
+static void bgp_clear(void);
+static int bgp_search(pid_t);
 
-static ps_index_t bgp_getindex __P((void));
-static void bgp_resize __P((void));	/* XXX */
+static ps_index_t bgp_getindex(void);
+static void bgp_resize(void);	/* XXX */
 
 #if defined (ARRAY_VARS)
 static int *pstatuses;		/* list of pipeline statuses */

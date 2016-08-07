@@ -16,7 +16,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-static int INTERNAL_GLOB_PATTERN_P __P((const CHAR *));
+static int INTERNAL_GLOB_PATTERN_P(const CHAR *);
 
 /* Return nonzero if PATTERN has any special globbing chars in it.
    Compiled twice, once each for single-byte and multibyte characters. */

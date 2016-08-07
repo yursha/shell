@@ -38,13 +38,13 @@
 
 #include <glob/strmatch.h>
 
-static int glob_name_is_acceptable __P((const char *));
-static void ignore_globbed_names __P((char **, sh_ignore_func_t *));
-static char *split_ignorespec __P((char *, int *));
+static int glob_name_is_acceptable(const char *);
+static void ignore_globbed_names(char **, sh_ignore_func_t *);
+static char *split_ignorespec(char *, int *);
 	       
 #if defined (USE_POSIX_GLOB_LIBRARY)
 #  include <glob.h>
-typedef int posix_glob_errfunc_t __P((const char *, int));
+typedef int posix_glob_errfunc_t(const char *, int);
 #else
 #  include <glob/glob.h>
 #endif

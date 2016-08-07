@@ -41,7 +41,7 @@
 #include "shell.h"
 #include <readline/readline.h>
 
-static int _strcompare __P((char **, char **));
+static int _strcompare(char **, char **);
 
 /* Find greatest common prefix of two strings. */
 static int

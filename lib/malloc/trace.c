@@ -35,7 +35,7 @@ static int _mtrace_verbose = 0;
 
 #ifdef MALLOC_TRACE
 
-extern FILE *_imalloc_fopen __P((char *, char *, char *, char *, size_t));
+extern FILE *_imalloc_fopen(char *, char *, char *, char *, size_t);
 
 FILE *_mtrace_fp = NULL;
 extern char _malloc_trace_buckets[];

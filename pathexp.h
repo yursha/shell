@@ -50,7 +50,7 @@ extern int extended_glob;
 extern int glob_star;
 extern int match_ignore_case;	/* doesn't really belong here */
 
-extern int unquoted_glob_pattern_p __P((char *));
+extern int unquoted_glob_pattern_p(char *);
 
 /* PATHNAME can contain characters prefixed by CTLESC; this indicates
    that the character is to be quoted.  We quote it here in the style
@@ -62,13 +62,13 @@ extern int unquoted_glob_pattern_p __P((char *));
    pattern while executing a case statement), flags should include
    QGLOB_CVTNULL.  If flags includes QGLOB_FILENAME, appropriate quoting
    to match a filename should be performed. */
-extern char *quote_string_for_globbing __P((const char *, int));
+extern char *quote_string_for_globbing(const char *, int);
 
-extern int glob_char_p __P((const char *));
-extern char *quote_globbing_chars __P((const char *));
+extern int glob_char_p(const char *);
+extern char *quote_globbing_chars(const char *);
 
 /* Call the glob library to do globbing on PATHNAME. */
-extern char **shell_glob_filename __P((const char *));
+extern char **shell_glob_filename(const char *);
 
 /* Filename completion ignore.  Used to implement the "fignore" facility of
    tcsh, GLOBIGNORE (like ksh-93 FIGNORE), and EXECIGNORE.
@@ -84,7 +84,7 @@ struct ign {
   int len, flags;
 };
 
-typedef int sh_iv_item_func_t __P((struct ign *));
+typedef int sh_iv_item_func_t(struct ign *);
 
 struct ignorevar {
   char *varname;	/* FIGNORE, GLOBIGNORE, or EXECIGNORE */
@@ -94,10 +94,10 @@ struct ignorevar {
   sh_iv_item_func_t *item_func; /* Called when each item is parsed from $`varname' */
 };
 
-extern void setup_ignore_patterns __P((struct ignorevar *));
+extern void setup_ignore_patterns(struct ignorevar *);
 
-extern void setup_glob_ignore __P((char *));
-extern int should_ignore_glob_matches __P((void));
-extern void ignore_glob_matches __P((char **));
+extern void setup_glob_ignore(char *);
+extern int should_ignore_glob_matches(void);
+extern void ignore_glob_matches(char **);
 
 #endif

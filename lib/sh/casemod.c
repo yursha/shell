@@ -67,7 +67,7 @@
 
 #define CASE_USEWORDS	0x1000		/* modify behavior to act on words in passed string */
 
-extern char *substring __P((char *, int, int));
+extern char *substring(char *, int, int);
 
 #ifndef UCHAR_MAX
 #  define UCHAR_MAX	TYPE_MAXIMUM(unsigned char)

@@ -35,9 +35,9 @@
 #endif
 
 #if defined (HAVE_LOCALE_CHARSET)
-extern const char *locale_charset __P((void));
+extern const char *locale_charset(void);
 #else
-extern char *get_locale_var __P((char *));
+extern char *get_locale_var(char *);
 #endif
 
 #if defined (HAVE_ICONV)
@@ -49,9 +49,9 @@ static iconv_t conv_tofs = (iconv_t)-1;
 static char *outbuf = 0;
 static size_t outlen = 0;
 
-static char *curencoding __P((void));
-static void init_tofs __P((void));
-static void init_fromfs __P((void));
+static char *curencoding(void);
+static void init_tofs(void);
+static void init_fromfs(void);
 
 static char *
 curencoding ()

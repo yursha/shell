@@ -16,14 +16,14 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-int FCT __P((CHAR *, CHAR *, int));
+int FCT(CHAR *, CHAR *, int);
 
-static int GMATCH __P((CHAR *, CHAR *, CHAR *, CHAR *, int));
-static CHAR *PARSE_COLLSYM __P((CHAR *, INT *));
-static CHAR *BRACKMATCH __P((CHAR *, U_CHAR, int));
-static int EXTMATCH __P((INT, CHAR *, CHAR *, CHAR *, CHAR *, int));
+static int GMATCH(CHAR *, CHAR *, CHAR *, CHAR *, int);
+static CHAR *PARSE_COLLSYM(CHAR *, INT *);
+static CHAR *BRACKMATCH(CHAR *, U_CHAR, int);
+static int EXTMATCH(INT, CHAR *, CHAR *, CHAR *, CHAR *, int);
 
-/*static*/ CHAR *PATSCAN __P((CHAR *, CHAR *, INT));
+/*static*/ CHAR *PATSCAN(CHAR *, CHAR *, INT);
 
 int
 FCT (pattern, string, flags)

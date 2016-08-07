@@ -73,7 +73,7 @@ extern sh_builtin_func_t *this_shell_builtin;
 extern void initialize_siglist ();
 
 #if !defined (JOB_CONTROL)
-extern void initialize_job_signals __P((void));
+extern void initialize_job_signals(void);
 #endif
 
 /* Non-zero after SIGINT. */
@@ -107,7 +107,7 @@ int terminate_immediately = 0;
 static SigHandler *old_winch = (SigHandler *)SIG_DFL;
 #endif
 
-static void initialize_shell_signals __P((void));
+static void initialize_shell_signals(void);
 
 void
 initialize_signals (reinit)

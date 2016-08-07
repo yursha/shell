@@ -187,85 +187,85 @@ extern int asynchronous_notification;
 
 extern JOB **jobs;
 
-extern void making_children __P((void));
-extern void stop_making_children __P((void));
-extern void cleanup_the_pipeline __P((void));
-extern void save_pipeline __P((int));
-extern PROCESS *restore_pipeline __P((int));
-extern void start_pipeline __P((void));
-extern int stop_pipeline __P((int, COMMAND *));
-extern int discard_pipeline __P((PROCESS *));
-extern void append_process __P((char *, pid_t, int, int));
+extern void making_children(void);
+extern void stop_making_children(void);
+extern void cleanup_the_pipeline(void);
+extern void save_pipeline(int);
+extern PROCESS *restore_pipeline(int);
+extern void start_pipeline(void);
+extern int stop_pipeline(int, COMMAND *);
+extern int discard_pipeline(PROCESS *);
+extern void append_process(char *, pid_t, int, int);
 
-extern void delete_job __P((int, int));
-extern void nohup_job __P((int));
-extern void delete_all_jobs __P((int));
-extern void nohup_all_jobs __P((int));
+extern void delete_job(int, int);
+extern void nohup_job(int);
+extern void delete_all_jobs(int);
+extern void nohup_all_jobs(int);
 
-extern int count_all_jobs __P((void));
+extern int count_all_jobs(void);
 
-extern void terminate_current_pipeline __P((void));
-extern void terminate_stopped_jobs __P((void));
-extern void hangup_all_jobs __P((void));
-extern void kill_current_pipeline __P((void));
+extern void terminate_current_pipeline(void);
+extern void terminate_stopped_jobs(void);
+extern void hangup_all_jobs(void);
+extern void kill_current_pipeline(void);
 
 #if defined (__STDC__) && defined (pid_t)
-extern int get_job_by_pid __P((int, int));
-extern void describe_pid __P((int));
+extern int get_job_by_pid(int, int);
+extern void describe_pid(int);
 #else
-extern int get_job_by_pid __P((pid_t, int));
-extern void describe_pid __P((pid_t));
+extern int get_job_by_pid(pid_t, int);
+extern void describe_pid(pid_t);
 #endif
 
-extern void list_one_job __P((JOB *, int, int, int));
-extern void list_all_jobs __P((int));
-extern void list_stopped_jobs __P((int));
-extern void list_running_jobs __P((int));
+extern void list_one_job(JOB *, int, int, int);
+extern void list_all_jobs(int);
+extern void list_stopped_jobs(int);
+extern void list_running_jobs(int);
 
-extern pid_t make_child __P((char *, int));
+extern pid_t make_child(char *, int);
 
-extern int get_tty_state __P((void));
-extern int set_tty_state __P((void));
+extern int get_tty_state(void);
+extern int set_tty_state(void);
 
-extern int job_exit_status __P((int));
-extern int job_exit_signal __P((int));
+extern int job_exit_status(int);
+extern int job_exit_signal(int);
 
-extern int wait_for_single_pid __P((pid_t, int));
-extern void wait_for_background_pids __P((void));
-extern int wait_for __P((pid_t));
-extern int wait_for_job __P((int));
-extern int wait_for_any_job __P((void));
+extern int wait_for_single_pid(pid_t, int);
+extern void wait_for_background_pids(void);
+extern int wait_for(pid_t);
+extern int wait_for_job(int);
+extern int wait_for_any_job(void);
 
-extern void wait_sigint_cleanup __P((void));
+extern void wait_sigint_cleanup(void);
 
-extern void notify_and_cleanup __P((void));
-extern void reap_dead_jobs __P((void));
-extern int start_job __P((int, int));
-extern int kill_pid __P((pid_t, int, int));
-extern int initialize_job_control __P((int));
-extern void initialize_job_signals __P((void));
-extern int give_terminal_to __P((pid_t, int));
+extern void notify_and_cleanup(void);
+extern void reap_dead_jobs(void);
+extern int start_job(int, int);
+extern int kill_pid(pid_t, int, int);
+extern int initialize_job_control(int);
+extern void initialize_job_signals(void);
+extern int give_terminal_to(pid_t, int);
 
-extern void run_sigchld_trap __P((int));
+extern void run_sigchld_trap(int);
 
-extern int freeze_jobs_list __P((void));
-extern void unfreeze_jobs_list __P((void));
-extern int set_job_control __P((int));
-extern void without_job_control __P((void));
-extern void end_job_control __P((void));
-extern void restart_job_control __P((void));
-extern void set_sigchld_handler __P((void));
-extern void ignore_tty_job_signals __P((void));
-extern void default_tty_job_signals __P((void));
-extern void get_original_tty_job_signals __P((void));
+extern int freeze_jobs_list(void);
+extern void unfreeze_jobs_list(void);
+extern int set_job_control(int);
+extern void without_job_control(void);
+extern void end_job_control(void);
+extern void restart_job_control(void);
+extern void set_sigchld_handler(void);
+extern void ignore_tty_job_signals(void);
+extern void default_tty_job_signals(void);
+extern void get_original_tty_job_signals(void);
 
-extern void init_job_stats __P((void));
+extern void init_job_stats(void);
 
-extern void close_pgrp_pipe __P((void));
-extern void save_pgrp_pipe __P((int *, int));
-extern void restore_pgrp_pipe __P((int *));
+extern void close_pgrp_pipe(void);
+extern void save_pgrp_pipe(int *, int);
+extern void restore_pgrp_pipe(int *);
 
-extern void set_maxchild __P((int));
+extern void set_maxchild(int);
 
 extern int job_control;		/* set to 0 in nojobs.c */
 

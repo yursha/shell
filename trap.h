@@ -61,57 +61,57 @@
 extern char *trap_list[];
 
 /* Externally-visible functions declared in trap.c. */
-extern void initialize_traps __P((void));
+extern void initialize_traps(void);
 
-extern void run_pending_traps __P((void));
+extern void run_pending_traps(void);
 
-extern void queue_sigchld_trap __P((int));
-extern void maybe_set_sigchld_trap __P((char *));
-extern void set_impossible_sigchld_trap __P((void));
-extern void set_sigchld_trap __P((char *));
+extern void queue_sigchld_trap(int);
+extern void maybe_set_sigchld_trap(char *);
+extern void set_impossible_sigchld_trap(void);
+extern void set_sigchld_trap(char *);
 
-extern void set_debug_trap __P((char *));
-extern void set_error_trap __P((char *));
-extern void set_return_trap __P((char *));
+extern void set_debug_trap(char *);
+extern void set_error_trap(char *);
+extern void set_return_trap(char *);
 
-extern void maybe_set_debug_trap __P((char *));
-extern void maybe_set_error_trap __P((char *));
-extern void maybe_set_return_trap __P((char *));
+extern void maybe_set_debug_trap(char *);
+extern void maybe_set_error_trap(char *);
+extern void maybe_set_return_trap(char *);
 
-extern void set_sigint_trap __P((char *));
-extern void set_signal __P((int, char *));
+extern void set_sigint_trap(char *);
+extern void set_signal(int, char *);
 
-extern void restore_default_signal __P((int));
-extern void ignore_signal __P((int));
-extern int run_exit_trap __P((void));
-extern void run_trap_cleanup __P((int));
-extern int run_debug_trap __P((void));
-extern void run_error_trap __P((void));
-extern void run_return_trap __P((void));
+extern void restore_default_signal(int);
+extern void ignore_signal(int);
+extern int run_exit_trap(void);
+extern void run_trap_cleanup(int);
+extern int run_debug_trap(void);
+extern void run_error_trap(void);
+extern void run_return_trap(void);
 
-extern void free_trap_strings __P((void));
-extern void reset_signal_handlers __P((void));
-extern void restore_original_signals __P((void));
+extern void free_trap_strings(void);
+extern void reset_signal_handlers(void);
+extern void restore_original_signals(void);
 
-extern void get_original_signal __P((int));
-extern void get_all_original_signals __P((void));
+extern void get_original_signal(int);
+extern void get_all_original_signals(void);
 
-extern char *signal_name __P((int));
+extern char *signal_name(int);
 
-extern int decode_signal __P((char *, int));
-extern void run_interrupt_trap __P((int));
-extern int maybe_call_trap_handler __P((int));
-extern int signal_is_special __P((int));
-extern int signal_is_trapped __P((int));
-extern int signal_is_pending __P((int));
-extern int signal_is_ignored __P((int));
-extern int signal_is_hard_ignored __P((int));
-extern void set_signal_hard_ignored __P((int));
-extern void set_signal_ignored __P((int));
-extern int signal_in_progress __P((int));
+extern int decode_signal(char *, int);
+extern void run_interrupt_trap(int);
+extern int maybe_call_trap_handler(int);
+extern int signal_is_special(int);
+extern int signal_is_trapped(int);
+extern int signal_is_pending(int);
+extern int signal_is_ignored(int);
+extern int signal_is_hard_ignored(int);
+extern void set_signal_hard_ignored(int);
+extern void set_signal_ignored(int);
+extern int signal_in_progress(int);
 
-extern int first_pending_trap __P((void));
-extern int any_signals_trapped __P((void));
-extern void check_signals_and_traps __P((void));
+extern int first_pending_trap(void);
+extern int any_signals_trapped(void);
+extern void check_signals_and_traps(void);
 
 #endif /* _TRAP_H_ */

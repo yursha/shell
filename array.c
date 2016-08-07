@@ -53,7 +53,7 @@
 		new->next = ae; \
 	} while(0)
 
-static char *array_to_string_internal __P((ARRAY_ELEMENT *, ARRAY_ELEMENT *, char *, int));
+static char *array_to_string_internal(ARRAY_ELEMENT *, ARRAY_ELEMENT *, char *, int);
 
 static ARRAY *lastarray = 0;
 static ARRAY_ELEMENT *lastref = 0;

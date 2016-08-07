@@ -34,11 +34,11 @@
 
 #include "mstats.h"
 
-extern int malloc_free_blocks __P((int));
+extern int malloc_free_blocks(int);
 
 extern struct _malstats _mstats;
 
-extern FILE *_imalloc_fopen __P((char *, char *, char *, char *, size_t));
+extern FILE *_imalloc_fopen(char *, char *, char *, char *, size_t);
 
 struct bucket_stats
 malloc_bucket_stats (size)

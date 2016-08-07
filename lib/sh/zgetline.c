@@ -34,13 +34,13 @@
 extern int errno;
 #endif
 
-extern ssize_t zread __P((int, char *, size_t));
-extern ssize_t zreadc __P((int, char *));
-extern ssize_t zreadintr __P((int, char *, size_t));
-extern ssize_t zreadcintr __P((int, char *));
+extern ssize_t zread(int, char *, size_t);
+extern ssize_t zreadc(int, char *);
+extern ssize_t zreadintr(int, char *, size_t);
+extern ssize_t zreadcintr(int, char *);
 
-typedef ssize_t breadfunc_t __P((int, char *, size_t));
-typedef ssize_t creadfunc_t __P((int, char *));
+typedef ssize_t breadfunc_t(int, char *, size_t);
+typedef ssize_t creadfunc_t(int, char *);
 
 /* Initial memory allocation for automatic growing buffer in zreadlinec */
 #define GET_LINE_INITIAL_ALLOCATION 16

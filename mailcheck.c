@@ -43,7 +43,7 @@
 
 extern time_t shell_start_time;
 
-extern int mailstat __P((const char *, struct stat *));
+extern int mailstat(const char *, struct stat *);
 
 typedef struct _fileinfo {
   char *name;
@@ -66,19 +66,19 @@ static time_t last_time_mail_checked = 0;
 /* Non-zero means warn if a mail file has been read since last checked. */
 int mail_warning;
 
-static int find_mail_file __P((char *));
-static void init_mail_file __P((int));
-static void update_mail_file __P((int));
-static int add_mail_file __P((char *, char *));
+static int find_mail_file(char *);
+static void init_mail_file(int);
+static void update_mail_file(int);
+static int add_mail_file(char *, char *);
 
-static FILEINFO *alloc_mail_file __P((char *, char *));
-static void dispose_mail_file __P((FILEINFO *));
+static FILEINFO *alloc_mail_file(char *, char *);
+static void dispose_mail_file(FILEINFO *);
 
-static int file_mod_date_changed __P((int));
-static int file_access_date_changed __P((int));
-static int file_has_grown __P((int));
+static int file_mod_date_changed(int);
+static int file_access_date_changed(int);
+static int file_has_grown(int);
 
-static char *parse_mailpath_spec __P((char *));
+static char *parse_mailpath_spec(char *);
 
 /* Returns non-zero if it is time to check mail. */
 int

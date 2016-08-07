@@ -127,60 +127,60 @@ extern char *glob_argv_flags;
 
 extern int job_control;	/* XXX */
 
-extern int close __P((int));
+extern int close(int);
 
 /* Static functions defined and used in this file. */
-static void close_pipes __P((int, int));
-static void do_piping __P((int, int));
-static void bind_lastarg __P((char *));
-static int shell_control_structure __P((enum command_type));
-static void cleanup_redirects __P((REDIRECT *));
+static void close_pipes(int, int);
+static void do_piping(int, int);
+static void bind_lastarg(char *);
+static int shell_control_structure(enum command_type);
+static void cleanup_redirects(REDIRECT *);
 
 #if defined (JOB_CONTROL)
-static int restore_signal_mask __P((sigset_t *));
+static int restore_signal_mask(sigset_t *);
 #endif
 
-static void async_redirect_stdin __P((void));
+static void async_redirect_stdin(void);
 
-static int builtin_status __P((int));
+static int builtin_status(int);
 
-static int execute_for_command __P((FOR_COM *));
+static int execute_for_command(FOR_COM *);
 #if defined (SELECT_COMMAND)
-static int displen __P((const char *));
-static int print_index_and_element __P((int, int, WORD_LIST *));
-static void indent __P((int, int));
-static void print_select_list __P((WORD_LIST *, int, int, int));
-static char *select_query __P((WORD_LIST *, int, char *, int));
-static int execute_select_command __P((SELECT_COM *));
+static int displen(const char *);
+static int print_index_and_element(int, int, WORD_LIST *);
+static void indent(int, int);
+static void print_select_list(WORD_LIST *, int, int, int);
+static char *select_query(WORD_LIST *, int, char *, int);
+static int execute_select_command(SELECT_COM *);
 #endif
 #if defined (DPAREN_ARITHMETIC)
-static int execute_arith_command __P((ARITH_COM *));
+static int execute_arith_command(ARITH_COM *);
 #endif
 #if defined (COND_COMMAND)
-static int execute_cond_node __P((COND_COM *));
-static int execute_cond_command __P((COND_COM *));
+static int execute_cond_node(COND_COM *);
+static int execute_cond_command(COND_COM *);
 #endif
 #if defined (COMMAND_TIMING)
-static int mkfmt __P((char *, int, int, time_t, int));
+static int mkfmt(char *, int, int, time_t, int);
 static void print_formatted_time __P((FILE *, char *,
 				      time_t, int, time_t, int,
 				      time_t, int, int));
-static int time_command __P((COMMAND *, int, int, int, struct fd_bitmap *));
+static int time_command(COMMAND *, int, int, int, struct fd_bitmap *);
 #endif
 #if defined (ARITH_FOR_COMMAND)
-static intmax_t eval_arith_for_expr __P((WORD_LIST *, int *));
-static int execute_arith_for_command __P((ARITH_FOR_COM *));
+static intmax_t eval_arith_for_expr(WORD_LIST *, int *);
+static int execute_arith_for_command(ARITH_FOR_COM *);
 #endif
-static int execute_case_command __P((CASE_COM *));
-static int execute_while_command __P((WHILE_COM *));
-static int execute_until_command __P((WHILE_COM *));
-static int execute_while_or_until __P((WHILE_COM *, int));
-static int execute_if_command __P((IF_COM *));
-static int execute_null_command __P((REDIRECT *, int, int, int));
-static void fix_assignment_words __P((WORD_LIST *));
-static int execute_simple_command __P((SIMPLE_COM *, int, int, int, struct fd_bitmap *));
-static int execute_builtin __P((sh_builtin_func_t *, WORD_LIST *, int, int));
-static int execute_function __P((SHELL_VAR *, WORD_LIST *, int, struct fd_bitmap *, int, int));
+static int execute_case_command(CASE_COM *);
+static int execute_while_command(WHILE_COM *);
+static int execute_until_command(WHILE_COM *);
+static int execute_while_or_until(WHILE_COM *, int);
+static int execute_if_command(IF_COM *);
+static int execute_null_command(REDIRECT *, int, int, int);
+static void fix_assignment_words(WORD_LIST *);
+static int execute_simple_command(SIMPLE_COM *, int, int, int, struct fd_bitmap *);
+static int execute_builtin(sh_builtin_func_t *, WORD_LIST *, int, int);
+static int execute_function(SHELL_VAR *, WORD_LIST *, int, struct fd_bitmap *, int, int);
 static int execute_builtin_or_function __P((WORD_LIST *, sh_builtin_func_t *,
 					    SHELL_VAR *,
 					    REDIRECT *, struct fd_bitmap *, int));
@@ -193,18 +193,18 @@ static void execute_subshell_builtin_or_function __P((WORD_LIST *, REDIRECT *,
 static int execute_disk_command __P((WORD_LIST *, REDIRECT *, char *,
 				      int, int, int, struct fd_bitmap *, int));
 
-static char *getinterp __P((char *, int, int *));
-static void initialize_subshell __P((void));
-static int execute_in_subshell __P((COMMAND *, int, int, int, struct fd_bitmap *));
+static char *getinterp(char *, int, int *);
+static void initialize_subshell(void);
+static int execute_in_subshell(COMMAND *, int, int, int, struct fd_bitmap *);
 #if defined (COPROCESS_SUPPORT)
-static int execute_coproc __P((COMMAND *, int, int, struct fd_bitmap *));
+static int execute_coproc(COMMAND *, int, int, struct fd_bitmap *);
 #endif
 
-static int execute_pipeline __P((COMMAND *, int, int, int, struct fd_bitmap *));
+static int execute_pipeline(COMMAND *, int, int, int, struct fd_bitmap *);
 
-static int execute_connection __P((COMMAND *, int, int, int, struct fd_bitmap *));
+static int execute_connection(COMMAND *, int, int, int, struct fd_bitmap *);
 
-static int execute_intern_function __P((WORD_DESC *, FUNCTION_DEF *));
+static int execute_intern_function(WORD_DESC *, FUNCTION_DEF *);
 
 /* Set to 1 if fd 0 was the subject of redirection to a subshell.  Global
    so that reader_loop can set it to zero before executing a command. */
@@ -1100,9 +1100,9 @@ execute_command_internal (command, asynchronous, pipe_in, pipe_out,
 #if defined (COMMAND_TIMING)
 
 #if defined (HAVE_GETRUSAGE) && defined (HAVE_GETTIMEOFDAY)
-extern struct timeval *difftimeval __P((struct timeval *, struct timeval *, struct timeval *));
-extern struct timeval *addtimeval __P((struct timeval *, struct timeval *, struct timeval *));
-extern int timeval_to_cpu __P((struct timeval *, struct timeval *, struct timeval *));
+extern struct timeval *difftimeval(struct timeval *, struct timeval *, struct timeval *);
+extern struct timeval *addtimeval(struct timeval *, struct timeval *, struct timeval *);
+extern int timeval_to_cpu(struct timeval *, struct timeval *, struct timeval *);
 #endif
 
 #define POSIX_TIMEFORMAT "real %2R\nuser %2U\nsys %2S"
@@ -1662,18 +1662,18 @@ typedef struct cplist
   }
 cplist_t;
 
-static struct cpelement *cpe_alloc __P((struct coproc *));
-static void cpe_dispose __P((struct cpelement *));
-static struct cpelement *cpl_add __P((struct coproc *));
-static struct cpelement *cpl_delete __P((pid_t));
-static void cpl_reap __P((void));
-static void cpl_flush __P((void));
-static void cpl_closeall __P((void));
-static struct cpelement *cpl_search __P((pid_t));
-static struct cpelement *cpl_searchbyname __P((const char *));
-static void cpl_prune __P((void));
+static struct cpelement *cpe_alloc(struct coproc *);
+static void cpe_dispose(struct cpelement *);
+static struct cpelement *cpl_add(struct coproc *);
+static struct cpelement *cpl_delete(pid_t);
+static void cpl_reap(void);
+static void cpl_flush(void);
+static void cpl_closeall(void);
+static struct cpelement *cpl_search(pid_t);
+static struct cpelement *cpl_searchbyname(const char *);
+static void cpl_prune(void);
 
-static void coproc_free __P((struct coproc *));
+static void coproc_free(struct coproc *);
 
 /* Will go away when there is fully-implemented support for multiple coprocs. */
 Coproc sh_coproc = { 0, NO_PID, -1, -1, 0, 0, 0, 0, 0 };

@@ -38,7 +38,7 @@
    don't discard the upper 32 bits of the value, if present. */
 #define HASH_BUCKET(s, t, h) (((h) = hash_string (s)) & ((t)->nbuckets - 1))
 
-static BUCKET_CONTENTS *copy_bucket_array __P((BUCKET_CONTENTS *, sh_string_func_t *));
+static BUCKET_CONTENTS *copy_bucket_array(BUCKET_CONTENTS *, sh_string_func_t *);
 
 /* Make a new hash table with BUCKETS number of buckets.  Initialize
    each slot in the table to NULL. */

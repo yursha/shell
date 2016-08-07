@@ -42,7 +42,7 @@
 #endif
 
 #if ! HAVE_STRCHRNUL
-extern char *strchrnul __P((const char *, int));
+extern char *strchrnul(const char *, int);
 #endif
 
 /* On some locales (ex. ja_JP.sjis), mbsrtowc doesn't convert 0x5c to U<0x5c>.

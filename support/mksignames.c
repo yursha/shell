@@ -57,7 +57,7 @@ write_signames (stream)
 	   "/* A translation list so we can be polite to our users. */\n");
 #if defined (CROSS_COMPILING)
   fprintf (stream, "extern char *signal_names[];\n\n");
-  fprintf (stream, "extern void initialize_signames __P((void));\n\n");
+  fprintf (stream, "extern void initialize_signames(void);\n\n");
 #else
   fprintf (stream, "char *signal_names[NSIG + 4] = {\n");
 

@@ -36,14 +36,14 @@
 #endif /* PTR_T */
 
 /* Allocation functions in xmalloc.c */
-extern PTR_T xmalloc __P((size_t));
-extern PTR_T xrealloc __P((void *, size_t));
-extern void xfree __P((void *));
+extern PTR_T xmalloc(size_t);
+extern PTR_T xrealloc(void *, size_t);
+extern void xfree(void *);
 
 #if defined(USING_BASH_MALLOC) && !defined (DISABLE_MALLOC_WRAPPERS)
-extern PTR_T sh_xmalloc __P((size_t, const char *, int));
-extern PTR_T sh_xrealloc __P((void *, size_t, const char *, int));
-extern void sh_xfree __P((void *, const char *, int));
+extern PTR_T sh_xmalloc(size_t, const char *, int);
+extern PTR_T sh_xrealloc(void *, size_t, const char *, int);
+extern void sh_xfree(void *, const char *, int);
 
 #define xmalloc(x)	sh_xmalloc((x), __FILE__, __LINE__)
 #define xrealloc(x, n)	sh_xrealloc((x), (n), __FILE__, __LINE__)

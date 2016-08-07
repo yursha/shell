@@ -68,9 +68,9 @@ extern int errno;
 extern int shell_tty;
 
 #if defined (READLINE)
-extern void rl_set_screen_size __P((int, int));
+extern void rl_set_screen_size(int, int);
 #endif
-extern void sh_set_lines_and_columns __P((int, int));
+extern void sh_set_lines_and_columns(int, int);
 
 void
 get_new_window_size (from_sig, rp, cp)

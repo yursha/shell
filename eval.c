@@ -61,8 +61,8 @@ extern char *ps0_prompt;
 extern sigset_t top_level_mask;
 #endif
 
-static void send_pwd_to_eterm __P((void));
-static sighandler alrm_catcher __P((int));
+static void send_pwd_to_eterm(void);
+static sighandler alrm_catcher(int);
 
 /* Read and execute commands until EOF is reached.  This assumes that
    the input source has already been initialized. */
