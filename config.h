@@ -1,36 +1,7 @@
-/* config.h.  Generated from config.h.in by configure.  */
-/* config.h -- Configuration file for bash. */
-
-/* Copyright (C) 1987-2009,2011-2012 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-/* Template settings for autoconf */
-
-#define __EXTENSIONS__ 1
-#define _ALL_SOURCE 1
 #define _GNU_SOURCE 1
-#define _POSIX_PTHREAD_SEMANTICS 1
-#define _TANDEM_SOURCE 1
-
-/* Configuration feature settings controllable by autoconf. */
 
 /* Define JOB_CONTROL if your operating system supports
    BSD-like job control. */
@@ -179,14 +150,11 @@
 /* Define to allow functions to be imported from the environment. */
 #define FUNCTION_IMPORT 1
 
-/* Define AFS if you are using Transarc's AFS. */
-/* #undef AFS */
-
 #define ENABLE_NLS 1
 
 /* End of configuration settings controllable by autoconf. */
-/* Other settable options appear in config-top.h. */
 
+/* Other settable options appear in config-top.h. */
 #include "config-top.h"
 
 /* Beginning of autoconf additions. */

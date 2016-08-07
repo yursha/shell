@@ -1,11 +1,6 @@
 #include "config.h"
-
 #include "bashtypes.h"
-
-#if defined(HAVE_SYS_FILE_H)
 #include <sys/file.h>
-#endif
-
 #include "posixstat.h"
 #include "posixtime.h"
 #include "bashansi.h"
@@ -13,14 +8,8 @@
 #include <signal.h>
 #include <errno.h>
 #include "filecntl.h"
-#if defined(HAVE_PWD_H)
 #include <pwd.h>
-#endif
-
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
-
 #include "bashintl.h"
 
 #define NEED_SH_SETLINEBUF_DECL /* used in externs.h */
@@ -31,7 +20,6 @@
 #include "mailcheck.h"
 #include "builtins.h"
 #include "builtins/common.h"
-
 
 #if defined(JOB_CONTROL)
 #include "jobs.h"
@@ -61,10 +49,6 @@ extern int get_tty_state(void);
 
 #include <tilde/tilde.h>
 #include <glob/strmatch.h>
-
-#if defined(__OPENNT)
-#include <opennt/opennt.h>
-#endif
 
 #if !defined(HAVE_GETPW_DECLS)
 extern struct passwd *getpwuid();
@@ -322,9 +306,6 @@ static void shell_reinitialize(void);
 static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
-  volatile int locally_skip_execution;
-  volatile int arg_index;
-  volatile int top_level_arg_index;
 
   /* Catch early SIGINTs. */
   if (sigsetjmp(top_level, 0)) {
@@ -364,10 +345,16 @@ int main(int argc, char **argv, char **env) {
   shell_reinitialized = 0;
 
   /* Initialize `local' variables for all `invocations' of main(). */
-  arg_index = 1;
-  if (arg_index > argc) arg_index = argc;
+  volatile int arg_index = 1;
+
+  if (arg_index > argc) {
+      arg_index = argc;
+  }
+
   command_execution_string = (char *)NULL;
-  want_pending_command = locally_skip_execution = read_from_stdin = 0;
+
+  volatile int locally_skip_execution = 0;
+  want_pending_command = read_from_stdin = 0;
   default_input = stdin;
 #if defined(BUFFERED_INPUT)
   default_buffered_input = -1;
@@ -531,7 +518,7 @@ int main(int argc, char **argv, char **env) {
     if (running_under_emacs) gnu_error_format = 1;
   }
 
-  top_level_arg_index = arg_index;
+  volatile int top_level_arg_index = arg_index;
 
   int old_errexit_flag;
   old_errexit_flag = exit_immediately_on_error;

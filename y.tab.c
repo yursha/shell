@@ -1329,23 +1329,6 @@ static YYSIZE_T yystrlen(const char *yystr) {
 #endif
 #endif
 
-#ifndef yystpcpy
-#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
-#define yystpcpy stpcpy
-#else
-/* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
-   YYDEST.  */
-static char *yystpcpy(char *yydest, const char *yysrc) {
-  char *yyd = yydest;
-  const char *yys = yysrc;
-
-  while ((*yyd++ = *yys++) != '\0') continue;
-
-  return yyd - 1;
-}
-#endif
-#endif
-
 #ifndef yytnamerr
 /* Copy to YYRES the contents of YYSTR after stripping away unnecessary
    quotes and backslashes, so that it's suitable for yyerror.  The
@@ -1381,7 +1364,7 @@ static YYSIZE_T yytnamerr(char *yyres, const char *yystr) {
 
   if (!yyres) return yystrlen(yystr);
 
-  return yystpcpy(yyres, yystr) - yyres;
+  return stpcpy(yyres, yystr) - yyres;
 }
 #endif
 

@@ -657,30 +657,6 @@ yystrlen(const char *yystr)
 #endif
 #endif
 
-#ifndef yystpcpy
-#if defined(__GLIBC__) && defined(_STRING_H) && defined(_GNU_SOURCE)
-#define yystpcpy stpcpy
-#else
-/* Copy YYSRC to YYDEST, returning the address of the terminating '\0' in
-   YYDEST.  */
-static char *
-#if defined(__STDC__) || defined(__cplusplus)
-yystpcpy(char *yydest, const char *yysrc)
-#else
-    yystpcpy(yydest, yysrc) char *yydest;
-const char *yysrc;
-#endif
-{
-  register char *yyd = yydest;
-  register const char *yys = yysrc;
-
-  while ((*yyd++ = *yys++) != '\0') continue;
-
-  return yyd - 1;
-}
-#endif
-#endif
-
 #endif /* !YYERROR_VERBOSE */
 
 #if YYDEBUG
@@ -1137,8 +1113,8 @@ yyerrlab:
           (sizeof("syntax error, unexpected ") + yystrlen(yytname[yytype]));
       yymsg = (char *)YYSTACK_ALLOC(yysize);
       if (yymsg != 0) {
-        char *yyp = yystpcpy(yymsg, "syntax error, unexpected ");
-        yyp = yystpcpy(yyp, yytname[yytype]);
+        char *yyp = stpcpy(yymsg, "syntax error, unexpected ");
+        yyp = stpcpy(yyp, yytname[yytype]);
 
         if (yycount < 5) {
           yyprefix = ", expecting ";
