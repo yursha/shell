@@ -20,7 +20,6 @@
 
 #define INSTALL_DEBUG_MODE
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -89,7 +88,6 @@ extern int get_tty_state(void);
 #include <opennt/opennt.h>
 #endif
 
-
 #if !defined(HAVE_GETPW_DECLS)
 extern struct passwd *getpwuid();
 #endif /* !HAVE_GETPW_DECLS */
@@ -111,45 +109,62 @@ extern int gnu_error_format;
 extern char *primary_prompt, *secondary_prompt;
 extern char *this_command_name;
 
-/* Non-zero means that this shell has already been run; i.e. you should
-   call shell_reinitialize () if you need to start afresh. */
+/**
+ * Non-zero means that this shell has already been run; i.e. you should
+ * call shell_reinitialize () if you need to start afresh.
+ */
 int shell_initialized = 0;
 
-COMMAND *global_command = (COMMAND *)NULL;
+COMMAND *global_command = (COMMAND*) NULL;
 
-/* Information about the current user. */
+/**
+ * Information about the current user.
+ */
 struct user_info current_user = {(uid_t)-1,   (uid_t)-1,    (gid_t)-1,
                                  (gid_t)-1,   (char *)NULL, (char *)NULL,
                                  (char *)NULL};
 
-/* The current host's name. */
-char *current_host_name = (char *)NULL;
+/**
+ * The current host's name.
+ */
+char *current_host_name = (char*) NULL;
 
-/* Non-zero means that this shell is a login shell.
-   Specifically:
-   0 = not login shell.
-   1 = login shell from getty (or equivalent fake out)
-  -1 = login shell from "--login" (or -l) flag.
-  -2 = both from getty, and from flag.
+/**
+ * Non-zero means that this shell is a login shell.
+ * Specifically:
+ *  0 = not login shell.
+ *  1 = login shell from getty (or equivalent fake out)
+ * -1 = login shell from "--login" (or -l) flag.
+ * -2 = both from getty, and from flag.
  */
 int login_shell = 0;
 
-/* Non-zero means that at this moment, the shell is interactive.  In
-   general, this means that the shell is at this moment reading input
-   from the keyboard. */
+/**
+ * Non-zero means that at this moment, the shell is interactive.  In
+ * general, this means that the shell is at this moment reading input
+ * from the keyboard.
+ */
 int interactive = 0;
 
-/* Non-zero means that the shell was started as an interactive shell. */
+/**
+ * Non-zero means that the shell was started as an interactive shell.
+ */
 int interactive_shell = 0;
 
-/* Non-zero means to send a SIGHUP to all jobs when an interactive login
-   shell exits. */
+/**
+ * Non-zero means to send a SIGHUP to all jobs when an interactive login
+ * shell exits.
+ */
 int hup_on_exit = 0;
 
-/* Non-zero means to list status of running and stopped jobs at shell exit */
+/**
+ * Non-zero means to list status of running and stopped jobs at shell exit
+ */
 int check_jobs_at_exit = 0;
 
-/* Non-zero means to change to a directory name supplied as a command name */
+/**
+ * Non-zero means to change to a directory name supplied as a command name
+ */
 int autocd = 0;
 
 /* Tells what state the shell was in when it started:
@@ -332,7 +347,6 @@ static void shell_reinitialize(void);
 static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
-  int code;
 #if defined(RESTRICTED_SHELL)
   int saverst;
 #endif
@@ -340,8 +354,9 @@ int main(int argc, char **argv, char **env) {
   volatile int arg_index, top_level_arg_index;
 
   /* Catch early SIGINTs. */
-  code = sigsetjmp(top_level, 0);
-  if (code) exit(2);
+  if (sigsetjmp(top_level, 0)) {
+    exit(2);
+  }
 
   xtrace_init();
 
@@ -551,7 +566,7 @@ int main(int argc, char **argv, char **env) {
   /* Give this shell a place to longjmp to before executing the
      startup files.  This allows users to press C-c to abort the
      lengthy startup. */
-  code = sigsetjmp(top_level, 1);
+  int code = sigsetjmp(top_level, 1);
   if (code) {
     if (code == EXITPROG || code == ERREXIT)
       exit_shell(last_command_exit_value);

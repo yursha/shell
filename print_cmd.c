@@ -337,9 +337,7 @@ void print_word_list(list, separator) WORD_LIST *list;
 char *separator;
 { _print_word_list(list, separator, xprintf); }
 
-void xtrace_set(fd, fp) int fd;
-FILE *fp;
-{
+void xtrace_set(int fd, FILE *fp) {
   if (fd >= 0 && sh_validfd(fd) == 0) {
     internal_error(_("xtrace_set: %d: invalid file descriptor"), fd);
     return;
@@ -356,7 +354,9 @@ FILE *fp;
   xtrace_fp = fp;
 }
 
-void xtrace_init() { xtrace_set(-1, stderr); }
+void xtrace_init() {
+  xtrace_set(-1, stderr);
+}
 
 void xtrace_reset() {
   if (xtrace_fd >= 0 && xtrace_fp) {
