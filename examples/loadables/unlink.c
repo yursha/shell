@@ -38,37 +38,31 @@
 extern int errno;
 #endif
 
-int
-unlink_builtin (list)
-     WORD_LIST *list;
+int unlink_builtin(list) WORD_LIST *list;
 {
-  if (list == 0)
-    {
-      builtin_usage ();
-      return (EX_USAGE);
-    }
+  if (list == 0) {
+    builtin_usage();
+    return (EX_USAGE);
+  }
 
-  if (unlink (list->word->word) != 0)
-    {
-      builtin_error ("%s: cannot unlink: %s", list->word->word, strerror (errno));
-      return (EXECUTION_FAILURE);
-    }
+  if (unlink(list->word->word) != 0) {
+    builtin_error("%s: cannot unlink: %s", list->word->word, strerror(errno));
+    return (EXECUTION_FAILURE);
+  }
 
   return (EXECUTION_SUCCESS);
 }
 
 char *unlink_doc[] = {
-	"Remove a directory entry.",
-	"",
-	"Forcibly remove a directory entry, even if it's a directory.",
-	(char *)NULL
-};
+    "Remove a directory entry.", "",
+    "Forcibly remove a directory entry, even if it's a directory.",
+    (char *)NULL};
 
 struct builtin unlink_struct = {
-	"unlink",		/* builtin name */
-	unlink_builtin,		/* function implementing the builtin */
-	BUILTIN_ENABLED,	/* initial flags for builtin */
-	unlink_doc,		/* array of long documentation strings. */
-	"unlink name",		/* usage synopsis; becomes short_doc */
-	0			/* reserved for internal use */
+    "unlink",        /* builtin name */
+    unlink_builtin,  /* function implementing the builtin */
+    BUILTIN_ENABLED, /* initial flags for builtin */
+    unlink_doc,      /* array of long documentation strings. */
+    "unlink name",   /* usage synopsis; becomes short_doc */
+    0                /* reserved for internal use */
 };

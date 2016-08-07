@@ -18,85 +18,85 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_POSIXWAIT_H_)
-#  define _POSIXWAIT_H_
+#if !defined(_POSIXWAIT_H_)
+#define _POSIXWAIT_H_
 
 /* If _POSIX_VERSION is not defined, we assume that <sys/wait.h> defines
    a `union wait' and various macros used to manipulate it.  Look in
    unionwait.h for the things we expect to find. */
-#if defined (HAVE_SYS_WAIT_H)
-#  include <sys/wait.h>
+#if defined(HAVE_SYS_WAIT_H)
+#include <sys/wait.h>
 #else /* !HAVE_SYS_WAIT_H */
-#  if !defined (_POSIX_VERSION)
-#    include "unionwait.h"
-#  endif
-#endif  /* !HAVE_SYS_WAIT_H */
+#if !defined(_POSIX_VERSION)
+#include "unionwait.h"
+#endif
+#endif /* !HAVE_SYS_WAIT_H */
 
 /* How to get the status of a job.  For Posix, this is just an
    int, but for other systems we have to crack the union wait. */
-#if !defined (_POSIX_VERSION)
+#if !defined(_POSIX_VERSION)
 typedef union wait WAIT;
-#  define WSTATUS(t)  (t.w_status)
+#define WSTATUS(t) (t.w_status)
 #else /* _POSIX_VERSION */
 typedef int WAIT;
-#  define WSTATUS(t)  (t)
+#define WSTATUS(t) (t)
 #endif /* _POSIX_VERSION */
 
 /* Make sure that parameters to wait3 are defined. */
-#if !defined (WNOHANG)
-#  define WNOHANG 1
-#  define WUNTRACED 2
+#if !defined(WNOHANG)
+#define WNOHANG 1
+#define WUNTRACED 2
 #endif /* WNOHANG */
 
 /* More Posix P1003.1 definitions.  In the POSIX versions, the parameter is
    passed as an `int', in the non-POSIX version, as `union wait'. */
-#if defined (_POSIX_VERSION)
+#if defined(_POSIX_VERSION)
 
-#  if !defined (WSTOPSIG)
-#    define WSTOPSIG(s)       ((s) >> 8)
-#  endif /* !WSTOPSIG */
+#if !defined(WSTOPSIG)
+#define WSTOPSIG(s) ((s) >> 8)
+#endif /* !WSTOPSIG */
 
-#  if !defined (WTERMSIG)
-#    define WTERMSIG(s)	      ((s) & 0177)
-#  endif /* !WTERMSIG */
+#if !defined(WTERMSIG)
+#define WTERMSIG(s) ((s)&0177)
+#endif /* !WTERMSIG */
 
-#  if !defined (WEXITSTATUS)
-#    define WEXITSTATUS(s)    ((s) >> 8)
-#  endif /* !WEXITSTATUS */
+#if !defined(WEXITSTATUS)
+#define WEXITSTATUS(s) ((s) >> 8)
+#endif /* !WEXITSTATUS */
 
-#  if !defined (WIFSTOPPED)
-#    define WIFSTOPPED(s)     (((s) & 0177) == 0177)
-#  endif /* !WIFSTOPPED */
+#if !defined(WIFSTOPPED)
+#define WIFSTOPPED(s) (((s)&0177) == 0177)
+#endif /* !WIFSTOPPED */
 
-#  if !defined (WIFEXITED)
-#    define WIFEXITED(s)      (((s) & 0377) == 0)
-#  endif /* !WIFEXITED */
+#if !defined(WIFEXITED)
+#define WIFEXITED(s) (((s)&0377) == 0)
+#endif /* !WIFEXITED */
 
-#  if !defined (WIFSIGNALED)
-#    define WIFSIGNALED(s)    (!WIFSTOPPED(s) && !WIFEXITED(s))
-#  endif /* !WIFSIGNALED */
+#if !defined(WIFSIGNALED)
+#define WIFSIGNALED(s) (!WIFSTOPPED(s) && !WIFEXITED(s))
+#endif /* !WIFSIGNALED */
 
-#  if !defined (WIFCORED)
-#    define WIFCORED(s)       ((s) & 0200)
-#  endif /* !WIFCORED */
+#if !defined(WIFCORED)
+#define WIFCORED(s) ((s)&0200)
+#endif /* !WIFCORED */
 
 #else /* !_POSIX_VERSION */
 
-#  if !defined (WSTOPSIG)
-#    define WSTOPSIG(s)	      ((s).w_stopsig)
-#  endif /* !WSTOPSIG */
+#if !defined(WSTOPSIG)
+#define WSTOPSIG(s) ((s).w_stopsig)
+#endif /* !WSTOPSIG */
 
-#  if !defined (WTERMSIG)
-#    define WTERMSIG(s)	      ((s).w_termsig)
-#  endif /* !WTERMSIG */
+#if !defined(WTERMSIG)
+#define WTERMSIG(s) ((s).w_termsig)
+#endif /* !WTERMSIG */
 
-#  if !defined (WEXITSTATUS)
-#    define WEXITSTATUS(s)    ((s).w_retcode)
-#  endif /* !WEXITSTATUS */
+#if !defined(WEXITSTATUS)
+#define WEXITSTATUS(s) ((s).w_retcode)
+#endif /* !WEXITSTATUS */
 
-#  if !defined (WIFCORED)
-#    define WIFCORED(s)       ((s).w_coredump)
-#  endif /* !WIFCORED */
+#if !defined(WIFCORED)
+#define WIFCORED(s) ((s).w_coredump)
+#endif /* !WIFCORED */
 
 #endif /* !_POSIX_VERSION */
 

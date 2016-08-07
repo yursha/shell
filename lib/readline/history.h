@@ -26,14 +26,14 @@
 extern "C" {
 #endif
 
-#include <time.h>		/* XXX - for history timestamp code */
+#include <time.h> /* XXX - for history timestamp code */
 
 #if defined READLINE_LIBRARY
-#  include "rlstdc.h"
-#  include "rltypedefs.h"
+#include "rlstdc.h"
+#include "rltypedefs.h"
 #else
-#  include <readline/rlstdc.h>
-#  include <readline/rltypedefs.h>
+#include <readline/rlstdc.h>
+#include <readline/rltypedefs.h>
 #endif
 
 #ifdef __STDC__
@@ -45,24 +45,24 @@ typedef char *histdata_t;
 /* The structure used to store a history entry. */
 typedef struct _hist_entry {
   char *line;
-  char *timestamp;		/* char * rather than time_t for read/write */
+  char *timestamp; /* char * rather than time_t for read/write */
   histdata_t data;
 } HIST_ENTRY;
 
 /* Size of the history-library-managed space in history entry HS. */
-#define HISTENT_BYTES(hs)	(strlen ((hs)->line) + strlen ((hs)->timestamp))
+#define HISTENT_BYTES(hs) (strlen((hs)->line) + strlen((hs)->timestamp))
 
 /* A structure used to pass the current state of the history stuff around. */
 typedef struct _hist_state {
-  HIST_ENTRY **entries;		/* Pointer to the entries themselves. */
-  int offset;			/* The location pointer within this array. */
-  int length;			/* Number of elements within this array. */
-  int size;			/* Number of slots allocated to this array. */
+  HIST_ENTRY **entries; /* Pointer to the entries themselves. */
+  int offset;           /* The location pointer within this array. */
+  int length;           /* Number of elements within this array. */
+  int size;             /* Number of slots allocated to this array. */
   int flags;
 } HISTORY_STATE;
 
 /* Flag values for the `flags' member of HISTORY_STATE. */
-#define HS_STIFLED	0x01
+#define HS_STIFLED 0x01
 
 /* Initialization and state management. */
 
@@ -105,7 +105,8 @@ extern histdata_t free_history_entry PARAMS((HIST_ENTRY *));
 /* Make the history entry at WHICH have LINE and DATA.  This returns
    the old entry so you can dispose of the data.  In the case of an
    invalid WHICH, a NULL pointer is returned. */
-extern HIST_ENTRY *replace_history_entry PARAMS((int, const char *, histdata_t));
+extern HIST_ENTRY *replace_history_entry PARAMS((int, const char *,
+                                                 histdata_t));
 
 /* Clear the history list and start over. */
 extern void clear_history PARAMS((void));
@@ -131,7 +132,7 @@ extern HIST_ENTRY **history_list PARAMS((void));
 /* Returns the number which says what history element we are now
    looking at.  */
 extern int where_history PARAMS((void));
-  
+
 /* Return the history entry at the current position, as determined by
    history_offset.  If there is no entry there, return a NULL pointer. */
 extern HIST_ENTRY *current_history PARAMS((void));

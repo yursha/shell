@@ -18,21 +18,21 @@
    along with Bash; see the file COPYING.  If not, write to the Free
    Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. */
 
-#if !defined (_CONFIG_H_)
+#if !defined(_CONFIG_H_)
 #define _CONFIG_H_
 
-#if !defined (BUILDING_MAKEFILE)
+#if !defined(BUILDING_MAKEFILE)
 #include "memalloc.h"
 #endif
 
-#if defined (HAVE_UNISTD_H) && !defined (BUILDING_MAKEFILE)
-#  ifdef CRAY
-#    define word __word
-#  endif
+#if defined(HAVE_UNISTD_H) && !defined(BUILDING_MAKEFILE)
+#ifdef CRAY
+#define word __word
+#endif
 #include <unistd.h>
-#  ifdef CRAY
-#    undef word
-#  endif
+#ifdef CRAY
+#undef word
+#endif
 #endif
 
 /* Define JOB_CONTROL if your operating system supports
@@ -41,10 +41,10 @@
 
 /* Note that vanilla System V machines don't support BSD job control,
    although some do support Posix job control. */
-#if defined (USG) || defined (MINIX) || defined (Minix)
-#  if !defined (_POSIX_JOB_CONTROL)
-#    undef JOB_CONTROL
-#  endif /* !_POSIX_JOB_CONTROL */
+#if defined(USG) || defined(MINIX) || defined(Minix)
+#if !defined(_POSIX_JOB_CONTROL)
+#undef JOB_CONTROL
+#endif /* !_POSIX_JOB_CONTROL */
 #endif /* USG || Minix || MINIX */
 
 /* Define ALIAS if you want the alias features. */
@@ -79,19 +79,19 @@
    available. */
 #define HISTORY
 
-#if defined (BANG_HISTORY) && !defined (HISTORY)
-   /* BANG_HISTORY requires HISTORY. */
-#  define HISTORY
+#if defined(BANG_HISTORY) && !defined(HISTORY)
+/* BANG_HISTORY requires HISTORY. */
+#define HISTORY
 #endif /* BANG_HISTORY && !HISTORY */
 
-#if defined (READLINE) && !defined (HISTORY)
-#  define HISTORY
+#if defined(READLINE) && !defined(HISTORY)
+#define HISTORY
 #endif
 
 /* Define this if you want completion that puts all alternatives into
    a brace expansion shell expression. */
-#if defined (BRACE_EXPANSION) && defined (READLINE)
-#  define BRACE_COMPLETION
+#if defined(BRACE_EXPANSION) && defined(READLINE)
+#define BRACE_COMPLETION
 #endif /* BRACE_EXPANSION */
 
 /* The default value of the PATH variable. */
@@ -100,8 +100,7 @@
 
 /* The value for PATH when invoking `command -p'.  This is only used when
    the Posix.2 confstr () function, or CS_PATH define are not present. */
-#define STANDARD_UTILS_PATH \
-  "/bin:/usr/bin:/usr/ucb:/usr/sbin:/etc:/usr/etc"
+#define STANDARD_UTILS_PATH "/bin:/usr/bin:/usr/ucb:/usr/sbin:/etc:/usr/etc"
 
 /* Define V9_ECHO if you want to give the echo builtin backslash-escape
    interpretation using the -e option, in the style of the Bell Labs 9th
@@ -112,8 +111,8 @@
    the backslash-escape characters by default, like the System V echo.
    This requires that V9_ECHO be defined. */
 /* #define DEFAULT_ECHO_TO_USG */
-#if !defined (V9_ECHO)
-#  undef DEFAULT_ECHO_TO_USG
+#if !defined(V9_ECHO)
+#undef DEFAULT_ECHO_TO_USG
 #endif
 
 /* Define CONTINUE_AFTER_KILL_ERROR if you want the kill command to
@@ -135,7 +134,7 @@
 #define RESTRICTED_SHELL
 
 /* If the shell is called by this name, it will become restricted. */
-#if defined (RESTRICTED_SHELL)
+#if defined(RESTRICTED_SHELL)
 #define RESTRICTED_SHELL_NAME "rbash"
 #endif
 
@@ -147,8 +146,8 @@
    substitution features "<(file)". */
 /* Right now, you cannot do this on machines without fully operational
    FIFO support.  This currently include NeXT and Alliant. */
-#if !defined (MKFIFO_MISSING) || defined (HAVE_DEV_FD)
-#  define PROCESS_SUBSTITUTION
+#if !defined(MKFIFO_MISSING) || defined(HAVE_DEV_FD)
+#define PROCESS_SUBSTITUTION
 #endif /* !MKFIFO_MISSING */
 
 /* Define PROMPT_STRING_DECODE if you want the backslash-escaped special
@@ -169,10 +168,10 @@
 #define SPROMPT "> "
 
 /* Define SELECT_COMMAND if you want the Korn-shell style `select' command:
-	select word in word_list; do command_list; done */
+        select word in word_list; do command_list; done */
 #define SELECT_COMMAND
 
 /* Define ARRAY_VARS if you want ksh-style one-dimensional array variables. */
 #define ARRAY_VARS
 
-#endif	/* !_CONFIG_H_ */
+#endif /* !_CONFIG_H_ */

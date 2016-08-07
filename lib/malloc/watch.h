@@ -27,15 +27,15 @@
 
 /* `Events' for watchpoints */
 
-#define W_ALLOC		0x01
-#define W_FREE		0x02
-#define W_REALLOC	0x04
-#define W_RESIZED	0x08
+#define W_ALLOC 0x01
+#define W_FREE 0x02
+#define W_REALLOC 0x04
+#define W_RESIZED 0x08
 
 extern int _malloc_nwatch;
 
 extern void _malloc_ckwatch(PTR_T, const char *, int, int, unsigned long);
-                    
+
 #endif /* MALLOC_WATCH */
 
 #endif /* _MWATCH_H */

@@ -22,27 +22,25 @@
 
 #include "bashtypes.h"
 
-#if defined (TIME_WITH_SYS_TIME)
-#  include <sys/time.h>
-#  include <time.h>
+#if defined(TIME_WITH_SYS_TIME)
+#include <sys/time.h>
+#include <time.h>
 #else
-#  if defined (HAVE_SYS_TIME_H)
-#    include <sys/time.h>
-#  else
-#    include <time.h>
-#  endif
+#if defined(HAVE_SYS_TIME_H)
+#include <sys/time.h>
+#else
+#include <time.h>
+#endif
 #endif
 
-#if defined (HAVE_UNISTD_H)
+#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
 
 /* A version of `alarm' using setitimer if it's available. */
 
-#if defined (HAVE_SETITIMER)
-unsigned int
-falarm(secs, usecs)
-     unsigned int secs, usecs;
+#if defined(HAVE_SETITIMER)
+unsigned int falarm(secs, usecs) unsigned int secs, usecs;
 {
   struct itimerval it, oit;
 
@@ -53,37 +51,30 @@ falarm(secs, usecs)
   it.it_value.tv_usec = usecs;
 
   if (setitimer(ITIMER_REAL, &it, &oit) < 0)
-    return (-1);		/* XXX will be converted to unsigned */
+    return (-1); /* XXX will be converted to unsigned */
 
   /* Backwards compatibility with alarm(3) */
-  if (oit.it_value.tv_usec)
-    oit.it_value.tv_sec++;
+  if (oit.it_value.tv_usec) oit.it_value.tv_sec++;
   return (oit.it_value.tv_sec);
 }
 #else
-int
-falarm (secs, usecs)
-     unsigned int secs, usecs;
+int falarm(secs, usecs) unsigned int secs, usecs;
 {
-  if (secs == 0 && usecs == 0)
-    return (alarm (0));
+  if (secs == 0 && usecs == 0) return (alarm(0));
 
-  if (secs == 0 || usecs >= 500000)
-    {
-      secs++;
-      usecs = 0;
-    }
-  return (alarm (secs));
+  if (secs == 0 || usecs >= 500000) {
+    secs++;
+    usecs = 0;
+  }
+  return (alarm(secs));
 }
 #endif /* !HAVE_SETITIMER */
 
 /* A version of sleep using fractional seconds and select.  I'd like to use
    `usleep', but it's already taken */
 
-#if defined (HAVE_TIMEVAL) && defined (HAVE_SELECT)
-int
-fsleep(sec, usec)
-     unsigned int sec, usec;
+#if defined(HAVE_TIMEVAL) && defined(HAVE_SELECT)
+int fsleep(sec, usec) unsigned int sec, usec;
 {
   struct timeval tv;
 
@@ -92,13 +83,11 @@ fsleep(sec, usec)
 
   return select(0, (fd_set *)0, (fd_set *)0, (fd_set *)0, &tv);
 }
-#else /* !HAVE_TIMEVAL || !HAVE_SELECT */
-int
-fsleep(sec, usec)
-     long sec, usec;
+#else  /* !HAVE_TIMEVAL || !HAVE_SELECT */
+int fsleep(sec, usec) long sec, usec;
 {
-  if (usec >= 500000)	/* round */
-   sec++;
+  if (usec >= 500000) /* round */
+    sec++;
   return (sleep(sec));
 }
 #endif /* !HAVE_TIMEVAL || !HAVE_SELECT */

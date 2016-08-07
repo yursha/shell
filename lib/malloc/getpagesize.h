@@ -17,44 +17,44 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_UNISTD_H)
-#  ifdef _MINIX
-#    include <sys/types.h>
-#  endif
-#  include <unistd.h>
-#  if defined (_SC_PAGESIZE)
-#    define getpagesize() sysconf(_SC_PAGESIZE)
-#  else
-#    if defined (_SC_PAGE_SIZE)
-#      define getpagesize() sysconf(_SC_PAGE_SIZE)
-#    endif /* _SC_PAGE_SIZE */
-#  endif /* _SC_PAGESIZE */
+#if defined(HAVE_UNISTD_H)
+#ifdef _MINIX
+#include <sys/types.h>
+#endif
+#include <unistd.h>
+#if defined(_SC_PAGESIZE)
+#define getpagesize() sysconf(_SC_PAGESIZE)
+#else
+#if defined(_SC_PAGE_SIZE)
+#define getpagesize() sysconf(_SC_PAGE_SIZE)
+#endif /* _SC_PAGE_SIZE */
+#endif /* _SC_PAGESIZE */
 #endif
 
-#if !defined (getpagesize)
-#  if defined (HAVE_SYS_PARAM_H)
-#    include <sys/param.h>
-#  endif
-#  if defined (PAGESIZE)
-#     define getpagesize() PAGESIZE
-#  else /* !PAGESIZE */
-#    if defined (EXEC_PAGESIZE)
-#      define getpagesize() EXEC_PAGESIZE
-#    else /* !EXEC_PAGESIZE */
-#      if defined (NBPG)
-#        if !defined (CLSIZE)
-#          define CLSIZE 1
-#        endif /* !CLSIZE */
-#        define getpagesize() (NBPG * CLSIZE)
-#      else /* !NBPG */
-#        if defined (NBPC)
-#          define getpagesize() NBPC
-#        endif /* NBPC */
-#      endif /* !NBPG */
-#    endif /* !EXEC_PAGESIZE */
-#  endif /* !PAGESIZE */
+#if !defined(getpagesize)
+#if defined(HAVE_SYS_PARAM_H)
+#include <sys/param.h>
+#endif
+#if defined(PAGESIZE)
+#define getpagesize() PAGESIZE
+#else /* !PAGESIZE */
+#if defined(EXEC_PAGESIZE)
+#define getpagesize() EXEC_PAGESIZE
+#else /* !EXEC_PAGESIZE */
+#if defined(NBPG)
+#if !defined(CLSIZE)
+#define CLSIZE 1
+#endif /* !CLSIZE */
+#define getpagesize() (NBPG * CLSIZE)
+#else /* !NBPG */
+#if defined(NBPC)
+#define getpagesize() NBPC
+#endif /* NBPC */
+#endif /* !NBPG */
+#endif /* !EXEC_PAGESIZE */
+#endif /* !PAGESIZE */
 #endif /* !getpagesize */
 
-#if !defined (getpagesize)
-#  define getpagesize() 4096  /* Just punt and use reasonable value */
+#if !defined(getpagesize)
+#define getpagesize() 4096 /* Just punt and use reasonable value */
 #endif

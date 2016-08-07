@@ -1,4 +1,5 @@
-/* strtoul - convert string representation of a number into an unsigned long value. */
+/* strtoul - convert string representation of a number into an unsigned long
+ * value. */
 
 /* Copyright (C) 1997 Free Software Foundation, Inc.
 
@@ -22,7 +23,7 @@
 
 #ifndef HAVE_STRTOUL
 
-#define	UNSIGNED	1
+#define UNSIGNED 1
 #undef HAVE_STRTOL
 
 #include <strtol.c>

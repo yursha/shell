@@ -28,47 +28,31 @@
 #include "bashgetopt.h"
 #include "common.h"
 
-int
-whoami_builtin (list)
-     WORD_LIST *list;
+int whoami_builtin(list) WORD_LIST *list;
 {
   int opt;
 
-  reset_internal_getopt ();
-  while ((opt = internal_getopt (list, "")) != -1)
-    {
-      switch (opt)
-	{
-	default:
-	  builtin_usage ();
-	  return (EX_USAGE);
-	}
+  reset_internal_getopt();
+  while ((opt = internal_getopt(list, "")) != -1) {
+    switch (opt) {
+      default:
+        builtin_usage();
+        return (EX_USAGE);
     }
+  }
   list = loptend;
-  if (list)
-    {
-      builtin_usage ();
-      return (EX_USAGE);
-    }
+  if (list) {
+    builtin_usage();
+    return (EX_USAGE);
+  }
 
-  if (current_user.user_name == 0)
-    get_current_user_info ();
-  printf ("%s\n", current_user.user_name);
+  if (current_user.user_name == 0) get_current_user_info();
+  printf("%s\n", current_user.user_name);
   return (EXECUTION_SUCCESS);
 }
 
-char *whoami_doc[] = {
-	"Print user name",
-	"",
-	"Display name of current user.",
-	(char *)NULL
-};
+char *whoami_doc[] = {"Print user name", "", "Display name of current user.",
+                      (char *)NULL};
 
-struct builtin whoami_struct = {
-	"whoami",
-	whoami_builtin,
-	BUILTIN_ENABLED,
-	whoami_doc,
-	"whoami",
-	0
-};
+struct builtin whoami_struct = {"whoami",   whoami_builtin, BUILTIN_ENABLED,
+                                whoami_doc, "whoami",       0};

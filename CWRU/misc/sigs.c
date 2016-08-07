@@ -21,27 +21,24 @@
 #include <signal.h>
 #include <stdio.h>
 
-extern const char	* const sys_siglist[];
+extern const char *const sys_siglist[];
 
-typedef void	sighandler();
+typedef void sighandler();
 
-main(argc, argv)
-int	argc;
-char	**argv;
+main(argc, argv) int argc;
+char **argv;
 {
-	register int	i;
-	sighandler	*h;
+  register int i;
+  sighandler *h;
 
-	for (i = 1; i < NSIG; i++) {
-		h = signal(i, SIG_DFL);
-		if (h != SIG_DFL) {
-			if (h == SIG_IGN)
-				fprintf(stderr, "%d: ignored (%s)\n", i, sys_siglist[i]);
-			else
-				fprintf(stderr, "%d: caught (%s)\n", i, sys_siglist[i]);
-		}
-	}
-	exit(0);
+  for (i = 1; i < NSIG; i++) {
+    h = signal(i, SIG_DFL);
+    if (h != SIG_DFL) {
+      if (h == SIG_IGN)
+        fprintf(stderr, "%d: ignored (%s)\n", i, sys_siglist[i]);
+      else
+        fprintf(stderr, "%d: caught (%s)\n", i, sys_siglist[i]);
+    }
+  }
+  exit(0);
 }
-
-		

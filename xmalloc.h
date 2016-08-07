@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_XMALLOC_H_)
+#if !defined(_XMALLOC_H_)
 #define _XMALLOC_H_
 
 #include "stdc.h"
@@ -27,10 +27,10 @@
 /* Generic pointer type. */
 #ifndef PTR_T
 
-#if defined (__STDC__)
-#  define PTR_T	void *
+#if defined(__STDC__)
+#define PTR_T void *
 #else
-#  define PTR_T char *
+#define PTR_T char *
 #endif
 
 #endif /* PTR_T */
@@ -40,19 +40,19 @@ extern PTR_T xmalloc(size_t);
 extern PTR_T xrealloc(void *, size_t);
 extern void xfree(void *);
 
-#if defined(USING_BASH_MALLOC) && !defined (DISABLE_MALLOC_WRAPPERS)
+#if defined(USING_BASH_MALLOC) && !defined(DISABLE_MALLOC_WRAPPERS)
 extern PTR_T sh_xmalloc(size_t, const char *, int);
 extern PTR_T sh_xrealloc(void *, size_t, const char *, int);
 extern void sh_xfree(void *, const char *, int);
 
-#define xmalloc(x)	sh_xmalloc((x), __FILE__, __LINE__)
-#define xrealloc(x, n)	sh_xrealloc((x), (n), __FILE__, __LINE__)
-#define xfree(x)	sh_xfree((x), __FILE__, __LINE__)
+#define xmalloc(x) sh_xmalloc((x), __FILE__, __LINE__)
+#define xrealloc(x, n) sh_xrealloc((x), (n), __FILE__, __LINE__)
+#define xfree(x) sh_xfree((x), __FILE__, __LINE__)
 
 #ifdef free
 #undef free
 #endif
-#define free(x)		sh_xfree((x), __FILE__, __LINE__)
-#endif	/* USING_BASH_MALLOC */
+#define free(x) sh_xfree((x), __FILE__, __LINE__)
+#endif /* USING_BASH_MALLOC */
 
-#endif	/* _XMALLOC_H_ */
+#endif /* _XMALLOC_H_ */

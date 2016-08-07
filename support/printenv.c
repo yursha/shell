@@ -24,19 +24,17 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
-#  include  <config.h>
+#if defined(HAVE_CONFIG_H)
+#include <config.h>
 #endif
 
 #include "bashansi.h"
-#include <stdio.h>		/* puts */
+#include <stdio.h> /* puts */
 
 extern char **environ;
 
-int
-main (argc, argv) 
-     int argc;
-     char **argv;
+int main(argc, argv) int argc;
+char **argv;
 {
   register char **envp, *eval;
   int len;
@@ -45,28 +43,22 @@ main (argc, argv)
   argc--;
 
   /* printenv */
-  if (argc == 0)
-    {
-      for (envp = environ; *envp; envp++)
-	puts (*envp);
-      exit (0);
-    }
+  if (argc == 0) {
+    for (envp = environ; *envp; envp++) puts(*envp);
+    exit(0);
+  }
 
   /* printenv varname */
-  len = strlen (*argv);
-  for (envp = environ; *envp; envp++)
-    {
-      if (**argv == **envp && strncmp (*envp, *argv, len) == 0)
-	{
-	  eval = *envp + len;
-	  /* If the environment variable doesn't have an `=', ignore it. */
-	  if (*eval == '=')
-	    {
-	      puts (eval + 1);
-	      exit (0);
-	    }
-	}
+  len = strlen(*argv);
+  for (envp = environ; *envp; envp++) {
+    if (**argv == **envp && strncmp(*envp, *argv, len) == 0) {
+      eval = *envp + len;
+      /* If the environment variable doesn't have an `=', ignore it. */
+      if (*eval == '=') {
+        puts(eval + 1);
+        exit(0);
+      }
     }
-  exit (1);
+  }
+  exit(1);
 }
-  

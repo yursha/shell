@@ -1,6 +1,7 @@
 /* mailcheck.h -- variables and function declarations for mail checking. */
 
-/* Copyright (C) 1987,1991,2001,2003,2005,2006,2008,2009 Free Software Foundation, Inc.
+/* Copyright (C) 1987,1991,2001,2003,2005,2006,2008,2009 Free Software
+   Foundation, Inc.
 
    This file is part of GNU Bash, the Bourne Again SHell.
 
@@ -18,7 +19,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_MAILCHECK_H_)
+#if !defined(_MAILCHECK_H_)
 #define _MAILCHECK_H_
 
 /* Functions from mailcheck.c */

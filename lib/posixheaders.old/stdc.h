@@ -19,59 +19,59 @@
    along with Bash; see the file COPYING.  If not, write to the Free
    Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. */
 
-#if !defined (_STDC_H_)
+#if !defined(_STDC_H_)
 #define _STDC_H_
 
 /* Adapted from BSD /usr/include/sys/cdefs.h. */
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
-	extern char *func(char *, char *, int); */
+        extern char *func(char *, char *, int); */
 
-#if defined (__STDC__)
+#if defined(__STDC__)
 
-#  if !defined (__P)
-#    define __P(protos) protos
-#  endif
-#  define __STRING(x) #x
+#if !defined(__P)
+#define __P(protos) protos
+#endif
+#define __STRING(x) #x
 
-#  if !defined (__GNUC__)
-#    define inline
-#  endif
+#if !defined(__GNUC__)
+#define inline
+#endif
 
 #else /* !__STDC__ */
 
-#  if !defined (__P)
-#    define __P(protos) ()
-#  endif
-#  define __STRING(x) "x"
+#if !defined(__P)
+#define __P(protos) ()
+#endif
+#define __STRING(x) "x"
 
-#if defined (__GNUC__)		/* gcc with -traditional */
-#  if !defined (const)
-#    define const  __const
-#  endif
-#  if !defined (inline)
-#    define inline __inline
-#  endif
-#  if !defined (signed)
-#    define signed __signed
-#  endif
-#  if !defined (volatile)
-#    define volatile __volatile
-#  endif
+#if defined(__GNUC__) /* gcc with -traditional */
+#if !defined(const)
+#define const __const
+#endif
+#if !defined(inline)
+#define inline __inline
+#endif
+#if !defined(signed)
+#define signed __signed
+#endif
+#if !defined(volatile)
+#define volatile __volatile
+#endif
 #else /* !__GNUC__ */
-#  if !defined (const)
-#    define const
-#  endif
-#  if !defined (inline)
-#    define inline
-#  endif
-#  if !defined (signed)
-#    define signed
-#  endif
-#  if !defined (volatile)
-#    define volatile
-#  endif
+#if !defined(const)
+#define const
+#endif
+#if !defined(inline)
+#define inline
+#endif
+#if !defined(signed)
+#define signed
+#endif
+#if !defined(volatile)
+#define volatile
+#endif
 #endif /* !__GNUC__ */
 
 #endif /* !__STDC__ */

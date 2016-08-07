@@ -33,15 +33,15 @@
 extern char *shell_name;
 
 /* Defines from version.h */
-const char * const dist_version = DISTVERSION;
+const char *const dist_version = DISTVERSION;
 const int patch_level = PATCHLEVEL;
 const int build_version = BUILDVERSION;
 #ifdef RELSTATUS
-const char * const release_status = RELSTATUS;
+const char *const release_status = RELSTATUS;
 #else
-const char * const release_status = (char *)0;
+const char *const release_status = (char *)0;
 #endif
-const char * const sccs_version = SCCSVERSION;
+const char *const sccs_version = SCCSVERSION;
 
 /* If == 31, shell compatible with bash-3.1, == 32 with bash-3.2, and so on */
 int shell_compatibility_level = DEFAULT_COMPAT_LEVEL;
@@ -53,39 +53,40 @@ extern char *shell_version_string(void);
 extern void show_shell_version(int);
 
 /* Give version information about this shell. */
-char *
-shell_version_string ()
-{
-  static char tt[32] = { '\0' };
+char *shell_version_string() {
+  static char tt[32] = {'\0'};
 
-  if (tt[0] == '\0')
-    {
-      if (release_status)
-#if defined (HAVE_SNPRINTF)
-	snprintf (tt, sizeof (tt), "%s.%d(%d)-%s", dist_version, patch_level, build_version, release_status);
+  if (tt[0] == '\0') {
+    if (release_status)
+#if defined(HAVE_SNPRINTF)
+      snprintf(tt, sizeof(tt), "%s.%d(%d)-%s", dist_version, patch_level,
+               build_version, release_status);
 #else
-	sprintf (tt, "%s.%d(%d)-%s", dist_version, patch_level, build_version, release_status);
+      sprintf(tt, "%s.%d(%d)-%s", dist_version, patch_level, build_version,
+              release_status);
 #endif
-      else
-#if defined (HAVE_SNPRINTF)
-	snprintf (tt, sizeof (tt), "%s.%d(%d)", dist_version, patch_level, build_version);
+    else
+#if defined(HAVE_SNPRINTF)
+      snprintf(tt, sizeof(tt), "%s.%d(%d)", dist_version, patch_level,
+               build_version);
 #else
-	sprintf (tt, "%s.%d(%d)", dist_version, patch_level, build_version);
+      sprintf(tt, "%s.%d(%d)", dist_version, patch_level, build_version);
 #endif
-    }
+  }
   return tt;
 }
 
-void
-show_shell_version (extended)
-     int extended;
+void show_shell_version(extended) int extended;
 {
-  printf (_("GNU bash, version %s (%s)\n"), shell_version_string (), MACHTYPE);
-  if (extended)
-    {
-      printf (_("Copyright (C) 2009 Free Software Foundation, Inc.\n"));
-      printf (_("License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>\n"));
-      printf (_("This is free software; you are free to change and redistribute it.\n"));
-      printf (_("There is NO WARRANTY, to the extent permitted by law.\n"));
-    }
+  printf(_("GNU bash, version %s (%s)\n"), shell_version_string(), MACHTYPE);
+  if (extended) {
+    printf(_("Copyright (C) 2009 Free Software Foundation, Inc.\n"));
+    printf(
+        _("License GPLv2+: GNU GPL version 2 or later "
+          "<http://gnu.org/licenses/gpl.html>\n"));
+    printf(
+        _("This is free software; you are free to change and redistribute "
+          "it.\n"));
+    printf(_("There is NO WARRANTY, to the extent permitted by law.\n"));
+  }
 }

@@ -1,6 +1,7 @@
 /* termcap.h - public declarations for termcap library. */
 
-/* Copyright (C) 1991, 1992, 1995, 2001, 2005, 2006, 2008,2009 Free Software Foundation, Inc.
+/* Copyright (C) 1991, 1992, 1995, 2001, 2005, 2006, 2008,2009 Free Software
+   Foundation, Inc.
 
    Bash is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,42 +22,42 @@
 
 #if __STDC__
 
-extern int tgetent (char *buffer, const char *termtype);
+extern int tgetent(char *buffer, const char *termtype);
 
-extern int tgetnum (const char *name);
-extern int tgetflag (const char *name);
-extern char *tgetstr (const char *name, char **area);
+extern int tgetnum(const char *name);
+extern int tgetflag(const char *name);
+extern char *tgetstr(const char *name, char **area);
 
 extern char PC;
 extern short ospeed;
-extern int tputs (const char *string, int nlines, int (*outfun) (int));
+extern int tputs(const char *string, int nlines, int (*outfun)(int));
 
-extern char *tparam (const char *ctlstring, char *buffer, int size, ...);
+extern char *tparam(const char *ctlstring, char *buffer, int size, ...);
 
 extern char *UP;
 extern char *BC;
 
-extern char *tgoto (const char *cstring, int hpos, int vpos);
+extern char *tgoto(const char *cstring, int hpos, int vpos);
 
 #else /* not __STDC__ */
 
-extern int tgetent ();
+extern int tgetent();
 
-extern int tgetnum ();
-extern int tgetflag ();
-extern char *tgetstr ();
+extern int tgetnum();
+extern int tgetflag();
+extern char *tgetstr();
 
 extern char PC;
 extern short ospeed;
 
-extern void tputs ();
+extern void tputs();
 
-extern char *tparam ();
+extern char *tparam();
 
 extern char *UP;
 extern char *BC;
 
-extern char *tgoto ();
+extern char *tgoto();
 
 #endif /* not __STDC__ */
 

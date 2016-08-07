@@ -1,4 +1,5 @@
-/* strtoull - convert string representation of a number into an unsigned long long value. */
+/* strtoull - convert string representation of a number into an unsigned long
+ * long value. */
 
 /* Copyright (C) 1997 Free Software Foundation, Inc.
 
@@ -20,10 +21,10 @@
 
 #include <config.h>
 
-#if defined (HAVE_LONG_LONG) && !defined (HAVE_STRTOULL)
+#if defined(HAVE_LONG_LONG) && !defined(HAVE_STRTOULL)
 
-#define QUAD		1
-#define	UNSIGNED	1
+#define QUAD 1
+#define UNSIGNED 1
 #undef HAVE_STRTOL
 
 #include "strtol.c"

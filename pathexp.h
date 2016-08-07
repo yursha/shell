@@ -18,37 +18,37 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_PATHEXP_H_)
+#if !defined(_PATHEXP_H_)
 #define _PATHEXP_H_
 
-#if defined (USE_POSIX_GLOB_LIBRARY)
-#  define GLOB_FAILED(glist)	!(glist)
+#if defined(USE_POSIX_GLOB_LIBRARY)
+#define GLOB_FAILED(glist) !(glist)
 #else /* !USE_POSIX_GLOB_LIBRARY */
-#  define GLOB_FAILED(glist)	(glist) == (char **)&glob_error_return
+#define GLOB_FAILED(glist) (glist) == (char **) & glob_error_return
 extern int noglob_dot_filenames;
 extern char *glob_error_return;
 #endif /* !USE_POSIX_GLOB_LIBRARY */
 
 /* Flag values for quote_string_for_globbing */
-#define QGLOB_CVTNULL	0x01	/* convert QUOTED_NULL strings to '\0' */
-#define QGLOB_FILENAME	0x02	/* do correct quoting for matching filenames */
-#define QGLOB_REGEXP	0x04	/* quote an ERE for regcomp/regexec */
+#define QGLOB_CVTNULL 0x01  /* convert QUOTED_NULL strings to '\0' */
+#define QGLOB_FILENAME 0x02 /* do correct quoting for matching filenames */
+#define QGLOB_REGEXP 0x04   /* quote an ERE for regcomp/regexec */
 
-#if defined (EXTENDED_GLOB)
+#if defined(EXTENDED_GLOB)
 /* Flags to OR with other flag args to strmatch() to enabled the extended
    pattern matching. */
-#  define FNMATCH_EXTFLAG	(extended_glob ? FNM_EXTMATCH : 0)
+#define FNMATCH_EXTFLAG (extended_glob ? FNM_EXTMATCH : 0)
 #else
-#  define FNMATCH_EXTFLAG	0
+#define FNMATCH_EXTFLAG 0
 #endif /* !EXTENDED_GLOB */
 
-#define FNMATCH_IGNCASE		(match_ignore_case ? FNM_CASEFOLD : 0)
-#define FNMATCH_NOCASEGLOB	(glob_ignore_case ? FNM_CASEFOLD : 0)
+#define FNMATCH_IGNCASE (match_ignore_case ? FNM_CASEFOLD : 0)
+#define FNMATCH_NOCASEGLOB (glob_ignore_case ? FNM_CASEFOLD : 0)
 
 extern int glob_dot_filenames;
 extern int extended_glob;
 extern int glob_star;
-extern int match_ignore_case;	/* doesn't really belong here */
+extern int match_ignore_case; /* doesn't really belong here */
 
 extern int unquoted_glob_pattern_p(char *);
 
@@ -87,11 +87,12 @@ struct ign {
 typedef int sh_iv_item_func_t(struct ign *);
 
 struct ignorevar {
-  char *varname;	/* FIGNORE, GLOBIGNORE, or EXECIGNORE */
-  struct ign *ignores;	/* Store the ignore strings here */
-  int num_ignores;	/* How many are there? */
-  char *last_ignoreval;	/* Last value of variable - cached for speed */
-  sh_iv_item_func_t *item_func; /* Called when each item is parsed from $`varname' */
+  char *varname;        /* FIGNORE, GLOBIGNORE, or EXECIGNORE */
+  struct ign *ignores;  /* Store the ignore strings here */
+  int num_ignores;      /* How many are there? */
+  char *last_ignoreval; /* Last value of variable - cached for speed */
+  sh_iv_item_func_t
+      *item_func; /* Called when each item is parsed from $`varname' */
 };
 
 extern void setup_ignore_patterns(struct ignorevar *);

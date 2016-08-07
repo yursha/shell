@@ -29,9 +29,9 @@
    this is a private .h file, we don't need to use __declspec(dllimport)
    in any case.  */
 #if defined _MSC_VER && BUILDING_DLL
-# define RELOCATABLE_DLL_EXPORTED __declspec(dllexport)
+#define RELOCATABLE_DLL_EXPORTED __declspec(dllexport)
 #else
-# define RELOCATABLE_DLL_EXPORTED
+#define RELOCATABLE_DLL_EXPORTED
 #endif
 
 /* Sets the original and the current installation prefix of the package.
@@ -39,13 +39,12 @@
    by the corresponding pathname with the current prefix instead.  Both
    prefixes should be directory names without trailing slash (i.e. use ""
    instead of "/").  */
-extern RELOCATABLE_DLL_EXPORTED void
-       set_relocation_prefix (const char *orig_prefix,
-			      const char *curr_prefix);
+extern RELOCATABLE_DLL_EXPORTED void set_relocation_prefix(
+    const char *orig_prefix, const char *curr_prefix);
 
 /* Returns the pathname, relocated according to the current installation
    directory.  */
-extern const char * relocate (const char *pathname);
+extern const char *relocate(const char *pathname);
 
 /* Memory management: relocate() leaks memory, because it has to construct
    a fresh pathname.  If this is a problem because your program calls
@@ -55,9 +54,9 @@ extern const char * relocate (const char *pathname);
    Computes the current installation prefix, based on the original
    installation prefix, the original installation directory of a particular
    file, and the current pathname of this file.  Returns NULL upon failure.  */
-extern const char * compute_curr_prefix (const char *orig_installprefix,
-					 const char *orig_installdir,
-					 const char *curr_pathname);
+extern const char *compute_curr_prefix(const char *orig_installprefix,
+                                       const char *orig_installdir,
+                                       const char *curr_pathname);
 
 #else
 

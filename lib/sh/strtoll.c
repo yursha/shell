@@ -1,4 +1,5 @@
-/* strtoll - convert string representation of a number into a long long value. */
+/* strtoll - convert string representation of a number into a long long value.
+ */
 
 /* Copyright (C) 1997 Free Software Foundation, Inc.
 
@@ -20,9 +21,9 @@
 
 #include <config.h>
 
-#if defined (HAVE_LONG_LONG) && !defined (HAVE_STRTOLL)
+#if defined(HAVE_LONG_LONG) && !defined(HAVE_STRTOLL)
 
-#define QUAD		1
+#define QUAD 1
 #undef HAVE_STRTOL
 
 #include "strtol.c"

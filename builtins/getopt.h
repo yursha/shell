@@ -1,6 +1,7 @@
 /* getopt.h - declarations for getopt. */
 
-/* Copyright (C) 1989, 1990, 1991, 1992, 1993, 2008,2009 Free Software Foundation, Inc.
+/* Copyright (C) 1989, 1990, 1991, 1992, 1993, 2008,2009 Free Software
+   Foundation, Inc.
 
    This file is part of GNU Bash, the Bourne Again SHell.
 
@@ -61,8 +62,7 @@ extern int sh_badopt;
 
 extern int sh_getopt(int, char *const *, const char *);
 
-typedef struct sh_getopt_state
-{
+typedef struct sh_getopt_state {
   char *gs_optarg;
   int gs_optind;
   int gs_curopt;

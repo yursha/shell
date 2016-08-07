@@ -73,8 +73,8 @@
 
 /* Define this if you want completion that puts all alternatives into
    a brace expansion shell expression. */
-#if defined (BRACE_EXPANSION) && defined (READLINE)
-#  define BRACE_COMPLETION
+#if defined(BRACE_EXPANSION) && defined(READLINE)
+#define BRACE_COMPLETION
 #endif /* BRACE_EXPANSION */
 
 /* Define DEFAULT_ECHO_TO_XPG if you want the echo builtin to interpret
@@ -109,7 +109,7 @@
 #define PROMPT_STRING_DECODE 1
 
 /* Define SELECT_COMMAND if you want the Korn-shell style `select' command:
-	select word in word_list; do command_list; done */
+        select word in word_list; do command_list; done */
 #define SELECT_COMMAND 1
 
 /* Define COMMAND_TIMING of you want the ksh-style `time' reserved word and
@@ -144,7 +144,7 @@
 #define COPROCESS_SUPPORT 1
 
 /* Define ARITH_FOR_COMMAND if you want the ksh93-style
-	for (( init; test; step )) do list; done
+        for (( init; test; step )) do list; done
    arithmetic for command. */
 #define ARITH_FOR_COMMAND 1
 
@@ -160,7 +160,7 @@
    characters, even if the OS supports them. */
 /* #undef NO_MULTIBYTE_SUPPORT */
 
-/* Define DEBUGGER if you want to compile in some features used only by the 
+/* Define DEBUGGER if you want to compile in some features used only by the
    bash debugger. */
 #define DEBUGGER 1
 
@@ -283,7 +283,6 @@
 /* Define if you have <alloca.h> and it should be used (not on Ultrix).  */
 #define HAVE_ALLOCA_H 1
 
-
 /* SYSTEM TYPES */
 
 /* Define to `long' if <sys/types.h> doesn't define.  */
@@ -333,7 +332,7 @@
 
 /* Define to `unsigned long' if <stdint.h> doesn't define. */
 /* #undef uintmax_t */
- 
+
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef uid_t */
 
@@ -377,9 +376,9 @@
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
    automatically deduced at run-time.
-	STACK_DIRECTION > 0 => grows toward higher addresses
-	STACK_DIRECTION < 0 => grows toward lower addresses
-	STACK_DIRECTION = 0 => direction of growth unknown
+        STACK_DIRECTION > 0 => grows toward higher addresses
+        STACK_DIRECTION < 0 => grows toward lower addresses
+        STACK_DIRECTION = 0 => direction of growth unknown
  */
 /* #undef STACK_DIRECTION */
 
@@ -529,7 +528,8 @@
 /* Define if the kernel can exec files beginning with #! */
 #define HAVE_HASH_BANG_EXEC 1
 
-/* Define if you have the /dev/fd devices to map open files into the file system. */
+/* Define if you have the /dev/fd devices to map open files into the file
+ * system. */
 #define HAVE_DEV_FD 1
 
 /* Defined to /dev/fd or /proc/self/fd (linux). */
@@ -539,7 +539,7 @@
 #define HAVE_DEV_STDIN 1
 
 /* The type of iconv's `inbuf' argument */
-#define ICONV_CONST 
+#define ICONV_CONST
 
 /* Type and behavior of signal handling functions. */
 
@@ -1124,7 +1124,8 @@
 
 /* #undef GETCWD_BROKEN */
 
-/* Additional defines for configuring lib/intl, maintained by autoscan/autoheader */
+/* Additional defines for configuring lib/intl, maintained by
+ * autoscan/autoheader */
 
 /* Define if you have the <argz.h> header file. */
 #define HAVE_ARGZ_H 1

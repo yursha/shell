@@ -22,15 +22,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-main(c, v)
-int	c;
-char	**v;
+main(c, v) int c;
+char **v;
 {
-	char	*p;
-	long	l;
+  char *p;
+  long l;
 
-	p = v[1] ? v[1] : "/";
-	l = pathconf (p, _PC_PIPE_BUF);
-	printf ("%ld\n", l);
-	exit(0);
+  p = v[1] ? v[1] : "/";
+  l = pathconf(p, _PC_PIPE_BUF);
+  printf("%ld\n", l);
+  exit(0);
 }

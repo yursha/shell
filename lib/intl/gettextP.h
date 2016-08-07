@@ -22,65 +22,59 @@
 #ifndef _GETTEXTP_H
 #define _GETTEXTP_H
 
-#include <stddef.h>		/* Get size_t.  */
+#include <stddef.h> /* Get size_t.  */
 
 #ifdef _LIBC
-# include "../iconv/gconv_int.h"
+#include "../iconv/gconv_int.h"
 #else
-# if HAVE_ICONV
-#  include <iconv.h>
-# endif
+#if HAVE_ICONV
+#include <iconv.h>
+#endif
 #endif
 
 #include "loadinfo.h"
 
-#include "gmo.h"		/* Get nls_uint32.  */
+#include "gmo.h" /* Get nls_uint32.  */
 
 /* @@ end of prolog @@ */
 
 #ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
+#if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || \
+    defined __cplusplus || __PROTOTYPES
+#define PARAMS(args) args
+#else
+#define PARAMS(args) ()
+#endif
 #endif
 
 #ifndef internal_function
-# define internal_function
+#define internal_function
 #endif
 
 #ifndef attribute_hidden
-# define attribute_hidden
+#define attribute_hidden
 #endif
 
 /* Tell the compiler when a conditional or integer expression is
    almost always true or almost always false.  */
 #ifndef HAVE_BUILTIN_EXPECT
-# define __builtin_expect(expr, val) (expr)
+#define __builtin_expect(expr, val) (expr)
 #endif
 
 #ifndef W
-# define W(flag, data) ((flag) ? SWAP (data) : (data))
+#define W(flag, data) ((flag) ? SWAP(data) : (data))
 #endif
-
 
 #ifdef _LIBC
-# include <byteswap.h>
-# define SWAP(i) bswap_32 (i)
+#include <byteswap.h>
+#define SWAP(i) bswap_32(i)
 #else
-static inline nls_uint32
-SWAP (i)
-     nls_uint32 i;
-{
-  return (i << 24) | ((i & 0xff00) << 8) | ((i >> 8) & 0xff00) | (i >> 24);
-}
+static inline nls_uint32 SWAP(i) nls_uint32 i;
+{ return (i << 24) | ((i & 0xff00) << 8) | ((i >> 8) & 0xff00) | (i >> 24); }
 #endif
 
-
 /* In-memory representation of system dependent string.  */
-struct sysdep_string_desc
-{
+struct sysdep_string_desc {
   /* Length of addressed string, including the trailing NUL.  */
   size_t length;
   /* Pointer to addressed string.  */
@@ -88,8 +82,7 @@ struct sysdep_string_desc
 };
 
 /* The representation of an opened message catalog.  */
-struct loaded_domain
-{
+struct loaded_domain {
   /* Pointer to memory containing the .mo file.  */
   const char *data;
   /* 1 if the memory is mmap()ed, 0 if the memory is malloc()ed.  */
@@ -126,9 +119,9 @@ struct loaded_domain
 #ifdef _LIBC
   __gconv_t conv;
 #else
-# if HAVE_ICONV
+#if HAVE_ICONV
   iconv_t conv;
-# endif
+#endif
 #endif
   char **conv_tab;
 
@@ -139,18 +132,17 @@ struct loaded_domain
 /* We want to allocate a string at the end of the struct.  But ISO C
    doesn't allow zero sized arrays.  */
 #ifdef __GNUC__
-# define ZERO 0
+#define ZERO 0
 #else
-# define ZERO 1
+#define ZERO 1
 #endif
 
 /* A set of settings bound to a message domain.  Used to store settings
    from bindtextdomain() and bind_textdomain_codeset().  */
-struct binding
-{
+struct binding {
   struct binding *next;
   char *dirname;
-  int codeset_cntr;	/* Incremented each time codeset changes.  */
+  int codeset_cntr; /* Incremented each time codeset changes.  */
   char *codeset;
   char domainname[ZERO];
 };
@@ -161,64 +153,57 @@ struct binding
 extern int _nl_msg_cat_cntr;
 
 #ifndef _LIBC
-const char *_nl_locale_name PARAMS ((int category, const char *categoryname));
+const char *_nl_locale_name PARAMS((int category, const char *categoryname));
 #endif
 
-struct loaded_l10nfile *_nl_find_domain PARAMS ((const char *__dirname,
-						 char *__locale,
-						 const char *__domainname,
-					      struct binding *__domainbinding))
-     internal_function;
-void _nl_load_domain PARAMS ((struct loaded_l10nfile *__domain,
-			      struct binding *__domainbinding))
-     internal_function;
-void _nl_unload_domain PARAMS ((struct loaded_domain *__domain))
-     internal_function;
-const char *_nl_init_domain_conv PARAMS ((struct loaded_l10nfile *__domain_file,
-					  struct loaded_domain *__domain,
-					  struct binding *__domainbinding))
-     internal_function;
-void _nl_free_domain_conv PARAMS ((struct loaded_domain *__domain))
-     internal_function;
+struct loaded_l10nfile *_nl_find_domain
+PARAMS((const char *__dirname, char *__locale, const char *__domainname,
+        struct binding *__domainbinding)) internal_function;
+void _nl_load_domain PARAMS((struct loaded_l10nfile * __domain,
+                             struct binding *__domainbinding))
+    internal_function;
+void _nl_unload_domain PARAMS((struct loaded_domain *
+                               __domain)) internal_function;
+const char *_nl_init_domain_conv
+PARAMS((struct loaded_l10nfile * __domain_file, struct loaded_domain *__domain,
+        struct binding *__domainbinding)) internal_function;
+void _nl_free_domain_conv PARAMS((struct loaded_domain *
+                                  __domain)) internal_function;
 
-char *_nl_find_msg PARAMS ((struct loaded_l10nfile *domain_file,
-			    struct binding *domainbinding,
-			    const char *msgid, size_t *lengthp))
-     internal_function;
+char *_nl_find_msg PARAMS((struct loaded_l10nfile * domain_file,
+                           struct binding *domainbinding, const char *msgid,
+                           size_t *lengthp)) internal_function;
 
 #ifdef _LIBC
-extern char *__gettext PARAMS ((const char *__msgid));
-extern char *__dgettext PARAMS ((const char *__domainname,
-				 const char *__msgid));
-extern char *__dcgettext PARAMS ((const char *__domainname,
-				  const char *__msgid, int __category));
-extern char *__ngettext PARAMS ((const char *__msgid1, const char *__msgid2,
-				 unsigned long int __n));
-extern char *__dngettext PARAMS ((const char *__domainname,
-				  const char *__msgid1, const char *__msgid2,
-				  unsigned long int n));
-extern char *__dcngettext PARAMS ((const char *__domainname,
-				   const char *__msgid1, const char *__msgid2,
-				   unsigned long int __n, int __category));
-extern char *__dcigettext PARAMS ((const char *__domainname,
-				   const char *__msgid1, const char *__msgid2,
-				   int __plural, unsigned long int __n,
-				   int __category));
-extern char *__textdomain PARAMS ((const char *__domainname));
-extern char *__bindtextdomain PARAMS ((const char *__domainname,
-				       const char *__dirname));
-extern char *__bind_textdomain_codeset PARAMS ((const char *__domainname,
-						const char *__codeset));
+extern char *__gettext PARAMS((const char *__msgid));
+extern char *__dgettext PARAMS((const char *__domainname, const char *__msgid));
+extern char *__dcgettext PARAMS((const char *__domainname, const char *__msgid,
+                                 int __category));
+extern char *__ngettext PARAMS((const char *__msgid1, const char *__msgid2,
+                                unsigned long int __n));
+extern char *__dngettext PARAMS((const char *__domainname, const char *__msgid1,
+                                 const char *__msgid2, unsigned long int n));
+extern char *__dcngettext PARAMS((const char *__domainname,
+                                  const char *__msgid1, const char *__msgid2,
+                                  unsigned long int __n, int __category));
+extern char *__dcigettext PARAMS((const char *__domainname,
+                                  const char *__msgid1, const char *__msgid2,
+                                  int __plural, unsigned long int __n,
+                                  int __category));
+extern char *__textdomain PARAMS((const char *__domainname));
+extern char *__bindtextdomain PARAMS((const char *__domainname,
+                                      const char *__dirname));
+extern char *__bind_textdomain_codeset PARAMS((const char *__domainname,
+                                               const char *__codeset));
 #else
 /* Declare the exported libintl_* functions, in a way that allows us to
    call them under their real name.  */
-# define _INTL_REDIRECT_MACROS
-# include "libgnuintl.h"
-extern char *libintl_dcigettext PARAMS ((const char *__domainname,
-					 const char *__msgid1,
-					 const char *__msgid2,
-					 int __plural, unsigned long int __n,
-					 int __category));
+#define _INTL_REDIRECT_MACROS
+#include "libgnuintl.h"
+extern char *libintl_dcigettext PARAMS((const char *__domainname,
+                                        const char *__msgid1,
+                                        const char *__msgid2, int __plural,
+                                        unsigned long int __n, int __category));
 #endif
 
 /* @@ begin of epilog @@ */

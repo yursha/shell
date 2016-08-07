@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_SUBST_H_)
+#if !defined(_SUBST_H_)
 #define _SUBST_H_
 
 #include "stdc.h"
@@ -32,41 +32,43 @@
    expanding a pattern ${var%#[#%]pattern} in an expansion surrounded
    by double quotes. Q_DOLBRACE means we are expanding a ${...} word, so
    backslashes should also escape { and } and be removed. */
-#define Q_DOUBLE_QUOTES  0x001
-#define Q_HERE_DOCUMENT  0x002
+#define Q_DOUBLE_QUOTES 0x001
+#define Q_HERE_DOCUMENT 0x002
 #define Q_KEEP_BACKSLASH 0x004
-#define Q_PATQUOTE	 0x008
-#define Q_QUOTED	 0x010
-#define Q_ADDEDQUOTES	 0x020
-#define Q_QUOTEDNULL	 0x040
-#define Q_DOLBRACE	 0x080
-#define Q_ARITH		 0x100	/* expanding string for arithmetic evaluation */
-#define Q_ARRAYSUB	 0x200	/* expanding indexed array subscript */
+#define Q_PATQUOTE 0x008
+#define Q_QUOTED 0x010
+#define Q_ADDEDQUOTES 0x020
+#define Q_QUOTEDNULL 0x040
+#define Q_DOLBRACE 0x080
+#define Q_ARITH 0x100    /* expanding string for arithmetic evaluation */
+#define Q_ARRAYSUB 0x200 /* expanding indexed array subscript */
 
 /* Flag values controlling how assignment statements are treated. */
-#define ASS_APPEND	0x0001
-#define ASS_MKLOCAL	0x0002
-#define ASS_MKASSOC	0x0004
-#define ASS_MKGLOBAL	0x0008	/* force global assignment */
-#define ASS_NAMEREF	0x0010	/* assigning to nameref variable */
-#define ASS_FORCE	0x0020	/* force assignment even to readonly variable */
+#define ASS_APPEND 0x0001
+#define ASS_MKLOCAL 0x0002
+#define ASS_MKASSOC 0x0004
+#define ASS_MKGLOBAL 0x0008 /* force global assignment */
+#define ASS_NAMEREF 0x0010  /* assigning to nameref variable */
+#define ASS_FORCE 0x0020    /* force assignment even to readonly variable */
 
 /* Flags for the string extraction functions. */
-#define SX_NOALLOC	0x0001	/* just skip; don't return substring */
-#define SX_VARNAME	0x0002	/* variable name; for string_extract () */
-#define SX_REQMATCH	0x0004	/* closing/matching delimiter required */
-#define SX_COMMAND	0x0008	/* extracting a shell script/command */
-#define SX_NOCTLESC	0x0010	/* don't honor CTLESC quoting */
-#define SX_NOESCCTLNUL	0x0020	/* don't let CTLESC quote CTLNUL */
-#define SX_NOLONGJMP	0x0040	/* don't longjmp on fatal error */
-#define SX_ARITHSUB	0x0080	/* extracting $(( ... )) (currently unused) */
-#define SX_POSIXEXP	0x0100	/* extracting new Posix pattern removal expansions in extract_dollar_brace_string */
-#define SX_WORD		0x0200	/* extracting word in ${param op word} */
-#define SX_COMPLETE	0x0400	/* extracting word for completion */
+#define SX_NOALLOC 0x0001     /* just skip; don't return substring */
+#define SX_VARNAME 0x0002     /* variable name; for string_extract () */
+#define SX_REQMATCH 0x0004    /* closing/matching delimiter required */
+#define SX_COMMAND 0x0008     /* extracting a shell script/command */
+#define SX_NOCTLESC 0x0010    /* don't honor CTLESC quoting */
+#define SX_NOESCCTLNUL 0x0020 /* don't let CTLESC quote CTLNUL */
+#define SX_NOLONGJMP 0x0040   /* don't longjmp on fatal error */
+#define SX_ARITHSUB 0x0080    /* extracting $(( ... )) (currently unused) */
+#define SX_POSIXEXP                                                          \
+  0x0100               /* extracting new Posix pattern removal expansions in \
+                          extract_dollar_brace_string */
+#define SX_WORD 0x0200 /* extracting word in ${param op word} */
+#define SX_COMPLETE 0x0400 /* extracting word for completion */
 
 /* Remove backslashes which are quoting backquotes from STRING.  Modifies
    STRING, and returns a pointer to it. */
-extern char * de_backslash(char *);
+extern char *de_backslash(char *);
 
 /* Replace instances of \! in a string with !. */
 extern void unquote_bang(char *);
@@ -82,7 +84,7 @@ extern char *extract_command_subst(char *, int *, int);
    Make (SINDEX) get the position just after the matching "]". */
 extern char *extract_arithmetic_subst(char *, int *);
 
-#if defined (PROCESS_SUBSTITUTION)
+#if defined(PROCESS_SUBSTITUTION)
 /* Extract the <( or >( construct in STRING, and return a new string.
    Start extracting at (SINDEX) as if we had just seen "<(".
    Make (SINDEX) get the position just after the matching ")". */
@@ -120,7 +122,7 @@ extern void word_list_remove_quoted_nulls(WORD_LIST *);
    STRING. */
 extern WORD_LIST *list_string(char *, char *, int);
 
-extern char *ifs_firstchar (int *);
+extern char *ifs_firstchar(int *);
 extern char *get_word_from_string(char **, char *, char **);
 extern char *strip_trailing_ifs_whitespace(char *, char *, int);
 
@@ -273,35 +275,39 @@ extern void clear_fifo_list(void);
 
 extern WORD_LIST *list_string_with_quotes(char *);
 
-#if defined (ARRAY_VARS)
+#if defined(ARRAY_VARS)
 extern char *extract_array_assignment_list(char *, int *);
 #endif
 
-#if defined (COND_COMMAND)
+#if defined(COND_COMMAND)
 extern char *remove_backslashes(char *);
 extern char *cond_expand_word(WORD_DESC *, int);
 #endif
 
 /* Flags for skip_to_delim */
-#define SD_NOJMP	0x001	/* don't longjmp on fatal error. */
-#define SD_INVERT	0x002	/* look for chars NOT in passed set */
-#define SD_NOQUOTEDELIM	0x004	/* don't let single or double quotes act as delimiters */
-#define SD_NOSKIPCMD	0x008	/* don't skip over $(, <(, or >( command/process substitution; parse them as commands */
-#define SD_EXTGLOB	0x010	/* skip over extended globbing patterns if appropriate */
-#define SD_IGNOREQUOTE	0x020	/* single and double quotes are not special */
-#define SD_GLOB		0x040	/* skip over glob patterns like bracket expressions */
-#define SD_NOPROCSUB	0x080	/* don't parse process substitutions as commands */
-#define SD_COMPLETE	0x100	/* skip_to_delim during completion */
-#define SD_HISTEXP	0x200	/* skip_to_delim during history expansion */
-#define SD_ARITHEXP	0x400	/* skip_to_delim during arithmetic expansion */
+#define SD_NOJMP 0x001  /* don't longjmp on fatal error. */
+#define SD_INVERT 0x002 /* look for chars NOT in passed set */
+#define SD_NOQUOTEDELIM \
+  0x004 /* don't let single or double quotes act as delimiters */
+#define SD_NOSKIPCMD                                                         \
+  0x008 /* don't skip over $(, <(, or >( command/process substitution; parse \
+           them as commands */
+#define SD_EXTGLOB \
+  0x010 /* skip over extended globbing patterns if appropriate */
+#define SD_IGNOREQUOTE 0x020 /* single and double quotes are not special */
+#define SD_GLOB 0x040 /* skip over glob patterns like bracket expressions */
+#define SD_NOPROCSUB 0x080 /* don't parse process substitutions as commands */
+#define SD_COMPLETE 0x100  /* skip_to_delim during completion */
+#define SD_HISTEXP 0x200   /* skip_to_delim during history expansion */
+#define SD_ARITHEXP 0x400  /* skip_to_delim during arithmetic expansion */
 
 extern int skip_to_delim(char *, int, char *, int);
 
-#if defined (BANG_HISTORY)
+#if defined(BANG_HISTORY)
 extern int skip_to_histexp(char *, int, char *, int);
 #endif
 
-#if defined (READLINE)
+#if defined(READLINE)
 extern int char_is_quoted(char *, int);
 extern int unclosed_pair(char *, int, char *);
 extern WORD_LIST *split_at_delims(char *, int, char *, int, int, int *, int *);
@@ -312,7 +318,7 @@ extern SHELL_VAR *ifs_var;
 extern char *ifs_value;
 extern unsigned char ifs_cmap[];
 
-#if defined (HANDLE_MULTIBYTE)
+#if defined(HANDLE_MULTIBYTE)
 extern unsigned char ifs_firstc[];
 extern size_t ifs_firstc_len;
 #else
@@ -320,10 +326,10 @@ extern unsigned char ifs_firstc;
 #endif
 
 /* Evaluates to 1 if C is a character in $IFS. */
-#define isifs(c)	(ifs_cmap[(unsigned char)(c)] != 0)
+#define isifs(c) (ifs_cmap[(unsigned char)(c)] != 0)
 
 /* How to determine the quoted state of the character C. */
-#define QUOTED_CHAR(c)  ((c) == CTLESC)
+#define QUOTED_CHAR(c) ((c) == CTLESC)
 
 /* Is the first character of STRING a quoted NULL character? */
 #define QUOTED_NULL(string) ((string)[0] == CTLNUL && (string)[1] == '\0')

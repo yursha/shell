@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_GENERAL_H_)
+#if !defined(_GENERAL_H_)
 #define _GENERAL_H_
 
 #include "stdc.h"
@@ -26,51 +26,52 @@
 #include "bashtypes.h"
 #include "chartypes.h"
 
-#if defined (HAVE_SYS_RESOURCE_H) && defined (RLIMTYPE)
-#  if defined (HAVE_SYS_TIME_H)
-#    include <sys/time.h>
-#  endif
-#  include <sys/resource.h>
+#if defined(HAVE_SYS_RESOURCE_H) && defined(RLIMTYPE)
+#if defined(HAVE_SYS_TIME_H)
+#include <sys/time.h>
+#endif
+#include <sys/resource.h>
 #endif
 
-#if defined (HAVE_STRING_H)
-#  include <string.h>
+#if defined(HAVE_STRING_H)
+#include <string.h>
 #else
-#  include <strings.h>
+#include <strings.h>
 #endif /* !HAVE_STRING_H */
 
-#if defined (HAVE_LIMITS_H)
-#  include <limits.h>
+#if defined(HAVE_LIMITS_H)
+#include <limits.h>
 #endif
 
 #include "xmalloc.h"
 
 /* NULL pointer type. */
-#if !defined (NULL)
-#  if defined (__STDC__)
-#    define NULL ((void *) 0)
-#  else
-#    define NULL 0x0
-#  endif /* !__STDC__ */
+#if !defined(NULL)
+#if defined(__STDC__)
+#define NULL ((void *)0)
+#else
+#define NULL 0x0
+#endif /* !__STDC__ */
 #endif /* !NULL */
 
 /* Hardly used anymore */
-#define pointer_to_int(x)	(int)((char *)x - (char *)0)
+#define pointer_to_int(x) (int)((char *)x - (char *)0)
 
-#if defined (alpha) && defined (__GNUC__) && !defined (strchr) && !defined (__STDC__)
-extern char *strchr (), *strrchr ();
+#if defined(alpha) && defined(__GNUC__) && !defined(strchr) && \
+    !defined(__STDC__)
+extern char *strchr(), *strrchr();
 #endif
 
-#if !defined (strcpy) && (defined (HAVE_DECL_STRCPY) && !HAVE_DECL_STRCPY)
+#if !defined(strcpy) && (defined(HAVE_DECL_STRCPY) && !HAVE_DECL_STRCPY)
 extern char *strcpy(char *, const char *);
 #endif
 
-#if !defined (savestring)
-#  define savestring(x) (char *)strcpy (xmalloc (1 + strlen (x)), (x))
+#if !defined(savestring)
+#define savestring(x) (char *) strcpy(xmalloc(1 + strlen(x)), (x))
 #endif
 
 #ifndef member
-#  define member(c, s) ((c) ? ((char *)mbschr ((s), (c)) != (char *)NULL) : 0)
+#define member(c, s) ((c) ? ((char *)mbschr((s), (c)) != (char *)NULL) : 0)
 #endif
 
 #ifndef whitespace
@@ -78,19 +79,19 @@ extern char *strcpy(char *, const char *);
 #endif
 
 #ifndef CHAR_MAX
-#  ifdef __CHAR_UNSIGNED__
-#    define CHAR_MAX	0xff
-#  else
-#    define CHAR_MAX	0x7f
-#  endif
+#ifdef __CHAR_UNSIGNED__
+#define CHAR_MAX 0xff
+#else
+#define CHAR_MAX 0x7f
+#endif
 #endif
 
 #ifndef CHAR_BIT
-#  define CHAR_BIT 8
+#define CHAR_BIT 8
 #endif
 
 /* Nonzero if the integer type T is signed.  */
-#define TYPE_SIGNED(t) (! ((t) 0 < (t) -1))
+#define TYPE_SIGNED(t) (!((t)0 < (t)-1))
 
 /* Bound on length of the string representing an integer value of type T.
    Subtract one for the sign bit if T is signed;
@@ -98,24 +99,20 @@ extern char *strcpy(char *, const char *);
    add one for integer division truncation;
    add one more for a minus sign if t is signed.  */
 #define INT_STRLEN_BOUND(t) \
-  ((sizeof (t) * CHAR_BIT - TYPE_SIGNED (t)) * 302 / 1000 \
-   + 1 + TYPE_SIGNED (t))
-
+  ((sizeof(t) * CHAR_BIT - TYPE_SIGNED(t)) * 302 / 1000 + 1 + TYPE_SIGNED(t))
 
 /* Define exactly what a legal shell identifier consists of. */
 #define legal_variable_starter(c) (ISALPHA(c) || (c == '_'))
-#define legal_variable_char(c)	(ISALNUM(c) || c == '_')
+#define legal_variable_char(c) (ISALNUM(c) || c == '_')
 
 /* Definitions used in subst.c and by the `read' builtin for field
    splitting. */
-#define spctabnl(c)	((c) == ' ' || (c) == '\t' || (c) == '\n')
+#define spctabnl(c) ((c) == ' ' || (c) == '\t' || (c) == '\n')
 
 /* All structs which contain a `next' field should have that field
    as the first field in the struct.  This means that functions
    can be written to handle the general case for linked lists. */
-typedef struct g_list {
-  struct g_list *next;
-} GENERIC_LIST;
+typedef struct g_list { struct g_list *next; } GENERIC_LIST;
 
 /* Here is a generic structure for associating character strings
    with integers.  It is used in the parser for shell tokenization. */
@@ -125,32 +122,36 @@ typedef struct {
 } STRING_INT_ALIST;
 
 /* A macro to avoid making an unnecessary function call. */
-#define REVERSE_LIST(list, type) \
-  ((list && list->next) ? (type)list_reverse ((GENERIC_LIST *)list) \
-			: (type)(list))
+#define REVERSE_LIST(list, type)                                   \
+  ((list && list->next) ? (type)list_reverse((GENERIC_LIST *)list) \
+                        : (type)(list))
 
 #if __GNUC__ > 1
-#  define FASTCOPY(s, d, n)  __builtin_memcpy ((d), (s), (n))
+#define FASTCOPY(s, d, n) __builtin_memcpy((d), (s), (n))
 #else /* !__GNUC__ */
-#  if !defined (HAVE_BCOPY)
-#    if !defined (HAVE_MEMMOVE)
-#      define FASTCOPY(s, d, n)  memcpy ((d), (s), (n))
-#    else
-#      define FASTCOPY(s, d, n)  memmove ((d), (s), (n))
-#    endif /* !HAVE_MEMMOVE */
-#  else /* HAVE_BCOPY */
-#    define FASTCOPY(s, d, n)  bcopy ((s), (d), (n))
-#  endif /* HAVE_BCOPY */
+#if !defined(HAVE_BCOPY)
+#if !defined(HAVE_MEMMOVE)
+#define FASTCOPY(s, d, n) memcpy((d), (s), (n))
+#else
+#define FASTCOPY(s, d, n) memmove((d), (s), (n))
+#endif /* !HAVE_MEMMOVE */
+#else  /* HAVE_BCOPY */
+#define FASTCOPY(s, d, n) bcopy((s), (d), (n))
+#endif /* HAVE_BCOPY */
 #endif /* !__GNUC__ */
 
 /* String comparisons that possibly save a function call each. */
 #define STREQ(a, b) ((a)[0] == (b)[0] && strcmp(a, b) == 0)
-#define STREQN(a, b, n) ((n == 0) ? (1) \
-				  : ((a)[0] == (b)[0] && strncmp(a, b, n) == 0))
+#define STREQN(a, b, n) \
+  ((n == 0) ? (1) : ((a)[0] == (b)[0] && strncmp(a, b, n) == 0))
 
 /* More convenience definitions that possibly save system or libc calls. */
-#define STRLEN(s) (((s) && (s)[0]) ? ((s)[1] ? ((s)[2] ? strlen(s) : 2) : 1) : 0)
-#define FREE(s)  do { if (s) free (s); } while (0)
+#define STRLEN(s) \
+  (((s) && (s)[0]) ? ((s)[1] ? ((s)[2] ? strlen(s) : 2) : 1) : 0)
+#define FREE(s)     \
+  do {              \
+    if (s) free(s); \
+  } while (0)
 #define MEMBER(c, s) (((c) && c == (s)[0] && !(s)[1]) || (member(c, s)))
 
 /* A fairly hairy macro to check whether an allocated string has more room,
@@ -162,26 +163,24 @@ typedef struct {
    SINCR is how much to increment CSIZE before calling xrealloc (int) */
 
 #define RESIZE_MALLOCED_BUFFER(str, cind, room, csize, sincr) \
-  do { \
-    if ((cind) + (room) >= csize) \
-      { \
-	while ((cind) + (room) >= csize) \
-	  csize += (sincr); \
-	str = xrealloc (str, csize); \
-      } \
+  do {                                                        \
+    if ((cind) + (room) >= csize) {                           \
+      while ((cind) + (room) >= csize) csize += (sincr);      \
+      str = xrealloc(str, csize);                             \
+    }                                                         \
   } while (0)
 
 /* Function pointers can be declared as (Function *)foo. */
-#if !defined (_FUNCTION_DEF)
-#  define _FUNCTION_DEF
-typedef int Function ();
-typedef void VFunction ();
-typedef char *CPFunction ();		/* no longer used */
-typedef char **CPPFunction ();		/* no longer used */
-#endif /* _FUNCTION_DEF */
+#if !defined(_FUNCTION_DEF)
+#define _FUNCTION_DEF
+typedef int Function();
+typedef void VFunction();
+typedef char *CPFunction();   /* no longer used */
+typedef char **CPPFunction(); /* no longer used */
+#endif                        /* _FUNCTION_DEF */
 
 #ifndef SH_FUNCTION_TYPEDEF
-#  define SH_FUNCTION_TYPEDEF
+#define SH_FUNCTION_TYPEDEF
 
 /* Shell function typedefs with prototypes */
 /* `Generic' function pointer typedefs */
@@ -203,18 +202,18 @@ typedef int sh_wlist_func_t(WORD_LIST *);
 
 typedef int sh_glist_func_t(GENERIC_LIST *);
 
-typedef char *sh_string_func_t(char *);	/* like savestring, et al. */
+typedef char *sh_string_func_t(char *); /* like savestring, et al. */
 
-typedef int sh_msg_func_t(const char *, ...);	/* printf(3)-like */
-typedef void sh_vmsg_func_t(const char *, ...);	/* printf(3)-like */
+typedef int sh_msg_func_t(const char *, ...);   /* printf(3)-like */
+typedef void sh_vmsg_func_t(const char *, ...); /* printf(3)-like */
 
 /* Specific function pointer typedefs.  Most of these could be done
    with #defines. */
-typedef void sh_sv_func_t(char *);	/* sh_vcpfunc_t */
-typedef void sh_free_func_t(PTR_T);	/* sh_vptrfunc_t */
-typedef void sh_resetsig_func_t(int);	/* sh_vintfunc_t */
+typedef void sh_sv_func_t(char *);    /* sh_vcpfunc_t */
+typedef void sh_free_func_t(PTR_T);   /* sh_vptrfunc_t */
+typedef void sh_resetsig_func_t(int); /* sh_vintfunc_t */
 
-typedef int sh_ignore_func_t(const char *);	/* sh_icpfunc_t */
+typedef int sh_ignore_func_t(const char *); /* sh_icpfunc_t */
 
 typedef int sh_assign_func_t(const char *);
 typedef int sh_wassign_func_t(WORD_DESC *, int);
@@ -226,47 +225,49 @@ typedef int sh_builtin_func_t(WORD_LIST *); /* sh_wlist_func_t */
 
 #endif /* SH_FUNCTION_TYPEDEF */
 
-#define NOW	((time_t) time ((time_t *) 0))
+#define NOW ((time_t)time((time_t *)0))
 
 /* Some defines for calling file status functions. */
-#define FS_EXISTS	  0x1
-#define FS_EXECABLE	  0x2
+#define FS_EXISTS 0x1
+#define FS_EXECABLE 0x2
 #define FS_EXEC_PREFERRED 0x4
-#define FS_EXEC_ONLY	  0x8
-#define FS_DIRECTORY	  0x10
-#define FS_NODIRS	  0x20
-#define FS_READABLE	  0x40
+#define FS_EXEC_ONLY 0x8
+#define FS_DIRECTORY 0x10
+#define FS_NODIRS 0x20
+#define FS_READABLE 0x40
 
 /* Default maximum for move_to_high_fd */
-#define HIGH_FD_MAX	256
+#define HIGH_FD_MAX 256
 
 /* The type of function passed as the fourth argument to qsort(3). */
 #ifdef __STDC__
-typedef int QSFUNC (const void *, const void *);
+typedef int QSFUNC(const void *, const void *);
 #else
-typedef int QSFUNC ();
-#endif 
+typedef int QSFUNC();
+#endif
 
 /* Some useful definitions for Unix pathnames.  Argument convention:
    x == string, c == character */
 
-#if !defined (__CYGWIN__)
-#  define ABSPATH(x)	((x)[0] == '/')
-#  define RELPATH(x)	((x)[0] != '/')
+#if !defined(__CYGWIN__)
+#define ABSPATH(x) ((x)[0] == '/')
+#define RELPATH(x) ((x)[0] != '/')
 #else /* __CYGWIN__ */
-#  define ABSPATH(x)	(((x)[0] && ISALPHA((unsigned char)(x)[0]) && (x)[1] == ':') || ISDIRSEP((x)[0]))
-#  define RELPATH(x)	(ABSPATH(x) == 0)
+#define ABSPATH(x)                                                \
+  (((x)[0] && ISALPHA((unsigned char)(x)[0]) && (x)[1] == ':') || \
+   ISDIRSEP((x)[0]))
+#define RELPATH(x) (ABSPATH(x) == 0)
 #endif /* __CYGWIN__ */
 
-#define ROOTEDPATH(x)	(ABSPATH(x))
+#define ROOTEDPATH(x) (ABSPATH(x))
 
-#define DIRSEP	'/'
-#if !defined (__CYGWIN__)
-#  define ISDIRSEP(c)	((c) == '/')
+#define DIRSEP '/'
+#if !defined(__CYGWIN__)
+#define ISDIRSEP(c) ((c) == '/')
 #else
-#  define ISDIRSEP(c)	((c) == '/' || (c) == '\\')
+#define ISDIRSEP(c) ((c) == '/' || (c) == '\\')
 #endif /* __CYGWIN__ */
-#define PATHSEP(c)	(ISDIRSEP(c) || (c) == 0)
+#define PATHSEP(c) (ISDIRSEP(c) || (c) == 0)
 
 #if 0
 /* Declarations for functions defined in xmalloc.c */
@@ -278,7 +279,7 @@ extern void xfree(void *);
 /* Declarations for functions defined in general.c */
 extern void posix_initialize(int);
 
-#if defined (RLIMTYPE)
+#if defined(RLIMTYPE)
 extern RLIMTYPE string_to_rlimtype(char *);
 extern void print_rlimtype(RLIMTYPE, int);
 #endif
@@ -309,8 +310,8 @@ extern int sh_openpipe(int *);
 extern int sh_closepipe(int *);
 
 extern int file_exists(char *);
-extern int file_isdir(char  *);
-extern int file_iswdir(char  *);
+extern int file_isdir(char *);
+extern int file_iswdir(char *);
 extern int path_dot_or_dotdot(const char *);
 extern int absolute_pathname(const char *);
 extern int absolute_program(const char *);
@@ -334,4 +335,4 @@ extern int *get_group_array(int *);
 
 extern char *conf_standard_path(void);
 
-#endif	/* _GENERAL_H_ */
+#endif /* _GENERAL_H_ */

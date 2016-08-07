@@ -4,6 +4,6 @@
    edit this file, because your changes will be overwritten.  Instead,
    edit the source code file `endian.c'. */
 
-#if !defined (BIG_ENDIAN)
-#  define BIG_ENDIAN
+#if !defined(BIG_ENDIAN)
+#define BIG_ENDIAN
 #endif /* BIG_ENDIAN */

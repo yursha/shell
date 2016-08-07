@@ -19,25 +19,25 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
+#if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
 
 #include <stdio.h>
 
-#if defined (HAVE_STDLIB_H)
-#  include <stdlib.h>
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#include "ansi_stdlib.h"
 #endif /* HAVE_STDLIB_H */
 
 /* Generic pointer type. */
 #ifndef PTR_T
 
-#if defined (__STDC__)
-#  define PTR_T void *
+#if defined(__STDC__)
+#define PTR_T void *
 #else
-#  define PTR_T char *
+#define PTR_T char *
 #endif
 
 #endif /* PTR_T */
@@ -48,47 +48,38 @@
 /*								    */
 /* **************************************************************** */
 
-static void
-memory_error_and_abort (fname)
-     char *fname;
+static void memory_error_and_abort(fname) char *fname;
 {
-  fprintf (stderr, "%s: out of virtual memory\n", fname);
-  exit (2);
+  fprintf(stderr, "%s: out of virtual memory\n", fname);
+  exit(2);
 }
 
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
 PTR_T
-xmalloc (bytes)
-     size_t bytes;
+xmalloc(bytes) size_t bytes;
 {
   PTR_T temp;
 
-  temp = malloc (bytes);
-  if (temp == 0)
-    memory_error_and_abort ("xmalloc");
+  temp = malloc(bytes);
+  if (temp == 0) memory_error_and_abort("xmalloc");
   return (temp);
 }
 
 PTR_T
-xrealloc (pointer, bytes)
-     PTR_T pointer;
-     size_t bytes;
+xrealloc(pointer, bytes) PTR_T pointer;
+size_t bytes;
 {
   PTR_T temp;
 
-  temp = pointer ? realloc (pointer, bytes) : malloc (bytes);
+  temp = pointer ? realloc(pointer, bytes) : malloc(bytes);
 
-  if (temp == 0)
-    memory_error_and_abort ("xrealloc");
+  if (temp == 0) memory_error_and_abort("xrealloc");
   return (temp);
 }
 
-void
-xfree (string)
-     PTR_T string;
+void xfree(string) PTR_T string;
 {
-  if (string)
-    free (string);
+  if (string) free(string);
 }

@@ -1,6 +1,7 @@
 /* getopt.h - public declarations for getopt. */
 
-/* Copyright (C) 1989, 1990, 1991, 1992, 1993, 2008,2009 Free Software Foundation, Inc.
+/* Copyright (C) 1989, 1990, 1991, 1992, 1993, 2008,2009 Free Software
+   Foundation, Inc.
 
    This file is part of GNU Bash, the Bourne Again SHell.
 
@@ -21,7 +22,7 @@
 #ifndef _GETOPT_H
 #define _GETOPT_H 1
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -77,9 +78,8 @@ extern int optopt;
    one).  For long options that have a zero `flag' field, `getopt'
    returns the contents of the `val' field.  */
 
-struct option
-{
-#if	__STDC__
+struct option {
+#if __STDC__
   const char *name;
 #else
   char *name;
@@ -93,39 +93,37 @@ struct option
 
 /* Names for the values of the `has_arg' field of `struct option'.  */
 
-#define	no_argument		0
-#define required_argument	1
-#define optional_argument	2
+#define no_argument 0
+#define required_argument 1
+#define optional_argument 2
 
 #if __STDC__
 #if defined(__GNU_LIBRARY__)
 /* Many other libraries have conflicting prototypes for getopt, with
    differences in the consts, in stdlib.h.  To avoid compilation
    errors, only prototype getopt for the GNU C library.  */
-extern int getopt (int argc, char *const *argv, const char *shortopts);
-#else /* not __GNU_LIBRARY__ */
-extern int getopt ();
+extern int getopt(int argc, char *const *argv, const char *shortopts);
+#else  /* not __GNU_LIBRARY__ */
+extern int getopt();
 #endif /* not __GNU_LIBRARY__ */
-extern int getopt_long (int argc, char *const *argv, const char *shortopts,
-		        const struct option *longopts, int *longind);
-extern int getopt_long_only (int argc, char *const *argv,
-			     const char *shortopts,
-		             const struct option *longopts, int *longind);
+extern int getopt_long(int argc, char *const *argv, const char *shortopts,
+                       const struct option *longopts, int *longind);
+extern int getopt_long_only(int argc, char *const *argv, const char *shortopts,
+                            const struct option *longopts, int *longind);
 
 /* Internal only.  Users should not call this directly.  */
-extern int _getopt_internal (int argc, char *const *argv,
-			     const char *shortopts,
-		             const struct option *longopts, int *longind,
-			     int long_only);
-#else /* not __STDC__ */
-extern int getopt ();
-extern int getopt_long ();
-extern int getopt_long_only ();
+extern int _getopt_internal(int argc, char *const *argv, const char *shortopts,
+                            const struct option *longopts, int *longind,
+                            int long_only);
+#else  /* not __STDC__ */
+extern int getopt();
+extern int getopt_long();
+extern int getopt_long_only();
 
-extern int _getopt_internal ();
+extern int _getopt_internal();
 #endif /* not __STDC__ */
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 }
 #endif
 

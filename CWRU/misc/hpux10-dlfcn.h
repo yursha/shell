@@ -35,7 +35,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (__HPUX10_DLFCN_H__)
+#if !defined(__HPUX10_DLFCN_H__)
 
 #define __HPUX10_DLFCN_H__
 
@@ -52,11 +52,15 @@ extern int errno;
 
 char *bash_global_sym_addr;
 
-#define dlopen(file,mode) (void *)shl_load((file), (mode), 0L)
+#define dlopen(file, mode) (void *) shl_load((file), (mode), 0L)
 
 #define dlclose(handle) shl_unload((shl_t)(handle))
 
-#define dlsym(handle,name) (bash_global_sym_addr=0,shl_findsym((shl_t *)&(handle),name,TYPE_UNDEFINED,&bash_global_sym_addr), (void *)bash_global_sym_addr)
+#define dlsym(handle, name)                              \
+  (bash_global_sym_addr = 0,                             \
+   shl_findsym((shl_t *)&(handle), name, TYPE_UNDEFINED, \
+               &bash_global_sym_addr),                   \
+   (void *)bash_global_sym_addr)
 
 #define dlerror() strerror(errno)
 

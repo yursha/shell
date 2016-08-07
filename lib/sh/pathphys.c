@@ -21,13 +21,13 @@
 #include <config.h>
 
 #include <bashtypes.h>
-#if defined (HAVE_SYS_PARAM_H)
-#  include <sys/param.h>
+#if defined(HAVE_SYS_PARAM_H)
+#include <sys/param.h>
 #endif
 #include <posixstat.h>
 
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
 
 #include <filecntl.h>
@@ -38,24 +38,22 @@
 
 #include "shell.h"
 
-#if !defined (MAXSYMLINKS)
-#  define MAXSYMLINKS 32
+#if !defined(MAXSYMLINKS)
+#define MAXSYMLINKS 32
 #endif
 
-#if !defined (errno)
+#if !defined(errno)
 extern int errno;
 #endif /* !errno */
 
 extern char *get_working_directory(char *);
 
-static int
-_path_readlink (path, buf, bufsiz)
-     char *path;
-     char *buf;
-     int bufsiz;
+static int _path_readlink(path, buf, bufsiz) char *path;
+char *buf;
+int bufsiz;
 {
 #ifdef HAVE_READLINK
-  return readlink (path, buf, bufsiz);
+  return readlink(path, buf, bufsiz);
 #else
   errno = EINVAL;
   return -1;
@@ -64,23 +62,21 @@ _path_readlink (path, buf, bufsiz)
 
 /* Look for ROOTEDPATH, PATHSEP, DIRSEP, and ISDIRSEP in ../../general.h */
 
-#define DOUBLE_SLASH(p)	((p[0] == '/') && (p[1] == '/') && p[2] != '/')
+#define DOUBLE_SLASH(p) ((p[0] == '/') && (p[1] == '/') && p[2] != '/')
 
 /*
  * Return PATH with all symlinks expanded in newly-allocated memory.
  * This always gets an absolute pathname.
  */
 
-char *
-sh_physpath (path, flags)
-     char *path;
-     int flags;
+char *sh_physpath(path, flags) char *path;
+int flags;
 {
-  char tbuf[PATH_MAX+1], linkbuf[PATH_MAX+1];
+  char tbuf[PATH_MAX + 1], linkbuf[PATH_MAX + 1];
   char *result, *p, *q, *qsave, *qbase, *workpath;
   int double_slash_path, linklen, nlink;
 
-  linklen = strlen (path);
+  linklen = strlen(path);
 
 #if 0
   /* First sanity check -- punt immediately if the name is too long. */
@@ -89,32 +85,32 @@ sh_physpath (path, flags)
 #endif
 
   nlink = 0;
-  q = result = (char *)xmalloc (PATH_MAX + 1);
+  q = result = (char *)xmalloc(PATH_MAX + 1);
 
   /* Even if we get something longer than PATH_MAX, we might be able to
      shorten it, so we try. */
   if (linklen >= PATH_MAX)
-    workpath = savestring (path);
-  else
-    {
-      workpath = (char *)xmalloc (PATH_MAX + 1);
-      strcpy (workpath, path);
-    }
+    workpath = savestring(path);
+  else {
+    workpath = (char *)xmalloc(PATH_MAX + 1);
+    strcpy(workpath, path);
+  }
 
-  /* This always gets an absolute pathname. */
+/* This always gets an absolute pathname. */
 
-  /* POSIX.2 says to leave a leading `//' alone.  On cygwin, we skip over any
-     leading `x:' (dos drive name). */
-#if defined (__CYGWIN__)
-  qbase = (ISALPHA((unsigned char)workpath[0]) && workpath[1] == ':') ? workpath + 3 : workpath + 1;
+/* POSIX.2 says to leave a leading `//' alone.  On cygwin, we skip over any
+   leading `x:' (dos drive name). */
+#if defined(__CYGWIN__)
+  qbase = (ISALPHA((unsigned char)workpath[0]) && workpath[1] == ':')
+              ? workpath + 3
+              : workpath + 1;
 #else
   qbase = workpath + 1;
 #endif
-  double_slash_path = DOUBLE_SLASH (workpath);
+  double_slash_path = DOUBLE_SLASH(workpath);
   qbase += double_slash_path;
 
-  for (p = workpath; p < qbase; )
-    *q++ = *p++;
+  for (p = workpath; p < qbase;) *q++ = *p++;
   qbase = q;
 
   /*
@@ -126,171 +122,149 @@ sh_physpath (path, flags)
    * XXX -- need to fix error checking for too-long pathnames
    */
 
-  while (*p)
-    {
-      if (ISDIRSEP(p[0])) /* null element */
-	p++;
-      else if(p[0] == '.' && PATHSEP(p[1]))	/* . and ./ */
-	p += 1; 	/* don't count the separator in case it is nul */
-      else if (p[0] == '.' && p[1] == '.' && PATHSEP(p[2])) /* .. and ../ */
-	{
-	  p += 2; /* skip `..' */
-	  if (q > qbase)
-	    {
-	      while (--q > qbase && ISDIRSEP(*q) == 0)
-		;
-	    }
-	}
-      else	/* real path element */
-	{
-	  /* add separator if not at start of work portion of result */
-	  qsave = q;
-	  if (q != qbase)
-	    *q++ = DIRSEP;
-	  while (*p && (ISDIRSEP(*p) == 0))
-	    {
-	      if (q - result >= PATH_MAX)
-		{
+  while (*p) {
+    if (ISDIRSEP(p[0])) /* null element */
+      p++;
+    else if (p[0] == '.' && PATHSEP(p[1])) /* . and ./ */
+      p += 1; /* don't count the separator in case it is nul */
+    else if (p[0] == '.' && p[1] == '.' && PATHSEP(p[2])) /* .. and ../ */
+        {
+      p += 2; /* skip `..' */
+      if (q > qbase) {
+        while (--q > qbase && ISDIRSEP(*q) == 0)
+          ;
+      }
+    } else /* real path element */
+        {
+      /* add separator if not at start of work portion of result */
+      qsave = q;
+      if (q != qbase) *q++ = DIRSEP;
+      while (*p && (ISDIRSEP(*p) == 0)) {
+        if (q - result >= PATH_MAX) {
 #ifdef ENAMETOOLONG
-		  errno = ENAMETOOLONG;
+          errno = ENAMETOOLONG;
 #else
-		  errno = EINVAL;
+          errno = EINVAL;
 #endif
-		  goto error;
-		}
-		
-	      *q++ = *p++;
-	    }
+          goto error;
+        }
 
-	  *q = '\0';
+        *q++ = *p++;
+      }
 
-	  linklen = _path_readlink (result, linkbuf, PATH_MAX);
-	  if (linklen < 0)	/* if errno == EINVAL, it's not a symlink */
-	    {
-	      if (errno != EINVAL)
-		goto error;
-	      continue;
-	    }
+      *q = '\0';
 
-	  /* It's a symlink, and the value is in LINKBUF. */
-	  nlink++;
-	  if (nlink > MAXSYMLINKS)
-	    {
+      linklen = _path_readlink(result, linkbuf, PATH_MAX);
+      if (linklen < 0) /* if errno == EINVAL, it's not a symlink */
+          {
+        if (errno != EINVAL) goto error;
+        continue;
+      }
+
+      /* It's a symlink, and the value is in LINKBUF. */
+      nlink++;
+      if (nlink > MAXSYMLINKS) {
 #ifdef ELOOP
-	      errno = ELOOP;
+        errno = ELOOP;
 #else
-	      errno = EINVAL;
+        errno = EINVAL;
 #endif
-error:
-	      free (result);
-	      free (workpath);
-	      return ((char *)NULL);
-	    }
+      error:
+        free(result);
+        free(workpath);
+        return ((char *)NULL);
+      }
 
-	  linkbuf[linklen] = '\0';
+      linkbuf[linklen] = '\0';
 
-	  /* If the new path length would overrun PATH_MAX, punt now. */
-	  if ((strlen (p) + linklen + 2) >= PATH_MAX)
-	    {
+      /* If the new path length would overrun PATH_MAX, punt now. */
+      if ((strlen(p) + linklen + 2) >= PATH_MAX) {
 #ifdef ENAMETOOLONG
-	      errno = ENAMETOOLONG;
+        errno = ENAMETOOLONG;
 #else
-	      errno = EINVAL;
+        errno = EINVAL;
 #endif
-	      goto error;
-	    }
+        goto error;
+      }
 
-	  /* Form the new pathname by copying the link value to a temporary
-	     buffer and appending the rest of `workpath'.  Reset p to point
-	     to the start of the rest of the path.  If the link value is an
-	     absolute pathname, reset p, q, and qbase.  If not, reset p
-	     and q. */
-	  strcpy (tbuf, linkbuf);
-	  tbuf[linklen] = '/';
-	  strcpy (tbuf + linklen, p);
-	  strcpy (workpath, tbuf);
+      /* Form the new pathname by copying the link value to a temporary
+         buffer and appending the rest of `workpath'.  Reset p to point
+         to the start of the rest of the path.  If the link value is an
+         absolute pathname, reset p, q, and qbase.  If not, reset p
+         and q. */
+      strcpy(tbuf, linkbuf);
+      tbuf[linklen] = '/';
+      strcpy(tbuf + linklen, p);
+      strcpy(workpath, tbuf);
 
-	  if (ABSPATH(linkbuf))
-	    {
-	      q = result;
-	      /* Duplicating some code here... */
-#if defined (__CYGWIN__)
-	      qbase = (ISALPHA((unsigned char)workpath[0]) && workpath[1] == ':') ? workpath + 3 : workpath + 1;
+      if (ABSPATH(linkbuf)) {
+        q = result;
+/* Duplicating some code here... */
+#if defined(__CYGWIN__)
+        qbase = (ISALPHA((unsigned char)workpath[0]) && workpath[1] == ':')
+                    ? workpath + 3
+                    : workpath + 1;
 #else
-	      qbase = workpath + 1;
+        qbase = workpath + 1;
 #endif
-	      double_slash_path = DOUBLE_SLASH (workpath);
-	      qbase += double_slash_path;
-    
-	      for (p = workpath; p < qbase; )
-		*q++ = *p++;
-	      qbase = q;
-	    }
-	  else
-	    {
-	      p = workpath;
-	      q = qsave;
-	    }
-	}
+        double_slash_path = DOUBLE_SLASH(workpath);
+        qbase += double_slash_path;
+
+        for (p = workpath; p < qbase;) *q++ = *p++;
+        qbase = q;
+      } else {
+        p = workpath;
+        q = qsave;
+      }
     }
+  }
 
   *q = '\0';
-  free (workpath);
+  free(workpath);
 
   /* If the result starts with `//', but the original path does not, we
      can turn the // into /.  Because of how we set `qbase', this should never
      be true, but it's a sanity check. */
-  if (DOUBLE_SLASH(result) && double_slash_path == 0)
-    {
-      if (result[2] == '\0')	/* short-circuit for bare `//' */
-	result[1] = '\0';
-      else
-	strcpy (result, result + 1);
-    }
+  if (DOUBLE_SLASH(result) && double_slash_path == 0) {
+    if (result[2] == '\0') /* short-circuit for bare `//' */
+      result[1] = '\0';
+    else
+      strcpy(result, result + 1);
+  }
 
   return (result);
 }
 
-char *
-sh_realpath (pathname, resolved)
-     const char *pathname;
-     char *resolved;
+char *sh_realpath(pathname, resolved) const char *pathname;
+char *resolved;
 {
   char *tdir, *wd;
 
-  if (pathname == 0 || *pathname == '\0')
-    {
-      errno = (pathname == 0) ? EINVAL : ENOENT;
-      return ((char *)NULL);
-    }
+  if (pathname == 0 || *pathname == '\0') {
+    errno = (pathname == 0) ? EINVAL : ENOENT;
+    return ((char *)NULL);
+  }
 
-  if (ABSPATH (pathname) == 0)
-    {
-      wd = get_working_directory ("sh_realpath");
-      if (wd == 0)
-	return ((char *)NULL);
-      tdir = sh_makepath (wd, (char *)pathname, 0);
-      free (wd);
-    }
-  else
-    tdir = savestring (pathname);
+  if (ABSPATH(pathname) == 0) {
+    wd = get_working_directory("sh_realpath");
+    if (wd == 0) return ((char *)NULL);
+    tdir = sh_makepath(wd, (char *)pathname, 0);
+    free(wd);
+  } else
+    tdir = savestring(pathname);
 
-  wd = sh_physpath (tdir, 0);
-  free (tdir);
+  wd = sh_physpath(tdir, 0);
+  free(tdir);
 
-  if (resolved == 0)
-    return (wd);
+  if (resolved == 0) return (wd);
 
-  if (wd)
-    {
-      strncpy (resolved, wd, PATH_MAX - 1);
-      resolved[PATH_MAX - 1] = '\0';
-      free (wd);
-      return resolved;
-    }
-  else
-    {
-      resolved[0] = '\0';
-      return wd;
-    }
+  if (wd) {
+    strncpy(resolved, wd, PATH_MAX - 1);
+    resolved[PATH_MAX - 1] = '\0';
+    free(wd);
+    return resolved;
+  } else {
+    resolved[0] = '\0';
+    return wd;
+  }
 }

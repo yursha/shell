@@ -18,48 +18,47 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_INPUT_H_)
+#if !defined(_INPUT_H_)
 #define _INPUT_H_
 
 #include "stdc.h"
 
 /* Function pointers can be declared as (Function *)foo. */
-#if !defined (_FUNCTION_DEF)
-#  define _FUNCTION_DEF
-typedef int Function ();
-typedef void VFunction ();
-typedef char *CPFunction ();		/* no longer used */
-typedef char **CPPFunction ();		/* no longer used */
-#endif /* _FUNCTION_DEF */
+#if !defined(_FUNCTION_DEF)
+#define _FUNCTION_DEF
+typedef int Function();
+typedef void VFunction();
+typedef char *CPFunction();   /* no longer used */
+typedef char **CPPFunction(); /* no longer used */
+#endif                        /* _FUNCTION_DEF */
 
-typedef int sh_cget_func_t(void);		/* sh_ivoidfunc_t */
-typedef int sh_cunget_func_t(int);	/* sh_intfunc_t */
+typedef int sh_cget_func_t(void);  /* sh_ivoidfunc_t */
+typedef int sh_cunget_func_t(int); /* sh_intfunc_t */
 
-enum stream_type {st_none, st_stdin, st_stream, st_string, st_bstream};
+enum stream_type { st_none, st_stdin, st_stream, st_string, st_bstream };
 
-#if defined (BUFFERED_INPUT)
+#if defined(BUFFERED_INPUT)
 
 /* Possible values for b_flag. */
 #undef B_EOF
-#undef B_ERROR		/* There are some systems with this define */
+#undef B_ERROR /* There are some systems with this define */
 #undef B_UNBUFF
 
-#define B_EOF		0x01
-#define B_ERROR		0x02
-#define B_UNBUFF	0x04
-#define B_WASBASHINPUT	0x08
-#define B_TEXT		0x10
+#define B_EOF 0x01
+#define B_ERROR 0x02
+#define B_UNBUFF 0x04
+#define B_WASBASHINPUT 0x08
+#define B_TEXT 0x10
 
 /* A buffered stream.  Like a FILE *, but with our own buffering and
    synchronization.  Look in input.c for the implementation. */
-typedef struct BSTREAM
-{
-  int	 b_fd;
-  char	*b_buffer;		/* The buffer that holds characters read. */
-  size_t b_size;		/* How big the buffer is. */
-  size_t b_used;		/* How much of the buffer we're using, */
-  int	 b_flag;		/* Flag values. */
-  size_t b_inputp;		/* The input pointer, index into b_buffer. */
+typedef struct BSTREAM {
+  int b_fd;
+  char *b_buffer;  /* The buffer that holds characters read. */
+  size_t b_size;   /* How big the buffer is. */
+  size_t b_used;   /* How much of the buffer we're using, */
+  int b_flag;      /* Flag values. */
+  size_t b_inputp; /* The input pointer, index into b_buffer. */
 } BUFFERED_STREAM;
 
 #if 0
@@ -73,7 +72,7 @@ extern int default_buffered_input;
 typedef union {
   FILE *file;
   char *string;
-#if defined (BUFFERED_INPUT)
+#if defined(BUFFERED_INPUT)
   int buffered_fd;
 #endif
 } INPUT_STREAM;
@@ -91,7 +90,8 @@ extern BASH_INPUT bash_input;
 /* Functions from parse.y whose use directly or indirectly depends on the
    definitions in this file. */
 extern void initialize_bash_input(void);
-extern void init_yy_io(sh_cget_func_t *, sh_cunget_func_t *, enum stream_type, const char *, INPUT_STREAM);
+extern void init_yy_io(sh_cget_func_t *, sh_cunget_func_t *, enum stream_type,
+                       const char *, INPUT_STREAM);
 extern char *yy_input_name(void);
 extern void with_input_from_stdin(void);
 extern void with_input_from_string(char *, const char *);
@@ -111,7 +111,7 @@ extern void restore_token_state(int *);
 extern int getc_with_restart(FILE *);
 extern int ungetc_with_restart(int, FILE *);
 
-#if defined (BUFFERED_INPUT)
+#if defined(BUFFERED_INPUT)
 /* Functions from input.c. */
 extern int fd_is_bash_input(int);
 extern int set_bash_input_fd(int);

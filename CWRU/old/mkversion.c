@@ -31,11 +31,10 @@ char *progname;
 char *dir;
 char *status;
 
-FILE *must_open ();
+FILE *must_open();
 
-main (argc, argv)
-     int argc;
-     char **argv;
+main(argc, argv) int argc;
+char **argv;
 {
   FILE *file;
   float distver = 0.0;
@@ -49,257 +48,218 @@ main (argc, argv)
   progname = argv[0];
 
   status = dir = (char *)0;
-  while (arg_index < argc && argv[arg_index][0] == '-')
-    {
-      if (strcmp (argv[arg_index], "-dist") == 0)
-        {
-	  dist++;
-	  dist_inc++;
-        }
-      else if (strcmp (argv[arg_index], "-build") == 0)
-        {
-	  build++;
-	  build_inc++;
-        }
-      else if (strcmp (argv[arg_index], "-patch") == 0)
-        {
-          patch++;
-	  patch_inc++;
-        }
-      else if (strcmp (argv[arg_index], "-dir") == 0)
-	{
-	  dir = argv[++arg_index];
-	  if (dir == 0)
-	    {
-	      fprintf (stderr, "%s: `-dir' requires an argument\n", progname);
-	      exit (1);
-	    }
-	  if (stat (dir, &sb) < 0)
-	    {
-	      fprintf (stderr, "%s: cannot stat %s\n", progname, dir);
-	      exit (1);
-	    }
-	  if ((sb.st_mode & S_IFMT) != S_IFDIR)
-	    {
-	      fprintf (stderr, "%s: not a directory\n", progname);
-	      exit (1);
-	    }
-	}
-      else if (strcmp (argv[arg_index], "-status") == 0)
-        {
-          status = argv[++arg_index];
-	  if (status == 0)
-	    {
-	      fprintf (stderr, "%s: `-status' requires an argument\n", progname);
-	      exit (1);
-	    }
-        }
-      else
-	{
-	  fprintf (stderr, "%s: unknown option: %s\n", progname, argv[arg_index]);
-	  fprintf (stderr, "usage: %s [-dist|-patch|-build] [-dir directory]\n", progname);
-	  exit (1);
-	}
-      arg_index++;
+  while (arg_index < argc && argv[arg_index][0] == '-') {
+    if (strcmp(argv[arg_index], "-dist") == 0) {
+      dist++;
+      dist_inc++;
+    } else if (strcmp(argv[arg_index], "-build") == 0) {
+      build++;
+      build_inc++;
+    } else if (strcmp(argv[arg_index], "-patch") == 0) {
+      patch++;
+      patch_inc++;
+    } else if (strcmp(argv[arg_index], "-dir") == 0) {
+      dir = argv[++arg_index];
+      if (dir == 0) {
+        fprintf(stderr, "%s: `-dir' requires an argument\n", progname);
+        exit(1);
+      }
+      if (stat(dir, &sb) < 0) {
+        fprintf(stderr, "%s: cannot stat %s\n", progname, dir);
+        exit(1);
+      }
+      if ((sb.st_mode & S_IFMT) != S_IFDIR) {
+        fprintf(stderr, "%s: not a directory\n", progname);
+        exit(1);
+      }
+    } else if (strcmp(argv[arg_index], "-status") == 0) {
+      status = argv[++arg_index];
+      if (status == 0) {
+        fprintf(stderr, "%s: `-status' requires an argument\n", progname);
+        exit(1);
+      }
+    } else {
+      fprintf(stderr, "%s: unknown option: %s\n", progname, argv[arg_index]);
+      fprintf(stderr, "usage: %s [-dist|-patch|-build] [-dir directory]\n",
+              progname);
+      exit(1);
     }
+    arg_index++;
+  }
 
-  if (get_float_from_file (".distribution", &distver, 1) == 0)
+  if (get_float_from_file(".distribution", &distver, 1) == 0)
     dot_dist_needs_making++;
 
-  if (get_int_from_file (".patchlevel", &patchlevel, 1) == 0)
-    {
-      patchlevel = 0;
-      patch_inc = 0;
-    }
+  if (get_int_from_file(".patchlevel", &patchlevel, 1) == 0) {
+    patchlevel = 0;
+    patch_inc = 0;
+  }
 
-  if (get_int_from_file (".build", &buildver, 0) == 0)
-    buildver = 0;
+  if (get_int_from_file(".build", &buildver, 0) == 0) buildver = 0;
 
   /* Setting distribution version. */
   if (dist && arg_index < argc)
-    if (sscanf (argv[arg_index], "%f", &distver) != 1)
-      {
-	fprintf (stderr, "%s: Bad input `%s'.  Expected float value for -dist.\n",
-		 progname, argv[arg_index]);
-	exit (1);
-      }
-    else
-      {
-	arg_index++;
-	dist_inc = 0;
-      }
+    if (sscanf(argv[arg_index], "%f", &distver) != 1) {
+      fprintf(stderr, "%s: Bad input `%s'.  Expected float value for -dist.\n",
+              progname, argv[arg_index]);
+      exit(1);
+    } else {
+      arg_index++;
+      dist_inc = 0;
+    }
 
   /* Setting patchlevel via argument. */
   if (patch && arg_index < argc)
-    if (sscanf (argv[arg_index], "%d", &patchlevel) != 1)
-      {
-	fprintf (stderr, "%s: Bad input `%s'.  Expected int value for -patch.\n",
-		 progname, argv[arg_index]);
-	exit (1);
-      }
-    else
-      {
-	arg_index++;
-	patch_inc = 0;
-      }
-    
-  if (build && arg_index < argc)
-    if (sscanf (argv[arg_index], "%d", &buildver) != 1)
-      {
-	fprintf (stderr, "%s: Bad input `%s'.  Expected int value for -build.\n",
-		 progname, argv[arg_index]);
-	exit (1);
-      }
-    else
-      {
-	arg_index++;
-	build_inc = 0;
-      }
-
-  if (dot_dist_needs_making && !distver)
-    {
-      fprintf (stderr, "%s: There is no `.distribution' file to infer from.\n", progname);
-      exit (1);
+    if (sscanf(argv[arg_index], "%d", &patchlevel) != 1) {
+      fprintf(stderr, "%s: Bad input `%s'.  Expected int value for -patch.\n",
+              progname, argv[arg_index]);
+      exit(1);
+    } else {
+      arg_index++;
+      patch_inc = 0;
     }
 
-  if (dist_inc)
-    distver = distver + 0.01;
+  if (build && arg_index < argc)
+    if (sscanf(argv[arg_index], "%d", &buildver) != 1) {
+      fprintf(stderr, "%s: Bad input `%s'.  Expected int value for -build.\n",
+              progname, argv[arg_index]);
+      exit(1);
+    } else {
+      arg_index++;
+      build_inc = 0;
+    }
 
-  if (patch_inc)
-    patchlevel++;
+  if (dot_dist_needs_making && !distver) {
+    fprintf(stderr, "%s: There is no `.distribution' file to infer from.\n",
+            progname);
+    exit(1);
+  }
 
-  if (build_inc)
-    buildver++;
+  if (dist_inc) distver = distver + 0.01;
 
-  file = must_open ("newversion.h", "w");
+  if (patch_inc) patchlevel++;
+
+  if (build_inc) buildver++;
+
+  file = must_open("newversion.h", "w");
 
   /* Output the leading comment. */
-  fprintf (file, 
-"/* Version control for the shell.  This file gets changed when you say\n\
+  fprintf(
+      file,
+      "/* Version control for the shell.  This file gets changed when you say\n\
    `make newversion' to the Makefile.  It is created by mkversion. */\n");
 
-  fprintf (file, "\n/* The distribution version number of this shell. */\n");
-  fprintf (file, "#define DISTVERSION \"%.2f\"\n", distver);
+  fprintf(file, "\n/* The distribution version number of this shell. */\n");
+  fprintf(file, "#define DISTVERSION \"%.2f\"\n", distver);
 
-  fprintf (file, "\n/* The patch level of this version of the shell. */\n");
-  fprintf (file, "#define PATCHLEVEL %d\n", patchlevel);
+  fprintf(file, "\n/* The patch level of this version of the shell. */\n");
+  fprintf(file, "#define PATCHLEVEL %d\n", patchlevel);
 
-  fprintf (file, "\n/* The last built version of this shell. */\n");
-  fprintf (file, "#define BUILDVERSION %d\n", buildver);
+  fprintf(file, "\n/* The last built version of this shell. */\n");
+  fprintf(file, "#define BUILDVERSION %d\n", buildver);
 
+  if (status) {
+    fprintf(file, "\n/* The release status of this shell. */\n");
+    fprintf(file, "#define RELSTATUS \"%s\"\n", status);
+  }
+
+  fprintf(file,
+          "\n/* A version string for use by sccs and the what command. */\n\n");
   if (status)
-    {
-      fprintf (file, "\n/* The release status of this shell. */\n");
-      fprintf (file, "#define RELSTATUS \"%s\"\n", status);
-    }
-
-  fprintf (file, "\n/* A version string for use by sccs and the what command. */\n\n");
-  if (status)
-    fprintf (file, "#define SCCSVERSION \"@(#)Bash version %.2f.%d(%d) %s GNU\"\n\n",
-      distver, patchlevel, buildver, status);
+    fprintf(file,
+            "#define SCCSVERSION \"@(#)Bash version %.2f.%d(%d) %s GNU\"\n\n",
+            distver, patchlevel, buildver, status);
   else
-    fprintf (file, "#define SCCSVERSION \"@(#)Bash version %.2f.%d(%d) GNU\"\n\n",
-      distver, patchlevel, buildver);
+    fprintf(file,
+            "#define SCCSVERSION \"@(#)Bash version %.2f.%d(%d) GNU\"\n\n",
+            distver, patchlevel, buildver);
 
-  fclose (file);
+  fclose(file);
 
-  file = must_open (".build", "w");
-  fprintf (file, "%d\n", buildver);
-  fclose (file);
+  file = must_open(".build", "w");
+  fprintf(file, "%d\n", buildver);
+  fclose(file);
 
   /* Making a new distribution. */
-  if (dist)
-    {
-      file = must_open (".distribution", "w");
-      fprintf (file, "%.2f\n", distver);
-      fclose (file);
-    }
+  if (dist) {
+    file = must_open(".distribution", "w");
+    fprintf(file, "%.2f\n", distver);
+    fclose(file);
+  }
 
   /* Releasing a new patch level. */
-  if (patch)
-    {
-      file = must_open (".patchlevel", "w");
-      fprintf (file, "%d\n", patchlevel);
-      fclose (file);
-    }
+  if (patch) {
+    file = must_open(".patchlevel", "w");
+    fprintf(file, "%d\n", patchlevel);
+    fclose(file);
+  }
 
-  exit (0);
+  exit(0);
 }
 
-char *
-makename (fn, from_srcdir)
-     char *fn;
+char *makename(fn, from_srcdir) char *fn;
 {
   char *ret;
   int dlen;
 
-  dlen = (from_srcdir && dir) ? strlen (dir) + 1 : 0;
-  ret = (char *)malloc (dlen + strlen (fn) + 1);
-  if (ret == 0)
-    {
-      fprintf (stderr, "%s: malloc failed\n", progname);
-      exit (1);
-    }
+  dlen = (from_srcdir && dir) ? strlen(dir) + 1 : 0;
+  ret = (char *)malloc(dlen + strlen(fn) + 1);
+  if (ret == 0) {
+    fprintf(stderr, "%s: malloc failed\n", progname);
+    exit(1);
+  }
   if (from_srcdir && dir)
-    sprintf (ret, "%s/%s", dir, fn);
+    sprintf(ret, "%s/%s", dir, fn);
   else
-    (void)strcpy (ret, fn);
+    (void)strcpy(ret, fn);
 
   return ret;
 }
 
-get_float_from_file (filename, var, from_srcdir)
-     char *filename;
-     float *var;
-     int from_srcdir;
+get_float_from_file(filename, var, from_srcdir) char *filename;
+float *var;
+int from_srcdir;
 {
   FILE *stream;
   int result;
   char *name;
 
-  name = makename (filename, from_srcdir);
-  stream = fopen (name, "r");
-  free (name);
-  if (stream == (FILE *)NULL)
-    return (0);
-  result = fscanf (stream, "%f\n", var);
-  fclose (stream);
+  name = makename(filename, from_srcdir);
+  stream = fopen(name, "r");
+  free(name);
+  if (stream == (FILE *)NULL) return (0);
+  result = fscanf(stream, "%f\n", var);
+  fclose(stream);
   return (result == 1);
 }
 
-get_int_from_file (filename, var, from_srcdir)
-     char *filename;
-     int *var, from_srcdir;
+get_int_from_file(filename, var, from_srcdir) char *filename;
+int *var, from_srcdir;
 {
   FILE *stream;
   int result;
   char *name;
 
-  name = makename (filename, from_srcdir);
-  stream = fopen (name, "r");
-  free (name);
-  if (stream == (FILE *)NULL)
-    return (0);
-  result = fscanf (stream, "%d\n", var);
-  fclose (stream);
+  name = makename(filename, from_srcdir);
+  stream = fopen(name, "r");
+  free(name);
+  if (stream == (FILE *)NULL) return (0);
+  result = fscanf(stream, "%d\n", var);
+  fclose(stream);
   return (result == 1);
 }
 
-FILE *
-must_open (name, mode)
-     char *name, *mode;
+FILE *must_open(name, mode) char *name, *mode;
 {
-  FILE *temp = fopen (name, mode);
+  FILE *temp = fopen(name, mode);
 
-  if (!temp)
-    {
-      fprintf (stderr, "%s: Cannot open `%s' for mode `%s'.\n",
-	       progname, name, mode);
-      fprintf
-	(stderr,
-	 "Perhaps you don't have %s permission to the file or directory.\n",
-	 (strcmp (mode, "w") == 0) ? "write" : "read");
-      exit (3);
-    }
+  if (!temp) {
+    fprintf(stderr, "%s: Cannot open `%s' for mode `%s'.\n", progname, name,
+            mode);
+    fprintf(stderr,
+            "Perhaps you don't have %s permission to the file or directory.\n",
+            (strcmp(mode, "w") == 0) ? "write" : "read");
+    exit(3);
+  }
   return (temp);
 }

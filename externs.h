@@ -21,8 +21,8 @@
 
 /* Make sure that this is included *after* config.h! */
 
-#if !defined (_EXTERNS_H_)
-#  define _EXTERNS_H_
+#if !defined(_EXTERNS_H_)
+#define _EXTERNS_H_
 
 #include "stdc.h"
 
@@ -30,8 +30,8 @@
 extern intmax_t evalexp(char *, int *);
 
 /* Functions from print_cmd.c. */
-#define FUNC_MULTILINE	0x01
-#define FUNC_EXTERNAL	0x02
+#define FUNC_MULTILINE 0x01
+#define FUNC_EXTERNAL 0x02
 
 extern char *make_command_string(COMMAND *);
 extern char *named_function_string(char *, COMMAND *, int);
@@ -42,14 +42,14 @@ extern void print_word_list(WORD_LIST *, char *);
 
 /* debugger support */
 extern void print_for_command_head(FOR_COM *);
-#if defined (SELECT_COMMAND)
+#if defined(SELECT_COMMAND)
 extern void print_select_command_head(SELECT_COM *);
 #endif
 extern void print_case_command_head(CASE_COM *);
-#if defined (DPAREN_ARITHMETIC)
+#if defined(DPAREN_ARITHMETIC)
 extern void print_arith_command(WORD_LIST *);
 #endif
-#if defined (COND_COMMAND)
+#if defined(COND_COMMAND)
 extern void print_cond_command(COND_COM *);
 #endif
 
@@ -64,14 +64,14 @@ extern char *indirection_level_string(void);
 extern void xtrace_print_assignment(char *, char *, int, int);
 extern void xtrace_print_word_list(WORD_LIST *, int);
 extern void xtrace_print_for_command_head(FOR_COM *);
-#if defined (SELECT_COMMAND)
+#if defined(SELECT_COMMAND)
 extern void xtrace_print_select_command_head(SELECT_COM *);
 #endif
 extern void xtrace_print_case_command_head(CASE_COM *);
-#if defined (DPAREN_ARITHMETIC)
+#if defined(DPAREN_ARITHMETIC)
 extern void xtrace_print_arith_cmd(WORD_LIST *);
 #endif
-#if defined (COND_COMMAND)
+#if defined(COND_COMMAND)
 extern void xtrace_print_cond_term(int, int, WORD_DESC *, char *, char *);
 #endif
 
@@ -82,7 +82,7 @@ extern void subshell_exit(int) __attribute__((__noreturn__));
 extern void disable_priv_mode(void);
 extern void unbind_args(void);
 
-#if defined (RESTRICTED_SHELL)
+#if defined(RESTRICTED_SHELL)
 extern int shell_is_restricted(char *);
 extern int maybe_make_restricted(char *);
 #endif
@@ -96,7 +96,7 @@ extern int parse_command(void);
 extern int read_command(void);
 
 /* Functions from braces.c. */
-#if defined (BRACE_EXPANSION)
+#if defined(BRACE_EXPANSION)
 extern char **brace_expand(char *);
 #endif
 
@@ -123,7 +123,7 @@ extern char *decode_prompt_string(char *);
 extern int get_current_prompt_level(void);
 extern void set_current_prompt_level(int);
 
-#if defined (HISTORY)
+#if defined(HISTORY)
 extern char *history_delimiting_chars(const char *);
 #endif
 
@@ -141,10 +141,10 @@ extern char *localeexpand(char *, int, int, int, int *);
 /* Declarations for functions defined in list.c. */
 extern void list_walk(GENERIC_LIST *, sh_glist_func_t *);
 extern void wlist_walk(WORD_LIST *, sh_icpfunc_t *);
-extern GENERIC_LIST *list_reverse ();
-extern int list_length ();
-extern GENERIC_LIST *list_append ();
-extern GENERIC_LIST *list_remove ();
+extern GENERIC_LIST *list_reverse();
+extern int list_length();
+extern GENERIC_LIST *list_append();
+extern GENERIC_LIST *list_remove();
 
 /* Declarations for functions defined in stringlib.c */
 extern int find_string_in_alist(char *, STRING_INT_ALIST *, int);
@@ -170,39 +170,40 @@ extern char *sh_modcase(const char *, char *, int);
 
 /* Defines for flags argument to sh_modcase.  These need to agree with what's
    in lib/sh/casemode.c */
-#define CASE_LOWER	0x0001
-#define CASE_UPPER	0x0002
-#define CASE_CAPITALIZE	0x0004
-#define CASE_UNCAP	0x0008
-#define CASE_TOGGLE	0x0010
-#define CASE_TOGGLEALL	0x0020
-#define CASE_UPFIRST	0x0040
-#define CASE_LOWFIRST	0x0080
+#define CASE_LOWER 0x0001
+#define CASE_UPPER 0x0002
+#define CASE_CAPITALIZE 0x0004
+#define CASE_UNCAP 0x0008
+#define CASE_TOGGLE 0x0010
+#define CASE_TOGGLEALL 0x0020
+#define CASE_UPFIRST 0x0040
+#define CASE_LOWFIRST 0x0080
 
-#define CASE_USEWORDS	0x1000
+#define CASE_USEWORDS 0x1000
 
 /* declarations for functions defined in lib/sh/clktck.c */
 extern long get_clk_tck(void);
 
 /* declarations for functions defined in lib/sh/clock.c */
-extern void clock_t_to_secs ();
-extern void print_clock_t ();
+extern void clock_t_to_secs();
+extern void print_clock_t();
 
 /* Declarations for functions defined in lib/sh/dprintf.c */
-#if !defined (HAVE_DPRINTF)
-extern void dprintf(int, const char *, ...)  __attribute__((__format__ (printf, 2, 3)));
+#if !defined(HAVE_DPRINTF)
+extern void dprintf(int, const char *, ...)
+    __attribute__((__format__(printf, 2, 3)));
 #endif
 
 /* Declarations for functions defined in lib/sh/fmtulong.c */
-#define FL_PREFIX     0x01    /* add 0x, 0X, or 0 prefix as appropriate */
-#define FL_ADDBASE    0x02    /* add base# prefix to converted value */
-#define FL_HEXUPPER   0x04    /* use uppercase when converting to hex */
-#define FL_UNSIGNED   0x08    /* don't add any sign */
+#define FL_PREFIX 0x01   /* add 0x, 0X, or 0 prefix as appropriate */
+#define FL_ADDBASE 0x02  /* add base# prefix to converted value */
+#define FL_HEXUPPER 0x04 /* use uppercase when converting to hex */
+#define FL_UNSIGNED 0x08 /* don't add any sign */
 
 extern char *fmtulong(unsigned long int, int, char *, size_t, int);
 
 /* Declarations for functions defined in lib/sh/fmtulong.c */
-#if defined (HAVE_LONG_LONG)
+#if defined(HAVE_LONG_LONG)
 extern char *fmtullong(unsigned long long int, int, char *, size_t, int);
 #endif
 
@@ -219,7 +220,7 @@ extern char *fnx_tofs(char *, size_t);
 #if !HAVE_DECL_FPURGE
 
 #if HAVE_FPURGE
-#  define fpurge _bash_fpurge
+#define fpurge _bash_fpurge
 #endif
 extern int fpurge(FILE *stream);
 
@@ -227,7 +228,7 @@ extern int fpurge(FILE *stream);
 #endif /* NEED_FPURGE_DECL */
 
 /* Declarations for functions defined in lib/sh/getcwd.c */
-#if !defined (HAVE_GETCWD)
+#if !defined(HAVE_GETCWD)
 extern char *getcwd(char *, size_t);
 #endif
 
@@ -242,25 +243,25 @@ extern char *uinttostr(uintmax_t, char *, size_t);
 extern char *uitos(uintmax_t);
 
 /* declarations for functions defined in lib/sh/makepath.c */
-#define MP_DOTILDE	0x01
-#define MP_DOCWD	0x02
-#define MP_RMDOT	0x04
-#define MP_IGNDOT	0x08
+#define MP_DOTILDE 0x01
+#define MP_DOCWD 0x02
+#define MP_RMDOT 0x04
+#define MP_IGNDOT 0x08
 
 extern char *sh_makepath(const char *, const char *, int);
 
 /* declarations for functions defined in lib/sh/mbscasecmp.c */
-#if !defined (HAVE_MBSCASECMP)
+#if !defined(HAVE_MBSCASECMP)
 extern char *mbscasecmp(const char *, const char *);
 #endif
 
 /* declarations for functions defined in lib/sh/mbschr.c */
-#if !defined (HAVE_MBSCHR)
+#if !defined(HAVE_MBSCHR)
 extern char *mbschr(const char *, int);
 #endif
 
 /* declarations for functions defined in lib/sh/mbscmp.c */
-#if !defined (HAVE_MBSCMP)
+#if !defined(HAVE_MBSCMP)
 extern char *mbscmp(const char *, const char *);
 #endif
 
@@ -272,15 +273,15 @@ extern int netopen(char *);
 
 /* Declarations for  functions defined in lib/sh/oslib.c */
 
-#if !defined (HAVE_DUP2) || defined (DUP2_BROKEN)
+#if !defined(HAVE_DUP2) || defined(DUP2_BROKEN)
 extern int dup2(int, int);
 #endif
 
-#if !defined (HAVE_GETDTABLESIZE)
+#if !defined(HAVE_GETDTABLESIZE)
 extern int getdtablesize(void);
 #endif /* !HAVE_GETDTABLESIZE */
 
-#if !defined (HAVE_GETHOSTNAME)
+#if !defined(HAVE_GETHOSTNAME)
 extern int gethostname(char *, int);
 #endif /* !HAVE_GETHOSTNAME */
 
@@ -288,10 +289,10 @@ extern int getmaxgroups(void);
 extern long getmaxchild(void);
 
 /* declarations for functions defined in lib/sh/pathcanon.c */
-#define PATH_CHECKDOTDOT	0x0001
-#define PATH_CHECKEXISTS	0x0002
-#define PATH_HARDPATH		0x0004
-#define PATH_NOALLOC		0x0008
+#define PATH_CHECKDOTDOT 0x0001
+#define PATH_CHECKEXISTS 0x0002
+#define PATH_HARDPATH 0x0004
+#define PATH_NOALLOC 0x0008
 
 extern char *sh_canonpath(char *, int);
 
@@ -311,8 +312,8 @@ extern int sh_eaccess(char *, int);
 extern int sh_regmatch(const char *, const char *, int);
 
 /* defines for flags argument to sh_regmatch. */
-#define SHMAT_SUBEXP		0x001	/* save subexpressions in SH_REMATCH */
-#define SHMAT_PWARN		0x002	/* print a warning message on invalid regexp */
+#define SHMAT_SUBEXP 0x001 /* save subexpressions in SH_REMATCH */
+#define SHMAT_PWARN 0x002  /* print a warning message on invalid regexp */
 
 /* declarations for functions defined in lib/sh/shmbchar.c */
 extern size_t mbstrlen(const char *);
@@ -335,28 +336,28 @@ extern int spname(char *, char *);
 extern char *dirspell(char *);
 
 /* declarations for functions defined in lib/sh/strcasecmp.c */
-#if !defined (HAVE_STRCASECMP)
+#if !defined(HAVE_STRCASECMP)
 extern int strncasecmp(const char *, const char *, int);
 extern int strcasecmp(const char *, const char *);
 #endif /* HAVE_STRCASECMP */
 
 /* declarations for functions defined in lib/sh/strcasestr.c */
-#if ! HAVE_STRCASESTR
+#if !HAVE_STRCASESTR
 extern char *strcasestr(const char *, const char *);
 #endif
 
 /* declarations for functions defined in lib/sh/strchrnul.c */
-#if ! HAVE_STRCHRNUL
+#if !HAVE_STRCHRNUL
 extern char *strchrnul(const char *, int);
 #endif
 
 /* declarations for functions defined in lib/sh/strerror.c */
-#if !defined (HAVE_STRERROR) && !defined (strerror)
+#if !defined(HAVE_STRERROR) && !defined(strerror)
 extern char *strerror(int);
 #endif
 
 /* declarations for functions defined in lib/sh/strftime.c */
-#if !defined (HAVE_STRFTIME) && defined (NEED_STRFTIME_DECL)
+#if !defined(HAVE_STRFTIME) && defined(NEED_STRFTIME_DECL)
 extern size_t strftime(char *, size_t, const char *, const struct tm *);
 #endif
 
@@ -403,17 +404,17 @@ extern char **strvec_from_word_list(WORD_LIST *, int, int, int *);
 extern WORD_LIST *strvec_to_word_list(char **, int, int);
 
 /* declarations for functions defined in lib/sh/strnlen.c */
-#if !defined (HAVE_STRNLEN)
+#if !defined(HAVE_STRNLEN)
 extern size_t strnlen(const char *, size_t);
 #endif
 
 /* declarations for functions defined in lib/sh/strpbrk.c */
-#if !defined (HAVE_STRPBRK)
+#if !defined(HAVE_STRPBRK)
 extern char *strpbrk(const char *, const char *);
 #endif
 
 /* declarations for functions defined in lib/sh/strtod.c */
-#if !defined (HAVE_STRTOD)
+#if !defined(HAVE_STRTOD)
 extern double strtod(const char *, char **);
 #endif
 
@@ -423,7 +424,7 @@ extern long strtol(const char *, char **, int);
 #endif
 
 /* declarations for functions defined in lib/sh/strtoll.c */
-#if defined (HAVE_LONG_LONG) && !HAVE_DECL_STRTOLL
+#if defined(HAVE_LONG_LONG) && !HAVE_DECL_STRTOLL
 extern long long strtoll(const char *, char **, int);
 #endif
 
@@ -433,7 +434,7 @@ extern unsigned long strtoul(const char *, char **, int);
 #endif
 
 /* declarations for functions defined in lib/sh/strtoull.c */
-#if defined (HAVE_LONG_LONG) && !HAVE_DECL_STRTOULL
+#if defined(HAVE_LONG_LONG) && !HAVE_DECL_STRTOULL
 extern unsigned long long strtoull(const char *, char **, int);
 #endif
 
@@ -456,13 +457,13 @@ extern char *ansiexpand(char *, int, int, int *);
 /* declarations for functions defined in lib/sh/timeval.c.  No prototypes
    so we don't have to count on having a definition of struct timeval in
    scope when this file is included. */
-extern void timeval_to_secs ();
-extern void print_timeval ();
+extern void timeval_to_secs();
+extern void print_timeval();
 
 /* declarations for functions defined in lib/sh/tmpfile.c */
-#define MT_USETMPDIR		0x0001
-#define MT_READWRITE		0x0002
-#define MT_USERANDOM		0x0004
+#define MT_USETMPDIR 0x0001
+#define MT_READWRITE 0x0002
+#define MT_USERANDOM 0x0004
 
 extern char *sh_mktmpname(char *, int);
 extern int sh_mktmpfd(char *, int, char **);
@@ -480,7 +481,7 @@ extern int u32cconv(unsigned long, char *);
 extern void u32reset(void);
 
 /* declarations for functions defined in lib/sh/wcsnwidth.c */
-#if defined (HANDLE_MULTIBYTE)
+#if defined(HANDLE_MULTIBYTE)
 extern int wcsnwidth(const wchar_t *, size_t, int);
 #endif
 
@@ -513,7 +514,7 @@ extern int zwrite(int, char *, size_t);
 extern int match_pattern_char(char *, char *, int);
 extern int umatchlen(char *, size_t);
 
-#if defined (HANDLE_MULTIBYTE)
+#if defined(HANDLE_MULTIBYTE)
 extern int match_pattern_wchar(wchar_t *, wchar_t *, int);
 extern int wmatchlen(wchar_t *, size_t);
 #endif

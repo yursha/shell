@@ -13,34 +13,28 @@
 extern int errno;
 #endif
 
-extern char **make_builtin_argv ();
+extern char **make_builtin_argv();
 extern char **export_env;
 
 extern int perl_main();
 
-bperl_builtin(list)
-WORD_LIST *list;
+bperl_builtin(list) WORD_LIST *list;
 {
-	char	**v;
-	int	c, r;
+  char **v;
+  int c, r;
 
-	v = make_builtin_argv(list, &c);
-	r = perl_main(c, v, export_env);
-	free(v);
+  v = make_builtin_argv(list, &c);
+  r = perl_main(c, v, export_env);
+  free(v);
 
-	return r;
+  return r;
 }
 
-char *bperl_doc[] = {
-	"An interface to a perl5 interpreter.",
-	(char *)0
-};
+char *bperl_doc[] = {"An interface to a perl5 interpreter.", (char *)0};
 
-struct builtin bperl_struct = {
-	"bperl",
-	bperl_builtin,
-	BUILTIN_ENABLED,
-	bperl_doc,
-	"bperl [perl options] [file ...]",
-	0
-};
+struct builtin bperl_struct = {"bperl",
+                               bperl_builtin,
+                               BUILTIN_ENABLED,
+                               bperl_doc,
+                               "bperl [perl options] [file ...]",
+                               0};

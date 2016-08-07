@@ -3,7 +3,7 @@
 /* Copyright (C) 1987, 1989, 1992 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,14 +26,14 @@
 extern "C" {
 #endif
 
-#if defined (READLINE_LIBRARY)
-#  include "rlstdc.h"
-#  include "chardefs.h"
-#  include "rltypedefs.h"
+#if defined(READLINE_LIBRARY)
+#include "rlstdc.h"
+#include "chardefs.h"
+#include "rltypedefs.h"
 #else
-#  include <readline/rlstdc.h>
-#  include <readline/chardefs.h>
-#  include <readline/rltypedefs.h>
+#include <readline/rlstdc.h>
+#include <readline/chardefs.h>
+#include <readline/rltypedefs.h>
 #endif
 
 /* A keymap contains one entry for each key in the ASCII set.
@@ -50,7 +50,7 @@ typedef struct _keymap_entry {
    in a desired character set (e.g, 128 for ASCII, 256 for ISO Latin-x,
    and so on) plus one for subsequence matching. */
 #define KEYMAP_SIZE 257
-#define ANYOTHERKEY KEYMAP_SIZE-1
+#define ANYOTHERKEY KEYMAP_SIZE - 1
 
 typedef KEYMAP_ENTRY KEYMAP_ENTRY_ARRAY[KEYMAP_SIZE];
 typedef KEYMAP_ENTRY *Keymap;
@@ -60,7 +60,8 @@ typedef KEYMAP_ENTRY *Keymap;
 #define ISKMAP 1
 #define ISMACR 2
 
-extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap, emacs_ctlx_keymap;
+extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap,
+    emacs_ctlx_keymap;
 extern KEYMAP_ENTRY_ARRAY vi_insertion_keymap, vi_movement_keymap;
 
 /* Return a new, empty keymap.

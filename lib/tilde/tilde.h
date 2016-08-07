@@ -20,8 +20,8 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_TILDE_H_)
-#  define _TILDE_H_
+#if !defined(_TILDE_H_)
+#define _TILDE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,14 +29,14 @@ extern "C" {
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
-	extern char *func PARAMS((char *, char *, int)); */
+        extern char *func PARAMS((char *, char *, int)); */
 
-#if !defined (PARAMS)
-#  if defined (__STDC__) || defined (__GNUC__) || defined (__cplusplus)
-#    define PARAMS(protos) protos
-#  else
-#    define PARAMS(protos) ()
-#  endif
+#if !defined(PARAMS)
+#if defined(__STDC__) || defined(__GNUC__) || defined(__cplusplus)
+#define PARAMS(protos) protos
+#else
+#define PARAMS(protos) ()
+#endif
 #endif
 
 typedef char *tilde_hook_func_t PARAMS((char *));

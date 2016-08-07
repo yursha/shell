@@ -18,7 +18,6 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef __LOADABLES_H_
 #define __LOADABLES_H_
 

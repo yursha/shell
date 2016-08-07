@@ -18,31 +18,31 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_HASHLIB_H_)
+#if !defined(_HASHLIB_H_)
 #define _HASHLIB_H_
 
 #include "stdc.h"
 
 #ifndef PTR_T
-#  ifdef __STDC__
-#    define PTR_T void *
-#  else
-#    define PTR_T char *
-#  endif
+#ifdef __STDC__
+#define PTR_T void *
+#else
+#define PTR_T char *
+#endif
 #endif
 
 typedef struct bucket_contents {
-  struct bucket_contents *next;	/* Link to next hashed key in this bucket. */
-  char *key;			/* What we look up. */
-  PTR_T data;			/* What we really want. */
-  unsigned int khash;		/* What key hashes to */
-  int times_found;		/* Number of times this item has been found. */
+  struct bucket_contents *next; /* Link to next hashed key in this bucket. */
+  char *key;                    /* What we look up. */
+  PTR_T data;                   /* What we really want. */
+  unsigned int khash;           /* What key hashes to */
+  int times_found;              /* Number of times this item has been found. */
 } BUCKET_CONTENTS;
 
 typedef struct hash_table {
-  BUCKET_CONTENTS **bucket_array;	/* Where the data is kept. */
-  int nbuckets;			/* How many buckets does this table have. */
-  int nentries;			/* How many entries does this table have. */
+  BUCKET_CONTENTS **bucket_array; /* Where the data is kept. */
+  int nbuckets;                   /* How many buckets does this table have. */
+  int nentries;                   /* How many entries does this table have. */
 } HASH_TABLE;
 
 typedef int hash_wfunc(BUCKET_CONTENTS *);
@@ -67,26 +67,25 @@ extern BUCKET_CONTENTS *hash_remove(const char *, HASH_TABLE *, int);
 extern unsigned int hash_string(const char *);
 
 /* Redefine the function as a macro for speed. */
-#define hash_items(bucket, table) \
-	((table && (bucket < table->nbuckets)) ?  \
-		table->bucket_array[bucket] : \
-		(BUCKET_CONTENTS *)NULL)
+#define hash_items(bucket, table)                                      \
+  ((table && (bucket < table->nbuckets)) ? table->bucket_array[bucket] \
+                                         : (BUCKET_CONTENTS *)NULL)
 
 /* Default number of buckets in the hash table. */
-#define DEFAULT_HASH_BUCKETS 128	/* must be power of two */
+#define DEFAULT_HASH_BUCKETS 128 /* must be power of two */
 
-#define HASH_ENTRIES(ht)	((ht) ? (ht)->nentries : 0)
+#define HASH_ENTRIES(ht) ((ht) ? (ht)->nentries : 0)
 
 /* flags for hash_search and hash_insert */
-#define HASH_NOSRCH	0x01
-#define HASH_CREATE	0x02
+#define HASH_NOSRCH 0x01
+#define HASH_CREATE 0x02
 
-#if !defined (NULL)
-#  if defined (__STDC__)
-#    define NULL ((void *) 0)
-#  else
-#    define NULL 0x0
-#  endif /* !__STDC__ */
+#if !defined(NULL)
+#if defined(__STDC__)
+#define NULL ((void *)0)
+#else
+#define NULL 0x0
+#endif /* !__STDC__ */
 #endif /* !NULL */
 
 #endif /* _HASHLIB_H */

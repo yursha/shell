@@ -16,7 +16,4 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-void
-bash_malloc_stub()
-{
-}
+void bash_malloc_stub() {}

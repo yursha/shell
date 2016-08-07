@@ -17,18 +17,18 @@
    You should have received a copy of the GNU General Public License
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
-   
+
 #include <config.h>
 
-#if !defined (HAVE_STRERROR)
+#if !defined(HAVE_STRERROR)
 
 #include <bashtypes.h>
-#if defined (HAVE_SYS_PARAM_H)
-#  include <sys/param.h>
+#if defined(HAVE_SYS_PARAM_H)
+#include <sys/param.h>
 #endif
 
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
 
 #include <stdio.h>
@@ -36,24 +36,22 @@
 
 #include <shell.h>
 
-#if !defined (errno)
+#if !defined(errno)
 extern int errno;
 #endif /* !errno */
 
 /* Return a string corresponding to the error number E.  From
    the ANSI C spec. */
-#if defined (strerror)
-#  undef strerror
+#if defined(strerror)
+#undef strerror
 #endif
 
 static char *errbase = "Unknown system error ";
 
-char *
-strerror (e)
-     int e;
+char *strerror(e) int e;
 {
   static char emsg[40];
-#if defined (HAVE_SYS_ERRLIST)
+#if defined(HAVE_SYS_ERRLIST)
   extern int sys_nerr;
   extern char *sys_errlist[];
 
@@ -61,14 +59,14 @@ strerror (e)
     return (sys_errlist[e]);
   else
 #endif /* HAVE_SYS_ERRLIST */
-    {
-      char *z;
+      {
+    char *z;
 
-      z = itos (e);
-      strcpy (emsg, errbase);
-      strcat (emsg, z);
-      free (z);
-      return (&emsg[0]);
-    }
+    z = itos(e);
+    strcpy(emsg, errbase);
+    strcat(emsg, z);
+    free(z);
+    return (&emsg[0]);
+  }
 }
 #endif /* HAVE_STRERROR */

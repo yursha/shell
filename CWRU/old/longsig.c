@@ -22,27 +22,24 @@ You should have received a copy of the GNU General Public License along
 with Bash; see the file COPYING.  If not, write to the Free Software
 Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. */
 
-main (argc, argv)
-     int argc;
-     char **argv;
+main(argc, argv) int argc;
+char **argv;
 {
   int longest, length = 0;
   int i;
 
-  for (i = 0; i < NSIG; i++)
-    {
-      printf ("%2d) %s\n", i, sys_siglist[i]);
-      if (strlen (sys_siglist[i]) > length)
-	{
-	  longest = i;
-	  length = strlen (sys_siglist[i]);
-	}
+  for (i = 0; i < NSIG; i++) {
+    printf("%2d) %s\n", i, sys_siglist[i]);
+    if (strlen(sys_siglist[i]) > length) {
+      longest = i;
+      length = strlen(sys_siglist[i]);
     }
+  }
 
-  printf ("The longest name is %d:\"%s\", which is %d chars in length.\n",
-	  longest, sys_siglist[longest], length);
+  printf("The longest name is %d:\"%s\", which is %d chars in length.\n",
+         longest, sys_siglist[longest], length);
 }
-
+
 /*
  * Local variables:
  * compile-command: "cc -o longest_sig longest_sig.c"

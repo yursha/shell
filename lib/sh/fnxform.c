@@ -19,8 +19,8 @@
 */
 
 #include <config.h>
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
 #include "bashansi.h"
 #include <stdio.h>
@@ -30,17 +30,17 @@
 #include "bashintl.h"
 #include <xmalloc.h>
 
-#if defined (HAVE_ICONV)
-#  include <iconv.h>
+#if defined(HAVE_ICONV)
+#include <iconv.h>
 #endif
 
-#if defined (HAVE_LOCALE_CHARSET)
+#if defined(HAVE_LOCALE_CHARSET)
 extern const char *locale_charset(void);
 #else
 extern char *get_locale_var(char *);
 #endif
 
-#if defined (HAVE_ICONV)
+#if defined(HAVE_ICONV)
 static iconv_t conv_fromfs = (iconv_t)-1;
 static iconv_t conv_tofs = (iconv_t)-1;
 
@@ -53,82 +53,67 @@ static char *curencoding(void);
 static void init_tofs(void);
 static void init_fromfs(void);
 
-static char *
-curencoding ()
-{
+static char *curencoding() {
   char *loc;
-#if defined (HAVE_LOCALE_CHARSET)
-  loc = (char *)locale_charset ();
+#if defined(HAVE_LOCALE_CHARSET)
+  loc = (char *)locale_charset();
   return loc;
 #else
   char *dot, *mod;
 
-  loc = get_locale_var ("LC_CTYPE");
-  if (loc == 0 || *loc == 0)
-    return "";
-  dot = strchr (loc, '.');
-  if (dot == 0)
-    return loc;
-  mod = strchr (dot, '@');
-  if (mod)
-    *mod = '\0';
+  loc = get_locale_var("LC_CTYPE");
+  if (loc == 0 || *loc == 0) return "";
+  dot = strchr(loc, '.');
+  if (dot == 0) return loc;
+  mod = strchr(dot, '@');
+  if (mod) *mod = '\0';
   return ++dot;
 #endif
-}  
-
-static void
-init_tofs ()
-{
-  char *cur;
-
-  cur = curencoding ();
-  conv_tofs = iconv_open ("UTF-8-MAC", cur);
 }
 
-static void
-init_fromfs ()
-{
+static void init_tofs() {
   char *cur;
 
-  cur = curencoding ();
-  conv_fromfs = iconv_open (cur, "UTF-8-MAC");
+  cur = curencoding();
+  conv_tofs = iconv_open("UTF-8-MAC", cur);
 }
 
-char *
-fnx_tofs (string, len)
-     char *string;
-     size_t len;
+static void init_fromfs() {
+  char *cur;
+
+  cur = curencoding();
+  conv_fromfs = iconv_open(cur, "UTF-8-MAC");
+}
+
+char *fnx_tofs(string, len) char *string;
+size_t len;
 {
 #ifdef MACOSX
   ICONV_CONST char *inbuf;
   char *tempbuf;
   size_t templen;
-  
-  if (conv_tofs == (iconv_t)-1)
-    init_tofs ();
-  if (conv_tofs == (iconv_t)-1)
-    return string;
+
+  if (conv_tofs == (iconv_t)-1) init_tofs();
+  if (conv_tofs == (iconv_t)-1) return string;
 
   /* Free and reallocate outbuf if it's *too* big */
-  if (outlen >= OUTLEN_MAX && len < OUTLEN_MAX - 8)
-    {
-      free (outbuf);
-      outbuf = 0;
-      outlen = 0;
-    }
+  if (outlen >= OUTLEN_MAX && len < OUTLEN_MAX - 8) {
+    free(outbuf);
+    outbuf = 0;
+    outlen = 0;
+  }
 
   inbuf = string;
-  if (outbuf == 0 || outlen < len + 8)
-    {
-      outlen = len + 8;
-      outbuf = outbuf ? xrealloc (outbuf, outlen + 1) : xmalloc (outlen + 1);
-    }
+  if (outbuf == 0 || outlen < len + 8) {
+    outlen = len + 8;
+    outbuf = outbuf ? xrealloc(outbuf, outlen + 1) : xmalloc(outlen + 1);
+  }
   tempbuf = outbuf;
   templen = outlen;
 
-  iconv (conv_tofs, NULL, NULL, NULL, NULL);
+  iconv(conv_tofs, NULL, NULL, NULL, NULL);
 
-  if (iconv (conv_tofs, &inbuf, &len, &tempbuf, &templen) == (size_t)-1)
+  if (iconv(conv_tofs, &inbuf, &len, &tempbuf, &templen) == (size_t)-1)
     return string;
 
   *tempbuf = '\0';
@@ -138,41 +123,35 @@ fnx_tofs (string, len)
 #endif
 }
 
-char *
-fnx_fromfs (string, len)
-     char *string;
-     size_t len;
+char *fnx_fromfs(string, len) char *string;
+size_t len;
 {
 #ifdef MACOSX
   ICONV_CONST char *inbuf;
   char *tempbuf;
   size_t templen;
 
-  if (conv_fromfs == (iconv_t)-1)
-    init_fromfs ();
-  if (conv_fromfs == (iconv_t)-1)
-    return string;
+  if (conv_fromfs == (iconv_t)-1) init_fromfs();
+  if (conv_fromfs == (iconv_t)-1) return string;
 
   /* Free and reallocate outbuf if it's *too* big */
-  if (outlen >= OUTLEN_MAX && len < OUTLEN_MAX - 8)
-    {
-      free (outbuf);
-      outbuf = 0;
-      outlen = 0;
-    }
+  if (outlen >= OUTLEN_MAX && len < OUTLEN_MAX - 8) {
+    free(outbuf);
+    outbuf = 0;
+    outlen = 0;
+  }
 
   inbuf = string;
-  if (outbuf == 0 || outlen < (len + 8))
-    {
-      outlen = len + 8;
-      outbuf = outbuf ? xrealloc (outbuf, outlen + 1) : xmalloc (outlen + 1);
-    }
+  if (outbuf == 0 || outlen < (len + 8)) {
+    outlen = len + 8;
+    outbuf = outbuf ? xrealloc(outbuf, outlen + 1) : xmalloc(outlen + 1);
+  }
   tempbuf = outbuf;
   templen = outlen;
 
-  iconv (conv_fromfs, NULL, NULL, NULL, NULL);
+  iconv(conv_fromfs, NULL, NULL, NULL, NULL);
 
-  if (iconv (conv_fromfs, &inbuf, &len, &tempbuf, &templen) == (size_t)-1)
+  if (iconv(conv_fromfs, &inbuf, &len, &tempbuf, &templen) == (size_t)-1)
     return string;
 
   *tempbuf = '\0';
@@ -183,17 +162,9 @@ fnx_fromfs (string, len)
 }
 
 #else
-char *
-fnx_tofs (string)
-     char *string;
-{
-  return string;
-}
+char *fnx_tofs(string) char *string;
+{ return string; }
 
-char *
-fnx_fromfs (string)
-     char *string;
-{
-  return string;
-}
+char *fnx_fromfs(string) char *string;
+{ return string; }
 #endif

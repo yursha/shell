@@ -20,35 +20,35 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_STDLIB_H_)
-#define	_STDLIB_H_ 1
+#if !defined(_STDLIB_H_)
+#define _STDLIB_H_ 1
 
 /* String conversion functions. */
-extern int atoi ();
+extern int atoi();
 
-extern double atof ();
-extern double strtod ();
+extern double atof();
+extern double strtod();
 
 /* Memory allocation functions. */
 /* Generic pointer type. */
 #ifndef PTR_T
 
-#if defined (__STDC__)
-#  define PTR_T	void *
+#if defined(__STDC__)
+#define PTR_T void *
 #else
-#  define PTR_T char *
+#define PTR_T char *
 #endif
 
 #endif /* PTR_T */
 
-extern PTR_T malloc ();
-extern PTR_T realloc ();
-extern void free ();
+extern PTR_T malloc();
+extern PTR_T realloc();
+extern void free();
 
 /* Other miscellaneous functions. */
-extern void abort ();
-extern void exit ();
-extern char *getenv ();
-extern void qsort ();
+extern void abort();
+extern void exit();
+extern char *getenv();
+extern void qsort();
 
 #endif /* _STDLIB_H  */

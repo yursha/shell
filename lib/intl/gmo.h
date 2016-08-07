@@ -39,9 +39,9 @@
    when cross-compiling.  */
 
 #if __STDC__
-# define UINT_MAX_32_BITS 4294967295U
+#define UINT_MAX_32_BITS 4294967295U
 #else
-# define UINT_MAX_32_BITS 0xFFFFFFFF
+#define UINT_MAX_32_BITS 0xFFFFFFFF
 #endif
 
 /* If UINT_MAX isn't defined, assume it's a 32-bit type.
@@ -50,29 +50,27 @@
    (that certainly have <limits.h>) have 64+-bit integral types.  */
 
 #ifndef UINT_MAX
-# define UINT_MAX UINT_MAX_32_BITS
+#define UINT_MAX UINT_MAX_32_BITS
 #endif
 
 #if UINT_MAX == UINT_MAX_32_BITS
 typedef unsigned nls_uint32;
 #else
-# if USHRT_MAX == UINT_MAX_32_BITS
+#if USHRT_MAX == UINT_MAX_32_BITS
 typedef unsigned short nls_uint32;
-# else
-#  if ULONG_MAX == UINT_MAX_32_BITS
+#else
+#if ULONG_MAX == UINT_MAX_32_BITS
 typedef unsigned long nls_uint32;
-#  else
-  /* The following line is intended to throw an error.  Using #error is
-     not portable enough.  */
-  "Cannot determine unsigned 32-bit data type."
-#  endif
-# endif
+#else
+/* The following line is intended to throw an error.  Using #error is
+   not portable enough.  */
+"Cannot determine unsigned 32-bit data type."
+#endif
+#endif
 #endif
 
-
 /* Header for binary .mo file format.  */
-struct mo_file_header
-{
+struct mo_file_header {
   /* The magic number.  */
   nls_uint32 magic;
   /* The revision number of the file format.  */
@@ -106,8 +104,7 @@ struct mo_file_header
 };
 
 /* Descriptor for static string contained in the binary .mo file.  */
-struct string_desc
-{
+struct string_desc {
   /* Length of addressed string, not including the trailing NUL.  */
   nls_uint32 length;
   /* Offset of string in file.  */
@@ -117,8 +114,7 @@ struct string_desc
 /* The following are only used in .mo files with minor revision >= 1.  */
 
 /* Descriptor for system dependent string segment.  */
-struct sysdep_segment
-{
+struct sysdep_segment {
   /* Length of addressed string, including the trailing NUL.  */
   nls_uint32 length;
   /* Offset of string in file.  */
@@ -126,14 +122,12 @@ struct sysdep_segment
 };
 
 /* Descriptor for system dependent string.  */
-struct sysdep_string
-{
+struct sysdep_string {
   /* Offset of static string segments in file.  */
   nls_uint32 offset;
   /* Alternating sequence of static and system dependent segments.
      The last segment is a static segment, including the trailing NUL.  */
-  struct segment_pair
-  {
+  struct segment_pair {
     /* Size of static segment.  */
     nls_uint32 segsize;
     /* Reference to system dependent string segment, or ~0 at the end.  */
@@ -143,8 +137,8 @@ struct sysdep_string
 
 /* Marker for the end of the segments[] array.  This has the value 0xFFFFFFFF,
    regardless whether 'int' is 16 bit, 32 bit, or 64 bit.  */
-#define SEGMENTS_END ((nls_uint32) ~0)
+#define SEGMENTS_END ((nls_uint32)~0)
 
 /* @@ begin of epilog @@ */
 
-#endif	/* gettext.h  */
+#endif /* gettext.h  */

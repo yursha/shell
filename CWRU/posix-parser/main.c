@@ -12,27 +12,15 @@ char *the_current_maintainer = "chet";
 
 char *shell_name = "posix";
 
-void
-throw_to_top_level()
-{
-}
+void throw_to_top_level() {}
 
-char *
-base_pathname(s)
-char	*s;
-{
-	return s;
-}
+char *base_pathname(s) char *s;
+{ return s; }
 
-char *
-strerror(s)
-int	s;
-{
-	return ("error");
-}
+char *strerror(s) int s;
+{ return ("error"); }
 
-parse_command ()
-{
+parse_command() {
   extern int need_here_doc, current_command_line_count;
   extern REDIRECT *redirection_needing_here_doc;
   int r;
@@ -41,57 +29,46 @@ parse_command ()
   redirection_needing_here_doc = (REDIRECT *)NULL;
 
   current_command_line_count = 0;
-  r = yyparse ();
+  r = yyparse();
 
-  if (need_here_doc)
-    make_here_document (redirection_needing_here_doc);
+  if (need_here_doc) make_here_document(redirection_needing_here_doc);
   need_here_doc = 0;
 
   return (r);
 }
 
-main(argc, argv)
-int	argc;
-char	**argv;
+main(argc, argv) int argc;
+char **argv;
 {
-	with_input_from_stdin();
+  with_input_from_stdin();
 
-	if (parse_command () == 0) {
-		printf ("legal command in the Posix shell\n");
-		exit (0);
-	} else {
-		printf ("illegal\n");
-		exit (1);
-	}
+  if (parse_command() == 0) {
+    printf("legal command in the Posix shell\n");
+    exit(0);
+  } else {
+    printf("illegal\n");
+    exit(1);
+  }
 }
 
-char *
-string_quote_removal (s)
-{
-	return (savestring (s));
-}
+char *string_quote_removal(s) { return (savestring(s)); }
 
-assignment (string)
-     char *string;
+assignment(string) char *string;
 {
   register int c, index = 0;
 
   c = string[index];
 
-  if (!isletter (c) && c != '_')
-    return (0);
+  if (!isletter(c) && c != '_') return (0);
 
-  while (c = string[index])
-    {
-      /* The following is safe.  Note that '=' at the start of a word
-         is not an assignment statement. */
-      if (c == '=')
-        return (index);
+  while (c = string[index]) {
+    /* The following is safe.  Note that '=' at the start of a word
+       is not an assignment statement. */
+    if (c == '=') return (index);
 
-      if (!isletter (c) && !digit (c) && c != '_')
-        return (0);
+    if (!isletter(c) && !digit(c) && c != '_') return (0);
 
-      index++;
-    }
+    index++;
+  }
   return (0);
 }

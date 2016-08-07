@@ -20,30 +20,30 @@
 
 /* This file should be included instead of <dirent.h> or <sys/dir.h>. */
 
-#if !defined (_POSIXDIR_H_)
+#if !defined(_POSIXDIR_H_)
 #define _POSIXDIR_H_
 
-#if defined (HAVE_DIRENT_H)
-#  include <dirent.h>
-#  define D_NAMLEN(d)   (strlen ((d)->d_name))
+#if defined(HAVE_DIRENT_H)
+#include <dirent.h>
+#define D_NAMLEN(d) (strlen((d)->d_name))
 #else
-#  if defined (HAVE_SYS_NDIR_H)
-#    include <sys/ndir.h>
-#  endif
-#  if defined (HAVE_SYS_DIR_H)
-#    include <sys/dir.h>
-#  endif
-#  if defined (HAVE_NDIR_H)
-#    include <ndir.h>
-#  endif
-#  if !defined (dirent)
-#    define dirent direct
-#  endif /* !dirent */
-#  define D_NAMLEN(d)   ((d)->d_namlen)
+#if defined(HAVE_SYS_NDIR_H)
+#include <sys/ndir.h>
+#endif
+#if defined(HAVE_SYS_DIR_H)
+#include <sys/dir.h>
+#endif
+#if defined(HAVE_NDIR_H)
+#include <ndir.h>
+#endif
+#if !defined(dirent)
+#define dirent direct
+#endif /* !dirent */
+#define D_NAMLEN(d) ((d)->d_namlen)
 #endif /* !HAVE_DIRENT_H */
 
-#if defined (STRUCT_DIRENT_HAS_D_INO) && !defined (STRUCT_DIRENT_HAS_D_FILENO)
-#  define d_fileno d_ino
+#if defined(STRUCT_DIRENT_HAS_D_INO) && !defined(STRUCT_DIRENT_HAS_D_FILENO)
+#define d_fileno d_ino
 #endif
 
 #endif /* !_POSIXDIR_H_ */

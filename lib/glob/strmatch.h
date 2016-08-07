@@ -16,8 +16,8 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef	_STRMATCH_H
-#define	_STRMATCH_H	1
+#ifndef _STRMATCH_H
+#define _STRMATCH_H 1
 
 #include <config.h>
 
@@ -25,16 +25,16 @@
 
 /* We #undef these before defining them because some losing systems
    (HP-UX A.08.07 for example) define these in <unistd.h>.  */
-#undef  FNM_PATHNAME
-#undef  FNM_NOESCAPE
-#undef  FNM_PERIOD
+#undef FNM_PATHNAME
+#undef FNM_NOESCAPE
+#undef FNM_PERIOD
 
 /* Bits set in the FLAGS argument to `strmatch'.  */
 
 /* standard flags are like fnmatch(3). */
-#define	FNM_PATHNAME	(1 << 0) /* No wildcard can ever match `/'.  */
-#define	FNM_NOESCAPE	(1 << 1) /* Backslashes don't quote special chars.  */
-#define	FNM_PERIOD	(1 << 2) /* Leading `.' is matched only explicitly.  */
+#define FNM_PATHNAME (1 << 0) /* No wildcard can ever match `/'.  */
+#define FNM_NOESCAPE (1 << 1) /* Backslashes don't quote special chars.  */
+#define FNM_PERIOD (1 << 2)   /* Leading `.' is matched only explicitly.  */
 
 /* extended flags not available in most libc fnmatch versions, but we undef
    them to avoid any possible warnings. */
@@ -42,14 +42,14 @@
 #undef FNM_CASEFOLD
 #undef FNM_EXTMATCH
 
-#define FNM_LEADING_DIR	(1 << 3) /* Ignore `/...' after a match. */
-#define FNM_CASEFOLD	(1 << 4) /* Compare without regard to case. */
-#define FNM_EXTMATCH	(1 << 5) /* Use ksh-like extended matching. */
+#define FNM_LEADING_DIR (1 << 3) /* Ignore `/...' after a match. */
+#define FNM_CASEFOLD (1 << 4)    /* Compare without regard to case. */
+#define FNM_EXTMATCH (1 << 5)    /* Use ksh-like extended matching. */
 
 /* Value returned by `strmatch' if STRING does not match PATTERN.  */
 #undef FNM_NOMATCH
 
-#define	FNM_NOMATCH	1
+#define FNM_NOMATCH 1
 
 /* Match STRING against the filename pattern PATTERN,
    returning zero if it matches, FNM_NOMATCH if not.  */

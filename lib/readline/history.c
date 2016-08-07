@@ -24,23 +24,23 @@
    you can call.  I think I have done that. */
 #define READLINE_LIBRARY
 
-#if defined (HAVE_CONFIG_H)
-#  include <config.h>
+#if defined(HAVE_CONFIG_H)
+#include <config.h>
 #endif
 
 #include <stdio.h>
 
-#if defined (HAVE_STDLIB_H)
-#  include <stdlib.h>
+#if defined(HAVE_STDLIB_H)
+#include <stdlib.h>
 #else
-#  include "ansi_stdlib.h"
+#include "ansi_stdlib.h"
 #endif /* HAVE_STDLIB_H */
 
-#if defined (HAVE_UNISTD_H)
-#  ifdef _MINIX
-#    include <sys/types.h>
-#  endif
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#ifdef _MINIX
+#include <sys/types.h>
+#endif
+#include <unistd.h>
 #endif
 
 #include <errno.h>
@@ -50,12 +50,12 @@
 
 #include "xmalloc.h"
 
-#if !defined (errno)
+#if !defined(errno)
 extern int errno;
 #endif
 
 /* How big to make the_history when we first allocate it. */
-#define DEFAULT_HISTORY_INITIAL_SIZE	502
+#define DEFAULT_HISTORY_INITIAL_SIZE 502
 
 /* The number of slots to increase the_history by. */
 #define DEFAULT_HISTORY_GROW_SIZE 50
@@ -81,7 +81,7 @@ static int history_size;
 /* If HISTORY_STIFLED is non-zero, then this is the maximum number of
    entries to remember. */
 int history_max_entries;
-int max_input_history;	/* backwards compatibility */
+int max_input_history; /* backwards compatibility */
 
 /* The current location of the interactive history pointer.  Just makes
    life easier for outside callers. */
@@ -94,177 +94,139 @@ int history_length;
 int history_base = 1;
 
 /* Return the current HISTORY_STATE of the history. */
-HISTORY_STATE *
-history_get_history_state ()
-{
+HISTORY_STATE *history_get_history_state() {
   HISTORY_STATE *state;
 
-  state = (HISTORY_STATE *)xmalloc (sizeof (HISTORY_STATE));
+  state = (HISTORY_STATE *)xmalloc(sizeof(HISTORY_STATE));
   state->entries = the_history;
   state->offset = history_offset;
   state->length = history_length;
   state->size = history_size;
   state->flags = 0;
-  if (history_stifled)
-    state->flags |= HS_STIFLED;
+  if (history_stifled) state->flags |= HS_STIFLED;
 
   return (state);
 }
 
 /* Set the state of the current history array to STATE. */
-void
-history_set_history_state (state)
-     HISTORY_STATE *state;
+void history_set_history_state(state) HISTORY_STATE *state;
 {
   the_history = state->entries;
   history_offset = state->offset;
   history_length = state->length;
   history_size = state->size;
-  if (state->flags & HS_STIFLED)
-    history_stifled = 1;
+  if (state->flags & HS_STIFLED) history_stifled = 1;
 }
 
 /* Begin a session in which the history functions might be used.  This
    initializes interactive variables. */
-void
-using_history ()
-{
-  history_offset = history_length;
-}
+void using_history() { history_offset = history_length; }
 
 /* Return the number of bytes that the primary history entries are using.
    This just adds up the lengths of the_history->lines and the associated
    timestamps. */
-int
-history_total_bytes ()
-{
+int history_total_bytes() {
   register int i, result;
 
   for (i = result = 0; the_history && the_history[i]; i++)
-    result += HISTENT_BYTES (the_history[i]);
+    result += HISTENT_BYTES(the_history[i]);
 
   return (result);
 }
 
 /* Returns the magic number which says what history element we are
    looking at now.  In this implementation, it returns history_offset. */
-int
-where_history ()
-{
-  return (history_offset);
-}
+int where_history() { return (history_offset); }
 
 /* Make the current history item be the one at POS, an absolute index.
    Returns zero if POS is out of range, else non-zero. */
-int
-history_set_pos (pos)
-     int pos;
+int history_set_pos(pos) int pos;
 {
-  if (pos > history_length || pos < 0 || !the_history)
-    return (0);
+  if (pos > history_length || pos < 0 || !the_history) return (0);
   history_offset = pos;
   return (1);
 }
- 
+
 /* Return the current history array.  The caller has to be careful, since this
    is the actual array of data, and could be bashed or made corrupt easily.
    The array is terminated with a NULL pointer. */
-HIST_ENTRY **
-history_list ()
-{
-  return (the_history);
-}
+HIST_ENTRY **history_list() { return (the_history); }
 
 /* Return the history entry at the current position, as determined by
    history_offset.  If there is no entry there, return a NULL pointer. */
-HIST_ENTRY *
-current_history ()
-{
+HIST_ENTRY *current_history() {
   return ((history_offset == history_length) || the_history == 0)
-		? (HIST_ENTRY *)NULL
-		: the_history[history_offset];
+             ? (HIST_ENTRY *)NULL
+             : the_history[history_offset];
 }
 
 /* Back up history_offset to the previous history entry, and return
    a pointer to that entry.  If there is no previous entry then return
    a NULL pointer. */
-HIST_ENTRY *
-previous_history ()
-{
+HIST_ENTRY *previous_history() {
   return history_offset ? the_history[--history_offset] : (HIST_ENTRY *)NULL;
 }
 
 /* Move history_offset forward to the next history entry, and return
    a pointer to that entry.  If there is no next entry then return a
    NULL pointer. */
-HIST_ENTRY *
-next_history ()
-{
-  return (history_offset == history_length) ? (HIST_ENTRY *)NULL : the_history[++history_offset];
+HIST_ENTRY *next_history() {
+  return (history_offset == history_length) ? (HIST_ENTRY *)NULL
+                                            : the_history[++history_offset];
 }
 
 /* Return the history entry which is logically at OFFSET in the history array.
    OFFSET is relative to history_base. */
-HIST_ENTRY *
-history_get (offset)
-     int offset;
+HIST_ENTRY *history_get(offset) int offset;
 {
   int local_index;
 
   local_index = offset - history_base;
   return (local_index >= history_length || local_index < 0 || the_history == 0)
-		? (HIST_ENTRY *)NULL
-		: the_history[local_index];
+             ? (HIST_ENTRY *)NULL
+             : the_history[local_index];
 }
 
-HIST_ENTRY *
-alloc_history_entry (string, ts)
-     char *string;
-     char *ts;
+HIST_ENTRY *alloc_history_entry(string, ts) char *string;
+char *ts;
 {
   HIST_ENTRY *temp;
 
-  temp = (HIST_ENTRY *)xmalloc (sizeof (HIST_ENTRY));
+  temp = (HIST_ENTRY *)xmalloc(sizeof(HIST_ENTRY));
 
-  temp->line = string ? savestring (string) : string;
+  temp->line = string ? savestring(string) : string;
   temp->data = (char *)NULL;
   temp->timestamp = ts;
 
   return temp;
 }
 
-time_t
-history_get_time (hist)
-     HIST_ENTRY *hist;
+time_t history_get_time(hist) HIST_ENTRY *hist;
 {
   char *ts;
   time_t t;
 
-  if (hist == 0 || hist->timestamp == 0)
-    return 0;
+  if (hist == 0 || hist->timestamp == 0) return 0;
   ts = hist->timestamp;
-  if (ts[0] != history_comment_char)
-    return 0;
+  if (ts[0] != history_comment_char) return 0;
   errno = 0;
-  t = (time_t) strtol (ts + 1, (char **)NULL, 10);		/* XXX - should use strtol() here */
-  if (errno == ERANGE)
-    return (time_t)0;
+  t = (time_t)strtol(ts + 1, (char **)NULL,
+                     10); /* XXX - should use strtol() here */
+  if (errno == ERANGE) return (time_t)0;
   return t;
 }
 
-static char *
-hist_inittime ()
-{
+static char *hist_inittime() {
   time_t t;
   char ts[64], *ret;
 
-  t = (time_t) time ((time_t *)0);
-#if defined (HAVE_VSNPRINTF)		/* assume snprintf if vsnprintf exists */
-  snprintf (ts, sizeof (ts) - 1, "X%lu", (unsigned long) t);
+  t = (time_t)time((time_t *)0);
+#if defined(HAVE_VSNPRINTF) /* assume snprintf if vsnprintf exists */
+  snprintf(ts, sizeof(ts) - 1, "X%lu", (unsigned long)t);
 #else
-  sprintf (ts, "X%lu", (unsigned long) t);
+  sprintf(ts, "X%lu", (unsigned long)t);
 #endif
-  ret = savestring (ts);
+  ret = savestring(ts);
   ret[0] = history_comment_char;
 
   return ret;
@@ -272,136 +234,114 @@ hist_inittime ()
 
 /* Place STRING at the end of the history list.  The data field
    is  set to NULL. */
-void
-add_history (string)
-     const char *string;
+void add_history(string) const char *string;
 {
   HIST_ENTRY *temp;
 
-  if (history_stifled && (history_length == history_max_entries))
-    {
-      register int i;
+  if (history_stifled && (history_length == history_max_entries)) {
+    register int i;
 
-      /* If the history is stifled, and history_length is zero,
-	 and it equals history_max_entries, we don't save items. */
-      if (history_length == 0)
-	return;
+    /* If the history is stifled, and history_length is zero,
+       and it equals history_max_entries, we don't save items. */
+    if (history_length == 0) return;
 
-      /* If there is something in the slot, then remove it. */
-      if (the_history[0])
-	(void) free_history_entry (the_history[0]);
+    /* If there is something in the slot, then remove it. */
+    if (the_history[0]) (void)free_history_entry(the_history[0]);
 
-      /* Copy the rest of the entries, moving down one slot.  Copy includes
-	 trailing NULL.  */
+/* Copy the rest of the entries, moving down one slot.  Copy includes
+   trailing NULL.  */
 #if 0
       for (i = 0; i < history_length; i++)
 	the_history[i] = the_history[i + 1];
 #else
-      memmove (the_history, the_history + 1, history_length * sizeof (HIST_ENTRY *));
+    memmove(the_history, the_history + 1,
+            history_length * sizeof(HIST_ENTRY *));
 #endif
 
-      history_base++;
-    }
-  else
-    {
-      if (history_size == 0)
-	{
-	  if (history_stifled && history_max_entries > 0)
-	    history_size = history_max_entries + 2;
-	  else
-	    history_size = DEFAULT_HISTORY_INITIAL_SIZE;
-	  the_history = (HIST_ENTRY **)xmalloc (history_size * sizeof (HIST_ENTRY *));
-	  history_length = 1;
-	}
+    history_base++;
+  } else {
+    if (history_size == 0) {
+      if (history_stifled && history_max_entries > 0)
+        history_size = history_max_entries + 2;
       else
-	{
-	  if (history_length == (history_size - 1))
-	    {
-	      history_size += DEFAULT_HISTORY_GROW_SIZE;
-	      the_history = (HIST_ENTRY **)
-		xrealloc (the_history, history_size * sizeof (HIST_ENTRY *));
-	    }
-	  history_length++;
-	}
+        history_size = DEFAULT_HISTORY_INITIAL_SIZE;
+      the_history = (HIST_ENTRY **)xmalloc(history_size * sizeof(HIST_ENTRY *));
+      history_length = 1;
+    } else {
+      if (history_length == (history_size - 1)) {
+        history_size += DEFAULT_HISTORY_GROW_SIZE;
+        the_history = (HIST_ENTRY **)xrealloc(
+            the_history, history_size * sizeof(HIST_ENTRY *));
+      }
+      history_length++;
     }
+  }
 
-  temp = alloc_history_entry ((char *)string, hist_inittime ());
+  temp = alloc_history_entry((char *)string, hist_inittime());
 
   the_history[history_length] = (HIST_ENTRY *)NULL;
   the_history[history_length - 1] = temp;
 }
 
 /* Change the time stamp of the most recent history entry to STRING. */
-void
-add_history_time (string)
-     const char *string;
+void add_history_time(string) const char *string;
 {
   HIST_ENTRY *hs;
 
-  if (string == 0 || history_length < 1)
-    return;
+  if (string == 0 || history_length < 1) return;
   hs = the_history[history_length - 1];
-  FREE (hs->timestamp);
-  hs->timestamp = savestring (string);
+  FREE(hs->timestamp);
+  hs->timestamp = savestring(string);
 }
 
 /* Free HIST and return the data so the calling application can free it
    if necessary and desired. */
-histdata_t
-free_history_entry (hist)
-     HIST_ENTRY *hist;
+histdata_t free_history_entry(hist) HIST_ENTRY *hist;
 {
   histdata_t x;
 
-  if (hist == 0)
-    return ((histdata_t) 0);
-  FREE (hist->line);
-  FREE (hist->timestamp);
+  if (hist == 0) return ((histdata_t)0);
+  FREE(hist->line);
+  FREE(hist->timestamp);
   x = hist->data;
-  xfree (hist);
+  xfree(hist);
   return (x);
 }
 
-HIST_ENTRY *
-copy_history_entry (hist)
-     HIST_ENTRY *hist;
+HIST_ENTRY *copy_history_entry(hist) HIST_ENTRY *hist;
 {
   HIST_ENTRY *ret;
   char *ts;
 
-  if (hist == 0)
-    return hist;
+  if (hist == 0) return hist;
 
-  ret = alloc_history_entry (hist->line, (char *)NULL);
+  ret = alloc_history_entry(hist->line, (char *)NULL);
 
-  ts = hist->timestamp ? savestring (hist->timestamp) : hist->timestamp;
+  ts = hist->timestamp ? savestring(hist->timestamp) : hist->timestamp;
   ret->timestamp = ts;
 
   ret->data = hist->data;
 
   return ret;
 }
-  
+
 /* Make the history entry at WHICH have LINE and DATA.  This returns
    the old entry so you can dispose of the data.  In the case of an
    invalid WHICH, a NULL pointer is returned. */
-HIST_ENTRY *
-replace_history_entry (which, line, data)
-     int which;
-     const char *line;
-     histdata_t data;
+HIST_ENTRY *replace_history_entry(which, line, data) int which;
+const char *line;
+histdata_t data;
 {
   HIST_ENTRY *temp, *old_value;
 
-  if (which < 0 || which >= history_length)
-    return ((HIST_ENTRY *)NULL);
+  if (which < 0 || which >= history_length) return ((HIST_ENTRY *)NULL);
 
-  temp = (HIST_ENTRY *)xmalloc (sizeof (HIST_ENTRY));
+  temp = (HIST_ENTRY *)xmalloc(sizeof(HIST_ENTRY));
   old_value = the_history[which];
 
-  temp->line = savestring (line);
+  temp->line = savestring(line);
   temp->data = data;
-  temp->timestamp = savestring (old_value->timestamp);
+  temp->timestamp = savestring(old_value->timestamp);
   the_history[which] = temp;
 
   return (old_value);
@@ -410,25 +350,22 @@ replace_history_entry (which, line, data)
 /* Append LINE to the history line at offset WHICH, adding a newline to the
    end of the current line first.  This can be used to construct multi-line
    history entries while reading lines from the history file. */
-void
-_hs_append_history_line (which, line)
-     int which;
-     const char *line;
+void _hs_append_history_line(which, line) int which;
+const char *line;
 {
   HIST_ENTRY *hent;
   size_t newlen, curlen;
   char *newline;
 
   hent = the_history[which];
-  curlen = strlen (hent->line);
-  newlen = curlen + strlen (line) + 2;
-  newline = realloc (hent->line, newlen);
-  if (newline)
-    {
-      hent->line = newline;
-      hent->line[curlen++] = '\n';
-      strcpy (hent->line + curlen, line);
-    }
+  curlen = strlen(hent->line);
+  newlen = curlen + strlen(line) + 2;
+  newline = realloc(hent->line, newlen);
+  if (newline) {
+    hent->line = newline;
+    hent->line[curlen++] = '\n';
+    strcpy(hent->line + curlen, line);
+  }
 }
 
 /* Replace the DATA in the specified history entries, replacing OLD with
@@ -437,62 +374,52 @@ _hs_append_history_line (which, line)
    to replace the `newest' history entry where entry->data == OLD; and
    WHICH >= 0 means to replace that particular history entry's data, as
    long as it matches OLD. */
-void
-_hs_replace_history_data (which, old, new)
-     int which;
-     histdata_t *old, *new;
+void _hs_replace_history_data(which, old, new) int which;
+histdata_t *old, *new;
 {
   HIST_ENTRY *entry;
   register int i, last;
 
-  if (which < -2 || which >= history_length || history_length == 0 || the_history == 0)
+  if (which < -2 || which >= history_length || history_length == 0 ||
+      the_history == 0)
     return;
 
-  if (which >= 0)
-    {
-      entry = the_history[which];
-      if (entry && entry->data == old)
-	entry->data = new;
-      return;
-    }
+  if (which >= 0) {
+    entry = the_history[which];
+    if (entry && entry->data == old) entry->data = new;
+    return;
+  }
 
   last = -1;
-  for (i = 0; i < history_length; i++)
-    {
-      entry = the_history[i];
-      if (entry == 0)
-	continue;
-      if (entry->data == old)
-	{
-	  last = i;
-	  if (which == -1)
-	    entry->data = new;
-	}
+  for (i = 0; i < history_length; i++) {
+    entry = the_history[i];
+    if (entry == 0) continue;
+    if (entry->data == old) {
+      last = i;
+      if (which == -1) entry->data = new;
     }
-  if (which == -2 && last >= 0)
-    {
-      entry = the_history[last];
-      entry->data = new;	/* XXX - we don't check entry->old */
-    }
-}      
-  
+  }
+  if (which == -2 && last >= 0) {
+    entry = the_history[last];
+    entry->data = new; /* XXX - we don't check entry->old */
+  }
+}
+
 /* Remove history element WHICH from the history.  The removed
    element is returned to you so you can free the line, data,
    and containing structure. */
-HIST_ENTRY *
-remove_history (which)
-     int which;
+HIST_ENTRY *remove_history(which) int which;
 {
   HIST_ENTRY *return_value;
   register int i;
 
-  if (which < 0 || which >= history_length || history_length ==  0 || the_history == 0)
+  if (which < 0 || which >= history_length || history_length == 0 ||
+      the_history == 0)
     return ((HIST_ENTRY *)NULL);
 
   return_value = the_history[which];
 
-  for (i = which; i < history_length; i++)
-    the_history[i] = the_history[i + 1];
+  for (i = which; i < history_length; i++) the_history[i] = the_history[i + 1];
 
   history_length--;
 
@@ -500,27 +427,23 @@ remove_history (which)
 }
 
 /* Stifle the history list, remembering only MAX number of lines. */
-void
-stifle_history (max)
-     int max;
+void stifle_history(max) int max;
 {
   register int i, j;
 
-  if (max < 0)
-    max = 0;
+  if (max < 0) max = 0;
 
-  if (history_length > max)
-    {
-      /* This loses because we cannot free the data. */
-      for (i = 0, j = history_length - max; i < j; i++)
-	free_history_entry (the_history[i]);
+  if (history_length > max) {
+    /* This loses because we cannot free the data. */
+    for (i = 0, j = history_length - max; i < j; i++)
+      free_history_entry(the_history[i]);
 
-      history_base = i;
-      for (j = 0, i = history_length - max; j < max; i++, j++)
-	the_history[j] = the_history[i];
-      the_history[j] = (HIST_ENTRY *)NULL;
-      history_length = j;
-    }
+    history_base = i;
+    for (j = 0, i = history_length - max; j < max; i++, j++)
+      the_history[j] = the_history[i];
+    the_history[j] = (HIST_ENTRY *)NULL;
+    history_length = j;
+  }
 
   history_stifled = 1;
   max_input_history = history_max_entries = max;
@@ -529,35 +452,24 @@ stifle_history (max)
 /* Stop stifling the history.  This returns the previous maximum
    number of history entries.  The value is positive if the history
    was stifled, negative if it wasn't. */
-int
-unstifle_history ()
-{
-  if (history_stifled)
-    {
-      history_stifled = 0;
-      return (history_max_entries);
-    }
-  else
+int unstifle_history() {
+  if (history_stifled) {
+    history_stifled = 0;
+    return (history_max_entries);
+  } else
     return (-history_max_entries);
 }
 
-int
-history_is_stifled ()
-{
-  return (history_stifled);
-}
+int history_is_stifled() { return (history_stifled); }
 
-void
-clear_history ()
-{
+void clear_history() {
   register int i;
 
   /* This loses because we cannot free the data. */
-  for (i = 0; i < history_length; i++)
-    {
-      free_history_entry (the_history[i]);
-      the_history[i] = (HIST_ENTRY *)NULL;
-    }
+  for (i = 0; i < history_length; i++) {
+    free_history_entry(the_history[i]);
+    the_history[i] = (HIST_ENTRY *)NULL;
+  }
 
   history_offset = history_length = 0;
 }

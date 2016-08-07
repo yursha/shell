@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_BASHLINE_H_)
+#if !defined(_BASHLINE_H_)
 #define _BASHLINE_H_
 
 #include "stdc.h"

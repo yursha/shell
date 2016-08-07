@@ -21,10 +21,10 @@ extern int EOF_Reached;
 #include <setjmp.h>
 extern jmp_buf top_level, catch;
 
-#define NOT_JUMPED 0		/* Not returning from a longjmp. */
-#define FORCE_EOF 1		/* We want to stop parsing. */
-#define DISCARD 2		/* Discard current command. */
-#define EXITPROG 3		/* Unconditionally exit the program now. */
+#define NOT_JUMPED 0 /* Not returning from a longjmp. */
+#define FORCE_EOF 1  /* We want to stop parsing. */
+#define DISCARD 2    /* Discard current command. */
+#define EXITPROG 3   /* Unconditionally exit the program now. */
 
 /* Values that can be returned by execute_command (). */
 #define EXECUTION_FAILURE 1
@@ -46,8 +46,8 @@ extern jmp_buf top_level, catch;
    retained.  Q_HERE_DOCUMENT means slashify_in_here_document () to
    decide whether to retain the backslash.  Q_KEEP_BACKSLASH means
    to unconditionally retain the backslash. */
-#define Q_DOUBLE_QUOTES  0x1
-#define Q_HERE_DOCUMENT  0x2
+#define Q_DOUBLE_QUOTES 0x1
+#define Q_HERE_DOCUMENT 0x2
 #define Q_KEEP_BACKSLASH 0x4
 
 extern char **shell_environment;
@@ -65,7 +65,7 @@ struct fd_bitmap {
 
 #define FD_BITMAP_SIZE 32
 
-#if defined (EIGHT_BIT)
-#  define CTLESC '\001'
-#  define CTLNUL '\002'
+#if defined(EIGHT_BIT)
+#define CTLESC '\001'
+#define CTLNUL '\002'
 #endif /* EIGHT_BIT */

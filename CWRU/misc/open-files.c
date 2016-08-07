@@ -27,13 +27,11 @@
 
 #include <stdio.h>
 
-main()
-{
-	register int	i;
+main() {
+  register int i;
 
-	for (i = 0; i < getdtablesize(); i++) {
-		if (fcntl(i, F_GETFD, 0) != -1)
-			fprintf(stderr, "fd %d: open\n", i);
-	}
-	exit(0);
+  for (i = 0; i < getdtablesize(); i++) {
+    if (fcntl(i, F_GETFD, 0) != -1) fprintf(stderr, "fd %d: open\n", i);
+  }
+  exit(0);
 }

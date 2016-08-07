@@ -1,6 +1,6 @@
 /*
    recho -- really echo args, bracketed with <> and with invisible chars
-	    made visible.
+            made visible.
 
    Chet Ramey
    chet@po.cwru.edu
@@ -24,8 +24,8 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined (HAVE_CONFIG_H)
-#  include  <config.h>
+#if defined(HAVE_CONFIG_H)
+#include <config.h>
 #endif
 
 #include "bashansi.h"
@@ -33,35 +33,31 @@
 
 void strprint();
 
-int
-main(argc, argv)
-int	argc;
-char	**argv;
+int main(argc, argv) int argc;
+char **argv;
 {
-	register int	i;
+  register int i;
 
-	for (i = 1; i < argc; i++) {
-		printf("argv[%d] = <", i);
-		strprint(argv[i]);
-		printf(">\n");
-	}
-	exit(0);
+  for (i = 1; i < argc; i++) {
+    printf("argv[%d] = <", i);
+    strprint(argv[i]);
+    printf(">\n");
+  }
+  exit(0);
 }
 
-void
-strprint(str)
-char	*str;
+void strprint(str) char *str;
 {
-	register unsigned char *s;
+  register unsigned char *s;
 
-	for (s = (unsigned char *)str; s && *s; s++) {
-		if (*s < ' ') {
-			putchar('^');
-			putchar(*s+64);
-		} else if (*s == 127) {
-			putchar('^');
-			putchar('?');
-		} else
-			putchar(*s);
-	}
+  for (s = (unsigned char *)str; s && *s; s++) {
+    if (*s < ' ') {
+      putchar('^');
+      putchar(*s + 64);
+    } else if (*s == 127) {
+      putchar('^');
+      putchar('?');
+    } else
+      putchar(*s);
+  }
 }

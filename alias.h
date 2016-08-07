@@ -18,7 +18,7 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_ALIAS_H_)
+#if !defined(_ALIAS_H_)
 #define _ALIAS_H_
 
 #include "stdc.h"
@@ -32,8 +32,8 @@ typedef struct alias {
 } alias_t;
 
 /* Values for `flags' member of struct alias. */
-#define AL_EXPANDNEXT		0x1
-#define AL_BEINGEXPANDED	0x2
+#define AL_EXPANDNEXT 0x1
+#define AL_BEINGEXPANDED 0x2
 
 /* The list of known aliases. */
 extern HASH_TABLE *aliases;

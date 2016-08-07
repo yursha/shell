@@ -1,10 +1,10 @@
 /* rlprivate.h -- functions and variables global to the readline library,
-		  but not intended for use by applications. */
+                  but not intended for use by applications. */
 
 /* Copyright (C) 1999-2015 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
    along with Readline.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_RL_PRIVATE_H_)
+#if !defined(_RL_PRIVATE_H_)
 #define _RL_PRIVATE_H_
 
-#include "rlconf.h"	/* for VISIBLE_STATS */
+#include "rlconf.h" /* for VISIBLE_STATS */
 #include "rlstdc.h"
-#include "posixjmp.h"	/* defines procenv_t */
+#include "posixjmp.h" /* defines procenv_t */
 
 /*************************************************************************
  *									 *
@@ -33,14 +33,16 @@
  *									 *
  *************************************************************************/
 
-#define EMACS_MODE()		(rl_editing_mode == emacs_mode)
-#define VI_COMMAND_MODE()	(rl_editing_mode == vi_mode && _rl_keymap == vi_movement_keymap)
-#define VI_INSERT_MODE()	(rl_editing_mode == vi_mode && _rl_keymap == vi_insertion_keymap)
+#define EMACS_MODE() (rl_editing_mode == emacs_mode)
+#define VI_COMMAND_MODE() \
+  (rl_editing_mode == vi_mode && _rl_keymap == vi_movement_keymap)
+#define VI_INSERT_MODE() \
+  (rl_editing_mode == vi_mode && _rl_keymap == vi_insertion_keymap)
 
-#define RL_CHECK_SIGNALS() \
-	do { \
-	  if (_rl_caught_signal) _rl_signal_handler (_rl_caught_signal); \
-	} while (0)
+#define RL_CHECK_SIGNALS()                                        \
+  do {                                                            \
+    if (_rl_caught_signal) _rl_signal_handler(_rl_caught_signal); \
+  } while (0)
 
 #define RL_SIG_RECEIVED() (_rl_caught_signal != 0)
 #define RL_SIGINT_RECEIVED() (_rl_caught_signal == SIGINT)
@@ -55,18 +57,17 @@
  *									 *
  *************************************************************************/
 /* search types */
-#define RL_SEARCH_ISEARCH	0x01		/* incremental search */
-#define RL_SEARCH_NSEARCH	0x02		/* non-incremental search */
-#define RL_SEARCH_CSEARCH	0x04		/* intra-line char search */
+#define RL_SEARCH_ISEARCH 0x01 /* incremental search */
+#define RL_SEARCH_NSEARCH 0x02 /* non-incremental search */
+#define RL_SEARCH_CSEARCH 0x04 /* intra-line char search */
 
 /* search flags */
-#define SF_REVERSE		0x01
-#define SF_FOUND		0x02
-#define SF_FAILED		0x04
-#define SF_CHGKMAP		0x08
+#define SF_REVERSE 0x01
+#define SF_FOUND 0x02
+#define SF_FAILED 0x04
+#define SF_CHGKMAP 0x08
 
-typedef struct  __rl_search_context
-{
+typedef struct __rl_search_context {
   int type;
   int sflags;
 
@@ -75,7 +76,7 @@ typedef struct  __rl_search_context
   int search_string_size;
 
   char **lines;
-  char *allocated_line;    
+  char *allocated_line;
   int hlen;
   int hindex;
 
@@ -87,15 +88,15 @@ typedef struct  __rl_search_context
 
   UNDO_LIST *save_undo_list;
 
-  Keymap keymap;	/* used when dispatching commands in search string */
-  Keymap okeymap;	/* original keymap */
+  Keymap keymap;  /* used when dispatching commands in search string */
+  Keymap okeymap; /* original keymap */
 
   int history_pos;
   int direction;
 
   int prevc;
   int lastc;
-#if defined (HANDLE_MULTIBYTE)
+#if defined(HANDLE_MULTIBYTE)
   char mb[MB_LEN_MAX];
   char pmb[MB_LEN_MAX];
 #endif
@@ -104,27 +105,26 @@ typedef struct  __rl_search_context
   int sline_len;
   int sline_index;
 
-  char  *search_terminators;
+  char *search_terminators;
 } _rl_search_cxt;
 
 /* Callback data for reading numeric arguments */
-#define NUM_SAWMINUS	0x01
-#define NUM_SAWDIGITS	0x02
-#define NUM_READONE	0x04
+#define NUM_SAWMINUS 0x01
+#define NUM_SAWDIGITS 0x02
+#define NUM_READONE 0x04
 
 typedef int _rl_arg_cxt;
 
 /* A context for reading key sequences longer than a single character when
    using the callback interface. */
-#define KSEQ_DISPATCHED	0x01
-#define KSEQ_SUBSEQ	0x02
-#define KSEQ_RECURSIVE	0x04
+#define KSEQ_DISPATCHED 0x01
+#define KSEQ_SUBSEQ 0x02
+#define KSEQ_RECURSIVE 0x04
 
-typedef struct __rl_keyseq_context
-{
+typedef struct __rl_keyseq_context {
   int flags;
   int subseq_arg;
-  int subseq_retval;		/* XXX */
+  int subseq_retval; /* XXX */
   int okey;
 
   Keymap dmap;
@@ -135,30 +135,28 @@ typedef struct __rl_keyseq_context
 } _rl_keyseq_cxt;
 
 /* vi-mode commands that use result of motion command to define boundaries */
-#define VIM_DELETE	0x01
-#define VIM_CHANGE	0x02
-#define VIM_YANK	0x04
+#define VIM_DELETE 0x01
+#define VIM_CHANGE 0x02
+#define VIM_YANK 0x04
 
 /* various states for vi-mode commands that use motion commands.  reflects
    RL_READLINE_STATE */
-#define VMSTATE_READ	0x01
-#define VMSTATE_NUMARG	0x02
+#define VMSTATE_READ 0x01
+#define VMSTATE_NUMARG 0x02
 
-typedef struct __rl_vimotion_context
-{
+typedef struct __rl_vimotion_context {
   int op;
   int state;
-  int flags;		/* reserved */
+  int flags; /* reserved */
   _rl_arg_cxt ncxt;
   int numeric_arg;
-  int start, end;	/* rl_point, rl_end */
-  int key, motion;	/* initial key, motion command */
+  int start, end;  /* rl_point, rl_end */
+  int key, motion; /* initial key, motion command */
 } _rl_vimotion_cxt;
 
 /* fill in more as needed */
 /* `Generic' callback data and functions */
-typedef struct __rl_callback_generic_arg 
-{
+typedef struct __rl_callback_generic_arg {
   int count;
   int i1, i2;
   /* add here as needed */
@@ -182,10 +180,10 @@ typedef void _rl_sigcleanup_func_t PARAMS((int, void *));
 
 /* complete.c */
 extern int rl_complete_with_tilde_expansion;
-#if defined (VISIBLE_STATS)
+#if defined(VISIBLE_STATS)
 extern int rl_visible_stats;
 #endif /* VISIBLE_STATS */
-#if defined (COLOR_SUPPORT)
+#if defined(COLOR_SUPPORT)
 extern int _rl_colored_stats;
 extern int _rl_colored_completion_prefix;
 #endif
@@ -247,7 +245,7 @@ extern void _rl_keyseq_cxt_dispose PARAMS((_rl_keyseq_cxt *));
 extern void _rl_keyseq_chain_dispose PARAMS((void));
 
 extern int _rl_dispatch_callback PARAMS((_rl_keyseq_cxt *));
-     
+
 /* callback.c */
 extern _rl_callback_generic_arg *_rl_callback_data_alloc PARAMS((int));
 extern void _rl_callback_data_dispose PARAMS((_rl_callback_generic_arg *));
@@ -298,14 +296,14 @@ extern int _rl_isearch_cleanup PARAMS((_rl_search_cxt *, int));
 extern int _rl_search_getchar PARAMS((_rl_search_cxt *));
 
 /* kill.c */
-#define BRACK_PASTE_PREF	"\033[200~"
-#define BRACK_PASTE_SUFF	"\033[201~"
+#define BRACK_PASTE_PREF "\033[200~"
+#define BRACK_PASTE_SUFF "\033[201~"
 
-#define BRACK_PASTE_LAST	'~'
-#define BRACK_PASTE_SLEN	6
+#define BRACK_PASTE_LAST '~'
+#define BRACK_PASTE_SLEN 6
 
-#define BRACK_PASTE_INIT	"\033[?2004h"
-#define BRACK_PASTE_FINI	"\033[?2004l"
+#define BRACK_PASTE_INIT "\033[?2004h"
+#define BRACK_PASTE_FINI "\033[?2004l"
 
 /* macro.c */
 extern void _rl_with_macro_input PARAMS((char *));
@@ -382,7 +380,7 @@ extern int _rl_insert_char PARAMS((int, int));
 extern int _rl_overwrite_char PARAMS((int, int));
 extern int _rl_overwrite_rubout PARAMS((int, int));
 extern int _rl_rubout_char PARAMS((int, int));
-#if defined (HANDLE_MULTIBYTE)
+#if defined(HANDLE_MULTIBYTE)
 extern int _rl_char_search_internal PARAMS((int, int, char *, int));
 #else
 extern int _rl_char_search_internal PARAMS((int, int, int));
@@ -395,14 +393,17 @@ extern UNDO_LIST *_rl_copy_undo_list PARAMS((UNDO_LIST *));
 extern void _rl_free_undo_list PARAMS((UNDO_LIST *));
 
 /* util.c */
-#if defined (USE_VARARGS) && defined (PREFER_STDARG)
-extern void _rl_ttymsg (const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
-extern void _rl_errmsg (const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
-extern void _rl_trace (const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
+#if defined(USE_VARARGS) && defined(PREFER_STDARG)
+extern void _rl_ttymsg(const char *, ...)
+    __attribute__((__format__(printf, 1, 2)));
+extern void _rl_errmsg(const char *, ...)
+    __attribute__((__format__(printf, 1, 2)));
+extern void _rl_trace(const char *, ...)
+    __attribute__((__format__(printf, 1, 2)));
 #else
-extern void _rl_ttymsg ();
-extern void _rl_errmsg ();
-extern void _rl_trace ();
+extern void _rl_ttymsg();
+extern void _rl_errmsg();
+extern void _rl_trace();
 #endif
 extern void _rl_audit_tty PARAMS((char *));
 
@@ -412,13 +413,13 @@ extern int _rl_abort_internal PARAMS((void));
 extern int _rl_null_function PARAMS((int, int));
 extern char *_rl_strindex PARAMS((const char *, const char *));
 extern int _rl_qsort_string_compare PARAMS((char **, char **));
-extern int (_rl_uppercase_p) PARAMS((int));
-extern int (_rl_lowercase_p) PARAMS((int));
-extern int (_rl_pure_alphabetic) PARAMS((int));
-extern int (_rl_digit_p) PARAMS((int));
-extern int (_rl_to_lower) PARAMS((int));
-extern int (_rl_to_upper) PARAMS((int));
-extern int (_rl_digit_value) PARAMS((int));
+extern int(_rl_uppercase_p) PARAMS((int));
+extern int(_rl_lowercase_p) PARAMS((int));
+extern int(_rl_pure_alphabetic) PARAMS((int));
+extern int(_rl_digit_p) PARAMS((int));
+extern int(_rl_to_lower) PARAMS((int));
+extern int(_rl_to_upper) PARAMS((int));
+extern int(_rl_digit_value) PARAMS((int));
 
 /* vi_mode.c */
 extern void _rl_vi_initialize_line PARAMS((void));
@@ -435,8 +436,8 @@ extern int _rl_vi_domove_motion_cleanup PARAMS((int, _rl_vimotion_cxt *));
  *************************************************************************/
 
 /* bind.c */
-extern const char * const _rl_possible_control_prefixes[];
-extern const char * const _rl_possible_meta_prefixes[];
+extern const char *const _rl_possible_control_prefixes[];
+extern const char *const _rl_possible_meta_prefixes[];
 
 /* callback.c */
 extern _rl_callback_func_t *_rl_callback_func;

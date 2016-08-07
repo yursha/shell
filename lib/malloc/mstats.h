@@ -26,7 +26,7 @@
 #ifdef MALLOC_STATS
 
 #ifndef NBUCKETS
-#  define NBUCKETS 30
+#define NBUCKETS 30
 #endif
 
 /*

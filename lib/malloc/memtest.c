@@ -35,13 +35,12 @@
 
 int interrupt_immediately = 0;
 
-static char	xp[64];
+static char xp[64];
 
-main(int c, char **v)
-{
-	char	*p;
+main(int c, char **v) {
+  char *p;
 
-	malloc_set_register(1);
+  malloc_set_register(1);
 
 #if 0
 	free (xp);	/* free unallocated memory */
@@ -113,39 +112,31 @@ main(int c, char **v)
 	p = xrealloc(p, 129);	/* underflow */
 #endif
 
-	mregister_dump_table();
-	exit(0);
+  mregister_dump_table();
+  exit(0);
 }
 
-void
-fatal_error(const char *format, ...)
-{
-	va_list	args;
+void fatal_error(const char *format, ...) {
+  va_list args;
 
-	fprintf(stderr, "malloc-test: ");
-	va_start(args, format);
-	vfprintf(stderr, format, args);
-	fprintf(stderr, "\n");
-	va_end(args);
-	exit(2);
+  fprintf(stderr, "malloc-test: ");
+  va_start(args, format);
+  vfprintf(stderr, format, args);
+  fprintf(stderr, "\n");
+  va_end(args);
+  exit(2);
 }
 
-void
-programming_error(const char *format, ...)
-{
-	va_list	args;
+void programming_error(const char *format, ...) {
+  va_list args;
 
-	fprintf(stderr, "malloc-test: ");
-	va_start(args, format);
-	vfprintf(stderr, format, args);
-	fprintf(stderr, "\n");
-	va_end(args);
+  fprintf(stderr, "malloc-test: ");
+  va_start(args, format);
+  vfprintf(stderr, format, args);
+  fprintf(stderr, "\n");
+  va_end(args);
 
-	abort();
+  abort();
 }
 
-int
-signal_is_trapped(int n)
-{
-	return 0;
-}
+int signal_is_trapped(int n) { return 0; }

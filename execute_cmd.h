@@ -18,21 +18,20 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined (_EXECUTE_CMD_H_)
+#if !defined(_EXECUTE_CMD_H_)
 #define _EXECUTE_CMD_H_
 
 #include "stdc.h"
 
-#if defined (ARRAY_VARS)
-struct func_array_state
-  {
-    ARRAY *funcname_a;
-    SHELL_VAR *funcname_v;
-    ARRAY *source_a;
-    SHELL_VAR *source_v;
-    ARRAY *lineno_a;
-    SHELL_VAR *lineno_v;
-  };
+#if defined(ARRAY_VARS)
+struct func_array_state {
+  ARRAY *funcname_a;
+  SHELL_VAR *funcname_v;
+  ARRAY *source_a;
+  SHELL_VAR *source_v;
+  ARRAY *lineno_a;
+  SHELL_VAR *lineno_v;
+};
 #endif
 
 extern struct fd_bitmap *new_fd_bitmap(int);
@@ -40,10 +39,11 @@ extern void dispose_fd_bitmap(struct fd_bitmap *);
 extern void close_fd_bitmap(struct fd_bitmap *);
 extern int executing_line_number(void);
 extern int execute_command(COMMAND *);
-extern int execute_command_internal(COMMAND *, int, int, int, struct fd_bitmap *);
+extern int execute_command_internal(COMMAND *, int, int, int,
+                                    struct fd_bitmap *);
 extern int shell_execve(char *, char **, char **);
 extern void setup_async_signals(void);
-extern void dispose_exec_redirects __P ((void));
+extern void dispose_exec_redirects __P((void));
 
 extern int execute_shell_function(SHELL_VAR *, WORD_LIST *);
 
@@ -73,11 +73,11 @@ extern void coproc_fdrestore(struct coproc *);
 extern void coproc_setvars(struct coproc *);
 extern void coproc_unsetvars(struct coproc *);
 
-#if defined (PROCESS_SUBSTITUTION)
+#if defined(PROCESS_SUBSTITUTION)
 extern void close_all_files(void);
 #endif
 
-#if defined (ARRAY_VARS)
+#if defined(ARRAY_VARS)
 extern void restore_funcarray_state(struct func_array_state *);
 #endif
 

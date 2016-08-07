@@ -3,7 +3,7 @@
 /* Copyright (C) 2000-2011 Free Software Foundation, Inc.
 
    This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.      
+   for reading lines of text with interactive input and history editing.
 
    Readline is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,27 +28,27 @@ extern "C" {
 
 /* Old-style, attempt to mark as deprecated in some way people will notice. */
 
-#if !defined (_FUNCTION_DEF)
-#  define _FUNCTION_DEF
+#if !defined(_FUNCTION_DEF)
+#define _FUNCTION_DEF
 
 #if defined(__GNUC__) || defined(__clang__)
-typedef int Function () __attribute__ ((deprecated));
-typedef void VFunction () __attribute__ ((deprecated));
-typedef char *CPFunction () __attribute__ ((deprecated));
-typedef char **CPPFunction () __attribute__ ((deprecated));
+typedef int Function() __attribute__((deprecated));
+typedef void VFunction() __attribute__((deprecated));
+typedef char *CPFunction() __attribute__((deprecated));
+typedef char **CPPFunction() __attribute__((deprecated));
 #else
-typedef int Function ();
-typedef void VFunction ();
-typedef char *CPFunction ();
-typedef char **CPPFunction ();
+typedef int Function();
+typedef void VFunction();
+typedef char *CPFunction();
+typedef char **CPPFunction();
 #endif
 
 #endif /* _FUNCTION_DEF */
 
 /* New style. */
 
-#if !defined (_RL_FUNCTION_TYPEDEF)
-#  define _RL_FUNCTION_TYPEDEF
+#if !defined(_RL_FUNCTION_TYPEDEF)
+#define _RL_FUNCTION_TYPEDEF
 
 /* Bindable functions */
 typedef int rl_command_func_t PARAMS((int, int));
@@ -88,8 +88,8 @@ typedef void rl_vcppfunc_t PARAMS((char **));
 
 typedef char *rl_cpvfunc_t PARAMS((void));
 typedef char *rl_cpifunc_t PARAMS((int));
-typedef char *rl_cpcpfunc_t PARAMS((char  *));
-typedef char *rl_cpcppfunc_t PARAMS((char  **));
+typedef char *rl_cpcpfunc_t PARAMS((char *));
+typedef char *rl_cpcppfunc_t PARAMS((char **));
 
 #endif /* _RL_FUNCTION_TYPEDEF */
 

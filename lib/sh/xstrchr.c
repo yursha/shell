@@ -21,7 +21,7 @@
 #include <config.h>
 
 #ifdef HAVE_STDLIB_H
-#  include <stdlib.h>
+#include <stdlib.h>
 #endif
 
 #include "bashansi.h"
@@ -34,12 +34,11 @@
    legacy strchr() might return the wrong value. */
 
 char *
-#if defined (PROTOTYPES)
-xstrchr (const char *s, int c)
+#if defined(PROTOTYPES)
+xstrchr(const char *s, int c)
 #else
-xstrchr (s, c)
-     const char *s;
-     int c;
+    xstrchr(s, c) const char *s;
+int c;
 #endif
 {
 #if HANDLE_MULTIBYTE
@@ -51,28 +50,25 @@ xstrchr (s, c)
      GBK, GB18030, SHIFT_JIS, and JOHAB.  They exhibit the problem only
      when c >= 0x30.  We can therefore use the faster bytewise search if
      c <= 0x30. */
-  if ((unsigned char)c >= '0' && MB_CUR_MAX > 1)
-    {
-      pos = (char *)s;
-      memset (&state, '\0', sizeof(mbstate_t));
-      strlength = strlen (s);
+  if ((unsigned char)c >= '0' && MB_CUR_MAX > 1) {
+    pos = (char *)s;
+    memset(&state, '\0', sizeof(mbstate_t));
+    strlength = strlen(s);
 
-      while (strlength > 0)
-	{
-	  mblength = mbrlen (pos, strlength, &state);
-	  if (mblength == (size_t)-2 || mblength == (size_t)-1 || mblength == (size_t)0)
-	    mblength = 1;
+    while (strlength > 0) {
+      mblength = mbrlen(pos, strlength, &state);
+      if (mblength == (size_t)-2 || mblength == (size_t)-1 ||
+          mblength == (size_t)0)
+        mblength = 1;
 
-	  if (c == (unsigned char)*pos)
-	    return pos;
+      if (c == (unsigned char)*pos) return pos;
 
-	  strlength -= mblength;
-	  pos += mblength;
-	}
-
-      return ((char *)NULL);
+      strlength -= mblength;
+      pos += mblength;
     }
-  else
+
+    return ((char *)NULL);
+  } else
 #endif
-  return (strchr (s, c));
+    return (strchr(s, c));
 }

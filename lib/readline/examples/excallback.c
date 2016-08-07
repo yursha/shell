@@ -36,7 +36,7 @@ Jeff
 Copyright (C) 1999 Jeff Solomon
 */
 
-#if defined (HAVE_CONFIG_H)
+#if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
 
@@ -48,16 +48,16 @@ Copyright (C) 1999 Jeff Solomon
 #include <stdlib.h>
 
 #include <stdio.h>
-#include <termios.h>	/* xxx - should make this more general */
+#include <termios.h> /* xxx - should make this more general */
 
 #ifdef READLINE_LIBRARY
-#  include "readline.h"
+#include "readline.h"
 #else
-#  include <readline/readline.h>
+#include <readline/readline.h>
 #endif
 
 #ifndef STDIN_FILENO
-#  define STDIN_FILENO 0
+#define STDIN_FILENO 0
 #endif
 
 /* This little examples demonstrates the alternate interface to using readline.
@@ -70,7 +70,7 @@ Copyright (C) 1999 Jeff Solomon
  * alternate interface. The first is the ability to interactively change the
  * prompt, which can't be done using the regular interface since rl_prompt is
  * read-only.
- * 
+ *
  * The second feature really highlights a subtle point when using the alternate
  * interface. That is, readline will not alter the terminal when inside your
  * callback handler. So let's so, your callback executes a user command that
@@ -90,91 +90,86 @@ Copyright (C) 1999 Jeff Solomon
  */
 
 void process_line(char *line);
-int  change_prompt(void);
+int change_prompt(void);
 char *get_prompt(void);
 
 int prompt = 1;
 char prompt_buf[40], line_buf[256];
 tcflag_t old_lflag;
-cc_t     old_vtime;
+cc_t old_vtime;
 struct termios term;
 
-int 
-main()
-{
-    fd_set fds;
+int main() {
+  fd_set fds;
 
-    /* Adjust the terminal slightly before the handler is installed. Disable
-     * canonical mode processing and set the input character time flag to be
-     * non-blocking.
-     */
-    if( tcgetattr(STDIN_FILENO, &term) < 0 ) {
-        perror("tcgetattr");
-        exit(1);
+  /* Adjust the terminal slightly before the handler is installed. Disable
+   * canonical mode processing and set the input character time flag to be
+   * non-blocking.
+   */
+  if (tcgetattr(STDIN_FILENO, &term) < 0) {
+    perror("tcgetattr");
+    exit(1);
+  }
+  old_lflag = term.c_lflag;
+  old_vtime = term.c_cc[VTIME];
+  term.c_lflag &= ~ICANON;
+  term.c_cc[VTIME] = 1;
+  /* COMMENT LINE BELOW - see above */
+  if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0) {
+    perror("tcsetattr");
+    exit(1);
+  }
+
+  rl_add_defun("change-prompt", change_prompt, CTRL('t'));
+  rl_callback_handler_install(get_prompt(), process_line);
+
+  while (1) {
+    FD_ZERO(&fds);
+    FD_SET(fileno(stdin), &fds);
+
+    if (select(FD_SETSIZE, &fds, NULL, NULL, NULL) < 0) {
+      perror("select");
+      exit(1);
     }
-    old_lflag = term.c_lflag;
-    old_vtime = term.c_cc[VTIME];
-    term.c_lflag &= ~ICANON;
-    term.c_cc[VTIME] = 1;
-    /* COMMENT LINE BELOW - see above */
-    if( tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0 ) {
-        perror("tcsetattr");
-        exit(1);
+
+    if (FD_ISSET(fileno(stdin), &fds)) {
+      rl_callback_read_char();
     }
-
-    rl_add_defun("change-prompt", change_prompt, CTRL('t'));
-    rl_callback_handler_install(get_prompt(), process_line);
-
-    while(1) {
-      FD_ZERO(&fds);
-      FD_SET(fileno(stdin), &fds);
-
-      if( select(FD_SETSIZE, &fds, NULL, NULL, NULL) < 0) {
-        perror("select");
-        exit(1);
-      }
-
-      if( FD_ISSET(fileno(stdin), &fds) ) {
-        rl_callback_read_char();
-      }
-    }
+  }
 }
 
-void
-process_line(char *line)
-{
-  if( line == NULL ) {
+void process_line(char *line) {
+  if (line == NULL) {
     fprintf(stderr, "\n", line);
 
     /* reset the old terminal setting before exiting */
-    term.c_lflag     = old_lflag;
+    term.c_lflag = old_lflag;
     term.c_cc[VTIME] = old_vtime;
-    if( tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0 ) {
-        perror("tcsetattr");
-        exit(1);
+    if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0) {
+      perror("tcsetattr");
+      exit(1);
     }
     exit(0);
   }
 
-  if( strcmp(line, "sleep") == 0 ) {
+  if (strcmp(line, "sleep") == 0) {
     sleep(3);
   } else {
     fprintf(stderr, "|%s|\n", line);
   }
 
-  free (line);
+  free(line);
 }
 
-int
-change_prompt(void)
-{
+int change_prompt(void) {
   /* toggle the prompt variable */
   prompt = !prompt;
 
   /* save away the current contents of the line */
   strcpy(line_buf, rl_line_buffer);
 
-  /* install a new handler which will change the prompt and erase the current line */
+  /* install a new handler which will change the prompt and erase the current
+   * line */
   rl_callback_handler_install(get_prompt(), process_line);
 
   /* insert the old text on the new line */
@@ -186,11 +181,9 @@ change_prompt(void)
   rl_refresh_line(0, 0);
 }
 
-char *
-get_prompt(void)
-{
+char *get_prompt(void) {
   /* The prompts can even be different lengths! */
-  sprintf(prompt_buf, "%s", 
-    prompt ? "Hit ctrl-t to toggle prompt> " : "Pretty cool huh?> ");
+  sprintf(prompt_buf, "%s",
+          prompt ? "Hit ctrl-t to toggle prompt> " : "Pretty cool huh?> ");
   return prompt_buf;
 }

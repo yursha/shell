@@ -2,7 +2,8 @@
 
    Modified by Chet Ramey for Readline.
 
-   Copyright (C) 1985, 1988, 1990-1991, 1995-2010, 2012 Free Software Foundation,
+   Copyright (C) 1985, 1988, 1990-1991, 1995-2010, 2012 Free Software
+   Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,16 +30,14 @@
 
 #include "readline.h"
 
-#define LEN_STR_PAIR(s) sizeof (s) - 1, s
+#define LEN_STR_PAIR(s) sizeof(s) - 1, s
 
-void _rl_parse_colors (void);
+void _rl_parse_colors(void);
 
-static const char *const indicator_name[]=
-  {
-    "lc", "rc", "ec", "rs", "no", "fi", "di", "ln", "pi", "so",
-    "bd", "cd", "mi", "or", "ex", "do", "su", "sg", "st",
-    "ow", "tw", "ca", "mh", "cl", NULL
-  };
+static const char *const indicator_name[] = {
+    "lc", "rc", "ec", "rs", "no", "fi", "di", "ln", "pi",
+    "so", "bd", "cd", "mi", "or", "ex", "do", "su", "sg",
+    "st", "ow", "tw", "ca", "mh", "cl", NULL};
 
 /* Buffer for color sequences */
 static char *color_buf;
