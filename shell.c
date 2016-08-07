@@ -274,9 +274,6 @@ static const struct {
     {"protected", Int, &protected_mode, (char **)0x0},
 #endif
     {"rcfile", Charp, (int *)0x0, &bashrc_file},
-#if defined(RESTRICTED_SHELL)
-    {"restricted", Int, &restricted, (char **)0x0},
-#endif
     {"verbose", Int, &verbose_flag, (char **)0x0},
     {"version", Int, &do_version, (char **)0x0},
 #if defined(WORDEXP_OPTION)
@@ -347,9 +344,6 @@ static void shell_reinitialize(void);
 static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
-#if defined(RESTRICTED_SHELL)
-  int saverst;
-#endif
   volatile int locally_skip_execution;
   volatile int arg_index, top_level_arg_index;
 
@@ -599,18 +593,6 @@ int main(int argc, char **argv, char **env) {
     interactive = 1;
   }
 
-#if defined(RESTRICTED_SHELL)
-  /* Set restricted_shell based on whether the basename of $0 indicates that
-     the shell should be restricted or if the `-r' option was supplied at
-     startup. */
-  restricted_shell = shell_is_restricted(shell_name);
-
-  /* If the `-r' option is supplied at invocation, make sure that the shell
-     is not in restricted mode when running the startup files. */
-  saverst = restricted;
-  restricted = 0;
-#endif
-
   /* The startup files are run with `set -e' temporarily disabled. */
   if (locally_skip_execution == 0 && running_setuid == 0) {
     old_errexit_flag = exit_immediately_on_error;
@@ -625,14 +607,6 @@ int main(int argc, char **argv, char **env) {
     bind_variable("POSIXLY_CORRECT", "y", 0);
     sv_strict_posix("POSIXLY_CORRECT");
   }
-
-#if defined(RESTRICTED_SHELL)
-  /* Turn on the restrictions after executing the startup files.  This
-     means that `bash -r' or `set -r' invoked from a startup file will
-     turn on the restrictions after the startup files are executed. */
-  restricted = saverst || restricted;
-  if (shell_reinitialized == 0) maybe_make_restricted(shell_name);
-#endif /* RESTRICTED_SHELL */
 
 #if defined(WORDEXP_OPTION)
   if (wordexp_only) {
@@ -1083,44 +1057,6 @@ static void run_startup_files() {
   set_job_control(old_job_control);
 #endif
 }
-
-#if defined(RESTRICTED_SHELL)
-/* Return 1 if the shell should be a restricted one based on NAME or the
-   value of `restricted'.  Don't actually do anything, just return a
-   boolean value. */
-int shell_is_restricted(name) char *name;
-{
-  char *temp;
-
-  if (restricted) return 1;
-  temp = base_pathname(name);
-  if (*temp == '-') temp++;
-  return (STREQ(temp, RESTRICTED_SHELL_NAME));
-}
-
-/* Perhaps make this shell a `restricted' one, based on NAME.  If the
-   basename of NAME is "rbash", then this shell is restricted.  The
-   name of the restricted shell is a configurable option, see config.h.
-   In a restricted shell, PATH, SHELL, ENV, and BASH_ENV are read-only
-   and non-unsettable.
-   Do this also if `restricted' is already set to 1; maybe the shell was
-   started with -r. */
-int maybe_make_restricted(name) char *name;
-{
-  char *temp;
-
-  temp = base_pathname(name);
-  if (*temp == '-') temp++;
-  if (restricted || (STREQ(temp, RESTRICTED_SHELL_NAME))) {
-    set_var_read_only("PATH");
-    set_var_read_only("SHELL");
-    set_var_read_only("ENV");
-    set_var_read_only("BASH_ENV");
-    restricted = 1;
-  }
-  return (restricted);
-}
-#endif /* RESTRICTED_SHELL */
 
 /* Fetch the current set of uids and gids and return 1 if we're running
    setuid or setgid. */
@@ -1629,21 +1565,11 @@ static void shell_initialize() {
   /* Initialize our interface to the tilde expander. */
   tilde_initialize();
 
-#if defined(RESTRICTED_SHELL)
-  should_be_restricted = shell_is_restricted(shell_name);
-#endif
-
 /* Initialize internal and environment variables.  Don't import shell
    functions from the environment if we are running in privileged or
    restricted mode or if the shell is running setuid. */
-#if defined(RESTRICTED_SHELL)
-  initialize_shell_variables(shell_environment, privileged_mode || restricted ||
-                                                    should_be_restricted ||
-                                                    running_setuid);
-#else
   initialize_shell_variables(shell_environment,
                              privileged_mode || running_setuid);
-#endif
 
   /* Initialize the data structures for storing and running jobs. */
   initialize_job_control(jobs_m_flag);
@@ -1657,15 +1583,8 @@ static void shell_initialize() {
    from the environment variables $SHELLOPTS or $BASHOPTS if we are
    running in privileged or restricted mode or if the shell is running
    setuid. */
-#if defined(RESTRICTED_SHELL)
-  initialize_shell_options(privileged_mode || restricted ||
-                           should_be_restricted || running_setuid);
-  initialize_bashopts(privileged_mode || restricted || should_be_restricted ||
-                      running_setuid);
-#else
   initialize_shell_options(privileged_mode || running_setuid);
   initialize_bashopts(privileged_mode || running_setuid);
-#endif
 }
 
 /* Function called by main () when it appears that the shell has already
@@ -1697,10 +1616,6 @@ static void shell_reinitialize() {
 #if defined(HISTORY)
   bash_history_reinit(enable_history_list = 0);
 #endif /* HISTORY */
-
-#if defined(RESTRICTED_SHELL)
-  restricted = 0;
-#endif /* RESTRICTED_SHELL */
 
   /* Ensure that the default startup file is used.  (Except that we don't
      execute this file for reinitialized shells). */

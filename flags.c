@@ -35,10 +35,6 @@
 extern int set_job_control(int);
 #endif
 
-#if defined(RESTRICTED_SHELL)
-extern char *shell_name;
-#endif
-
 extern int shell_initialized;
 extern int builtin_ignoring_errexit;
 
@@ -140,15 +136,6 @@ int history_expansion = 1;
 /* Non-zero means that we allow comments to appear in interactive commands. */
 int interactive_comments = 1;
 
-#if defined(RESTRICTED_SHELL)
-/* Non-zero means that this shell is `restricted'.  A restricted shell
-   disallows: changing directories, command or path names containing `/',
-   unsetting or resetting the values of $PATH and $SHELL, and any type of
-   output redirection. */
-int restricted = 0;       /* currently restricted */
-int restricted_shell = 0; /* shell was started in restricted mode. */
-#endif                    /* RESTRICTED_SHELL */
-
 /* Non-zero means that this shell is running in `privileged' mode.  This
    is required if the shell is to run setuid.  If the `-p' option is
    not supplied at startup, and the real and effective uids or gids
@@ -193,9 +180,6 @@ const struct flags_alist shell_flags[] = {
 #endif /* JOB_CONTROL */
     {'n', &read_but_dont_execute},
     {'p', &privileged_mode},
-#if defined(RESTRICTED_SHELL)
-    {'r', &restricted},
-#endif /* RESTRICTED_SHELL */
     {'t', &just_one_command},
     {'u', &unbound_vars_is_error},
     {'v', &verbose_flag},
@@ -239,11 +223,6 @@ int on_or_off;
 {
   int *value, old_value;
 
-#if defined(RESTRICTED_SHELL)
-  /* Don't allow "set +r" in a shell which is `restricted'. */
-  if (restricted && flag == 'r' && on_or_off == FLAG_OFF) return (FLAG_ERROR);
-#endif /* RESTRICTED_SHELL */
-
   value = find_flag(flag);
 
   if ((value == (int *)FLAG_UNKNOWN) ||
@@ -279,13 +258,6 @@ int on_or_off;
     case 'p':
       if (on_or_off == FLAG_OFF) disable_priv_mode();
       break;
-
-#if defined(RESTRICTED_SHELL)
-    case 'r':
-      if (on_or_off == FLAG_ON && shell_initialized)
-        maybe_make_restricted(shell_name);
-      break;
-#endif
 
     case 'v':
       echo_input_at_read = verbose_flag;
@@ -362,9 +334,6 @@ void reset_shell_flags() {
   brace_expansion = 1;
 #endif
 
-#if defined(RESTRICTED_SHELL)
-  restricted = 0;
-#endif
 }
 
 void initialize_flags() {

@@ -60,11 +60,6 @@ extern int brace_expansion;
 extern int history_expansion;
 #endif /* BANG_HISTORY */
 
-#if defined(RESTRICTED_SHELL)
-extern int restricted;
-extern int restricted_shell;
-#endif /* RESTRICTED_SHELL */
-
 extern int *find_flag(int);
 extern int change_flag(int, int);
 extern char *which_set_flags(void);

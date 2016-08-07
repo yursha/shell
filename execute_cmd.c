@@ -4606,21 +4606,6 @@ int cmdflags;
   pathname = words->word->word;
 
   result = EXECUTION_SUCCESS;
-#if defined(RESTRICTED_SHELL)
-  command = (char *)NULL;
-  if (restricted && mbschr(pathname, '/')) {
-    internal_error(_("%s: restricted: cannot specify `/' in command names"),
-                   pathname);
-    result = last_command_exit_value = EXECUTION_FAILURE;
-
-    /* If we're not going to fork below, we must already be in a child
-       process or a context in which it's safe to call exit(2).  */
-    if (nofork && pipe_in == NO_PIPE && pipe_out == NO_PIPE)
-      exit(last_command_exit_value);
-    else
-      goto parent_return;
-  }
-#endif /* RESTRICTED_SHELL */
 
   command = search_for_command(pathname,
                                CMDSRCH_HASH | (stdpath ? CMDSRCH_STDPATH : 0));
@@ -4996,10 +4981,6 @@ char **args, **env;
   args[larray] = (char *)NULL;
 
   if (args[0][0] == '-') args[0]++;
-
-#if defined(RESTRICTED_SHELL)
-  if (restricted) change_flag('r', FLAG_OFF);
-#endif
 
   if (subshell_argv) {
     /* Can't free subshell_argv[0]; that is shell_name. */

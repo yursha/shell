@@ -82,11 +82,6 @@ extern void subshell_exit(int) __attribute__((__noreturn__));
 extern void disable_priv_mode(void);
 extern void unbind_args(void);
 
-#if defined(RESTRICTED_SHELL)
-extern int shell_is_restricted(char *);
-extern int maybe_make_restricted(char *);
-#endif
-
 extern void unset_bash_input(int);
 extern void get_current_user_info(void);
 

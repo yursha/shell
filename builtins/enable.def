@@ -160,15 +160,6 @@ enable_builtin (list)
 
   list = loptend;
 
-#if defined (RESTRICTED_SHELL)
-  /* Restricted shells cannot load new builtins. */
-  if (restricted && (flags & (FFLAG|DFLAG)))
-    {
-      sh_restricted ((char *)NULL);
-      return (EXECUTION_FAILURE);
-    }
-#endif
-
   if (list == 0 || (flags & PFLAG))
     {
       filter = (flags & AFLAG) ? (ENABLED | DISABLED)
@@ -264,13 +255,6 @@ enable_shell_command (name, disable_p)
 
   if (disable_p)
     b->flags &= ~BUILTIN_ENABLED;
-#if defined (RESTRICTED_SHELL)
-  else if (restricted && ((b->flags & BUILTIN_ENABLED) == 0))
-    {
-      sh_restricted ((char *)NULL);
-      return (EXECUTION_FAILURE);
-    }
-#endif
   else
     b->flags |= BUILTIN_ENABLED;
 

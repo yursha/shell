@@ -148,13 +148,6 @@ hash_builtin (list)
   if (list_targets)
     return (list_hashed_filename_targets (list, list_portably));
       
-#if defined (RESTRICTED_SHELL)
-  if (restricted && pathname && strchr (pathname, '/'))
-    {
-      sh_restricted (pathname);
-      return (EXECUTION_FAILURE);
-    }
-#endif
 
   for (opt = EXECUTION_SUCCESS; list; list = list->next)
     {

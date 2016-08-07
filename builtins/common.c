@@ -242,16 +242,6 @@ void sh_nojobs(s) char *s;
 }
 #endif
 
-#if defined(RESTRICTED_SHELL)
-void sh_restricted(s) char *s;
-{
-  if (s)
-    builtin_error(_("%s: restricted"), s);
-  else
-    builtin_error(_("restricted"));
-}
-#endif
-
 void sh_notbuiltin(s) char *s;
 { builtin_error(_("%s: not a shell builtin"), s); }
 

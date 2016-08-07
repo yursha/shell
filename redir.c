@@ -173,12 +173,6 @@ int error;
       internal_error(_("%s: cannot overwrite existing file"), filename);
       break;
 
-#if defined(RESTRICTED_SHELL)
-    case RESTRICTED_REDIRECT:
-      internal_error(_("%s: restricted: cannot redirect output"), filename);
-      break;
-#endif /* RESTRICTED_SHELL */
-
     case HEREDOC_REDIRECT:
       internal_error(_("cannot create temp file for here-document: %s"),
                      strerror(heredoc_errno));
@@ -751,13 +745,6 @@ int flags;
       if (posixly_correct && interactive_shell == 0) redirectee->flags = oflags;
 
       if (redirectee_word == 0) return (AMBIGUOUS_REDIRECT);
-
-#if defined(RESTRICTED_SHELL)
-      if (restricted && (WRITE_REDIRECT(ri))) {
-        free(redirectee_word);
-        return (RESTRICTED_REDIRECT);
-      }
-#endif /* RESTRICTED_SHELL */
 
       fd = redir_open(redirectee_word, redirect->flags, 0666, ri);
       free(redirectee_word);

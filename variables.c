@@ -1447,12 +1447,6 @@ char *value;
 arrayind_t ind;
 char *key;
 {
-#if defined(RESTRICTED_SHELL)
-  if (restricted && strchr(value, '/')) {
-    sh_restricted(value);
-    return (SHELL_VAR *)NULL;
-  }
-#endif
   phash_insert(key, value, 0, 0);
   return (build_hashcmd(self));
 }
@@ -3875,12 +3869,7 @@ void maybe_make_export_env() {
 
     if (tcxt != shell_variables) free(tcxt);
 
-#if defined(RESTRICTED_SHELL)
-    /* Restricted shells may not export shell functions. */
-    temp_array = restricted ? (char **)0 : make_func_export_array();
-#else
     temp_array = make_func_export_array();
-#endif
     if (temp_array) add_temp_array_to_env(temp_array, 0, 0);
 
     array_needs_making = 0;

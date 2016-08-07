@@ -1766,18 +1766,6 @@ execute_disk_command (words, redirects, command_line, pipe_in, pipe_out,
   char **make_word_array (), *find_user_command (), *find_hashed_filename ();
   char *hashed_file, *command, **args;
 
-#if defined (RESTRICTED_SHELL)
-  extern int restricted;
-
-  if (restricted && strchr (words->word->word, '/'))
-    {
-      report_error ("%s: restricted: cannot specify `/' in command names",
-		    words->word->word);
-      last_command_exit_value = EXECUTION_FAILURE;
-      return;
-    }
-#endif /* RESTRICTED_SHELL */
-
   hashed_file = command = (char *)NULL;
 
   /* Don't waste time trying to find hashed data for a pathname
@@ -2212,12 +2200,6 @@ do_redirections (list, for_real, internal, set_clexec)
 	      report_error ("%s: Cannot clobber existing file", filename);
 	      break;
 
-#if defined (RESTRICTED_SHELL)
-	    case RESTRICTED_REDIRECT:
-	      report_error ("%s: output redirection restricted", filename);
-	      break;
-#endif /* RESTRICTED_SHELL */
-
 	    default:
 	      report_error ("%s: %s", filename, strerror (error));
 	      break;
@@ -2381,18 +2363,6 @@ do_redirection_internal (redirect, for_real, remembering, set_clexec)
 
       if (!(redirectee_word = redirection_expand (redirectee)))
 	return (AMBIGUOUS_REDIRECT);
-
-#if defined (RESTRICTED_SHELL)
-      if (restricted && (ri == r_output_direction ||
-			 ri == r_input_output ||
-			 ri == r_err_and_out ||
-			 ri == r_appending_to ||
-			 ri == r_output_force))
-	{
-	  free(redirectee_word);
-	  return (RESTRICTED_REDIRECT);
-	}
-#endif /* RESTRICTED_SHELL */
 
       /* If we are in noclobber mode, you are not allowed to overwrite
 	 existing files.  Check first. */

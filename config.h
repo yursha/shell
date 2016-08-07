@@ -87,12 +87,6 @@
    documentation strings compiled into the shell. */
 #define HELP_BUILTIN 1
 
-/* Define RESTRICTED_SHELL if you want the generated shell to have the
-   ability to be a restricted one.  The shell thus generated can become
-   restricted by being run with the name "rbash", or by setting the -r
-   flag. */
-#define RESTRICTED_SHELL 1
-
 /* Define DISABLED_BUILTINS if you want "builtin foo" to always run the
    shell builtin "foo", even if it has been disabled with "enable -n foo". */
 /* #undef DISABLED_BUILTINS */

@@ -100,14 +100,6 @@ command_builtin (list)
   if (list == 0)
     return (EXECUTION_SUCCESS);
 
-#if defined (RESTRICTED_SHELL)
-  if (use_standard_path && restricted)
-    {
-      sh_restricted ("-p");
-      return (EXECUTION_FAILURE);
-    }
-#endif
-
   if (verbose)
     {
       int found, any_found;

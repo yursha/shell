@@ -264,14 +264,6 @@ cd_builtin (list)
   char *dirname, *cdpath, *path, *temp;
   int path_index, no_symlinks, opt, lflag, e;
 
-#if defined (RESTRICTED_SHELL)
-  if (restricted)
-    {
-      sh_restricted ((char *)NULL);
-      return (EXECUTION_FAILURE);
-    }
-#endif /* RESTRICTED_SHELL */
-
   eflag = 0;
   no_symlinks = no_symbolic_links;
   xattrflag = 0;

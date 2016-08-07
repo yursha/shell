@@ -134,14 +134,6 @@ exec_builtin (list)
   if (list == 0)
     return (EXECUTION_SUCCESS);
 
-#if defined (RESTRICTED_SHELL)
-  if (restricted)
-    {
-      sh_restricted ((char *)NULL);
-      return (EXECUTION_FAILURE);
-    }
-#endif /* RESTRICTED_SHELL */
-
   args = strvec_from_word_list (list, 1, 0, (int *)NULL);
   env = (char **)0;
 
