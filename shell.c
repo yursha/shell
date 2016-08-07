@@ -18,11 +18,6 @@
    along with Bash.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-  Birthdate:
-  Sunday, January 10th, 1988.
-  Initial author: Brian Fox
-*/
 #define INSTALL_DEBUG_MODE
 
 #include "config.h"
@@ -96,10 +91,6 @@ extern struct passwd *getpwuid();
 
 #if !defined(errno)
 extern int errno;
-#endif
-
-#if defined(NO_MAIN_ENV_ARG)
-extern char **environ; /* used if no third argument to main() */
 #endif
 
 extern char *dist_version, *release_status;
@@ -336,21 +327,12 @@ static void shell_reinitialize(void);
 static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
-  register int i;
-  int code, old_errexit_flag;
+  int code;
 #if defined(RESTRICTED_SHELL)
   int saverst;
 #endif
   volatile int locally_skip_execution;
   volatile int arg_index, top_level_arg_index;
-#ifdef __OPENNT
-  char **env;
-
-  env = environ;
-#endif /* __OPENNT */
-
-#if defined(RESTRICTED_SHELL)
-#endif
 
   /* Catch early SIGINTs. */
   code = setjmp_nosigs(top_level);
@@ -388,7 +370,7 @@ int main(int argc, char **argv, char **env) {
 
   shell_reinitialized = 0;
 
-  /* Initialize `local' variables for all `invocations' of main (). */
+  /* Initialize `local' variables for all `invocations' of main(). */
   arg_index = 1;
   if (arg_index > argc) arg_index = argc;
   command_execution_string = (char *)NULL;
@@ -494,6 +476,7 @@ int main(int argc, char **argv, char **env) {
    * also systems that open persistent FDs to other agents or files as part
    * of process startup; these need to be set to be close-on-exec.
    */
+  register int i;
   if (login_shell && interactive_shell) {
     for (i = 3; i < 20; i++) SET_CLOSE_ON_EXEC(i);
   }
@@ -556,6 +539,8 @@ int main(int argc, char **argv, char **env) {
   }
 
   top_level_arg_index = arg_index;
+
+  int old_errexit_flag;
   old_errexit_flag = exit_immediately_on_error;
 
   /* Give this shell a place to longjmp to before executing the
