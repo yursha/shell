@@ -27,11 +27,8 @@
 #define __EXTENSIONS__ 1
 #define _ALL_SOURCE 1
 #define _GNU_SOURCE 1
-/* #undef _POSIX_SOURCE */
-/* #undef _POSIX_1_SOURCE */
 #define _POSIX_PTHREAD_SEMANTICS 1
 #define _TANDEM_SOURCE 1
-/* #undef _MINIX */
 
 /* Configuration feature settings controllable by autoconf. */
 

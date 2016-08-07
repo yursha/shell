@@ -166,10 +166,8 @@ struct builtin static_shell_builtins[] = {
      N_("trap [-lp] [[arg] signal_spec ...]"), (char *)NULL },
   { "type", type_builtin, BUILTIN_ENABLED | STATIC_BUILTIN, type_doc,
      N_("type [-afptP] name [name ...]"), (char *)NULL },
-#if !defined (_MINIX)
   { "ulimit", ulimit_builtin, BUILTIN_ENABLED | STATIC_BUILTIN, ulimit_doc,
      N_("ulimit [-SHabcdefiklmnpqrstuvxPT] [limit]"), (char *)NULL },
-#endif /* !_MINIX */
   { "umask", umask_builtin, BUILTIN_ENABLED | STATIC_BUILTIN | POSIX_BUILTIN, umask_doc,
      N_("umask [-p] [-S] [mode]"), (char *)NULL },
 #if defined (JOB_CONTROL)
@@ -1418,7 +1416,6 @@ N_("Display information about command type.\n\
 #endif /* HELP_BUILTIN */
   (char *)NULL
 };
-#if !defined (_MINIX)
 char * const ulimit_doc[] = {
 #if defined (HELP_BUILTIN)
 N_("Modify shell resource limits.\n\
@@ -1468,7 +1465,6 @@ N_("Modify shell resource limits.\n\
 #endif /* HELP_BUILTIN */
   (char *)NULL
 };
-#endif /* !_MINIX */
 char * const umask_doc[] = {
 #if defined (HELP_BUILTIN)
 N_("Display or set file mode mask.\n\

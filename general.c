@@ -1008,11 +1008,11 @@ static void initialize_group_array() {
 
 /* Return non-zero if GID is one that we have in our groups list. */
 int
-#if defined(__STDC__) || defined(_MINIX)
+#if defined(__STDC__)
 group_member (gid_t gid)
 #else
     group_member(gid) gid_t gid;
-#endif /* !__STDC__ && !_MINIX */
+#endif /* !__STDC__*/
 {
 #if defined(HAVE_GETGROUPS)
   register int i;

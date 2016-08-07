@@ -31,17 +31,12 @@
 #endif /* CROSS_COMPILING */
 
 #if defined(HAVE_UNISTD_H)
-#ifdef _MINIX
-#include <sys/types.h>
-#endif
 #include <unistd.h>
 #endif
 
-#ifndef _MINIX
 #include "../bashtypes.h"
 #if defined(HAVE_SYS_FILE_H)
 #include <sys/file.h>
-#endif
 #endif
 
 #include "posixstat.h"

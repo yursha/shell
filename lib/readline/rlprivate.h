@@ -362,11 +362,7 @@ extern void _rl_release_sigwinch PARAMS((void));
 extern void _rl_get_screen_size PARAMS((int, int));
 extern void _rl_sigwinch_resize_terminal PARAMS((void));
 extern int _rl_init_terminal_io PARAMS((const char *));
-#ifdef _MINIX
-extern void _rl_output_character_function PARAMS((int));
-#else
 extern int _rl_output_character_function PARAMS((int));
-#endif
 extern void _rl_output_some_chars PARAMS((const char *, int));
 extern int _rl_backspace PARAMS((int));
 extern void _rl_enable_meta_key PARAMS((void));

@@ -1,30 +1,8 @@
-/* shell.c -- GNU's idea of the POSIX shell specification. */
-
-/* Copyright (C) 1987-2015 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#define INSTALL_DEBUG_MODE
-
 #include "config.h"
 
 #include "bashtypes.h"
 
-#if !defined(_MINIX) && defined(HAVE_SYS_FILE_H)
+#if defined(HAVE_SYS_FILE_H)
 #include <sys/file.h>
 #endif
 
@@ -345,7 +323,8 @@ static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
   volatile int locally_skip_execution;
-  volatile int arg_index, top_level_arg_index;
+  volatile int arg_index;
+  volatile int top_level_arg_index;
 
   /* Catch early SIGINTs. */
   if (sigsetjmp(top_level, 0)) {

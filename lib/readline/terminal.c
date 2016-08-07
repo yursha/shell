@@ -554,13 +554,8 @@ int rl_reset_terminal(terminal_name) const char *terminal_name;
 }
 
 /* A function for the use of tputs () */
-#ifdef _MINIX
-void _rl_output_character_function(c) int c;
-{ putc(c, _rl_out_stream); }
-#else  /* !_MINIX */
 int _rl_output_character_function(c) int c;
 { return putc(c, _rl_out_stream); }
-#endif /* !_MINIX */
 
 /* Write COUNT characters from STRING to the output stream. */
 void _rl_output_some_chars(string, count) const char *string;

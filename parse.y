@@ -80,9 +80,7 @@ typedef void *alias_t;
 #endif /* ALIAS */
 
 #if defined (PROMPT_STRING_DECODE)
-#  ifndef _MINIX
-#    include <sys/param.h>
-#  endif
+#  include <sys/param.h>
 #  include <time.h>
 #  if defined (TM_IN_SYS_TIME)
 #    include <sys/types.h>

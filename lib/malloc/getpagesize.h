@@ -18,9 +18,6 @@
 */
 
 #if defined(HAVE_UNISTD_H)
-#ifdef _MINIX
-#include <sys/types.h>
-#endif
 #include <unistd.h>
 #if defined(_SC_PAGESIZE)
 #define getpagesize() sysconf(_SC_PAGESIZE)

@@ -41,11 +41,11 @@
 
 /* Note that vanilla System V machines don't support BSD job control,
    although some do support Posix job control. */
-#if defined(USG) || defined(MINIX) || defined(Minix)
+#if defined(USG)
 #if !defined(_POSIX_JOB_CONTROL)
 #undef JOB_CONTROL
 #endif /* !_POSIX_JOB_CONTROL */
-#endif /* USG || Minix || MINIX */
+#endif /* USG */
 
 /* Define ALIAS if you want the alias features. */
 #define ALIAS

@@ -125,10 +125,8 @@ extern int trap_builtin(WORD_LIST *);
 extern char * const trap_doc[];
 extern int type_builtin(WORD_LIST *);
 extern char * const type_doc[];
-#if !defined (_MINIX)
 extern int ulimit_builtin(WORD_LIST *);
 extern char * const ulimit_doc[];
-#endif /* !_MINIX */
 extern int umask_builtin(WORD_LIST *);
 extern char * const umask_doc[];
 #if defined (JOB_CONTROL)
