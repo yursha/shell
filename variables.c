@@ -1,23 +1,5 @@
 /* variables.c -- Functions for hacking shell variables. */
 
-/* Copyright (C) 1987-2016 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -265,7 +247,7 @@ static SHELL_VAR *bind_variable_internal(const char *, char *, HASH_TABLE *,
                                          int, int);
 
 static void dispose_variable_value(SHELL_VAR *);
-static void free_variable_hash_data(PTR_T);
+static void free_variable_hash_data(void *);
 
 static VARLIST *vlist_alloc(int);
 static VARLIST *vlist_realloc(VARLIST *, int);
@@ -296,8 +278,8 @@ static SHELL_VAR *find_variable_last_nameref_context(SHELL_VAR *, VAR_CONTEXT *,
                                                      VAR_CONTEXT **);
 
 static SHELL_VAR *bind_tempenv_variable(const char *, char *);
-static void push_temp_var(PTR_T);
-static void propagate_temp_var(PTR_T);
+static void push_temp_var(void *);
+static void propagate_temp_var(void *);
 static void dispose_temporary_env(sh_free_func_t *);
 
 static inline char *mk_env_string(const char *, const char *, int);
@@ -309,8 +291,8 @@ static void add_temp_array_to_env(char **, int, int);
 static int n_shell_variables(void);
 static int set_context(SHELL_VAR *);
 
-static void push_func_var(PTR_T);
-static void push_exported_var(PTR_T);
+static void push_func_var(void *);
+static void push_exported_var(void *);
 
 static inline int find_special_var(const char *);
 
@@ -2035,23 +2017,24 @@ char *sh_get_env_value(v) const char *v;
 { return get_string_value(v); }
 
 /* **************************************************************** */
-/*								    */
-/*		  Creating and setting variables		    */
-/*								    */
+/*                 Creating and setting variables                   */
 /* **************************************************************** */
 
-/* Set NAME to VALUE if NAME has no value. */
-SHELL_VAR *set_if_not(name, value) char *name, *value;
-{
+/**
+ * Sets {name} to {value} only if {name} has no value.
+ */
+SHELL_VAR *set_if_not(char *name, char *value) {
   SHELL_VAR *v;
 
-  if (shell_variables == 0) create_variable_tables();
+  if (shell_variables == 0) {
+      create_variable_tables();
+  }
 
   v = find_variable(name);
-  if (v == 0)
-    v = bind_variable_internal(name, value, global_variables->table,
-                               HASH_NOSRCH, 0);
-  return (v);
+  if (v == 0) {
+    v = bind_variable_internal(name, value, global_variables->table, HASH_NOSRCH, 0);
+  }
+  return v;
 }
 
 /* Create a local variable referenced by NAME. */
@@ -2192,7 +2175,7 @@ HASH_TABLE *table;
   if (shell_variables == 0) create_variable_tables();
 
   elt = hash_insert(savestring(name), table, HASH_NOSRCH);
-  elt->data = (PTR_T)entry;
+  elt->data = (void *)entry;
 
   return entry;
 }
@@ -2669,7 +2652,7 @@ COMMAND *value;
 
     elt = hash_insert(savestring(name), shell_functions, HASH_NOSRCH);
     entry = new_shell_variable(name);
-    elt->data = (PTR_T)entry;
+    elt->data = (void *)entry;
   } else
     INVALIDATE_EXPORTSTR(entry);
 
@@ -2716,7 +2699,7 @@ FUNCTION_DEF *value;
     value->command = cmd;
 
     elt = hash_insert(savestring(name), shell_function_defs, HASH_NOSRCH);
-    elt->data = (PTR_T *)entry;
+    elt->data = (void * *)entry;
   }
 }
 #endif /* DEBUGGER */
@@ -3060,7 +3043,7 @@ VAR_CONTEXT *vc;
     INVALIDATE_EXPORTSTR(old_var);
 
     new_elt = hash_insert(savestring(old_var->name), v->table, 0);
-    new_elt->data = (PTR_T)old_var;
+    new_elt->data = (void *)old_var;
     stupidly_hack_special_variables(old_var->name);
 
     free(elt->key);
@@ -3098,7 +3081,7 @@ void kill_all_local_variables() {
   vc->table = (HASH_TABLE *)NULL;
 }
 
-static void free_variable_hash_data(data) PTR_T data;
+static void free_variable_hash_data(data) void * data;
 {
   SHELL_VAR *var;
 
@@ -3462,7 +3445,7 @@ int tvlist_ind;
 
 /* Push the variable described by (SHELL_VAR *)DATA down to the next
    variable context from the temporary environment. */
-static void push_temp_var(data) PTR_T data;
+static void push_temp_var(data) void * data;
 {
   SHELL_VAR *var, *v;
   HASH_TABLE *binding_table;
@@ -3499,7 +3482,7 @@ static void push_temp_var(data) PTR_T data;
   dispose_variable(var);
 }
 
-static void propagate_temp_var(data) PTR_T data;
+static void propagate_temp_var(data) void * data;
 {
   SHELL_VAR *var;
 
@@ -3967,7 +3950,7 @@ HASH_TABLE *tempvars;
   return (shell_variables = vc);
 }
 
-static void push_func_var(data) PTR_T data;
+static void push_func_var(data) void * data;
 {
   SHELL_VAR *var, *v;
 
@@ -4052,7 +4035,7 @@ VAR_CONTEXT *push_scope(flags, tmpvars) int flags;
 HASH_TABLE *tmpvars;
 { return (push_var_context((char *)NULL, flags, tmpvars)); }
 
-static void push_exported_var(data) PTR_T data;
+static void push_exported_var(data) void * data;
 {
   SHELL_VAR *var, *v;
 

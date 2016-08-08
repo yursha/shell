@@ -189,13 +189,13 @@ typedef int sh_intfunc_t(int);
 typedef int sh_ivoidfunc_t(void);
 typedef int sh_icpfunc_t(char *);
 typedef int sh_icppfunc_t(char **);
-typedef int sh_iptrfunc_t(PTR_T);
+typedef int sh_iptrfunc_t(void *);
 
 typedef void sh_voidfunc_t(void);
 typedef void sh_vintfunc_t(int);
 typedef void sh_vcpfunc_t(char *);
 typedef void sh_vcppfunc_t(char **);
-typedef void sh_vptrfunc_t(PTR_T);
+typedef void sh_vptrfunc_t(void *);
 
 typedef int sh_wdesc_func_t(WORD_DESC *);
 typedef int sh_wlist_func_t(WORD_LIST *);
@@ -210,7 +210,7 @@ typedef void sh_vmsg_func_t(const char *, ...); /* printf(3)-like */
 /* Specific function pointer typedefs.  Most of these could be done
    with #defines. */
 typedef void sh_sv_func_t(char *);    /* sh_vcpfunc_t */
-typedef void sh_free_func_t(PTR_T);   /* sh_vptrfunc_t */
+typedef void sh_free_func_t(void *);   /* sh_vptrfunc_t */
 typedef void sh_resetsig_func_t(int); /* sh_vintfunc_t */
 
 typedef int sh_ignore_func_t(const char *); /* sh_icpfunc_t */
@@ -271,8 +271,8 @@ typedef int QSFUNC();
 
 #if 0
 /* Declarations for functions defined in xmalloc.c */
-extern PTR_T xmalloc(size_t);
-extern PTR_T xrealloc(void *, size_t);
+extern void * xmalloc(size_t);
+extern void * xrealloc(void *, size_t);
 extern void xfree(void *);
 #endif
 

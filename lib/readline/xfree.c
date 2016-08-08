@@ -41,7 +41,7 @@
 
 /* Use this as the function to call when adding unwind protects so we
    don't need to know what free() returns. */
-void xfree(string) PTR_T string;
+void xfree(string) void* string;
 {
   if (string) free(string);
 }

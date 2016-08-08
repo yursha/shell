@@ -21,35 +21,16 @@
 #ifndef _SH_MALLOC_H
 #define _SH_MALLOC_H
 
-#ifndef __P
-#if defined(__STDC__) || defined(__GNUC__) || defined(__cplusplus)
-#define __P(protos) protos
-#else
-#define __P(protos) ()
-#endif
-#endif
+extern void * sh_malloc(size_t, const char *, int);
+extern void * sh_realloc(void *, size_t, const char *, int);
+extern void sh_free(void *, const char *, int);
 
-/* Generic pointer type. */
-#ifndef PTR_T
+extern void * sh_memalign(size_t, size_t, const char *, int);
 
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
+extern void * sh_calloc(size_t, size_t, const char *, int);
+extern void sh_cfree(void *, const char *, int);
 
-#endif /* PTR_T */
-
-extern PTR_T sh_malloc(size_t, const char *, int);
-extern PTR_T sh_realloc(PTR_T, size_t, const char *, int);
-extern void sh_free(PTR_T, const char *, int);
-
-extern PTR_T sh_memalign(size_t, size_t, const char *, int);
-
-extern PTR_T sh_calloc(size_t, size_t, const char *, int);
-extern void sh_cfree(PTR_T, const char *, int);
-
-extern PTR_T sh_valloc(size_t, const char *, int);
+extern void * sh_valloc(size_t, const char *, int);
 
 /* trace.c */
 extern int malloc_set_trace(int);

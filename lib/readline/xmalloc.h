@@ -28,18 +28,8 @@
 #include <readline/rlstdc.h>
 #endif
 
-#ifndef PTR_T
-
-#ifdef __STDC__
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-
-#endif /* !PTR_T */
-
-extern PTR_T xmalloc PARAMS((size_t));
-extern PTR_T xrealloc PARAMS((void *, size_t));
+extern void* xmalloc PARAMS((size_t));
+extern void* xrealloc PARAMS((void *, size_t));
 extern void xfree PARAMS((void *));
 
 #endif /* _XMALLOC_H_ */

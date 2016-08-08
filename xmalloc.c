@@ -39,19 +39,11 @@
 
 #include "bashintl.h"
 
-#if !defined(PTR_T)
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif /* !__STDC__ */
-#endif /* !PTR_T */
-
 #if defined(HAVE_SBRK) && !HAVE_DECL_SBRK
 extern char *sbrk();
 #endif
 
-static PTR_T lbreak;
+static void * lbreak;
 static int brkfound;
 static size_t allocated;
 
@@ -65,7 +57,7 @@ static size_t allocated;
 #define FINDBRK()              \
   do {                         \
     if (brkfound == 0) {       \
-      lbreak = (PTR_T)sbrk(0); \
+      lbreak = (void *)sbrk(0); \
       brkfound++;              \
     }                          \
   } while (0)
@@ -93,10 +85,10 @@ size_t bytes;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-PTR_T
+void *
 xmalloc(bytes) size_t bytes;
 {
-  PTR_T temp;
+  void * temp;
 
 #if defined(DEBUG)
   if (bytes == 0) internal_warning("xmalloc: size argument is 0");
@@ -110,11 +102,11 @@ xmalloc(bytes) size_t bytes;
   return (temp);
 }
 
-PTR_T
-xrealloc(pointer, bytes) PTR_T pointer;
+void *
+xrealloc(pointer, bytes) void * pointer;
 size_t bytes;
 {
-  PTR_T temp;
+  void * temp;
 
 #if defined(DEBUG)
   if (bytes == 0) internal_warning("xrealloc: size argument is 0");
@@ -130,7 +122,7 @@ size_t bytes;
 
 /* Use this as the function to call when adding unwind protects so we
    don't need to know what free() returns. */
-void xfree(string) PTR_T string;
+void xfree(string) void * string;
 {
   if (string) free(string);
 }
@@ -153,12 +145,12 @@ int line;
 #endif /* !HAVE_SBRK */
 }
 
-PTR_T
+void *
 sh_xmalloc(bytes, file, line) size_t bytes;
 char *file;
 int line;
 {
-  PTR_T temp;
+  void * temp;
 
 #if defined(DEBUG)
   if (bytes == 0)
@@ -173,13 +165,13 @@ int line;
   return (temp);
 }
 
-PTR_T
-sh_xrealloc(pointer, bytes, file, line) PTR_T pointer;
+void *
+sh_xrealloc(pointer, bytes, file, line) void * pointer;
 size_t bytes;
 char *file;
 int line;
 {
-  PTR_T temp;
+  void * temp;
 
 #if defined(DEBUG)
   if (bytes == 0)
@@ -195,7 +187,7 @@ int line;
   return (temp);
 }
 
-void sh_xfree(string, file, line) PTR_T string;
+void sh_xfree(string, file, line) void * string;
 char *file;
 int line;
 {

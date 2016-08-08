@@ -1,40 +1,14 @@
 /* hashlib.h -- the data structures used in hashing in Bash. */
 
-/* Copyright (C) 1993-2009 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #if !defined(_HASHLIB_H_)
 #define _HASHLIB_H_
 
 #include "stdc.h"
 
-#ifndef PTR_T
-#ifdef __STDC__
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-#endif
-
 typedef struct bucket_contents {
   struct bucket_contents *next; /* Link to next hashed key in this bucket. */
   char *key;                    /* What we look up. */
-  PTR_T data;                   /* What we really want. */
+  void * data;                   /* What we really want. */
   unsigned int khash;           /* What key hashes to */
   int times_found;              /* Number of times this item has been found. */
 } BUCKET_CONTENTS;

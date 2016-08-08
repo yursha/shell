@@ -123,7 +123,7 @@ typedef struct job {
 #if defined(JOB_CONTROL)
   COMMAND *deferred; /* Commands that will execute when this job is done. */
   sh_vptrfunc_t *j_cleanup; /* Cleanup function to call when job marked JDEAD */
-  PTR_T cleanarg;           /* Argument passed to (*j_cleanup)() */
+  void * cleanarg;           /* Argument passed to (*j_cleanup)() */
 #endif                      /* JOB_CONTROL */
 } JOB;
 

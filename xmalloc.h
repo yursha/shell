@@ -24,25 +24,14 @@
 #include "stdc.h"
 #include "bashansi.h"
 
-/* Generic pointer type. */
-#ifndef PTR_T
-
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-
-#endif /* PTR_T */
-
 /* Allocation functions in xmalloc.c */
-extern PTR_T xmalloc(size_t);
-extern PTR_T xrealloc(void *, size_t);
+extern void * xmalloc(size_t);
+extern void * xrealloc(void *, size_t);
 extern void xfree(void *);
 
 #if defined(USING_BASH_MALLOC) && !defined(DISABLE_MALLOC_WRAPPERS)
-extern PTR_T sh_xmalloc(size_t, const char *, int);
-extern PTR_T sh_xrealloc(void *, size_t, const char *, int);
+extern void * sh_xmalloc(size_t, const char *, int);
+extern void * sh_xrealloc(void *, size_t, const char *, int);
 extern void sh_xfree(void *, const char *, int);
 
 #define xmalloc(x) sh_xmalloc((x), __FILE__, __LINE__)

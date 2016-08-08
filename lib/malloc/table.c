@@ -60,7 +60,7 @@ static ma_table_t mlocation_table[REG_TABLE_SIZE];
 /*
  * NOTE: taken from dmalloc (http://dmalloc.com) and modified.
  */
-static unsigned int mt_hash(key) const PTR_T key;
+static unsigned int mt_hash(key) const void * key;
 {
   unsigned int a, b, c;
   unsigned long x;
@@ -78,7 +78,7 @@ static unsigned int mt_hash(key) const PTR_T key;
 #if 0
 static unsigned int
 which_bucket (mem)
-     PTR_T mem;
+     void * mem;
 {
   return (mt_hash ((unsigned char *)mem) & (REG_TABLE_SIZE-1));
 }
@@ -97,7 +97,7 @@ which_bucket (mem)
   ((mem == mem_table) ? mem_table + REG_TABLE_SIZE - 1 : mem - 1)
 #endif
 
-static mr_table_t *find_entry(mem, flags) PTR_T mem;
+static mr_table_t *find_entry(mem, flags) void * mem;
 int flags;
 {
   unsigned int bucket;
@@ -130,10 +130,10 @@ int flags;
   return (mr_table_t *)NULL;
 }
 
-mr_table_t *mr_table_entry(mem) PTR_T mem;
+mr_table_t *mr_table_entry(mem) void * mem;
 { return (find_entry(mem, FIND_EXIST)); }
 
-void mregister_describe_mem(mem, fp) PTR_T mem;
+void mregister_describe_mem(mem, fp) void * mem;
 FILE *fp;
 {
   mr_table_t *entry;
@@ -147,7 +147,7 @@ FILE *fp;
 }
 
 void mregister_alloc(tag, mem, size, file, line) const char *tag;
-PTR_T mem;
+void * mem;
 size_t size;
 const char *file;
 int line;
@@ -198,7 +198,7 @@ int line;
   if (blocked_sigs) _malloc_unblock_signals(&set, &oset);
 }
 
-void mregister_free(mem, size, file, line) PTR_T mem;
+void mregister_free(mem, size, file, line) void * mem;
 int size;
 const char *file;
 int line;

@@ -40,7 +40,7 @@
 
 HASH_TABLE *prog_completes = (HASH_TABLE *)NULL;
 
-static void free_progcomp(PTR_T);
+static void free_progcomp(void *);
 
 COMPSPEC *compspec_create() {
   COMPSPEC *ret;
@@ -108,7 +108,7 @@ void progcomp_create() {
 
 int progcomp_size() { return (HASH_ENTRIES(prog_completes)); }
 
-static void free_progcomp(data) PTR_T data;
+static void free_progcomp(data) void * data;
 {
   COMPSPEC *cs;
 

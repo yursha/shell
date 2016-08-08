@@ -32,15 +32,6 @@
 
 #define MALLOC_WRAPFUNCS
 
-/* Generic pointer type. */
-#ifndef PTR_T
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-#endif
-
 #if !defined(NULL)
 #define NULL 0
 #endif

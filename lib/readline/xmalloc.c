@@ -50,21 +50,21 @@ static void memory_error_and_abort(fname) char *fname;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-PTR_T
+void*
 xmalloc(bytes) size_t bytes;
 {
-  PTR_T temp;
+  void* temp;
 
   temp = malloc(bytes);
   if (temp == 0) memory_error_and_abort("xmalloc");
   return (temp);
 }
 
-PTR_T
-xrealloc(pointer, bytes) PTR_T pointer;
+void*
+xrealloc(pointer, bytes) void* pointer;
 size_t bytes;
 {
-  PTR_T temp;
+  void* temp;
 
   temp = pointer ? realloc(pointer, bytes) : malloc(bytes);
 

@@ -161,7 +161,7 @@ size_t size;
         if (new == NULL) goto lose;
         memcpy(new, dots, dotsize);
       } else {
-        new = (char *)realloc((PTR_T)dotlist, dotsize * 2 + 1);
+        new = (char *)realloc((void *)dotlist, dotsize * 2 + 1);
         if (new == NULL) goto lose;
       }
       memcpy(&new[dotsize], new, dotsize);
@@ -232,7 +232,7 @@ size_t size;
           new = (char *)malloc(pathsize * 2);
           if (!new) goto lose;
         } else {
-          new = (char *)realloc((PTR_T)pathbuf, (pathsize * 2));
+          new = (char *)realloc((void *)pathbuf, (pathsize * 2));
           if (!new) goto lose;
           pathp = new + space;
         }
@@ -254,7 +254,7 @@ size_t size;
 
   if (pathp == &path[sizeof(path) - 1]) *--pathp = '/';
 
-  if (dotlist != dots) free((PTR_T)dotlist);
+  if (dotlist != dots) free((void *)dotlist);
 
   {
     size_t len = pathbuf + pathsize - pathp;
@@ -269,7 +269,7 @@ size_t size;
       if (buf == NULL) goto lose2;
     }
 
-    (void)memcpy((PTR_T)buf, (PTR_T)pathp, len);
+    (void)memcpy((void *)buf, (void *)pathp, len);
   }
 
   if (pathbuf != path) free(pathbuf);
@@ -279,14 +279,14 @@ size_t size;
 lose:
   if ((dotlist != dots) && dotlist) {
     int e = errno;
-    free((PTR_T)dotlist);
+    free((void *)dotlist);
     errno = e;
   }
 
 lose2:
   if ((pathbuf != path) && pathbuf) {
     int e = errno;
-    free((PTR_T)pathbuf);
+    free((void *)pathbuf);
     errno = e;
   }
   return ((char *)NULL);

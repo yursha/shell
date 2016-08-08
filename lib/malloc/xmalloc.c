@@ -31,17 +31,6 @@
 #include "ansi_stdlib.h"
 #endif /* HAVE_STDLIB_H */
 
-/* Generic pointer type. */
-#ifndef PTR_T
-
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-
-#endif /* PTR_T */
-
 /* **************************************************************** */
 /*								    */
 /*		   Memory Allocation and Deallocation.		    */
@@ -57,21 +46,21 @@ static void memory_error_and_abort(fname) char *fname;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-PTR_T
+void *
 xmalloc(bytes) size_t bytes;
 {
-  PTR_T temp;
+  void * temp;
 
   temp = malloc(bytes);
   if (temp == 0) memory_error_and_abort("xmalloc");
   return (temp);
 }
 
-PTR_T
-xrealloc(pointer, bytes) PTR_T pointer;
+void *
+xrealloc(pointer, bytes) void * pointer;
 size_t bytes;
 {
-  PTR_T temp;
+  void * temp;
 
   temp = pointer ? realloc(pointer, bytes) : malloc(bytes);
 
@@ -79,7 +68,7 @@ size_t bytes;
   return (temp);
 }
 
-void xfree(string) PTR_T string;
+void xfree(string) void * string;
 {
   if (string) free(string);
 }

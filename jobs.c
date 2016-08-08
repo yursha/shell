@@ -595,7 +595,7 @@ COMMAND *deferred;
     newjob->deferred = deferred;
 
     newjob->j_cleanup = (sh_vptrfunc_t *)NULL;
-    newjob->cleanarg = (PTR_T)NULL;
+    newjob->cleanarg = (void *)NULL;
 
     jobs[i] = newjob;
     if (newjob->state == JDEAD && (newjob->flags & J_FOREGROUND)) setjstatus(i);

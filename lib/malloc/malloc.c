@@ -170,7 +170,7 @@ typedef union _malloc_guard {
 
 #define ASSERT(p)                                                             \
   do {                                                                        \
-    if (!(p)) xbotch((PTR_T)0, ERR_ASSERT_FAILED, CPP_STRING(p), file, line); \
+    if (!(p)) xbotch((void *)0, ERR_ASSERT_FAILED, CPP_STRING(p), file, line); \
   } while (0)
 
 /* Minimum and maximum bucket indices for block splitting (and to bound
@@ -239,16 +239,16 @@ static const unsigned long binsizes[NBUCKETS] = {
 #define binsize(x) binsizes[(x)]
 
 /* Declarations for internal functions */
-static PTR_T internal_malloc(size_t, const char *, int, int);
-static PTR_T internal_realloc(PTR_T, size_t, const char *, int, int);
-static void internal_free(PTR_T, const char *, int, int);
-static PTR_T internal_memalign(size_t, size_t, const char *, int, int);
+static void * internal_malloc(size_t, const char *, int, int);
+static void * internal_realloc(void *, size_t, const char *, int, int);
+static void internal_free(void *, const char *, int, int);
+static void * internal_memalign(size_t, size_t, const char *, int, int);
 #ifndef NO_CALLOC
-static PTR_T internal_calloc(size_t, size_t, const char *, int, int);
-static void internal_cfree(PTR_T, const char *, int, int);
+static void * internal_calloc(size_t, size_t, const char *, int, int);
+static void internal_cfree(void *, const char *, int, int);
 #endif
 #ifndef NO_VALLOC
-static PTR_T internal_valloc(size_t, const char *, int, int);
+static void * internal_valloc(size_t, const char *, int, int);
 #endif
 
 #if defined(botch)
@@ -256,7 +256,7 @@ extern void botch();
 #else
 static void botch(const char *, const char *, int);
 #endif
-static void xbotch(PTR_T, int, const char *, const char *, int);
+static void xbotch(void *, int, const char *, const char *, int);
 
 #if !HAVE_DECL_SBRK
 extern char *sbrk();
@@ -280,8 +280,8 @@ int malloc_register = 0; /* future use */
 char _malloc_trace_buckets[NBUCKETS];
 
 /* These should really go into a header file. */
-extern void mtrace_alloc(const char *, PTR_T, size_t, const char *, int);
-extern void mtrace_free(PTR_T, int, const char *, int);
+extern void mtrace_alloc(const char *, void *, size_t, const char *, int);
+extern void mtrace_free(void *, int, const char *, int);
 #endif
 
 #if !defined(botch)
@@ -297,7 +297,7 @@ int line;
 
 /* print the file and line number that caused the assertion failure and
    call botch() to do whatever the application wants with the information */
-static void xbotch(mem, e, s, file, line) PTR_T mem;
+static void xbotch(mem, e, s, file, line) void * mem;
 int e;
 const char *s;
 const char *file;
@@ -345,7 +345,7 @@ static void bcoalesce(nu) register int nu;
      CHAIN(mp2) must equal mp1.  Check that mp1 and mp are adjacent. */
   if (mp2 != mp1 && CHAIN(mp2) != mp1) {
     busy[nbuck] = 0;
-    xbotch((PTR_T)0, 0, "bcoalesce: CHAIN(mp2) != mp1", (char *)NULL, 0);
+    xbotch((void *)0, 0, "bcoalesce: CHAIN(mp2) != mp1", (char *)NULL, 0);
   }
 
 #ifdef MALLOC_DEBUG
@@ -675,7 +675,7 @@ static int pagealign() {
   return 0;
 }
 
-static PTR_T internal_malloc(n, file, line, flags) /* get a block */
+static void * internal_malloc(n, file, line, flags) /* get a block */
     size_t n;
 const char *file;
 int line, flags;
@@ -690,7 +690,7 @@ int line, flags;
      be page-aligned.  The page size must be at least 1K -- anything
      smaller is increased. */
   if (pagesz == 0)
-    if (pagealign() < 0) return ((PTR_T)NULL);
+    if (pagealign() < 0) return ((void *)NULL);
 
   /* Figure out how many bytes are required, rounding up to the nearest
      multiple of 8, then figure out which nextf[] area to use.  Try to
@@ -702,7 +702,7 @@ int line, flags;
     if (nbytes <= binsize(nunits)) break;
 
   /* Silently reject too-large requests. */
-  if (nunits >= NBUCKETS) return ((PTR_T)NULL);
+  if (nunits >= NBUCKETS) return ((void *)NULL);
 
 /* In case this is reentrant use of malloc from signal handler,
    pick a block size that no other malloc level is currently
@@ -731,7 +731,7 @@ int line, flags;
   /* If not for this check, we would gobble a clobbered free chain ptr
      and bomb out on the NEXT allocate of this size block */
   if (p->mh_alloc != ISFREE || p->mh_index != nunits)
-    xbotch((PTR_T)(p + 1), 0, _("malloc: block on free list clobbered"), file,
+    xbotch((void *)(p + 1), 0, _("malloc: block on free list clobbered"), file,
            line);
 
   /* Fill in the info, and set up the magic numbers for range checking. */
@@ -772,10 +772,10 @@ int line, flags;
   if (_malloc_nwatch > 0) _malloc_ckwatch(p + 1, file, line, W_ALLOC, n);
 #endif
 
-  return (PTR_T)(p + 1);
+  return (void *)(p + 1);
 }
 
-static void internal_free(mem, file, line, flags) PTR_T mem;
+static void internal_free(mem, file, line, flags) void * mem;
 const char *file;
 int line, flags;
 {
@@ -894,7 +894,7 @@ free_return:; /* Empty statement in case this is the end of the function */
 #endif
 }
 
-static PTR_T internal_realloc(mem, n, file, line, flags) PTR_T mem;
+static void * internal_realloc(mem, n, file, line, flags) void * mem;
 register size_t n;
 const char *file;
 int line, flags;
@@ -1010,7 +1010,7 @@ int line, flags;
   return m;
 }
 
-static PTR_T internal_memalign(alignment, size, file, line,
+static void * internal_memalign(alignment, size, file, line,
                                flags) size_t alignment;
 size_t size;
 const char *file;
@@ -1044,7 +1044,7 @@ int line, flags;
 #if !defined(NO_VALLOC)
 /* This runs into trouble with getpagesize on HPUX, and Multimax machines.
    Patching out seems cleaner than the ugly fix needed.  */
-static PTR_T internal_valloc(size, file, line, flags) size_t size;
+static void * internal_valloc(size, file, line, flags) size_t size;
 const char *file;
 int line, flags;
 {
@@ -1054,12 +1054,12 @@ int line, flags;
 #endif /* !NO_VALLOC */
 
 #ifndef NO_CALLOC
-static PTR_T internal_calloc(n, s, file, line, flags) size_t n, s;
+static void * internal_calloc(n, s, file, line, flags) size_t n, s;
 const char *file;
 int line, flags;
 {
   size_t total;
-  PTR_T result;
+  void * result;
 
   total = n * s;
   result = internal_malloc(total, file, line, flags | MALLOC_INTERNAL);
@@ -1067,7 +1067,7 @@ int line, flags;
   return result;
 }
 
-static void internal_cfree(p, file, line, flags) PTR_T p;
+static void internal_cfree(p, file, line, flags) void * p;
 const char *file;
 int line, flags;
 { internal_free(p, file, line, flags | MALLOC_INTERNAL); }
@@ -1087,25 +1087,25 @@ int malloc_free_blocks(size) int size;
 #endif
 
 #if defined(MALLOC_WRAPFUNCS)
-PTR_T
+void *
 sh_malloc(bytes, file, line) size_t bytes;
 const char *file;
 int line;
 { return internal_malloc(bytes, file, line, MALLOC_WRAPPER); }
 
-PTR_T
-sh_realloc(ptr, size, file, line) PTR_T ptr;
+void *
+sh_realloc(ptr, size, file, line) void * ptr;
 size_t size;
 const char *file;
 int line;
 { return internal_realloc(ptr, size, file, line, MALLOC_WRAPPER); }
 
-void sh_free(mem, file, line) PTR_T mem;
+void sh_free(mem, file, line) void * mem;
 const char *file;
 int line;
 { internal_free(mem, file, line, MALLOC_WRAPPER); }
 
-PTR_T
+void *
 sh_memalign(alignment, size, file, line) size_t alignment;
 size_t size;
 const char *file;
@@ -1113,20 +1113,20 @@ int line;
 { return internal_memalign(alignment, size, file, line, MALLOC_WRAPPER); }
 
 #ifndef NO_CALLOC
-PTR_T
+void *
 sh_calloc(n, s, file, line) size_t n, s;
 const char *file;
 int line;
 { return internal_calloc(n, s, file, line, MALLOC_WRAPPER); }
 
-void sh_cfree(mem, file, line) PTR_T mem;
+void sh_cfree(mem, file, line) void * mem;
 const char *file;
 int line;
 { internal_cfree(mem, file, line, MALLOC_WRAPPER); }
 #endif
 
 #ifndef NO_VALLOC
-PTR_T
+void *
 sh_valloc(size, file, line) size_t size;
 const char *file;
 int line;
@@ -1137,34 +1137,34 @@ int line;
 
 /* Externally-available functions that call their internal counterparts. */
 
-PTR_T
+void *
 malloc(size) size_t size;
 { return internal_malloc(size, (char *)NULL, 0, 0); }
 
-PTR_T
-realloc(mem, nbytes) PTR_T mem;
+void *
+realloc(mem, nbytes) void * mem;
 size_t nbytes;
 { return internal_realloc(mem, nbytes, (char *)NULL, 0, 0); }
 
-void free(mem) PTR_T mem;
+void free(mem) void * mem;
 { internal_free(mem, (char *)NULL, 0, 0); }
 
-PTR_T
+void *
 memalign(alignment, size) size_t alignment;
 size_t size;
 { return internal_memalign(alignment, size, (char *)NULL, 0, 0); }
 
 #ifndef NO_VALLOC
-PTR_T
+void *
 valloc(size) size_t size;
 { return internal_valloc(size, (char *)NULL, 0, 0); }
 #endif
 
 #ifndef NO_CALLOC
-PTR_T
+void *
 calloc(n, s) size_t n, s;
 { return internal_calloc(n, s, (char *)NULL, 0, 0); }
 
-void cfree(mem) PTR_T mem;
+void cfree(mem) void * mem;
 { internal_cfree(mem, (char *)NULL, 0, 0); }
 #endif

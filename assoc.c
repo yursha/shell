@@ -74,16 +74,16 @@ char *value;
 }
 
 /* Like assoc_insert, but returns b->data instead of freeing it */
-PTR_T
+void *
 assoc_replace(hash, key, value) HASH_TABLE *hash;
 char *key;
 char *value;
 {
   BUCKET_CONTENTS *b;
-  PTR_T t;
+  void * t;
 
   b = hash_search(key, hash, HASH_CREATE);
-  if (b == 0) return (PTR_T)0;
+  if (b == 0) return (void *)0;
   /* If we are overwriting an existing element's value, we're not going to
      use the key.  Nothing in the array assignment code path frees the key
      string, so we can free it here to avoid a memory leak. */

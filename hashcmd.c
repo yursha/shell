@@ -38,14 +38,14 @@ extern int hashing_enabled;
 
 HASH_TABLE *hashed_filenames = (HASH_TABLE *)NULL;
 
-static void phash_freedata(PTR_T);
+static void phash_freedata(void *);
 
 void phash_create() {
   if (hashed_filenames == 0)
     hashed_filenames = hash_create(FILENAME_HASH_BUCKETS);
 }
 
-static void phash_freedata(data) PTR_T data;
+static void phash_freedata(data) void * data;
 {
   free(((PATH_DATA *)data)->path);
   free(data);

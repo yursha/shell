@@ -47,7 +47,7 @@
 
 typedef int sh_alias_map_func_t(alias_t *);
 
-static void free_alias_data(PTR_T);
+static void free_alias_data(void *);
 static alias_t **map_over_aliases(sh_alias_map_func_t *);
 static void sort_aliases(alias_t **);
 static int qsort_alias_compare(alias_t **, alias_t **);
@@ -130,7 +130,7 @@ void add_alias(name, value) char *name, *value;
 }
 
 /* Delete a single alias structure. */
-static void free_alias_data(data) PTR_T data;
+static void free_alias_data(data) void * data;
 {
   register alias_t *a;
 

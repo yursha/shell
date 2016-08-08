@@ -21,16 +21,6 @@
 #if !defined(_OCACHE_H_)
 #define _OCACHE_H_ 1
 
-#ifndef PTR_T
-
-#if defined(__STDC__)
-#define PTR_T void *
-#else
-#define PTR_T char *
-#endif
-
-#endif /* PTR_T */
-
 #define OC_MEMSET(memp, xch, nbytes)       \
   do {                                     \
     if ((nbytes) <= 32) {                  \
@@ -70,7 +60,7 @@
   } while (0)
 
 typedef struct objcache {
-  PTR_T data;
+  void * data;
   int cs; /* cache size, number of objects */
   int nc; /* number of cache entries */
 } sh_obj_cache_t;
