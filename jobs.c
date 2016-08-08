@@ -2503,7 +2503,7 @@ if (job == NO_JOB)
            well, so the loop can be broken.  This doesn't call the
            SIGINT signal handler; maybe it should. */
         if (signal_is_trapped(SIGINT) == 0 &&
-            (loop_level || (shell_compatibility_level > 32 && executing_list)))
+            (loop_level || (executing_list)))
           ADDINTERRUPT;
         /* Call any SIGINT trap handler if the shell is running a loop, so
            the loop can be broken.  This seems more useful and matches the

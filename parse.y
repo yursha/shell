@@ -1,23 +1,5 @@
 /* parse.y - Yacc grammar for bash. */
 
-/* Copyright (C) 1989-2015 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 %{
 #include "config.h"
 
@@ -121,8 +103,6 @@ extern int posixly_correct;
 extern int last_command_exit_value;
 extern pid_t last_command_subst_pid;
 extern char *shell_name, *current_host_name;
-extern char *dist_version;
-extern int patch_level;
 extern int dump_translatable_strings, dump_po_strings;
 extern sh_builtin_func_t *last_shell_builtin, *this_shell_builtin;
 extern int here_doc_first_line;
@@ -2856,7 +2836,7 @@ time_command_acceptable ()
 #if defined (COMMAND_TIMING)
   int i;
 
-  if (posixly_correct && shell_compatibility_level > 41)
+  if (posixly_correct)
     {
       /* Quick check of the rest of the line to find the next token.  If it
 	 begins with a `-', Posix says to not return `time' as the token.
@@ -3508,7 +3488,7 @@ parse_matched_pair (qc, open, close, lenp, flags)
          within a double-quoted ${...} construct "an even number of
          unescaped double-quotes or single-quotes, if any, shall occur." */
       /* This was changed in Austin Group Interp 221 */
-      if MBTEST(posixly_correct && shell_compatibility_level > 41 && dolbrace_state != DOLBRACE_QUOTE && dolbrace_state != DOLBRACE_QUOTE2 && (flags & P_DQUOTE) && (flags & P_DOLBRACE) && ch == '\'')
+      if MBTEST(posixly_correct && dolbrace_state != DOLBRACE_QUOTE && dolbrace_state != DOLBRACE_QUOTE2 && (flags & P_DQUOTE) && (flags & P_DOLBRACE) && ch == '\'')
 	continue;
 
       /* Could also check open == '`' if we want to parse grouping constructs
@@ -3537,7 +3517,7 @@ parse_matched_pair (qc, open, close, lenp, flags)
 		     make sure we single-quote the results of the ansi
 		     expansion because quote removal should remove them later */
 		  /* FLAG POSIX INTERP 221 */
-		  if ((shell_compatibility_level > 42) && (rflags & P_DQUOTE) && (dolbrace_state == DOLBRACE_QUOTE2) && (flags & P_DOLBRACE))
+		  if ((rflags & P_DQUOTE) && (dolbrace_state == DOLBRACE_QUOTE2) && (flags & P_DOLBRACE))
 		    {
 		      nestret = sh_single_quote (ttrans);
 		      free (ttrans);
@@ -5618,9 +5598,9 @@ decode_prompt_string (string)
 	    case 'V':
 	      temp = (char *)xmalloc (16);
 	      if (c == 'v')
-		strcpy (temp, dist_version);
+		strcpy (temp, "0.1.0-SNAPSHOT");
 	      else
-		sprintf (temp, "%s.%d", dist_version, patch_level);
+		sprintf (temp, "%s", "0.1.0-SNAPSHOT");
 	      goto add_string;
 
 	    case 'w':

@@ -659,7 +659,7 @@ int bash_re_edit(line) char *line;
 static int display_shell_version(count, c) int count, c;
 {
   rl_crlf();
-  show_shell_version(0);
+  print_shell_version();
   putc('\r', rl_outstream);
   fflush(rl_outstream);
   rl_on_new_line();

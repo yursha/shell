@@ -588,22 +588,6 @@ set_compatibility_level (option_name, mode)
       *shopt_vars[ind].value = mode;
     }
 
-  /* Then set shell_compatibility_level based on what remains */
-  if (shopt_compat31)
-    shell_compatibility_level = 31;
-  else if (shopt_compat32)
-    shell_compatibility_level = 32;
-  else if (shopt_compat40)
-    shell_compatibility_level = 40;
-  else if (shopt_compat41)
-    shell_compatibility_level = 41;
-  else if (shopt_compat42)
-    shell_compatibility_level = 42;
-  else if (shopt_compat43)
-    shell_compatibility_level = 43;
-  else
-    shell_compatibility_level = DEFAULT_COMPAT_LEVEL;
-
   return 0;
 }
 
@@ -614,23 +598,6 @@ set_compatibility_opts ()
 {
   shopt_compat31 = shopt_compat32 = 0;
   shopt_compat40 = shopt_compat41 = shopt_compat42 = shopt_compat43 = 0;
-  switch (shell_compatibility_level)
-    {
-      case DEFAULT_COMPAT_LEVEL:
-	break;
-      case 43:
-	shopt_compat43 = 1; break;
-      case 42:
-	shopt_compat42 = 1; break;
-      case 41:
-	shopt_compat41 = 1; break;
-      case 40:
-	shopt_compat40 = 1; break;
-      case 32:
-	shopt_compat32 = 1; break;
-      case 31:
-	shopt_compat31 = 1; break;
-    }
 }
 
 #if defined (READLINE)

@@ -16,7 +16,6 @@ dirs.append('./lib/sh')
 dirs.append('./lib/glob/doc')
 dirs.append('./lib/glob')
 dirs.append('./lib/malloc')
-dirs.append('./support')
 dirs.append('./builtins')
 dirs.append('.')
 

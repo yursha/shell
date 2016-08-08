@@ -3323,7 +3323,7 @@ static int execute_cond_node(cond) COND_COM *cond;
     if (ignore) comsub_ignore_return++;
     arg2 = cond_expand_word(
         cond->right->op,
-        (rmatch && shell_compatibility_level > 31) ? 2 : (patmatch ? 1 : 0));
+        (rmatch) ? 2 : (patmatch ? 1 : 0));
     if (ignore) comsub_ignore_return--;
     if (arg2 == 0) arg2 = nullstr;
 
@@ -4259,7 +4259,7 @@ int async, subshell;
   if (subshell) stop_pipeline(async, (COMMAND *)NULL);
 #endif
 
-  if (shell_compatibility_level > 43) loop_level = 0;
+  loop_level = 0;
 
   fc = tc;
 

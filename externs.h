@@ -154,8 +154,8 @@ extern void strip_trailing(char *, int, int);
 extern void xbcopy(char *, char *, int);
 
 /* Functions from version.c. */
-extern char *shell_version_string(void);
-extern void show_shell_version(int);
+extern char *get_shell_version(void);
+extern void print_shell_version();
 
 /* Functions from the bash library, lib/sh/libsh.a.  These should really
    go into a separate include file. */

@@ -120,7 +120,7 @@ help_builtin (list)
 
   if (list == 0)
     {
-      show_shell_version (0);
+      print_shell_version ();
       show_builtin_command_help ();
       return (EXECUTION_SUCCESS);
     }
@@ -353,11 +353,7 @@ show_manpage (name, i)
   /* IMPLEMENTATION */
   printf ("IMPLEMENTATION\n");
   printf ("%*s", BASE_INDENT, " ");
-  show_shell_version (0);
-  printf ("%*s", BASE_INDENT, " ");
-  printf ("%s\n", _(bash_copyright));
-  printf ("%*s", BASE_INDENT, " ");
-  printf ("%s\n", _(bash_license));
+  print_shell_version ();
 
   fflush (stdout);
   if (usefile)

@@ -77,19 +77,12 @@ DEBUGGER_START_FILE = ${datadir}/bashdb/bashdb-main.inc
 	rm -f $@
 	$(CC) $(CCFLAGS) -c $<
 
-# The name of this program and some version information.
-VERSPROG = bashversion
-VERSOBJ = bashversion.o
-
-Program = bash
-PatchLevel = `$(BUILD_DIR)/$(VERSPROG) -p`
-RELSTATUS = "development"
-Version = 0.1.0-SNAPSHOT
+Program = shell
 
 Machine = x86_64
-OS = linux-gnu
-VENDOR = Fedora
-MACHTYPE = x86_64-Fedora-linux-gnu
+OS = linux
+VENDOR = fedora
+MACHTYPE = x86_64-linux-fedora23
 
 # comment out for release
 DEBUG = -DDEBUG
@@ -500,25 +493,7 @@ BUILTINS_DEP = $(BUILTINS_LIBRARY)
 DOCSRC = $(srcdir)/doc
 DOCDIR = ./doc
 
-SIGNAMES_SUPPORT = $(SUPPORT_SRC)mksignames.c
-
-SUPPORT_SRC = $(srcdir)/support/
-SDIR = ./support
-
 TESTS_SUPPORT = recho zecho printenv xcase
-CREATED_SUPPORT = signames.h recho zecho printenv \
-		 tests/recho tests/zecho \
-		 tests/printenv xcase tests/xcase \
-		 mksignames lsignames.h \
-		 mksyntax${EXEEXT} syntax.c $(VERSPROG) $(VERSOBJ) \
-		 buildversion.o mksignames.o signames.o buildsignames.o
-CREATED_MAKEFILES = Makefile builtins/Makefile doc/Makefile \
-		  lib/readline/Makefile lib/glob/Makefile \
-		  lib/sh/Makefile lib/tilde/Makefile lib/malloc/Makefile \
-		  lib/termcap/Makefile examples/loadables/Makefile \
-		  examples/loadables/Makefile.inc \
-		  examples/loadables/perl/Makefile support/Makefile \
-		  lib/intl/Makefile po/Makefile po/Makefile.in
 CREATED_HEADERS = signames.h config.h pathnames.h version.h y.tab.h \
 		 ${DEFDIR}/builtext.h
 
@@ -531,7 +506,7 @@ LOADABLES_DIR = ${top_builddir}/examples/loadables
 # Keep GNU Make from exporting the entire environment for small machines.
 .NOEXPORT:
 
-.made: bash $(SDIR)/man2html
+.made: bash
 	@echo "bash last made for a $(Machine) running $(OS)" >.made
 
 bash: .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
@@ -540,14 +515,7 @@ bash: .build $(OBJECTS) $(BUILTINS_DEP) $(LIBDEP)
 	ls -l bash
 	-$(SIZE) bash
 
-.build:	$(SOURCES) config.h Makefile version.h $(VERSPROG)
-	@echo
-	@echo "	 ***********************************************************"
-	@echo "	 *                             *"
-	@echo "	 * `$(BUILD_DIR)/$(VERSPROG) -l`"
-	@echo "	 *                             *"
-	@echo "	 ***********************************************************"
-	@echo
+.build:	$(SOURCES) config.h Makefile version.h
 
 strip:	bash .made
 	strip bash
@@ -558,12 +526,6 @@ lint:
 	${MAKE} ${MFLAGS} CFLAGS='${GCC_LINT_FLAGS}' .made
 
 version.h: $(SOURCES) config.h Makefile patchlevel.h
-
-bashversion:	patchlevel.h conftypes.h version.h buildversion.o $(SUPPORT_SRC)bashversion.c
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)bashversion.c buildversion.o ${LIBS_FOR_BUILD}
-
-buildversion.o: version.h conftypes.h patchlevel.h $(srcdir)/version.c
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c -o $@ $(srcdir)/version.c
 
 # old rules
 GRAM_H = parser-built
@@ -626,22 +588,6 @@ ${INTL_LIBRARY}: config.h ${INTL_LIBDIR}/Makefile
 
 ${LIBINTL_H}:	${INTL_DEP}
 
-signames.o: $(SUPPORT_SRC)signames.c
-	rm -f $@
-	$(CC) $(CCFLAGS) -c $(SUPPORT_SRC)signames.c
-
-buildsignames.o:	$(SUPPORT_SRC)signames.c
-	rm -f $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -o $@ -c $(SUPPORT_SRC)signames.c
-
-mksignames.o:	$(SUPPORT_SRC)mksignames.c
-	rm -f $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c $(SUPPORT_SRC)mksignames.c
-
-mksignames:	mksignames.o buildsignames.o
-	rm -f $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ mksignames.o buildsignames.o ${LIBS_FOR_BUILD}
-
 mksyntax:	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
 	rm -f $@
 	${CC_FOR_BUILD} ${CCFLAGS_FOR_BUILD} ${LDFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
@@ -672,9 +618,6 @@ ${DEFDIR}/bashgetopt.o:	$(BUILTIN_SRCDIR)/bashgetopt.c
 
 ${DEFDIR}/builtext.h: $(BUILTIN_DEFS)
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) builtext.h ) || exit 1
-
-$(SDIR)/man2html:	${SUPPORT_SRC}/man2html.c
-	@(cd $(SDIR) && $(MAKE) $(MFLAGS) all ) || exit 1
 
 # For the justification of the following Makefile rules, see node
 # `Automatic Remaking' in GNU Autoconf documentation.
@@ -716,34 +659,6 @@ tags:	$(SOURCES) $(BUILTIN_C_SRC) $(LIBRARY_SOURCE)
 
 # Targets that actually do things not part of the build
 
-installdirs:
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(bindir)
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(man1dir)
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(infodir)
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(docdir)
-
-install:	.made installdirs
-	$(INSTALL_PROGRAM) $(INSTALLMODE) bash $(DESTDIR)$(bindir)/bash
-	$(INSTALL_SCRIPT) $(INSTALLMODE2)
-	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
-	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
-		man1dir=$(man1dir) man1ext=$(man1ext) \
-		man3dir=$(man3dir) man3ext=$(man3ext) \
-		infodir=$(infodir) htmldir=$(htmldir) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(DEFDIR) ; $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-
-install-strip:
-	$(MAKE) $(MFLAGS) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' \
-		prefix=${prefix} exec_prefix=${exec_prefix} \
-		DESTDIR=$(DESTDIR) install
-
-install-headers-dirs:
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(headersdir)
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(headersdir)/builtins
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(headersdir)/include
-	@${SHELL} $(SUPPORT_SRC)mkinstalldirs $(DESTDIR)$(libdir)/pkgconfig
-
 install-headers: install-headers-dirs
 	@for hf in $(INSTALLED_HEADERS) ; do \
 		${INSTALL_DATA} $(srcdir)/"$$hf" $(DESTDIR)$(headersdir)/$$hf; \
@@ -757,7 +672,6 @@ install-headers: install-headers-dirs
 	@for hf in $(CREATED_HEADERS) ; do \
 		${INSTALL_DATA} $(BUILD_DIR)/"$$hf" $(DESTDIR)$(headersdir)/$$hf; \
 	done
-	$(INSTALL_DATA) $(SDIR)/bash.pc $(DESTDIR)$(libdir)/pkgconfig/bash.pc
 
 uninstall-headers:
 	-( cd $(DESTDIR)$(headersdir) && rm -f $(INSTALLED_HEADERS) )
@@ -783,27 +697,6 @@ LIB_SUBDIRS = ${RL_LIBDIR} ${HIST_LIBDIR} ${TERM_LIBDIR} ${GLOB_LIBDIR} \
 clean:
 	rm -f $(OBJECTS) bash
 
-recho:		$(SUPPORT_SRC)recho.c
-	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)recho.c ${LIBS_FOR_BUILD}
-
-zecho:		$(SUPPORT_SRC)zecho.c
-	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)zecho.c ${LIBS_FOR_BUILD}
-
-printenv:	$(SUPPORT_SRC)printenv.c
-	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)printenv.c ${LIBS_FOR_BUILD}
-
-xcase:	$(SUPPORT_SRC)xcase.c
-	@$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(SUPPORT_SRC)xcase.c ${LIBS_FOR_BUILD}
-
-test tests check:	force bash $(TESTS_SUPPORT)
-	@-test -d tests || mkdir tests
-	@cp $(TESTS_SUPPORT) tests
-	@( cd $(srcdir)/tests && \
-		PATH=$(BUILD_DIR)/tests:$$PATH THIS_SH=$(THIS_SH) $(SHELL) ${TESTSCRIPT} )
-
-symlinks:
-	$(SHELL) $(SUPPORT_SRC)fixlinks -s $(srcdir)
-
 dist:	force
 	@echo Bash distributions are created using $(srcdir)/support/mkdist.
 	@echo Here is a sample of the necessary commands:
@@ -814,9 +707,6 @@ xdist:	force
 	( cd po && $(MAKE) $(MFLAGS) $@ )
 
 depend:	depends
-
-depends: force
-	bash $(SUPPORT_SRC)mkdep -c ${CC} -- ${CCFLAGS} ${CSOURCES}
 
 #### PRIVATE TARGETS ####
 hashtest:	hashlib.c

@@ -1393,7 +1393,7 @@ int *sindex, quoted, flags;
     if (c == '\'') {
       /*itrace("extract_dollar_brace_string: c == single quote flags = %d quoted
        * = %d dolbrace_state = %d", flags, quoted, dolbrace_state);*/
-      if (posixly_correct && shell_compatibility_level > 42 &&
+      if (posixly_correct &&
           dolbrace_state != DOLBRACE_QUOTE &&
           (quoted & (Q_HERE_DOCUMENT | Q_DOUBLE_QUOTES)))
         ADVANCE_CHAR(string, slen, i);
@@ -6665,16 +6665,9 @@ int quoted, pflags, flags;
        the entire expansion is double-quoted because the parser and string
        extraction functions treated quotes in the replacement string as
        special.  THIS IS NOT BACKWARDS COMPATIBLE WITH BASH-4.2. */
-    if (shell_compatibility_level > 42)
       rep = expand_string_if_necessary(
           rep, quoted & ~(Q_DOUBLE_QUOTES | Q_HERE_DOCUMENT),
           expand_string_unsplit);
-    /* This is the bash-4.2 code. */
-    else if ((mflags & MATCH_QUOTED) == 0)
-      rep = expand_string_if_necessary(rep, quoted, expand_string_unsplit);
-    else
-      rep =
-          expand_string_to_string_internal(rep, quoted, expand_string_unsplit);
   }
 
   /* ksh93 doesn't allow the match specifier to be a part of the expanded
@@ -7330,10 +7323,7 @@ int *indexp, quoted, pflags, *quoted_dollar_atp, *contains_dollar_at;
       FREE(value);
       FREE(temp);
       free(name);
-      if (shell_compatibility_level <= 43)
-        return &expand_wdesc_error;
-      else
-        return ((posixly_correct && interactive_shell == 0)
+      return ((posixly_correct && interactive_shell == 0)
                     ? &expand_wdesc_fatal
                     : &expand_wdesc_error);
 

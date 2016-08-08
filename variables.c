@@ -81,10 +81,8 @@ extern char **environ;
 extern int posixly_correct;
 extern int line_number, line_number_base;
 extern int subshell_environment, indirection_level, subshell_level;
-extern int build_version, patch_level;
 extern int expanding_redir;
 extern int last_command_exit_value;
-extern char *dist_version, *release_status;
 extern char *shell_name;
 extern char *primary_prompt, *secondary_prompt;
 extern char *current_host_name;
@@ -172,9 +170,6 @@ static void set_shell_var(void);
 static char *get_bash_name(void);
 static void initialize_shell_level(void);
 static void uidset(void);
-#if defined(ARRAY_VARS)
-static void make_vers_array(void);
-#endif
 
 static SHELL_VAR *null_assign(SHELL_VAR *, char *, arrayind_t, char *);
 #if defined(ARRAY_VARS)
@@ -523,12 +518,6 @@ int privmode;
      then C-shell commands are output, else Bourne shell commands. */
   set_shell_var();
 
-  /* Make a variable called BASH_VERSION which contains the version info. */
-  bind_variable("BASH_VERSION", shell_version_string(), 0);
-#if defined(ARRAY_VARS)
-  make_vers_array();
-#endif
-
   if (command_execution_string)
     bind_variable("BASH_EXECUTION_STRING", command_execution_string, 0);
 
@@ -849,32 +838,6 @@ static void uidset() {
     VSETATTR(v, (att_readonly | att_integer));
   }
 }
-
-#if defined(ARRAY_VARS)
-static void make_vers_array() {
-  SHELL_VAR *vv;
-  ARRAY *av;
-  char *s, d[32], b[INT_STRLEN_BOUND(int)+1];
-
-  unbind_variable_noref("BASH_VERSINFO");
-
-  vv = make_new_array_variable("BASH_VERSINFO");
-  av = array_cell(vv);
-  strcpy(d, dist_version);
-  s = strchr(d, '.');
-  if (s) *s++ = '\0';
-  array_insert(av, 0, d);
-  array_insert(av, 1, s);
-  s = inttostr(patch_level, b, sizeof(b));
-  array_insert(av, 2, s);
-  s = inttostr(build_version, b, sizeof(b));
-  array_insert(av, 3, s);
-  array_insert(av, 4, release_status);
-  array_insert(av, 5, MACHTYPE);
-
-  VSETATTR(vv, att_readonly);
-}
-#endif /* ARRAY_VARS */
 
 /* Set the environment variables $LINES and $COLUMNS in response to
    a window size change. */
@@ -4800,13 +4763,11 @@ void sv_shcompat(name) char *name;
 
   v = find_variable(name);
   if (v == 0) {
-    shell_compatibility_level = DEFAULT_COMPAT_LEVEL;
     set_compatibility_opts();
     return;
   }
   val = value_cell(v);
   if (val == 0 || *val == '\0') {
-    shell_compatibility_level = DEFAULT_COMPAT_LEVEL;
     set_compatibility_opts();
     return;
   }
@@ -4824,7 +4785,6 @@ void sv_shcompat(name) char *name;
   } else {
   compat_error:
     internal_error(_("%s: %s: compatibility value out of range"), name, val);
-    shell_compatibility_level = DEFAULT_COMPAT_LEVEL;
     set_compatibility_opts();
     return;
   }
@@ -4832,7 +4792,6 @@ void sv_shcompat(name) char *name;
   if (compatval < MIN_COMPAT_LEVEL || compatval > DEFAULT_COMPAT_LEVEL)
     goto compat_error;
 
-  shell_compatibility_level = compatval;
   set_compatibility_opts();
 }
 

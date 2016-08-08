@@ -389,7 +389,7 @@ int main(int argc, char **argv, char **env) {
   }
 
   if (do_version) {
-    show_shell_version(1);
+    print_shell_version();
     exit(EXECUTION_SUCCESS);
   }
 
@@ -1608,7 +1608,7 @@ int extra;
   char *set_opts, *s, *t;
 
   if (extra)
-    fprintf(fp, _("GNU bash, version %s-(%s)\n"), shell_version_string(),
+    fprintf(fp, _("GNU bash, version %s-(%s)\n"), get_shell_version(),
             MACHTYPE);
   fprintf(fp, _("Usage:\t%s [GNU long option] [option] ...\n\t%s [GNU long "
                 "option] [option] script-file ...\n"),

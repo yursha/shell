@@ -739,7 +739,7 @@ restart_new_var_name:
 	      int vlen;
 	      vlen = STRLEN (value);
 /*itrace("declare_builtin: name = %s value = %s flags = %d", name, value, wflags);*/
-	      if (shell_compatibility_level > 43 && (wflags & W_COMPASSIGN) == 0 &&
+	      if ((wflags & W_COMPASSIGN) == 0 &&
 			value[0] == '(' && value[vlen-1] == ')')
 		{
 		  /* The warning is only printed when using compound assignment
@@ -751,7 +751,7 @@ restart_new_var_name:
 		  compound_array_assign = array_exists || creating_array;
 		  simple_array_assign = making_array_special;
 		}
-	      else if (value[0] == '(' && value[vlen-1] == ')' && (shell_compatibility_level < 44 || (wflags & W_COMPASSIGN)))
+	      else if (value[0] == '(' && value[vlen-1] == ')' && (wflags & W_COMPASSIGN))
 		compound_array_assign = 1;
 	      else
 		simple_array_assign = 1;
