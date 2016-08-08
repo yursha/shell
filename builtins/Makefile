@@ -1,12 +1,4 @@
 # This Makefile for building libbuiltins.a is in -*- text -*- for Emacs.
-#
-PACKAGE = shell
-PACKAGE_BUGREPORT = 
-PACKAGE_NAME = shell
-PACKAGE_STRING = shell 0.1.0-SNAPSHOT
-PACKAGE_VERSION = 0.1.0-SNAPSHOT
-
-#
 SHELL = /bin/sh
 RANLIB = ranlib
 CC = gcc
@@ -15,8 +7,6 @@ AR = ar
 ARFLAGS = cr
 RM = rm -f
 CP = cp
-
-EXEEXT = 
 
 prefix = /usr/local
 
@@ -87,7 +77,7 @@ GCC_LINT_FLAGS = -Wall -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wcast-align -Wstrict-prototypes -Wconversion \
 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-MKBUILTINS = mkbuiltins$(EXEEXT)
+MKBUILTINS = mkbuiltins
 DIRECTDEFINE = -D $(srcdir)
 HELPDIRDEFINE = 
 HELPSTRINGS = 
@@ -204,7 +194,7 @@ mkbuiltins.o: mkbuiltins.c
 	$(RM) $@
 	$(CC_FOR_BUILD) -c $(CCFLAGS_FOR_BUILD) $<
 
-mkbuiltins$(EXEEXT): mkbuiltins.o
+mkbuiltins: mkbuiltins.o
 	$(CC_FOR_BUILD) $(LDFLAGS_FOR_BUILD) -o $(MKBUILTINS) mkbuiltins.o $(LIBS_FOR_BUILD)
 
 # rules for deficient makes, like SunOS
