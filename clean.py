@@ -6,9 +6,6 @@ home = os.path.realpath('.')
 
 
 dirs = []
-dirs.append('./examples/loadables/perl')
-dirs.append('./examples/loadables')
-dirs.append('./tests/cracauer-testsuite')
 dirs.append('./lib/termcap')
 dirs.append('./lib/tilde/doc')
 dirs.append('./lib/tilde')
