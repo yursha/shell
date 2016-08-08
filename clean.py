@@ -21,7 +21,6 @@ dirs.append('./lib/glob/doc')
 dirs.append('./lib/glob')
 dirs.append('./lib/malloc')
 dirs.append('./support')
-dirs.append('./po')
 dirs.append('./builtins')
 dirs.append('.')
 
