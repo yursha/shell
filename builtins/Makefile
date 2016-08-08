@@ -49,22 +49,10 @@ LIBS_FOR_BUILD = $(LIBS)
 
 BASHINCDIR = ${topdir}/include
 
-RL_INCLUDEDIR = 
-
-INTL_LIBSRC = ${topdir}/lib/intl
-INTL_BUILDDIR = ${LIBBUILD}/intl
-INTL_LIBDIR = ${INTL_BUILDDIR}
-INTL_LIBRARY = ${INTL_BUILDDIR}/libintl.a
-INTL_INC = 
-INTL_DEP = 
-LIBINTL_H = 
-
 HELPDIR = 
 MKDIRS = ${topdir}/support/mkdirs
 
-HELPFILES_TARGET = 
-
-INCLUDES = -I. -I..  -I$(topdir) -I$(BASHINCDIR) -I$(topdir)/lib -I$(srcdir) ${INTL_INC}
+INCLUDES = -I. -I..  -I$(topdir) -I$(BASHINCDIR) -I$(topdir)/lib -I$(srcdir)
 
 BASE_CCFLAGS = ${PROFILE_FLAGS} $(DEFS) $(LOCAL_DEFS) $(SYSTEM_FLAGS) \
 	 ${INCLUDES} $(LOCAL_CFLAGS)
@@ -81,9 +69,6 @@ MKBUILTINS = mkbuiltins
 DIRECTDEFINE = -D $(srcdir)
 HELPDIRDEFINE = 
 HELPSTRINGS = 
-
-# xxx this is bad style
-RL_LIBSRC = $(topdir)/lib/readline
 
 .SUFFIXES:
 .SUFFIXES: .def .c .o
@@ -136,8 +121,8 @@ CREATED_FILES = builtext.h builtins.c psize.aux pipesize.h tmpbuiltins.c \
 	tmpbuiltins.h
 CREATED_OBJECTS = tmpbuiltins.o gen-helpfiles.o mkbuiltins.o
 
-all: $(MKBUILTINS) libbuiltins.a $(HELPFILES_TARGET)
-targets: libbuiltins.a $(HELPFILES_TARGET)
+all: $(MKBUILTINS) libbuiltins.a
+targets: libbuiltins.a
 
 libbuiltins.a: $(MKBUILTINS) $(OFILES) builtins.o
 	$(RM) $@
@@ -239,15 +224,6 @@ $(OFILES):	$(MKBUILTINS) ../config.h
 
 ../version.h: ../config.h ../Makefile Makefile
 	-( cd ${BUILD_DIR} && ${MAKE} ${MFLAGS} version.h )
-
-# maintainer special - for now
-po:	builtins.c
-	xgettext -L C -o $(topdir)/po/builtins.pot --keyword='N_' builtins.c 2>/dev/null
-
-${LIBINTL_H}:
-	@echo making $@ in ${INTL_BUILDDIR}
-	@(cd ${INTL_BUILDDIR} && \
-		$(MAKE) $(MFLAGS) libintl.h) || exit 1
 
 # dependencies
 
@@ -627,8 +603,6 @@ mapfile.o: $(topdir)/quit.h $(topdir)/dispose_cmd.h $(topdir)/make_cmd.h $(topdi
 mapfile.o: $(topdir)/subst.h $(topdir)/externs.h $(BASHINCDIR)/maxpath.h
 mapfile.o: $(topdir)/shell.h $(topdir)/syntax.h $(topdir)/variables.h $(topdir)/conftypes.h
 mapfile.o: $(topdir)/arrayfunc.h ../pathnames.h
-
-#bind.o: $(RL_LIBSRC)chardefs.h $(RL_LIBSRC)readline.h $(RL_LIBSRC)keymaps.h
 
 # libintl dependencies
 bind.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h

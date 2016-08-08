@@ -176,31 +176,27 @@ void remove_trailing_whitespace();
 /* For each file mentioned on the command line, process it and
    write the information to STRUCTFILE and EXTERNFILE, while
    creating the production file if necessary. */
-int main(argc, argv) int argc;
-char **argv;
-{
+int main(int argc, char** argv) {
   int arg_index = 1;
-  FILE *structfile, *externfile;
-  char *documentation_filename, *temp_struct_filename;
-
-  structfile = externfile = (FILE *)NULL;
-  documentation_filename = DOCFILE;
-  temp_struct_filename = (char *)NULL;
+  FILE* structfile = (FILE*) NULL;
+  FILE* externfile = (FILE*) NULL;
+  char* documentation_filename = DOCFILE;
+  char* temp_struct_filename = (char*) NULL;
 
   while (arg_index < argc && argv[arg_index][0] == '-') {
-    char *arg = argv[arg_index++];
+    char* arg = argv[arg_index++];
 
-    if (strcmp(arg, "-externfile") == 0)
+    if (strcmp(arg, "-externfile") == 0) {
       extern_filename = argv[arg_index++];
-    else if (strcmp(arg, "-structfile") == 0)
+    } else if (strcmp(arg, "-structfile") == 0) {
       struct_filename = argv[arg_index++];
-    else if (strcmp(arg, "-noproduction") == 0)
+    } else if (strcmp(arg, "-noproduction") == 0) {
       inhibit_production = 1;
-    else if (strcmp(arg, "-nofunctions") == 0)
+    } else if (strcmp(arg, "-nofunctions") == 0) {
       inhibit_functions = 1;
-    else if (strcmp(arg, "-document") == 0)
+    } else if (strcmp(arg, "-document") == 0) {
       documentation_file = fopen(documentation_filename, "w");
-    else if (strcmp(arg, "-D") == 0) {
+    } else if (strcmp(arg, "-D") == 0) {
       int len;
 
       if (error_directory) free(error_directory);
