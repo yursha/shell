@@ -32,13 +32,11 @@ BUILD_DIR = /home/ayursha/code/shell
 LIBBUILD = ${BUILD_DIR}/lib
 
 PROFILE_FLAGS = 
-CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security -Wfatal-errors
 CFLAGS_FOR_BUILD = -g -O2 -Wno-parentheses -Wno-format-security 
 CPPFLAGS = 
 CPPFLAGS_FOR_BUILD = 
 LOCAL_CFLAGS =  ${DEBUG}
-DEFS = -DHAVE_CONFIG_H
-LOCAL_DEFS = -DSHELL
 
 LIBS = -ldl 
 LDFLAGS =  $(LOCAL_LDFLAGS) $(CFLAGS)
@@ -52,9 +50,9 @@ BASHINCDIR = ${topdir}/include
 HELPDIR = 
 MKDIRS = ${topdir}/support/mkdirs
 
-INCLUDES = -I. -I..  -I$(topdir) -I$(BASHINCDIR) -I$(topdir)/lib -I$(srcdir)
+INCLUDES = -I$(topdir) -I$(BASHINCDIR) -I$(topdir)/lib -I$(srcdir)
 
-BASE_CCFLAGS = ${PROFILE_FLAGS} $(DEFS) $(LOCAL_DEFS) $(SYSTEM_FLAGS) \
+BASE_CCFLAGS = ${PROFILE_FLAGS} $(SYSTEM_FLAGS) \
 	 ${INCLUDES} $(LOCAL_CFLAGS)
 
 CCFLAGS = $(BASE_CCFLAGS) $(CPPFLAGS) $(CFLAGS)
@@ -65,45 +63,30 @@ GCC_LINT_FLAGS = -Wall -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wcast-align -Wstrict-prototypes -Wconversion \
 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-MKBUILTINS = mkbuiltins
 DIRECTDEFINE = -D $(srcdir)
 HELPDIRDEFINE = 
 HELPSTRINGS = 
-
-.SUFFIXES:
-.SUFFIXES: .def .c .o
-# How to make a .o file from a .def file.
-.def.o:
-	$(RM) $@
-	./$(MKBUILTINS) $(DIRECTDEFINE) $<
-	$(CC) -c $(CCFLAGS) $*.c || ( $(RM) $*.c ; exit 1 )
-	$(RM) $*.c
-
-# How to make a .c file from a .def file.
-.def.c:
-	$(RM) $@
-	./$(MKBUILTINS) $(DIRECTDEFINE) $<
 
 # default rule for making a .o file from a .c file
 .c.o:
 	$(RM) $@
 	$(CC) -c $(CCFLAGS) $<
 
-DEFSRC =  $(srcdir)/alias.def $(srcdir)/bind.def $(srcdir)/break.def \
-	  $(srcdir)/builtin.def $(srcdir)/caller.def \
-	  $(srcdir)/cd.def $(srcdir)/colon.def \
-	  $(srcdir)/command.def $(srcdir)/declare.def $(srcdir)/echo.def \
-	  $(srcdir)/enable.def $(srcdir)/eval.def $(srcdir)/getopts.def \
-	  $(srcdir)/exec.def $(srcdir)/exit.def $(srcdir)/fc.def \
-	  $(srcdir)/fg_bg.def $(srcdir)/hash.def $(srcdir)/help.def \
-	  $(srcdir)/history.def $(srcdir)/jobs.def $(srcdir)/kill.def \
-	  $(srcdir)/let.def $(srcdir)/read.def $(srcdir)/return.def \
-	  $(srcdir)/set.def $(srcdir)/setattr.def $(srcdir)/shift.def \
-	  $(srcdir)/source.def $(srcdir)/suspend.def $(srcdir)/test.def \
-	  $(srcdir)/times.def $(srcdir)/trap.def $(srcdir)/type.def \
-	  $(srcdir)/ulimit.def $(srcdir)/umask.def $(srcdir)/wait.def \
-	  $(srcdir)/reserved.def $(srcdir)/pushd.def $(srcdir)/shopt.def \
-	  $(srcdir)/printf.def $(srcdir)/complete.def $(srcdir)/mapfile.def
+DEFSRC =  $(srcdir)/alias.c $(srcdir)/bind.c $(srcdir)/break.c \
+	  $(srcdir)/builtin.c $(srcdir)/caller.c \
+	  $(srcdir)/cd.c $(srcdir)/colon.c \
+	  $(srcdir)/command.c $(srcdir)/declare.c $(srcdir)/echo.c \
+	  $(srcdir)/enable.c $(srcdir)/eval.c $(srcdir)/getopts.c \
+	  $(srcdir)/exec.c $(srcdir)/exit.c $(srcdir)/fc.c \
+	  $(srcdir)/fg_bg.c $(srcdir)/hash.c $(srcdir)/help.c \
+	  $(srcdir)/history.c $(srcdir)/jobs.c $(srcdir)/kill.c \
+	  $(srcdir)/let.c $(srcdir)/read.c $(srcdir)/return.c \
+	  $(srcdir)/set.c $(srcdir)/setattr.c $(srcdir)/shift.c \
+	  $(srcdir)/source.c $(srcdir)/suspend.c $(srcdir)/test.c \
+	  $(srcdir)/times.c $(srcdir)/trap.c $(srcdir)/type.c \
+	  $(srcdir)/ulimit.c $(srcdir)/umask.c $(srcdir)/wait.c \
+	  $(srcdir)/pushd.c $(srcdir)/shopt.c \
+	  $(srcdir)/printf.c $(srcdir)/complete.c $(srcdir)/mapfile.c
 
 STATIC_SOURCE = common.c evalstring.c evalfile.c getopt.c bashgetopt.c \
 		getopt.h 
@@ -117,82 +100,12 @@ OFILES = builtins.o \
 	suspend.o test.o times.o trap.o type.o ulimit.o umask.o \
 	wait.o getopts.o shopt.o printf.o getopt.o bashgetopt.o complete.o
 
-CREATED_FILES = builtext.h builtins.c psize.aux pipesize.h tmpbuiltins.c \
-	tmpbuiltins.h
-CREATED_OBJECTS = tmpbuiltins.o gen-helpfiles.o mkbuiltins.o
+all: libbuiltins.a
 
-all: $(MKBUILTINS) libbuiltins.a
-targets: libbuiltins.a
-
-libbuiltins.a: $(MKBUILTINS) $(OFILES) builtins.o
+libbuiltins.a: $(OFILES) builtins.o
 	$(RM) $@
 	$(AR) $(ARFLAGS) $@ $(OFILES)
 	-$(RANLIB) $@
-
-tmpbuiltins.c:	$(MKBUILTINS) $(DEFSRC)
-	./$(MKBUILTINS) -externfile tmpbuiltins.h -structfile $@ \
-		-noproduction -nofunctions \
-		$(DIRECTDEFINE) $(HELPSTRINGS) $(DEFSRC)
-
-tmpbuiltins.h:	tmpbuiltins.c
-
-gen-helpfiles.o: ../config.h
-gen-helpfiles.o: gen-helpfiles.c
-	$(RM) $@
-	$(CC_FOR_BUILD) -c $(CCFLAGS_FOR_BUILD) $<
-
-gen-helpfiles:	tmpbuiltins.o gen-helpfiles.o
-	$(CC_FOR_BUILD) ${CCFLAGS_FOR_BUILD} $(LDFLAGS_FOR_BUILD) -o $@ gen-helpfiles.o tmpbuiltins.o $(LIBS_FOR_BUILD)
-
-builtext.h builtins.c: $(MKBUILTINS) $(DEFSRC)
-	@-if test -f builtins.c; then mv -f builtins.c old-builtins.c; fi
-	@-if test -f builtext.h; then mv -f builtext.h old-builtext.h; fi
-	./$(MKBUILTINS) -externfile builtext.h -structfile builtins.c \
-	    -noproduction $(DIRECTDEFINE) $(HELPDIRDEFINE) $(HELPSTRINGS) $(DEFSRC)
-	@-if cmp -s old-builtext.h builtext.h 2>/dev/null; then \
-		mv old-builtext.h builtext.h; \
-	 else \
-		$(RM) old-builtext.h; \
-	 fi
-	@-if cmp -s old-builtins.c builtins.c 2>/dev/null; then \
-		mv old-builtins.c builtins.c; \
-	 else \
-		$(RM) old-builtins.c; \
-	 fi
-
-helpdoc:	gen-helpfiles
-	./gen-helpfiles ${HELPDIRDEFINE}
-
-install-help:
-	@-if test -n "${HELPDIR}" && test -d helpfiles ; then \
-		test -d $(DESTDIR)${HELPDIR} || ${SHELL} ${MKDIRS} $(DESTDIR)$(HELPDIR) ;\
-		( for f in helpfiles/*; do \
-			echo installing $$f; \
-			${INSTALL_DATA} $$f $(DESTDIR)$(HELPDIR); \
-		  done; ) ; \
-	fi
-
-install:	
-
-mkbuiltins.o: ../config.h
-mkbuiltins.o: mkbuiltins.c
-	$(RM) $@
-	$(CC_FOR_BUILD) -c $(CCFLAGS_FOR_BUILD) $<
-
-mkbuiltins: mkbuiltins.o
-	$(CC_FOR_BUILD) $(LDFLAGS_FOR_BUILD) -o $(MKBUILTINS) mkbuiltins.o $(LIBS_FOR_BUILD)
-
-# rules for deficient makes, like SunOS
-mkbuiltins.o: mkbuiltins.c
-builtins.o: builtins.c
-common.o: common.c
-bashgetopt.o: bashgetopt.c
-getopt.o: getopt.c
-evalstring.o: evalstring.c          
-evalfile.o: evalfile.c
-
-tmpbuiltins.o: tmpbuiltins.c
-gen-helpfiles.o: gen-helpfiles.c
 
 ulimit.o: pipesize.h
 
@@ -204,13 +117,8 @@ pipesize.h:	psize.aux
 psize.aux:	psize.c
 	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) ${LDFLAGS_FOR_BUILD} -o $@ $(srcdir)/psize.c
 
-documentation: builtins.texi
-
-builtins.texi: $(MKBUILTINS)
-	./$(MKBUILTINS) -documentonly $(DEFSRC)
-
 clean:
-	$(RM) $(OFILES) $(CREATED_FILES) libbuiltins.a
+	$(RM) $(OFILES) libbuiltins.a
 	$(RM) $(MKBUILTINS) gen-helpfiles $(CREATED_OBJECTS)
 	-test -d helpfiles && $(RM) -r helpfiles
 
@@ -226,50 +134,6 @@ $(OFILES):	$(MKBUILTINS) ../config.h
 	-( cd ${BUILD_DIR} && ${MAKE} ${MFLAGS} version.h )
 
 # dependencies
-
-alias.o: alias.def
-bind.o: bind.def
-break.o: break.def
-builtin.o: builtin.def
-caller.o: caller.def
-cd.o: cd.def
-colon.o: colon.def
-command.o: command.def
-declare.o: declare.def
-echo.o: echo.def
-enable.o: enable.def
-eval.o: eval.def
-exec.o: exec.def
-exit.o: exit.def
-fc.o: fc.def
-fg_bg.o: fg_bg.def
-hash.o: hash.def
-help.o: help.def
-history.o: history.def
-jobs.o: jobs.def
-kill.o: kill.def
-let.o: let.def
-mapfile.o: mapfile.def
-printf.o: printf.def
-pushd.o: pushd.def
-read.o: read.def
-return.o: return.def
-set.o: set.def
-setattr.o: setattr.def
-shift.o: shift.def
-shopt.o: shopt.def
-source.o: source.def
-suspend.o: suspend.def
-test.o: test.def
-times.o: times.def
-trap.o: trap.def
-type.o: type.def
-ulimit.o: ulimit.def
-umask.o: umask.def
-wait.o: wait.def
-getopts.o: getopts.def
-reserved.o: reserved.def
-complete.o: complete.def
 
 # C files
 bashgetopt.o: ../config.h $(topdir)/bashansi.h $(BASHINCDIR)/ansi_stdlib.h
@@ -321,9 +185,6 @@ getopt.o: $(topdir)/quit.h $(BASHINCDIR)/maxpath.h $(topdir)/unwind_prot.h
 getopt.o: $(topdir)/dispose_cmd.h $(topdir)/make_cmd.h $(topdir)/subst.h
 getopt.o: $(topdir)/sig.h ../pathnames.h $(topdir)/externs.h
 getopt.o: $(srcdir)/getopt.h 
-mkbuiltins.o: ../config.h $(topdir)/bashtypes.h $(BASHINCDIR)/posixstat.h
-mkbuiltins.o: ${BASHINCDIR}/filecntl.h
-mkbuiltins.o: $(topdir)/bashansi.h $(BASHINCDIR)/ansi_stdlib.h
 
 # def files
 alias.o: $(topdir)/command.h ../config.h $(BASHINCDIR)/memalloc.h
@@ -452,11 +313,6 @@ history.o: $(topdir)/subst.h $(topdir)/externs.h $(topdir)/sig.h
 history.o: ${BASHINCDIR}/filecntl.h $(topdir)/shell.h $(topdir)/syntax.h $(topdir)/unwind_prot.h
 history.o: $(topdir)/variables.h $(topdir)/conftypes.h $(topdir)/bashhist.h $(BASHINCDIR)/maxpath.h
 history.o: ../pathnames.h
-inlib.o: $(topdir)/command.h ../config.h $(BASHINCDIR)/memalloc.h
-inlib.o: $(topdir)/error.h $(topdir)/general.h $(topdir)/xmalloc.h
-inlib.o: $(topdir)/shell.h $(topdir)/syntax.h $(topdir)/unwind_prot.h $(topdir)/variables.h $(topdir)/conftypes.h
-inlib.o: $(BASHINCDIR)/maxpath.h $(topdir)/subst.h $(topdir)/externs.h
-inlib.o: $(topdir)/quit.h $(topdir)/dispose_cmd.h $(topdir)/make_cmd.h ../pathnames.h
 jobs.o: $(topdir)/command.h ../config.h $(BASHINCDIR)/memalloc.h $(topdir)/error.h
 jobs.o: $(topdir)/general.h $(topdir)/xmalloc.h $(topdir)/quit.h $(srcdir)/bashgetopt.h
 jobs.o: $(BASHINCDIR)/maxpath.h $(topdir)/externs.h $(topdir)/jobs.h
@@ -622,12 +478,10 @@ getopt.c: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 hash.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 help.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 history.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-inlib.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 jobs.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 kill.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 let.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 mapfile.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-mkbuiltins.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 printf.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 pushd.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 read.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h

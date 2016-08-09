@@ -446,23 +446,23 @@ BUILTIN_ABSSRC=${topdir}/builtins
 DEFDIR = ./builtins
 DEBUGGER_DIR = ./debugger
 
-BUILTIN_DEFS = $(DEFSRC)/alias.def $(DEFSRC)/bind.def $(DEFSRC)/break.def \
-	    $(DEFSRC)/builtin.def $(DEFSRC)/cd.def $(DEFSRC)/colon.def \
-	    $(DEFSRC)/command.def ${DEFSRC}/complete.def \
-	    $(DEFSRC)/caller.def $(DEFSRC)/declare.def \
-	    $(DEFSRC)/echo.def $(DEFSRC)/enable.def $(DEFSRC)/eval.def \
-	    $(DEFSRC)/exec.def $(DEFSRC)/exit.def $(DEFSRC)/fc.def \
-	    $(DEFSRC)/fg_bg.def $(DEFSRC)/hash.def $(DEFSRC)/help.def \
-	    $(DEFSRC)/history.def $(DEFSRC)/jobs.def $(DEFSRC)/kill.def \
-	    $(DEFSRC)/let.def $(DEFSRC)/read.def $(DEFSRC)/return.def \
-	    $(DEFSRC)/set.def $(DEFSRC)/setattr.def $(DEFSRC)/shift.def \
-	    $(DEFSRC)/source.def $(DEFSRC)/suspend.def $(DEFSRC)/test.def \
-	    $(DEFSRC)/times.def $(DEFSRC)/trap.def $(DEFSRC)/type.def \
-	    $(DEFSRC)/ulimit.def $(DEFSRC)/umask.def $(DEFSRC)/wait.def \
-	    $(DEFSRC)/getopts.def $(DEFSRC)/reserved.def \
-	    $(DEFSRC)/pushd.def $(DEFSRC)/shopt.def $(DEFSRC)/printf.def \
-	    $(DEFSRC)/mapfile.def
-BUILTIN_C_SRC = $(DEFSRC)/mkbuiltins.c $(DEFSRC)/common.c \
+BUILTIN_DEFS = $(DEFSRC)/alias.c $(DEFSRC)/bind.c $(DEFSRC)/break.c \
+	    $(DEFSRC)/builtin.c $(DEFSRC)/cd.c $(DEFSRC)/colon.c \
+	    $(DEFSRC)/command.c ${DEFSRC}/complete.c \
+	    $(DEFSRC)/caller.c $(DEFSRC)/declare.c \
+	    $(DEFSRC)/echo.c $(DEFSRC)/enable.c $(DEFSRC)/eval.c \
+	    $(DEFSRC)/exec.c $(DEFSRC)/exit.c $(DEFSRC)/fc.c \
+	    $(DEFSRC)/fg_bg.c $(DEFSRC)/hash.c $(DEFSRC)/help.c \
+	    $(DEFSRC)/history.c $(DEFSRC)/jobs.c $(DEFSRC)/kill.c \
+	    $(DEFSRC)/let.c $(DEFSRC)/read.c $(DEFSRC)/return.c \
+	    $(DEFSRC)/set.c $(DEFSRC)/setattr.c $(DEFSRC)/shift.c \
+	    $(DEFSRC)/source.c $(DEFSRC)/suspend.c $(DEFSRC)/test.c \
+	    $(DEFSRC)/times.c $(DEFSRC)/trap.c $(DEFSRC)/type.c \
+	    $(DEFSRC)/ulimit.c $(DEFSRC)/umask.c $(DEFSRC)/wait.c \
+	    $(DEFSRC)/getopts.c \
+	    $(DEFSRC)/pushd.c $(DEFSRC)/shopt.c $(DEFSRC)/printf.c \
+	    $(DEFSRC)/mapfile.c
+BUILTIN_C_SRC = $(DEFSRC)/common.c \
 		 $(DEFSRC)/evalstring.c $(DEFSRC)/evalfile.c \
 		 $(DEFSRC)/bashgetopt.c $(GETOPT_SOURCE)
 BUILTIN_C_OBJ = $(DEFDIR)/common.o $(DEFDIR)/evalstring.o \
@@ -607,7 +607,7 @@ syntax.c:	mksyntax${EXEEXT} $(srcdir)/syntax.h
 	./mksyntax -o $@
 
 $(BUILTINS_LIBRARY): $(BUILTIN_DEFS) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h $(DEFDIR)/builtext.h version.h
-	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} targets ) || exit 1
+	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG}) || exit 1
 
 # these require special rules to circumvent make builtin rules
 ${DEFDIR}/common.o:	$(BUILTIN_SRCDIR)/common.c
@@ -1097,8 +1097,6 @@ builtins/getopt.o: shell.h syntax.h bashjmp.h command.h general.h xmalloc.h erro
 builtins/getopt.o: variables.h arrayfunc.h conftypes.h quit.h ${BASHINCDIR}/maxpath.h unwind_prot.h dispose_cmd.h
 builtins/getopt.o: make_cmd.h subst.h sig.h pathnames.h externs.h 
 builtins/getopt.o: $(DEFSRC)/getopt.h
-builtins/mkbuiltins.o: config.h bashtypes.h ${BASHINCDIR}/posixstat.h ${BASHINCDIR}/filecntl.h
-builtins/mkbuiltins.o: bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 
 # builtin def files
 builtins/alias.o: command.h config.h ${BASHINCDIR}/memalloc.h error.h general.h xmalloc.h ${BASHINCDIR}/maxpath.h
@@ -1319,7 +1317,6 @@ builtins/jobs.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/kill.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/let.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/mapfile.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/mkbuiltins.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/printf.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/pushd.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 builtins/read.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
@@ -1345,46 +1342,45 @@ builtins/history.o: $(HIST_LIBSRC)/history.h $(RL_LIBSRC)/rlstdc.h
 builtins/common.o: $(TILDE_LIBSRC)/tilde.h
 builtins/cd.o: $(TILDE_LIBSRC)/tilde.h 
 
-builtins/alias.o: $(DEFSRC)/alias.def
-builtins/bind.o: $(DEFSRC)/bind.def
-builtins/break.o: $(DEFSRC)/break.def
-builtins/builtin.o: $(DEFSRC)/builtin.def
-builtins/caller.o: $(DEFSRC)/caller.def
-builtins/cd.o: $(DEFSRC)/cd.def
-builtins/colon.o: $(DEFSRC)/colon.def
-builtins/command.o: $(DEFSRC)/command.def
-builtins/complete.o: $(DEFSRC)/complete.def
-builtins/declare.o: $(DEFSRC)/declare.def
-builtins/echo.o: $(DEFSRC)/echo.def
-builtins/enable.o: $(DEFSRC)/enable.def
-builtins/eval.o: $(DEFSRC)/eval.def
-builtins/exec.o: $(DEFSRC)/exec.def
-builtins/exit.o: $(DEFSRC)/exit.def
-builtins/fc.o: $(DEFSRC)/fc.def
-builtins/fg_bg.o: $(DEFSRC)/fg_bg.def
-builtins/getopts.o: $(DEFSRC)/getopts.def
-builtins/hash.o: $(DEFSRC)/hash.def
-builtins/help.o: $(DEFSRC)/help.def
-builtins/history.o: $(DEFSRC)/history.def
-builtins/inlib.o: $(DEFSRC)/inlib.def
-builtins/jobs.o: $(DEFSRC)/jobs.def
-builtins/kill.o: $(DEFSRC)/kill.def
-builtins/let.o: $(DEFSRC)/let.def
-builtins/mapfile.o: $(DEFSRC)/mapfile.def
-builtins/pushd.o: $(DEFSRC)/pushd.def
-builtins/read.o: $(DEFSRC)/read.def
-builtins/reserved.o: $(DEFSRC)/reserved.def
-builtins/return.o: $(DEFSRC)/return.def
-builtins/set.o: $(DEFSRC)/set.def
-builtins/setattr.o: $(DEFSRC)/setattr.def
-builtins/shift.o: $(DEFSRC)/shift.def
-builtins/shopt.o: $(DEFSRC)/shopt.def
-builtins/source.o: $(DEFSRC)/source.def
-builtins/suspend.o: $(DEFSRC)/suspend.def
-builtins/test.o: $(DEFSRC)/test.def
-builtins/times.o: $(DEFSRC)/times.def
-builtins/trap.o: $(DEFSRC)/trap.def
-builtins/type.o: $(DEFSRC)/type.def
-builtins/ulimit.o: $(DEFSRC)/ulimit.def
-builtins/umask.o: $(DEFSRC)/umask.def
-builtins/wait.o: $(DEFSRC)/wait.def
+builtins/alias.o: $(DEFSRC)/alias.c
+builtins/bind.o: $(DEFSRC)/bind.c
+builtins/break.o: $(DEFSRC)/break.c
+builtins/builtin.o: $(DEFSRC)/builtin.c
+builtins/caller.o: $(DEFSRC)/caller.c
+builtins/cd.o: $(DEFSRC)/cd.c
+builtins/colon.o: $(DEFSRC)/colon.c
+builtins/command.o: $(DEFSRC)/command.c
+builtins/complete.o: $(DEFSRC)/complete.c
+builtins/declare.o: $(DEFSRC)/declare.c
+builtins/echo.o: $(DEFSRC)/echo.c
+builtins/enable.o: $(DEFSRC)/enable.c
+builtins/eval.o: $(DEFSRC)/eval.c
+builtins/exec.o: $(DEFSRC)/exec.c
+builtins/exit.o: $(DEFSRC)/exit.c
+builtins/fc.o: $(DEFSRC)/fc.c
+builtins/fg_bg.o: $(DEFSRC)/fg_bg.c
+builtins/getopts.o: $(DEFSRC)/getopts.c
+builtins/hash.o: $(DEFSRC)/hash.c
+builtins/help.o: $(DEFSRC)/help.c
+builtins/history.o: $(DEFSRC)/history.c
+builtins/inlib.o: $(DEFSRC)/inlib.c
+builtins/jobs.o: $(DEFSRC)/jobs.c
+builtins/kill.o: $(DEFSRC)/kill.c
+builtins/let.o: $(DEFSRC)/let.c
+builtins/mapfile.o: $(DEFSRC)/mapfile.c
+builtins/pushd.o: $(DEFSRC)/pushd.c
+builtins/read.o: $(DEFSRC)/read.c
+builtins/return.o: $(DEFSRC)/return.c
+builtins/set.o: $(DEFSRC)/set.c
+builtins/setattr.o: $(DEFSRC)/setattr.c
+builtins/shift.o: $(DEFSRC)/shift.c
+builtins/shopt.o: $(DEFSRC)/shopt.c
+builtins/source.o: $(DEFSRC)/source.c
+builtins/suspend.o: $(DEFSRC)/suspend.c
+builtins/test.o: $(DEFSRC)/test.c
+builtins/times.o: $(DEFSRC)/times.c
+builtins/trap.o: $(DEFSRC)/trap.c
+builtins/type.o: $(DEFSRC)/type.c
+builtins/ulimit.o: $(DEFSRC)/ulimit.c
+builtins/umask.o: $(DEFSRC)/umask.c
+builtins/wait.o: $(DEFSRC)/wait.c

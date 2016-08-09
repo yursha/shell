@@ -78,6 +78,9 @@
 /* Maximum number of attribute letters */
 #define MAX_ATTRIBUTES 16
 
+#include <stdint.h> /* for intmax_t */
+#include "../variables.h" /* for WORD_LIST */
+
 /* Functions from common.c */
 extern void builtin_error(const char *, ...)
     __attribute__((__format__(printf, 1, 2)));
@@ -86,6 +89,63 @@ extern void builtin_warning(const char *, ...)
 extern void builtin_usage(void);
 extern void no_args(WORD_LIST *);
 extern int no_options(WORD_LIST *);
+extern int kill_builtin(WORD_LIST*);
+extern int set_builtin(WORD_LIST*);
+extern int return_builtin(WORD_LIST*);
+extern int source_builtin(WORD_LIST* list);
+extern int eval_builtin(WORD_LIST* list);
+extern int jobs_builtin(WORD_LIST* list);
+extern int alias_builtin(WORD_LIST* list);
+extern int unalias_builtin(WORD_LIST* list);
+extern int pushd_builtin(WORD_LIST* list);
+extern int popd_builtin(WORD_LIST* list);
+extern int dirs_builtin(WORD_LIST* list);
+extern int trap_builtin(WORD_LIST* list);
+extern int exit_builtin(WORD_LIST* list);
+extern int logout_builtin(WORD_LIST* list);
+extern int getopts_builtin(WORD_LIST* list);
+extern int echo_builtin(WORD_LIST* list);
+extern int fc_builtin(WORD_LIST* list);
+extern int hash_builtin(WORD_LIST* list);
+extern int let_builtin(WORD_LIST* list);
+extern int exp_builtin(WORD_LIST* list);
+extern int history_builtin(WORD_LIST* list);
+extern int caller_builtin(WORD_LIST* list);
+extern int type_builtin(WORD_LIST* list);
+extern int command_builtin(WORD_LIST* list);
+extern int exec_builtin(WORD_LIST* list);
+extern int fg_builtin(WORD_LIST* list);
+extern int bg_builtin(WORD_LIST* list);
+extern int bind_builtin(WORD_LIST* list);
+extern int wait_builtin(WORD_LIST* list);
+extern int shift_builtin(WORD_LIST* list);
+extern int cd_builtin(WORD_LIST* list);
+extern int pwd_builtin(WORD_LIST* list);
+extern int unset_builtin(WORD_LIST* list);
+extern int export_builtin(register WORD_LIST* list);
+extern int readonly_builtin(WORD_LIST* list);
+extern int builtin_builtin(WORD_LIST* list);
+extern int declare_builtin(WORD_LIST* list);
+extern int local_builtin(WORD_LIST* list);
+extern int read_builtin(WORD_LIST* list);
+extern int break_builtin(WORD_LIST* list);
+extern int continue_builtin(WORD_LIST* list);
+extern int ulimit_builtin(WORD_LIST* list);
+extern int help_builtin(WORD_LIST* list);
+extern int enable_builtin(WORD_LIST* list);
+extern int shopt_builtin(WORD_LIST* list);
+extern int printf_builtin(WORD_LIST* list);
+extern int test_builtin(WORD_LIST* list);
+extern int suspend_builtin(WORD_LIST* list);
+extern int disown_builtin(WORD_LIST* list);
+extern int umask_builtin(WORD_LIST* list);
+extern int mapfile_builtin(WORD_LIST* list);
+extern int complete_builtin(WORD_LIST* list);
+extern int compgen_builtin(WORD_LIST* list);
+extern int compopt_builtin(WORD_LIST* list);
+extern int times_builtin(WORD_LIST* list);
+extern int colon_builtin(char* ignore);
+extern int false_builtin(char* ignore);
 
 /* common error message functions */
 extern void sh_needarg(char *);
