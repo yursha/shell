@@ -36,7 +36,7 @@ int exit_builtin(WORD_LIST* list) {
 
   if (interactive)
     {
-      fprintf (stderr, login_shell ? _("logout\n") : "exit\n");
+      fprintf (stderr, login_shell ? "logout\n" : "exit\n");
       fflush (stderr);
     }
 
@@ -51,7 +51,7 @@ int logout_builtin(WORD_LIST* list) {
 
   if (login_shell == 0 /* && interactive */)
     {
-      builtin_error (_("not login shell: use `exit'"));
+      builtin_error ("not login shell: use `exit'");
       return (EXECUTION_FAILURE);
     }
   else
@@ -83,9 +83,9 @@ exit_or_logout (list)
 	  stopmsg = JRUNNING;
 
       if (stopmsg == JSTOPPED)
-	fprintf (stderr, _("There are stopped jobs.\n"));
+	fprintf (stderr, "There are stopped jobs.\n");
       else if (stopmsg == JRUNNING)
-	fprintf (stderr, _("There are running jobs.\n"));
+	fprintf (stderr, "There are running jobs.\n");
 
       if (stopmsg && check_jobs_at_exit)
         list_all_jobs (JLIST_STANDARD);

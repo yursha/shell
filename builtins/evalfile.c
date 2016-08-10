@@ -134,11 +134,11 @@ int flags;
   errfunc = ((flags & FEVAL_BUILTIN) ? builtin_error : internal_error);
 
   if (S_ISDIR(finfo.st_mode)) {
-    (*errfunc)(_("%s: is a directory"), filename);
+    (*errfunc)("%s: is a directory", filename);
     close(fd);
     return ((flags & FEVAL_BUILTIN) ? EXECUTION_FAILURE : -1);
   } else if ((flags & FEVAL_REGFILE) && S_ISREG(finfo.st_mode) == 0) {
-    (*errfunc)(_("%s: not a regular file"), filename);
+    (*errfunc)("%s: not a regular file", filename);
     close(fd);
     return ((flags & FEVAL_BUILTIN) ? EXECUTION_FAILURE : -1);
   }
@@ -146,7 +146,7 @@ int flags;
   file_size = (size_t)finfo.st_size;
   /* Check for overflow with large files. */
   if (file_size != finfo.st_size || file_size + 1 < file_size) {
-    (*errfunc)(_("%s: file is too large"), filename);
+    (*errfunc)("%s: file is too large", filename);
     close(fd);
     return ((flags & FEVAL_BUILTIN) ? EXECUTION_FAILURE : -1);
   }
@@ -176,7 +176,7 @@ int flags;
   if ((flags & FEVAL_CHECKBINARY) &&
       check_binary_file(string, (nr > 80) ? 80 : nr)) {
     free(string);
-    (*errfunc)(_("%s: cannot execute binary file"), filename);
+    (*errfunc)("%s: cannot execute binary file", filename);
     return ((flags & FEVAL_BUILTIN) ? EX_BINARY_FILE : -1);
   }
 
@@ -191,7 +191,7 @@ int flags;
            probably indicates a binary file. */
         if ((flags & FEVAL_BUILTIN) && ++nnull > 256) {
           free(string);
-          (*errfunc)(_("%s: cannot execute binary file"), filename);
+          (*errfunc)("%s: cannot execute binary file", filename);
           return ((flags & FEVAL_BUILTIN) ? EX_BINARY_FILE : -1);
         }
       }

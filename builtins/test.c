@@ -32,7 +32,7 @@ int test_builtin(WORD_LIST* list) {
     {
       if (this_command_name[0] == '[' && !this_command_name[1])
 	{
-	  builtin_error (_("missing `]'"));
+	  builtin_error ("missing `]'");
 	  return (EX_BADUSAGE);
 	}
 

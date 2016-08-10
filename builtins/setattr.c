@@ -117,12 +117,12 @@ set_or_show_attributes (list, attribute, nodefs)
 	      var = find_function (name);
 	      if (var == 0)
 		{
-		  builtin_error (_("%s: not a function"), name);
+		  builtin_error ("%s: not a function", name);
 		  any_failed++;
 		}
 	      else if ((attribute & att_exported) && undo == 0 && exportable_function_name (name) == 0)
 		{
-		  builtin_error (_("%s: cannot export"), name);
+		  builtin_error ("%s: cannot export", name);
 		  any_failed++;
 		}
 	      else

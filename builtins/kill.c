@@ -148,7 +148,7 @@ int kill_builtin(WORD_LIST* list) {
 #if defined (JOB_CONTROL)
       else if (*list->word->word && *list->word->word != '%')
 	{
-	  builtin_error (_("%s: arguments must be process or job IDs"), list->word->word);
+	  builtin_error ("%s: arguments must be process or job IDs", list->word->word);
 	  CONTINUE_OR_FAIL;
 	}
       else if (*word)
@@ -211,6 +211,6 @@ kill_error (pid, e)
 
   x = strerror (e);
   if (x == 0)
-    x = _("Unknown error");
+    x = "Unknown error";
   builtin_error ("(%ld) - %s", (long)pid, x);
 }

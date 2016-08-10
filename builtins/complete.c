@@ -230,7 +230,7 @@ build_actions (list, flagp, actp, optp)
 	  ind = find_compact (list_optarg);
 	  if (ind < 0)
 	    {
-	      builtin_error (_("%s: invalid action name"), list_optarg);
+	      builtin_error ("%s: invalid action name", list_optarg);
 	      return (EX_USAGE);
 	    }
 	  acts |= compacts[ind].actflag;
@@ -402,7 +402,7 @@ remove_cmd_completions (list)
     {
       if (progcomp_remove (l->word->word) == 0)
 	{
-	  builtin_error (_("%s: no completion specification"), l->word->word);
+	  builtin_error ("%s: no completion specification", l->word->word);
 	  ret = EXECUTION_FAILURE;
 	}
     }
@@ -597,7 +597,7 @@ print_cmd_completions (list)
 	print_one_completion (l->word->word, cs);
       else
 	{
-	  builtin_error (_("%s: no completion specification"), l->word->word);
+	  builtin_error ("%s: no completion specification", l->word->word);
 	  ret = EXECUTION_FAILURE;
 	}
     }
@@ -635,9 +635,9 @@ int compgen_builtin(WORD_LIST* list) {
   word = (list && list->word) ? list->word->word : "";
 
   if (Farg)
-    builtin_error (_("warning: -F option may not work as you expect"));
+    builtin_error ("warning: -F option may not work as you expect");
   if (Carg)
-    builtin_error (_("warning: -C option may not work as you expect"));
+    builtin_error ("warning: -C option may not work as you expect");
 
   /* If we get here, we need to build a compspec and evaluate it. */
   cs = compspec_create ();
@@ -737,7 +737,7 @@ int compopt_builtin(WORD_LIST* list) {
     {
       if (RL_ISSTATE (RL_STATE_COMPLETING) == 0 || pcomp_curcs == 0)
 	{
-	  builtin_error (_("not currently executing completion function"));
+	  builtin_error ("not currently executing completion function");
 	  return (EXECUTION_FAILURE);
 	}
       cs = pcomp_curcs;
@@ -764,7 +764,7 @@ int compopt_builtin(WORD_LIST* list) {
       cs = progcomp_search (l->word->word);
       if (cs == 0)
 	{
-	  builtin_error (_("%s: no completion specification"), l->word->word);
+	  builtin_error ("%s: no completion specification", l->word->word);
 	  ret = EXECUTION_FAILURE;
 	  continue;
 	}

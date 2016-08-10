@@ -27,7 +27,7 @@ int let_builtin(WORD_LIST* list) {
 
   if (list == 0)
     {
-      builtin_error (_("expression expected"));
+      builtin_error ("expression expected");
       return (EXECUTION_FAILURE);
     }
 
@@ -49,7 +49,7 @@ int exp_builtin(WORD_LIST* list) {
 
   if (list == 0)
     {
-      builtin_error (_("expression expected"));
+      builtin_error ("expression expected");
       return (EXECUTION_FAILURE);
     }
 

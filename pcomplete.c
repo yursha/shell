@@ -1000,7 +1000,7 @@ int *foundp;
   funcname = cs->funcname;
   f = find_function(funcname);
   if (f == 0) {
-    internal_error(_("completion: function `%s' not found"), funcname);
+    internal_error("completion: function `%s' not found", funcname);
     rl_ding();
     rl_on_new_line();
     return ((STRINGLIST *)NULL);
@@ -1470,7 +1470,7 @@ int start, end, *foundp;
     count++;
 
     if (count > 32) {
-      internal_warning(_("programmable_completion: %s: possible retry loop"),
+      internal_warning("programmable_completion: %s: possible retry loop",
                        cmd);
       break;
     }

@@ -231,7 +231,7 @@ int shopt_builtin(WORD_LIST* list) {
 
   if ((flags & (SFLAG|UFLAG)) == (SFLAG|UFLAG))
     {
-      builtin_error (_("cannot set and unset shell options simultaneously"));
+      builtin_error ("cannot set and unset shell options simultaneously");
       return (EXECUTION_FAILURE);
     }
 
@@ -333,7 +333,7 @@ static void
 shopt_error (s)
      char *s;
 {
-  builtin_error (_("%s: invalid shell option name"), s);
+  builtin_error ("%s: invalid shell option name", s);
 }
 
 static int

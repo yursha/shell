@@ -74,10 +74,10 @@ size_t bytes;
 {
 #if defined(HAVE_SBRK)
   allocated = findbrk();
-  fatal_error(_("%s: cannot allocate %lu bytes (%lu bytes allocated)"), func,
+  fatal_error("%s: cannot allocate %lu bytes (%lu bytes allocated)", func,
               (unsigned long)bytes, (unsigned long)allocated);
 #else
-  fatal_error(_("%s: cannot allocate %lu bytes"), func, (unsigned long)bytes);
+  fatal_error("%s: cannot allocate %lu bytes", func, (unsigned long)bytes);
 #endif /* !HAVE_SBRK */
 }
 
@@ -136,10 +136,10 @@ int line;
 {
 #if defined(HAVE_SBRK)
   allocated = findbrk();
-  fatal_error(_("%s: %s:%d: cannot allocate %lu bytes (%lu bytes allocated)"),
+  fatal_error("%s: %s:%d: cannot allocate %lu bytes (%lu bytes allocated)",
               func, file, line, (unsigned long)bytes, (unsigned long)allocated);
 #else
-  fatal_error(_("%s: %s:%d: cannot allocate %lu bytes"), func, file, line,
+  fatal_error("%s: %s:%d: cannot allocate %lu bytes", func, file, line,
               (unsigned long)bytes);
 #endif /* !HAVE_SBRK */
 }

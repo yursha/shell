@@ -129,13 +129,13 @@ int typ;
   int s, e;
 
   if (_getaddr(host, &ina) == 0) {
-    internal_error(_("%s: host unknown"), host);
+    internal_error("%s: host unknown", host);
     errno = EINVAL;
     return -1;
   }
 
   if (_getserv(serv, typ, &p) == 0) {
-    internal_error(_("%s: invalid service"), serv);
+    internal_error("%s: invalid service", serv);
     errno = EINVAL;
     return -1;
   }
@@ -251,7 +251,7 @@ int netopen(path) char *path;
   s = np + 9;
   t = strchr(s, '/');
   if (t == 0) {
-    internal_error(_("%s: bad network path specification"), path);
+    internal_error("%s: bad network path specification", path);
     return -1;
   }
   *t++ = '\0';
@@ -289,7 +289,7 @@ udpopen (host, serv)
 
 int netopen(path) char *path;
 {
-  internal_error(_("network operations not supported"));
+  internal_error("network operations not supported");
   return -1;
 }
 

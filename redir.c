@@ -116,7 +116,7 @@ int error;
   else if ((temp->rflags & REDIR_VARASSIGN) == 0 && temp->redirector.dest < 0)
     /* This can happen when read_token_word encounters overflow, like in
        exec 4294967297>x */
-    filename = _("file descriptor out of range");
+    filename = "file descriptor out of range";
 #ifdef EBADF
   /* This error can never involve NOCLOBBER */
   else if (error != NOCLOBBER_REDIRECT && temp->redirector.dest >= 0 &&
@@ -159,26 +159,26 @@ int error;
     temp->redirectee.filename->flags = oflags;
     if (filename == 0) filename = temp->redirectee.filename->word;
   } else if (temp->redirectee.dest < 0)
-    filename = _("file descriptor out of range");
+    filename = "file descriptor out of range";
   else
     filename = allocname = itos(temp->redirectee.dest);
 
   switch (error) {
     case AMBIGUOUS_REDIRECT:
-      internal_error(_("%s: ambiguous redirect"), filename);
+      internal_error("%s: ambiguous redirect", filename);
       break;
 
     case NOCLOBBER_REDIRECT:
-      internal_error(_("%s: cannot overwrite existing file"), filename);
+      internal_error("%s: cannot overwrite existing file", filename);
       break;
 
     case HEREDOC_REDIRECT:
-      internal_error(_("cannot create temp file for here-document: %s"),
+      internal_error("cannot create temp file for here-document: %s",
                      strerror(heredoc_errno));
       break;
 
     case BADVAR_REDIRECT:
-      internal_error(_("%s: cannot assign fd to variable"), filename);
+      internal_error("%s: cannot assign fd to variable", filename);
       break;
 
     default:
@@ -523,7 +523,7 @@ enum r_instruction ri;
       fd = netopen(filename);
 #else
       internal_warning(
-          _("/dev/(tcp|udp)/host/port not supported without networking"));
+          "/dev/(tcp|udp)/host/port not supported without networking");
       fd = open(filename, flags, mode);
 #endif
       break;
@@ -758,7 +758,7 @@ int flags;
               fcntl(fd, F_DUPFD, SHELL_FD_BASE); /* XXX try this for now */
           r = errno;
           if (redirector < 0)
-            sys_error(_("redirection error: cannot duplicate fd"));
+            sys_error("redirection error: cannot duplicate fd");
           REDIRECTION_ERROR(redirector, r, fd);
         }
 
@@ -859,7 +859,7 @@ int flags;
               fcntl(fd, F_DUPFD, SHELL_FD_BASE); /* XXX try this for now */
           r = errno;
           if (redirector < 0)
-            sys_error(_("redirection error: cannot duplicate fd"));
+            sys_error("redirection error: cannot duplicate fd");
           REDIRECTION_ERROR(redirector, r, fd);
         }
 
@@ -915,7 +915,7 @@ int flags;
             fcntl(redir_fd, F_DUPFD, SHELL_FD_BASE); /* XXX try this for now */
         r = errno;
         if (redirector < 0)
-          sys_error(_("redirection error: cannot duplicate fd"));
+          sys_error("redirection error: cannot duplicate fd");
         REDIRECTION_ERROR(redirector, r, -1);
       }
 
@@ -1070,7 +1070,7 @@ int fdbase;
   }
 
   if (new_fd < 0) {
-    sys_error(_("redirection error: cannot duplicate fd"));
+    sys_error("redirection error: cannot duplicate fd");
     return (-1);
   }
 

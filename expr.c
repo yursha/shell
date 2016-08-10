@@ -249,7 +249,7 @@ static void pushexp() {
   EXPR_CONTEXT *context;
 
   if (expr_depth >= MAX_EXPR_RECURSION_LEVEL)
-    evalerror(_("expression recursion level exceeded"));
+    evalerror("expression recursion level exceeded");
 
   if (expr_depth >= expr_stack_size) {
     expr_stack_size += EXPR_STACK_GROW_SIZE;
@@ -270,7 +270,7 @@ static void pushexp() {
 static void popexp() {
   EXPR_CONTEXT *context;
 
-  if (expr_depth == 0) evalerror(_("recursion stack underflow"));
+  if (expr_depth == 0) evalerror("recursion stack underflow");
 
   context = expr_stack[--expr_depth];
 
@@ -401,7 +401,7 @@ static intmax_t subexpr(expr) char *expr;
 
   val = EXP_HIGHEST();
 
-  if (curtok != 0) evalerror(_("syntax error in expression"));
+  if (curtok != 0) evalerror("syntax error in expression");
 
   FREE(tokstr);
   FREE(expression);
@@ -438,7 +438,7 @@ static intmax_t expassign() {
 
     special = curtok == OP_ASSIGN;
 
-    if (lasttok != STR) evalerror(_("attempted assignment to non-variable"));
+    if (lasttok != STR) evalerror("attempted assignment to non-variable");
 
     if (special) {
       op = assigntok; /* a OP= b */
@@ -455,7 +455,7 @@ static intmax_t expassign() {
     if (special) {
       if ((op == DIV || op == MOD) && value == 0) {
         if (noeval == 0)
-          evalerror(_("division by 0"));
+          evalerror("division by 0");
         else
           value = 1;
       }
@@ -501,7 +501,7 @@ static intmax_t expassign() {
           break;
         default:
           free(lhs);
-          evalerror(_("bug: bad expassign token"));
+          evalerror("bug: bad expassign token");
           break;
       }
       value = lvalue;
@@ -537,7 +537,7 @@ static intmax_t expcond() {
   if (curtok == QUES) /* found conditional expr */
   {
     readtok();
-    if (curtok == 0 || curtok == COL) evalerror(_("expression expected"));
+    if (curtok == 0 || curtok == COL) evalerror("expression expected");
     if (cval == 0) {
       set_noeval = 1;
       noeval++;
@@ -546,9 +546,9 @@ static intmax_t expcond() {
     val1 = EXP_HIGHEST();
 
     if (set_noeval) noeval--;
-    if (curtok != COL) evalerror(_("`:' expected for conditional expression"));
+    if (curtok != COL) evalerror("`:' expected for conditional expression");
     readtok();
-    if (curtok == 0) evalerror(_("expression expected"));
+    if (curtok == 0) evalerror("expression expected");
     set_noeval = 0;
     if (cval) {
       set_noeval = 1;
@@ -765,7 +765,7 @@ static intmax_t exp2() {
         sltp = lasttp;
         lasttp = stp;
         while (lasttp && *lasttp && whitespace(*lasttp)) lasttp++;
-        evalerror(_("division by 0"));
+        evalerror("division by 0");
         lasttp = sltp;
       } else
         val2 = 1;
@@ -813,7 +813,7 @@ static intmax_t exppower() {
     val2 = exppower(); /* exponentiation is right-associative */
     lasttok = NUM;
     if (val2 == 0) return (1);
-    if (val2 < 0) evalerror(_("exponent less than 0"));
+    if (val2 < 0) evalerror("exponent less than 0");
     val1 = ipow(val1, val2);
   }
   return (val1);
@@ -856,7 +856,7 @@ static intmax_t exp0() {
     stok = lasttok = curtok;
     readtok();
     if (curtok != STR) /* readtok() catches this */
-      evalerror(_("identifier expected after pre-increment or pre-decrement"));
+      evalerror("identifier expected after pre-increment or pre-decrement");
 
     v2 = tokval + ((stok == PREINC) ? 1 : -1);
     vincdec = itos(v2);
@@ -879,7 +879,7 @@ static intmax_t exp0() {
     val = EXP_HIGHEST();
 
     if (curtok != RPAR) /* ( */
-      evalerror(_("missing `)'"));
+      evalerror("missing `)'");
 
     /* Skip over closing paren. */
     readtok();
@@ -922,7 +922,7 @@ static intmax_t exp0() {
 
     readtok();
   } else
-    evalerror(_("syntax error: operand expected"));
+    evalerror("syntax error: operand expected");
 
   return (val);
 }
@@ -1210,9 +1210,9 @@ static void readtok() {
       cp--;
       /* use curtok, since it hasn't been copied to lasttok yet */
       if (curtok == 0 || _is_arithop(curtok) || _is_multiop(curtok))
-        evalerror(_("syntax error: operand expected"));
+        evalerror("syntax error: operand expected");
       else
-        evalerror(_("syntax error: invalid arithmetic operator"));
+        evalerror("syntax error: invalid arithmetic operator");
     } else
       cp--; /* `unget' the character */
 
@@ -1233,7 +1233,7 @@ static void evalerror(msg) const char *msg;
   name = this_command_name;
   for (t = expression; whitespace(*t); t++)
     ;
-  internal_error(_("%s%s%s: %s (error token is \"%s\")"), name ? name : "",
+  internal_error("%s%s%s: %s (error token is \"%s\")", name ? name : "",
                  name ? ": " : "", t, msg, (lasttp && *lasttp) ? lasttp : "");
   siglongjmp(evalbuf, 1);
 }
@@ -1277,10 +1277,10 @@ static intmax_t strlong(num) char *num;
   val = 0;
   for (c = *s++; c; c = *s++) {
     if (c == '#') {
-      if (foundbase) evalerror(_("invalid number"));
+      if (foundbase) evalerror("invalid number");
 
       /* Illegal base specifications raise an evaluation error. */
-      if (val < 2 || val > 64) evalerror(_("invalid arithmetic base"));
+      if (val < 2 || val > 64) evalerror("invalid arithmetic base");
 
       base = val;
       val = 0;
@@ -1297,7 +1297,7 @@ static intmax_t strlong(num) char *num;
       else if (c == '_')
         c = 63;
 
-      if (c >= base) evalerror(_("value too great for base"));
+      if (c >= base) evalerror("value too great for base");
 
       val = (val * base) + c;
     } else
@@ -1334,7 +1334,7 @@ char **argv;
   for (i = 1; i < argc; i++) {
     v = evalexp(argv[i], &expok);
     if (expok == 0)
-      fprintf(stderr, _("%s: expression error\n"), argv[i]);
+      fprintf(stderr, "%s: expression error\n", argv[i]);
     else
       printf("'%s' -> %ld\n", argv[i], v);
   }

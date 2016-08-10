@@ -481,7 +481,7 @@ void start_pipeline() {
 
 #if defined(PGRP_PIPE)
   if (job_control) {
-    if (pipe(pgrp_pipe) == -1) sys_error(_("start_pipeline: pgrp pipe"));
+    if (pipe(pgrp_pipe) == -1) sys_error("start_pipeline: pgrp pipe");
   }
 #endif
 }
@@ -923,7 +923,7 @@ static void delete_old_job(pid) pid_t pid;
       delete_job(job, DEL_NOBGPID);
     else {
 #ifdef DEBUG
-      internal_warning(_("forked pid %d appears in running job %d"), pid,
+      internal_warning("forked pid %d appears in running job %d", pid,
                        job + 1);
 #endif
       if (p) p->pid = 0;
@@ -1028,7 +1028,7 @@ void delete_job(job_index, dflags) int job_index, dflags;
 
   if ((dflags & DEL_WARNSTOPPED) && subshell_environment == 0 &&
       STOPPED(job_index))
-    internal_warning(_("deleting stopped job %d with process group %ld"),
+    internal_warning("deleting stopped job %d with process group %ld",
                      job_index + 1, (long)jobs[job_index]->pgrp);
   temp = jobs[job_index];
   if (temp == 0) return;
@@ -1119,11 +1119,11 @@ pid_t pid;
   if (p) {
 #ifdef DEBUG
     if (j == NO_JOB)
-      internal_warning(_("add_process: process %5ld (%s) in the_pipeline"),
+      internal_warning("add_process: process %5ld (%s) in the_pipeline",
                        (long)p->pid, p->command);
 #endif
     if (PALIVE(p))
-      internal_warning(_("add_process: pid %5ld (%s) marked as still alive"),
+      internal_warning("add_process: pid %5ld (%s) marked as still alive",
                        (long)p->pid, p->command);
     p->running = PS_RECYCLED; /* mark as recycled */
   }
@@ -1407,7 +1407,7 @@ void describe_pid(pid) pid_t pid;
   if (job != NO_JOB)
     fprintf(stderr, "[%d] %ld\n", job + 1, (long)pid);
   else
-    programming_error(_("describe_pid: %ld: no such pid"), (long)pid);
+    programming_error("describe_pid: %ld: no such pid", (long)pid);
 
   UNBLOCK_CHILD(oset);
 }
@@ -1419,7 +1419,7 @@ static char *j_strsignal(s) int s;
   x = strsignal(s);
   if (x == 0) {
     x = retcode_name_buffer;
-    snprintf(x, sizeof(retcode_name_buffer), _("Signal %d"), s);
+    snprintf(x, sizeof(retcode_name_buffer), "Signal %d", s);
   }
   return x;
 }
@@ -1431,18 +1431,18 @@ int format;
   static char *temp;
   int es;
 
-  temp = _("Done");
+  temp = "Done";
 
   if (STOPPED(j) && format == 0) {
     if (posixly_correct == 0 || p == 0 || (WIFSTOPPED(p->status) == 0))
-      temp = _("Stopped");
+      temp = "Stopped";
     else {
       temp = retcode_name_buffer;
-      snprintf(temp, sizeof(retcode_name_buffer), _("Stopped(%s)"),
+      snprintf(temp, sizeof(retcode_name_buffer), "Stopped(%s)",
                signal_name(WSTOPSIG(p->status)));
     }
   } else if (RUNNING(j))
-    temp = _("Running");
+    temp = "Running";
   else {
     if (WIFSTOPPED(p->status))
       temp = j_strsignal(WSTOPSIG(p->status));
@@ -1452,14 +1452,14 @@ int format;
       temp = retcode_name_buffer;
       es = WEXITSTATUS(p->status);
       if (es == 0) {
-        strncpy(temp, _("Done"), sizeof(retcode_name_buffer) - 1);
+        strncpy(temp, "Done", sizeof(retcode_name_buffer) - 1);
         temp[sizeof(retcode_name_buffer) - 1] = '\0';
       } else if (posixly_correct)
-        snprintf(temp, sizeof(retcode_name_buffer), _("Done(%d)"), es);
+        snprintf(temp, sizeof(retcode_name_buffer), "Done(%d)", es);
       else
-        snprintf(temp, sizeof(retcode_name_buffer), _("Exit %d"), es);
+        snprintf(temp, sizeof(retcode_name_buffer), "Exit %d", es);
     } else
-      temp = _("Unknown status");
+      temp = "Unknown status";
   }
 
   return temp;
@@ -1532,7 +1532,7 @@ FILE *stream;
 
         if ((WIFSTOPPED(show->status) == 0) &&
             (WIFCONTINUED(show->status) == 0) && WIFCORED(show->status))
-          fprintf(stream, _("(core dumped) "));
+          fprintf(stream, "(core dumped) ");
       }
     }
 
@@ -1547,7 +1547,7 @@ FILE *stream;
         fprintf(stream, " &");
 
       if (strcmp(temp, jobs[job_index]->wd) != 0)
-        fprintf(stream, _("  (wd: %s)"),
+        fprintf(stream, "  (wd: %s)",
                 polite_directory_format(jobs[job_index]->wd));
     }
 
@@ -1743,7 +1743,7 @@ int async_p;
          B.4.3.3, p. 237 also covers this, in the context of job control
          shells. */
       if (setpgid(mypid, pipeline_pgrp) < 0)
-        sys_error(_("child setpgid (%ld to %ld)"), (long)mypid,
+        sys_error("child setpgid (%ld to %ld)", (long)mypid,
                   (long)pipeline_pgrp);
 
       /* By convention (and assumption above), if
@@ -2057,7 +2057,7 @@ int flags;
 
   if (child == 0) {
     if (flags & 1)
-      internal_error(_("wait: pid %ld is not a child of this shell"),
+      internal_error("wait: pid %ld is not a child of this shell",
                      (long)pid);
     return (127);
   }
@@ -2265,7 +2265,7 @@ int job_exit_signal(job) int job;
     if (child == 0) {                                                     \
       give_terminal_to(shell_pgrp, 0);                                    \
       UNBLOCK_CHILD(oset);                                                \
-      internal_error(_("wait_for: No record of process %ld"), (long)pid); \
+      internal_error("wait_for: No record of process %ld", (long)pid); \
       restore_sigint_handler();                                           \
       return (termination_state = 127);                                   \
     }                                                                     \
@@ -2567,7 +2567,7 @@ int wait_for_job(job) int job;
 
   BLOCK_CHILD(set, oset);
   if (JOBSTATE(job) == JSTOPPED)
-    internal_warning(_("wait_for_job: job %d is stopped"), job + 1);
+    internal_warning("wait_for_job: job %d is stopped", job + 1);
 
   pid = find_last_pid(job, 0);
   UNBLOCK_CHILD(oset);
@@ -2814,7 +2814,7 @@ int start_job(job, foreground) int job, foreground;
   BLOCK_CHILD(set, oset);
 
   if (DEADJOB(job)) {
-    internal_error(_("%s: job has terminated"), this_command_name);
+    internal_error("%s: job has terminated", this_command_name);
     UNBLOCK_CHILD(oset);
     return (-1);
   }
@@ -2822,7 +2822,7 @@ int start_job(job, foreground) int job, foreground;
   already_running = RUNNING(job);
 
   if (foreground == 0 && already_running) {
-    internal_error(_("%s: job %d already in background"), this_command_name,
+    internal_error("%s: job %d already in background", this_command_name,
                    job + 1);
     UNBLOCK_CHILD(oset);
     return (0); /* XPG6/SUSv3 says this is not an error */
@@ -3011,7 +3011,7 @@ int block;
 
     if (block == 1 && queue_sigchld == 0 && (waitpid_flags & WNOHANG) == 0) {
       internal_warning(
-          _("waitchld: turning on WNOHANG to avoid indefinite block"));
+          "waitchld: turning on WNOHANG to avoid indefinite block");
       waitpid_flags |= WNOHANG;
     }
 
@@ -3482,7 +3482,7 @@ static void notify_of_job_status() {
 #endif
               signal_is_trapped(termsig) == 0) {
             /* Don't print `0' for a line number. */
-            fprintf(stderr, _("%s: line %d: "), get_name_for_error(),
+            fprintf(stderr, "%s: line %d: ", get_name_for_error(),
                     (line_number == 0) ? 1 : line_number);
             pretty_print_job(job, JLIST_NONINTERACTIVE, stderr);
           } else if (IS_FOREGROUND(job)) {
@@ -3495,7 +3495,7 @@ static void notify_of_job_status() {
             {
               fprintf(stderr, "%s", j_strsignal(termsig));
 
-              if (WIFCORED(s)) fprintf(stderr, _(" (core dumped)"));
+              if (WIFCORED(s)) fprintf(stderr, " (core dumped)");
 
               fprintf(stderr, "\n");
             }
@@ -3504,7 +3504,7 @@ static void notify_of_job_status() {
             if (dir == 0) dir = current_working_directory();
             pretty_print_job(job, JLIST_STANDARD, stderr);
             if (dir && strcmp(dir, jobs[job]->wd) != 0)
-              fprintf(stderr, _("(wd now: %s)\n"),
+              fprintf(stderr, "(wd now: %s)\n",
                       polite_directory_format(dir));
           }
 
@@ -3516,7 +3516,7 @@ static void notify_of_job_status() {
           if (dir == 0) dir = current_working_directory();
           pretty_print_job(job, JLIST_STANDARD, stderr);
           if (dir && (strcmp(dir, jobs[job]->wd) != 0))
-            fprintf(stderr, _("(wd now: %s)\n"), polite_directory_format(dir));
+            fprintf(stderr, "(wd now: %s)\n", polite_directory_format(dir));
           jobs[job]->flags |= J_NOTIFIED;
           break;
 
@@ -3545,7 +3545,7 @@ int initialize_job_control(force) int force;
   shell_pgrp = getpgid(0);
 
   if (shell_pgrp == -1) {
-    sys_error(_("initialize_job_control: getpgrp failed"));
+    sys_error("initialize_job_control: getpgrp failed");
     exit(1);
   }
 
@@ -3597,14 +3597,14 @@ int initialize_job_control(force) int force;
 
     /* Make sure that we are using the new line discipline. */
     if (set_new_line_discipline(shell_tty) < 0) {
-      sys_error(_("initialize_job_control: line discipline"));
+      sys_error("initialize_job_control: line discipline");
       job_control = 0;
     } else {
       original_pgrp = shell_pgrp;
       shell_pgrp = getpid();
 
       if ((original_pgrp != shell_pgrp) && (setpgid(0, shell_pgrp) < 0)) {
-        sys_error(_("initialize_job_control: setpgid"));
+        sys_error("initialize_job_control: setpgid");
         shell_pgrp = original_pgrp;
       }
 
@@ -3623,7 +3623,7 @@ int initialize_job_control(force) int force;
           setpgid(0, original_pgrp);
           shell_pgrp = original_pgrp;
           errno = t_errno;
-          sys_error(_("cannot set terminal process group (%d)"), shell_pgrp);
+          sys_error("cannot set terminal process group (%d)", shell_pgrp);
           job_control = 0;
         }
       }
@@ -3631,11 +3631,11 @@ int initialize_job_control(force) int force;
       if (job_control &&
           ((t = tcgetpgrp(shell_tty)) == -1 || t != shell_pgrp)) {
         if (t_errno != -1) errno = t_errno;
-        sys_error(_("cannot set terminal process group (%d)"), t);
+        sys_error("cannot set terminal process group (%d)", t);
         job_control = 0;
       }
     }
-    if (job_control == 0) internal_error(_("no job control in this shell"));
+    if (job_control == 0) internal_error("no job control in this shell");
   }
 
   running_in_background = terminal_pgrp != shell_pgrp;

@@ -232,10 +232,10 @@ int check_identifier(word, check_word) WORD_DESC *word;
 int check_word;
 {
   if ((word->flags & (W_HASDOLLAR | W_QUOTED)) || all_digits(word->word)) {
-    internal_error(_("`%s': not a valid identifier"), word->word);
+    internal_error("`%s': not a valid identifier", word->word);
     return (0);
   } else if (check_word && legal_identifier(word->word) == 0) {
-    internal_error(_("`%s': not a valid identifier"), word->word);
+    internal_error("`%s': not a valid identifier", word->word);
     return (0);
   } else
     return (1);

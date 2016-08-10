@@ -319,7 +319,7 @@ int ulimit_builtin(register WORD_LIST* list) {
         {
           if (STREQ (list->word->word, "unlimited") == 0)
             {
-              builtin_error (_("%s: invalid limit argument"), list->word->word);
+              builtin_error ("%s: invalid limit argument", list->word->word);
               return (EXECUTION_FAILURE);
             }
           return (set_all_limits (mode == 0 ? LIMIT_SOFT|LIMIT_HARD : mode, RLIM_INFINITY));
@@ -345,7 +345,7 @@ int ulimit_builtin(register WORD_LIST* list) {
       limind = _findlim (cmdlist[c].cmd);
       if (limind == -1)
 	{
-	  builtin_error (_("`%c': bad command"), cmdlist[c].cmd);
+	  builtin_error ("`%c': bad command", cmdlist[c].cmd);
 	  return (EX_USAGE);
 	}
     }
@@ -374,7 +374,7 @@ ulimit_internal (cmd, cmdarg, mode, multiple)
   opt = get_limit (limind, &soft_limit, &hard_limit);
   if (opt < 0)
     {
-      builtin_error (_("%s: cannot get limit: %s"), limits[limind].description,
+      builtin_error ("%s: cannot get limit: %s", limits[limind].description,
 						 strerror (errno));
       return (EXECUTION_FAILURE);
     }
@@ -400,7 +400,7 @@ ulimit_internal (cmd, cmdarg, mode, multiple)
 
       if ((real_limit / block_factor) != limit)
 	{
-	  sh_erange (cmdarg, _("limit"));
+	  sh_erange (cmdarg, "limit");
 	  return (EXECUTION_FAILURE);
 	}
     }
@@ -412,7 +412,7 @@ ulimit_internal (cmd, cmdarg, mode, multiple)
 
   if (set_limit (limind, real_limit, mode) < 0)
     {
-      builtin_error (_("%s: cannot modify limit: %s"), limits[limind].description,
+      builtin_error ("%s: cannot modify limit: %s", limits[limind].description,
 						    strerror (errno));
       return (EXECUTION_FAILURE);
     }
@@ -712,7 +712,7 @@ set_all_limits (mode, newlim)
   for (retval = i = 0; limits[i].option > 0; i++)
     if (set_limit (i, newlim, mode) < 0)
       {
-	builtin_error (_("%s: cannot modify limit: %s"), limits[i].description,
+	builtin_error ("%s: cannot modify limit: %s", limits[i].description,
 						      strerror (errno));
 	retval = 1;
       }

@@ -113,7 +113,7 @@ mapfile (fd, line_count_goal, origin, nskip, callback_quantum, callback, array_n
     }
   else if (array_p (entry) == 0)
     {
-      builtin_error (_("%s: not an indexed array"), array_name);
+      builtin_error ("%s: not an indexed array", array_name);
       return (EXECUTION_FAILURE);
     }
   else if (invisible_p (entry))
@@ -205,7 +205,7 @@ int mapfile_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval < 0 || intval != (int)intval)
 	    {
-	      builtin_error (_("%s: invalid file descriptor specification"), list_optarg);
+	      builtin_error ("%s: invalid file descriptor specification", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -213,7 +213,7 @@ int mapfile_builtin(WORD_LIST* list) {
 
 	  if (sh_validfd (fd) == 0)
 	    {
-	      builtin_error (_("%d: invalid file descriptor: %s"), fd, strerror (errno));
+	      builtin_error ("%d: invalid file descriptor: %s", fd, strerror (errno));
 	      return (EXECUTION_FAILURE);
 	    }
 	  break;	  
@@ -222,7 +222,7 @@ int mapfile_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval < 0 || intval != (unsigned)intval)
 	    {
-	      builtin_error (_("%s: invalid line count"), list_optarg);
+	      builtin_error ("%s: invalid line count", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -233,7 +233,7 @@ int mapfile_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval < 0 || intval != (unsigned)intval)
 	    {
-	      builtin_error (_("%s: invalid array origin"), list_optarg);
+	      builtin_error ("%s: invalid array origin", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -250,7 +250,7 @@ int mapfile_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval <= 0 || intval != (unsigned)intval)
 	    {
-	      builtin_error (_("%s: invalid callback quantum"), list_optarg);
+	      builtin_error ("%s: invalid callback quantum", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -260,7 +260,7 @@ int mapfile_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval < 0 || intval != (unsigned)intval)
 	    {
-	      builtin_error (_("%s: invalid line count"), list_optarg);
+	      builtin_error ("%s: invalid line count", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -283,7 +283,7 @@ int mapfile_builtin(WORD_LIST* list) {
     }
   else if (list->word->word[0] == '\0')
     {
-      builtin_error (_("empty array variable name"));
+      builtin_error ("empty array variable name");
       return (EX_USAGE);
     } 
   else
@@ -302,7 +302,7 @@ int mapfile_builtin(WORD_LIST* list) {
 
 extern int mapfile_builtin(WORD_LIST* list);
 int mapfile_builtin(WORD_LIST* list) {
-  builtin_error (_("array variable support required"));
+  builtin_error ("array variable support required");
   return (EXECUTION_FAILURE);
 }
 

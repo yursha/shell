@@ -35,13 +35,13 @@ int shift_builtin(WORD_LIST* list) {
     return (EXECUTION_SUCCESS);
   else if (times < 0)
     {
-      sh_erange (list ? list->word->word : NULL, _("shift count"));
+      sh_erange (list ? list->word->word : NULL, "shift count");
       return (EXECUTION_FAILURE);
     }
   else if (times > number_of_args ())
     {
       if (print_shift_error)
-	sh_erange (list ? list->word->word : NULL, _("shift count"));
+	sh_erange (list ? list->word->word : NULL, "shift count");
       return (EXECUTION_FAILURE);
     }
 

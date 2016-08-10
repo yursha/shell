@@ -320,7 +320,7 @@ int flags;
               ((x = parser_remaining_input()) && *x) ||
               (STREQ(from_file, command->value.Function_def->name->word) ==
                0)) {
-            internal_warning(_("%s: ignoring function definition attempt"),
+            internal_warning("%s: ignoring function definition attempt",
                              from_file);
             should_jump_to_top_level = 0;
             last_result = last_command_exit_value = EX_BADUSAGE;

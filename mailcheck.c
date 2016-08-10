@@ -371,7 +371,7 @@ void check_mail() {
 
       use_user_notification = mailfiles[i]->msg != (char *)NULL;
       message =
-          mailfiles[i]->msg ? mailfiles[i]->msg : _("You have mail in $_");
+          mailfiles[i]->msg ? mailfiles[i]->msg : "You have mail in $_";
 
       bind_variable("_", current_mail_file, 0);
 
@@ -395,7 +395,7 @@ void check_mail() {
       /* If the mod time is later than the access time and the file
          has grown, note the fact that this is *new* mail. */
       if (use_user_notification == 0 && (atime < mtime) && file_is_bigger)
-        message = _("You have new mail in $_");
+        message = "You have new mail in $_";
 #undef atime
 #undef mtime
 
@@ -408,7 +408,7 @@ void check_mail() {
 
     if (mail_warning && file_access_date_changed(i)) {
       update_mail_file(i);
-      printf(_("The mail in %s has been read\n"), current_mail_file);
+      printf("The mail in %s has been read\n", current_mail_file);
     }
   }
 

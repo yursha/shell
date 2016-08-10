@@ -85,7 +85,7 @@ static void error_prolog(print_lineno) int print_lineno;
       (print_lineno && interactive_shell == 0) ? executing_line_number() : -1;
 
   if (line > 0)
-    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : _(" line "),
+    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : " line ",
             line);
   else
     fprintf(stderr, "%s: ", ename);
@@ -151,7 +151,7 @@ va_dcl
 #if defined(HISTORY)
   if (remember_on_history) {
     h = last_history_line();
-    fprintf(stderr, _("last command: %s\n"), h ? h : "(null)");
+    fprintf(stderr, "last command: %s\n", h ? h : "(null)");
   }
 #endif
 
@@ -159,7 +159,7 @@ va_dcl
   fprintf (stderr, "Report this to %s\n", the_current_maintainer);
 #endif
 
-  fprintf(stderr, _("Aborting..."));
+  fprintf(stderr, "Aborting...");
   fflush(stderr);
 
   abort();
@@ -245,7 +245,7 @@ va_dcl
   va_list args;
 
   error_prolog(1);
-  fprintf(stderr, _("warning: "));
+  fprintf(stderr, "warning: ");
 
   SH_VA_START(args, format);
 
@@ -267,7 +267,7 @@ va_dcl
 
   error_prolog(1);
   /* TRANSLATORS: this is a prefix for informational messages. */
-  fprintf(stderr, _("INFORM: "));
+  fprintf(stderr, "INFORM: ");
 
   SH_VA_START(args, format);
 
@@ -326,13 +326,13 @@ va_dcl
     fprintf(stderr, "%s: ", ename);
   else if (interactive_shell)
     fprintf(stderr, "%s: %s:%s%d: ", ename, iname,
-            gnu_error_format ? "" : _(" line "), lineno);
+            gnu_error_format ? "" : " line ", lineno);
   else if (STREQ(ename, iname))
-    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : _(" line "),
+    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : " line ",
             lineno);
   else
     fprintf(stderr, "%s: %s:%s%d: ", ename, iname,
-            gnu_error_format ? "" : _(" line "), lineno);
+            gnu_error_format ? "" : " line ", lineno);
 
   SH_VA_START(args, format);
 
@@ -442,23 +442,23 @@ int code, e, flags; /* flags currently unused */
 {
   if (code > CMDERR_LAST) code = CMDERR_DEFAULT;
 
-  programming_error("%s: %s: %d", func, _(cmd_error_table[code]), e);
+  programming_error("%s: %s: %d", func, cmd_error_table[code], e);
 }
 
 char *command_errstr(code) int code;
 {
   if (code > CMDERR_LAST) code = CMDERR_DEFAULT;
 
-  return (_(cmd_error_table[code]));
+  return (cmd_error_table[code]);
 }
 
 #ifdef ARRAY_VARS
 void err_badarraysub(s) const char *s;
-{ report_error("%s: %s", s, _(bash_badsub_errmsg)); }
+{ report_error("%s: %s", s, bash_badsub_errmsg); }
 #endif
 
 void err_unboundvar(s) const char *s;
-{ report_error(_("%s: unbound variable"), s); }
+{ report_error("%s: unbound variable", s); }
 
 void err_readonly(s) const char *s;
-{ report_error(_("%s: readonly variable"), s); }
+{ report_error("%s: readonly variable", s); }

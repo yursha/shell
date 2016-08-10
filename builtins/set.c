@@ -694,7 +694,7 @@ int unset_builtin(WORD_LIST* list) {
 
   if (global_unset_func && global_unset_var)
     {
-      builtin_error (_("cannot simultaneously unset a function and a variable"));
+      builtin_error ("cannot simultaneously unset a function and a variable");
       return (EXECUTION_FAILURE);
     }
   else if (unset_function && nameref)
@@ -741,7 +741,7 @@ int unset_builtin(WORD_LIST* list) {
       /* Some variables (but not functions yet) cannot be unset, period. */
       if (var && unset_function == 0 && non_unsettable_p (var))
 	{
-	  builtin_error (_("%s: cannot unset"), name);
+	  builtin_error ("%s: cannot unset", name);
 	  NEXT_VARIABLE ();
 	}
 
@@ -762,7 +762,7 @@ int unset_builtin(WORD_LIST* list) {
       /* Posix.2 says that unsetting readonly variables is an error. */
       if (var && readonly_p (var))
 	{
-	  builtin_error (_("%s: cannot unset: readonly %s"),
+	  builtin_error ("%s: cannot unset: readonly %s",
 			 var->name, unset_function ? "function" : "variable");
 	  NEXT_VARIABLE ();
 	}
@@ -775,7 +775,7 @@ int unset_builtin(WORD_LIST* list) {
 	  tem = unbind_array_element (var, t);
 	  if (tem == -2 && array_p (var) == 0 && assoc_p (var) == 0)
 	    {
-	      builtin_error (_("%s: not an array variable"), var->name);
+	      builtin_error ("%s: not an array variable", var->name);
 	      NEXT_VARIABLE ();
 	    }
 	  else if (tem < 0)

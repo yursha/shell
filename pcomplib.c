@@ -146,7 +146,7 @@ COMPSPEC *cs;
   register BUCKET_CONTENTS *item;
 
   if (cs == NULL)
-    programming_error(_("progcomp_insert: %s: NULL COMPSPEC"), cmd);
+    programming_error("progcomp_insert: %s: NULL COMPSPEC", cmd);
 
   if (prog_completes == 0) progcomp_create();
 

@@ -247,7 +247,7 @@ int cd_builtin(WORD_LIST* list) {
 
       if (dirname == 0)
 	{
-	  builtin_error (_("HOME not set"));
+	  builtin_error ("HOME not set");
 	  return (EXECUTION_FAILURE);
 	}
       lflag = 0;
@@ -255,14 +255,14 @@ int cd_builtin(WORD_LIST* list) {
 #if defined (CD_COMPLAINS)
   else if (list->next)
     {
-      builtin_error (_("too many arguments"));
+      builtin_error ("too many arguments");
       return (EXECUTION_FAILURE);
     }
 #endif
 #if 0
   else if (list->word->word[0] == '\0')
     {
-      builtin_error (_("null directory"));
+      builtin_error ("null directory");
       return (EXECUTION_FAILURE);
     }
 #endif
@@ -273,7 +273,7 @@ int cd_builtin(WORD_LIST* list) {
 
       if (dirname == 0)
 	{
-	  builtin_error (_("OLDPWD not set"));
+	  builtin_error ("OLDPWD not set");
 	  return (EXECUTION_FAILURE);
 	}
 #if 0

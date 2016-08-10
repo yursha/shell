@@ -26,7 +26,7 @@ int return_builtin(WORD_LIST* list) {
     siglongjmp(return_catch, 1);
   else
     {
-      builtin_error (_("can only `return' from a function or sourced script"));
+      builtin_error ("can only `return' from a function or sourced script");
       return (EXECUTION_FAILURE);
     }
 }
