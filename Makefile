@@ -16,12 +16,8 @@ exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
 
-bindir = ${exec_prefix}/bin
 libdir = ${exec_prefix}/lib
-infodir = ${datarootdir}/info
 includedir = ${prefix}/include
-datadir = ${datarootdir}
-localedir = ${datarootdir}/locale
 
 loadablesdir = ${libdir}/bash
 headersdir = $(includedir)/$(PACKAGE_NAME)
@@ -65,8 +61,6 @@ INSTALLMODE= -m 0755
 INSTALLMODE2 = -m 0555
 
 TESTSCRIPT = run-all
-
-DEBUGGER_START_FILE = ${datadir}/bashdb/bashdb-main.inc
 
 #If you have purify, and want to use it, run the make as `make PURIFY=purify'
 #PURIFY = @PURIFY@
@@ -579,35 +573,10 @@ install-headers: install-headers-dirs
 		${INSTALL_DATA} $(BUILD_DIR)/"$$hf" $(DESTDIR)$(headersdir)/$$hf; \
 	done
 
-uninstall-headers:
-	-( cd $(DESTDIR)$(headersdir) && rm -f $(INSTALLED_HEADERS) )
-	-( cd $(DESTDIR)$(headersdir)/include && rm -f $(INSTALLED_INCFILES) )
-	-( cd $(DESTDIR)$(headersdir)/builtins && rm -f $(INSTALLED_BUILTINS_HEADERS) )
-	-( cd $(DESTDIR)$(headersdir) && rm -f $(CREATED_HEADERS) )
-	-( rm -f $(DESTDIR)$(libdir)/pkgconfig/bash.pc )
-
-uninstall:	.made
-	rm -f $(DESTDIR)$(bindir)/bash
-	-( cd $(DESTDIR)$(docdir) && ${RM} ${OTHER_INSTALLED_DOCS} )
-	-( cd $(DOCDIR) ; $(MAKE) $(MFLAGS) \
-		man1dir=$(man1dir) man1ext=$(man1ext) \
-		man3dir=$(man3dir) man3ext=$(man3ext) \
-		infodir=$(infodir) htmldir=$(htmldir) DESTDIR=$(DESTDIR) $@ )
-	-( cd $(LOADABLES_DIR) && $(MAKE) $(MFLAGS) DESTDIR=$(DESTDIR) $@ )
-
 .PHONY: clean
 
 clean:
 	rm -f $(OBJECTS) bash
-
-dist:	force
-	@echo Bash distributions are created using $(srcdir)/support/mkdist.
-	@echo Here is a sample of the necessary commands:
-	@echo bash $(srcdir)/support/mkdist -m $(srcdir)/MANIFEST -s $(srcdir) -r ${PACKAGE} -t $(PACKAGE_VERSION)
-
-xdist:	force
-	( cd $(DOCDIR) && $(MAKE) $(MFLAGS) $@ )
-	( cd po && $(MAKE) $(MFLAGS) $@ )
 
 depend:	depends
 
