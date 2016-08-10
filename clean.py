@@ -6,12 +6,8 @@ home = os.path.realpath('.')
 
 
 dirs = []
-dirs.append('./lib/termcap')
 dirs.append('./lib/tilde/doc')
 dirs.append('./lib/tilde')
-dirs.append('./lib/readline/examples')
-dirs.append('./lib/readline/doc')
-dirs.append('./lib/readline')
 dirs.append('./lib/sh')
 dirs.append('./lib/glob/doc')
 dirs.append('./lib/glob')
