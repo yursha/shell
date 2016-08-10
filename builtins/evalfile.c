@@ -1,6 +1,5 @@
 /* evalfile.c - read and evaluate commands from a file or file descriptor */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

@@ -1,7 +1,6 @@
 /* shell.c -- tilde utility functions that are normally provided by
               bash when readline is linked as part of the shell. */
 
-
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif

@@ -1,6 +1,5 @@
 /* Readline.h -- the names of functions callable from within readline. */
 
-
 #if !defined(_READLINE_H_)
 #define _READLINE_H_
 
@@ -874,7 +873,8 @@ extern int rl_persistent_signal_handlers;
 #define RL_STATE_CALLBACK 0x0080000     /* using the callback interface */
 #define RL_STATE_VIMOTION 0x0100000     /* reading vi motion arg */
 #define RL_STATE_MULTIKEY 0x0200000     /* reading multiple-key command */
-#define RL_STATE_VICMDONCE 0x0400000  /* entered vi command mode at least once \
+#define RL_STATE_VICMDONCE                                                     \
+  0x0400000                           /* entered vi command mode at least once \
                                          */
 #define RL_STATE_CHARSEARCH 0x0800000 /* vi mode char search */
 #define RL_STATE_REDISPLAYING 0x1000000 /* updating terminal display */

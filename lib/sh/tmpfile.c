@@ -2,7 +2,6 @@
  * tmpfile.c - functions to create and safely open temp files for the shell.
  */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

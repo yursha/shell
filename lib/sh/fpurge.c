@@ -1,6 +1,5 @@
 /* fpurge - Flushing buffers of a FILE stream. */
 
-
 #include <config.h>
 
 #include "stdc.h"

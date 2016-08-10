@@ -1,6 +1,5 @@
 /* tilde.h: Externally available variables and function in libtilde.a. */
 
-
 #if !defined(_TILDE_H_)
 #define _TILDE_H_
 

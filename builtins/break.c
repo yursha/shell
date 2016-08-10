@@ -2,15 +2,14 @@
 
 #include <config.h>
 
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
-
 
 #include "../shell.h"
 #include "common.h"
 
-extern char *this_command_name;
+extern char* this_command_name;
 extern int posixly_correct;
 
 static int check_loop_level(void);
@@ -31,50 +30,43 @@ extern int continue_builtin(WORD_LIST* list);
 int break_builtin(WORD_LIST* list) {
   intmax_t newbreak;
 
-  CHECK_HELPOPT (list);
+  CHECK_HELPOPT(list);
 
-  if (check_loop_level () == 0)
-    return (EXECUTION_SUCCESS);
+  if (check_loop_level() == 0) return (EXECUTION_SUCCESS);
 
-  (void)get_numeric_arg (list, 1, &newbreak);
+  (void)get_numeric_arg(list, 1, &newbreak);
 
-  if (newbreak <= 0)
-    {
-      sh_erange (list->word->word, "loop count");
-      breaking = loop_level;
-      return (EXECUTION_FAILURE);
-    }
+  if (newbreak <= 0) {
+    sh_erange(list->word->word, "loop count");
+    breaking = loop_level;
+    return (EXECUTION_FAILURE);
+  }
 
-  if (newbreak > loop_level)
-    newbreak = loop_level;
+  if (newbreak > loop_level) newbreak = loop_level;
 
   breaking = newbreak;
 
   return (EXECUTION_SUCCESS);
 }
 
-
 /* Set up to continue x levels, where x defaults to 1, but can be specified
    as the first argument. */
 int continue_builtin(WORD_LIST* list) {
   intmax_t newcont;
 
-  CHECK_HELPOPT (list);
+  CHECK_HELPOPT(list);
 
-  if (check_loop_level () == 0)
-    return (EXECUTION_SUCCESS);
+  if (check_loop_level() == 0) return (EXECUTION_SUCCESS);
 
-  (void)get_numeric_arg (list, 1, &newcont);
+  (void)get_numeric_arg(list, 1, &newcont);
 
-  if (newcont <= 0)
-    {
-      sh_erange (list->word->word, "loop count");
-      breaking = loop_level;
-      return (EXECUTION_FAILURE);
-    }
+  if (newcont <= 0) {
+    sh_erange(list->word->word, "loop count");
+    breaking = loop_level;
+    return (EXECUTION_FAILURE);
+  }
 
-  if (newcont > loop_level)
-    newcont = loop_level;
+  if (newcont > loop_level) newcont = loop_level;
 
   continuing = newcont;
 
@@ -83,12 +75,10 @@ int continue_builtin(WORD_LIST* list) {
 
 /* Return non-zero if a break or continue command would be okay.
    Print an error message if break or continue is meaningless here. */
-static int
-check_loop_level ()
-{
-#if defined (BREAK_COMPLAINS)
+static int check_loop_level() {
+#if defined(BREAK_COMPLAINS)
   if (loop_level == 0 && posixly_correct == 0)
-    builtin_error ("only meaningful in a `for', `while', or `until' loop");
+    builtin_error("only meaningful in a `for', `while', or `until' loop");
 #endif /* BREAK_COMPLAINS */
 
   return (loop_level);

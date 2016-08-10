@@ -1,7 +1,6 @@
 /* input_avail.c -- check whether or not data is available for reading on a
                     specified file descriptor. */
 
-
 #if defined(__TANDEM)
 #include <floss.h>
 #endif

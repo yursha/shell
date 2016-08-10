@@ -1,7 +1,6 @@
 /* posixstat.h -- Posix stat(2) definitions for systems that
    don't have them. */
 
-
 /* This file should be included instead of <sys/stat.h>.
    It relies on the local sys/stat.h to work though. */
 #if !defined(_POSIXSTAT_H_)

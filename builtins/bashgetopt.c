@@ -1,6 +1,5 @@
 /* bashgetopt.c -- `getopt' for use by the builtins. */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

@@ -1,7 +1,6 @@
 /* undo.c - manage list of changes to lines, offering opportunity to undo them
  */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

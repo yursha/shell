@@ -1,6 +1,5 @@
 /* unwind_prot.h - Macros and functions for hacking unwind protection. */
 
-
 #if !defined(_UNWIND_PROT_H)
 #define _UNWIND_PROT_H
 

@@ -1,6 +1,5 @@
 /* sig.c - interface for shell signal handlers and signal initialization. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -11,7 +10,6 @@
 
 #include <stdio.h>
 #include <signal.h>
-
 
 #include "shell.h"
 #if defined(JOB_CONTROL)

@@ -1,7 +1,6 @@
 /* hashcmd.c - functions for managing a hash table mapping command names to
                full pathnames. */
 
-
 #include <config.h>
 
 #include "bashtypes.h"
@@ -28,7 +27,7 @@ void phash_create() {
     hashed_filenames = hash_create(FILENAME_HASH_BUCKETS);
 }
 
-static void phash_freedata(data) void * data;
+static void phash_freedata(data) void *data;
 {
   free(((PATH_DATA *)data)->path);
   free(data);

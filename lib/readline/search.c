@@ -1,6 +1,5 @@
 /* search.c - code for non-incremental searching in emacs and vi modes. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

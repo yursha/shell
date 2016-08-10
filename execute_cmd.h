@@ -1,6 +1,5 @@
 /* execute_cmd.h - functions from execute_cmd.c. */
 
-
 #if !defined(_EXECUTE_CMD_H_)
 #define _EXECUTE_CMD_H_
 

@@ -7,7 +7,6 @@
  * chet@ins.cwru.edu
  */
 
-
 #include "config.h"
 
 #if defined(ARRAY_VARS)
@@ -57,13 +56,12 @@ char *value;
 }
 
 /* Like assoc_insert, but returns b->data instead of freeing it */
-void *
-assoc_replace(hash, key, value) HASH_TABLE *hash;
+void *assoc_replace(hash, key, value) HASH_TABLE *hash;
 char *key;
 char *value;
 {
   BUCKET_CONTENTS *b;
-  void * t;
+  void *t;
 
   b = hash_search(key, hash, HASH_CREATE);
   if (b == 0) return (void *)0;

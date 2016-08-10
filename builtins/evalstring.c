@@ -1,6 +1,5 @@
 /* evalstring.c - evaluate a string as one or more shell commands. */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

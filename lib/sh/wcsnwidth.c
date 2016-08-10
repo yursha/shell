@@ -1,7 +1,6 @@
 /* wcsnwidth.c - compute display width of wide character string, up to max
                  specified width, return length. */
 
-
 #include <config.h>
 
 #if defined(HANDLE_MULTIBYTE)

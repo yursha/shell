@@ -1,7 +1,6 @@
 /* unionwait.h -- definitions for using a `union wait' on systems without
    one. */
 
-
 #ifndef _UNIONWAIT_H
 #define _UNIONWAIT_H
 

@@ -1,6 +1,5 @@
 /* conftypes.h -- defines for build and host system. */
 
-
 #if !defined(_CONFTYPES_H_)
 #define _CONFTYPES_H_
 

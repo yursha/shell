@@ -1,11 +1,10 @@
 /* suspend.c, created from suspend.def. */
 
-
 #include <config.h>
 
-#if defined (JOB_CONTROL)
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(JOB_CONTROL)
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
 
 #include "../bashtypes.h"
@@ -17,21 +16,19 @@
 
 static sighandler suspend_continue(int);
 
-static SigHandler *old_cont;
+static SigHandler* old_cont;
 #if 0
 static SigHandler *old_stop;
 #endif
 
 /* Continue handler. */
-static sighandler
-suspend_continue (sig)
-     int sig;
+static sighandler suspend_continue(sig) int sig;
 {
-  set_signal_handler (SIGCONT, old_cont);
+  set_signal_handler(SIGCONT, old_cont);
 #if 0
   set_signal_handler (SIGSTOP, old_stop);
 #endif
-  SIGRETURN (0);
+  SIGRETURN(0);
 }
 
 extern int suspend_builtin(WORD_LIST* list);
@@ -40,47 +37,42 @@ extern int suspend_builtin(WORD_LIST* list);
 int suspend_builtin(WORD_LIST* list) {
   int opt, force;
 
-  reset_internal_getopt ();
+  reset_internal_getopt();
   force = 0;
-  while ((opt = internal_getopt (list, "f")) != -1)
-    switch (opt)
-      {
+  while ((opt = internal_getopt(list, "f")) != -1) switch (opt) {
       case 'f':
-	force++;
-	break;
-      CASE_HELPOPT;
+        force++;
+        break;
+        CASE_HELPOPT;
       default:
-	builtin_usage ();
-	return (EX_USAGE);
-      }
-      
+        builtin_usage();
+        return (EX_USAGE);
+    }
+
   list = loptend;
 
-  if (job_control == 0)
-    {
-      sh_nojobs ("cannot suspend");
+  if (job_control == 0) {
+    sh_nojobs("cannot suspend");
+    return (EXECUTION_FAILURE);
+  }
+
+  if (force == 0) {
+    no_args(list);
+
+    if (login_shell) {
+      builtin_error("cannot suspend a login shell");
       return (EXECUTION_FAILURE);
     }
-
-  if (force == 0)  
-    {
-      no_args (list);
-
-      if (login_shell)
-	{
-	  builtin_error ("cannot suspend a login shell");
-	  return (EXECUTION_FAILURE);
-	}
-    }
+  }
 
   /* XXX - should we put ourselves back into the original pgrp now?  If so,
      call end_job_control() here and do the right thing in suspend_continue
      (that is, call restart_job_control()). */
-  old_cont = (SigHandler *)set_signal_handler (SIGCONT, suspend_continue);
+  old_cont = (SigHandler*)set_signal_handler(SIGCONT, suspend_continue);
 #if 0
   old_stop = (SigHandler *)set_signal_handler (SIGSTOP, SIG_DFL);
 #endif
-  killpg (shell_pgrp, SIGSTOP);
+  killpg(shell_pgrp, SIGSTOP);
   return (EXECUTION_SUCCESS);
 }
 

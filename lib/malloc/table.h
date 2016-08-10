@@ -46,7 +46,7 @@
  *
  */
 typedef struct mr_table {
-  void * mem;
+  void *mem;
   size_t size;
   char flags;
   const char *func;

@@ -1,6 +1,5 @@
 /* strstr - find a substring within a string */
 
-
 /*
  * My personal strstr() implementation that beats most other algorithms.
  * Until someone tells me otherwise, I assume that this is the

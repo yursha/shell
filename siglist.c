@@ -1,6 +1,5 @@
 /* siglist.c -- signal list for those machines that don't have one. */
 
-
 #include "config.h"
 
 #if !defined(HAVE_SYS_SIGLIST) && !defined(HAVE_UNDER_SYS_SIGLIST) && \

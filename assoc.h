@@ -1,7 +1,6 @@
 /* assoc.h -- definitions for the interface exported by assoc.c that allows
    the rest of the shell to manipulate associative array variables. */
 
-
 #ifndef _ASSOC_H_
 #define _ASSOC_H_
 
@@ -21,7 +20,7 @@ extern void assoc_dispose(HASH_TABLE *);
 extern void assoc_flush(HASH_TABLE *);
 
 extern int assoc_insert(HASH_TABLE *, char *, char *);
-extern void * assoc_replace(HASH_TABLE *, char *, char *);
+extern void *assoc_replace(HASH_TABLE *, char *, char *);
 extern void assoc_remove(HASH_TABLE *, char *);
 
 extern char *assoc_reference(HASH_TABLE *, char *);

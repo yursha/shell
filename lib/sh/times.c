@@ -1,6 +1,5 @@
 /* times.c - times(3) library function */
 
-
 #include <config.h>
 
 #if !defined(HAVE_TIMES)

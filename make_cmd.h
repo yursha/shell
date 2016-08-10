@@ -1,6 +1,5 @@
 /* make_cmd.h -- Declarations of functions found in make_cmd.c */
 
-
 #if !defined(_MAKE_CMD_H_)
 #define _MAKE_CMD_H_
 

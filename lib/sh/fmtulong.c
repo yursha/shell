@@ -1,6 +1,5 @@
 /* fmtulong.c -- Convert unsigned long int to string. */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -26,7 +25,6 @@
 #endif
 #include <chartypes.h>
 #include <errno.h>
-
 
 #include "stdc.h"
 

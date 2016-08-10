@@ -1,7 +1,6 @@
 /* command.h -- The structures used internally to represent commands, and
    the extern declarations of the functions used to create them. */
 
-
 #if !defined(_COMMAND_H_)
 #define _COMMAND_H_
 
@@ -118,14 +117,15 @@ enum command_type {
 #define W_NOBRACE 0x4000000 /* Don't perform brace expansion */
 
 /* Possible values for subshell_environment */
-#define SUBSHELL_ASYNC 0x01   /* subshell caused by `command &' */
-#define SUBSHELL_PAREN 0x02   /* subshell caused by ( ... ) */
-#define SUBSHELL_COMSUB 0x04  /* subshell caused by `command` or $(command) */
-#define SUBSHELL_FORK 0x08    /* subshell caused by executing a disk command */
-#define SUBSHELL_PIPE 0x10    /* subshell from a pipeline element */
-#define SUBSHELL_PROCSUB 0x20 /* subshell caused by <(command) or >(command) \
-                                 */
-#define SUBSHELL_COPROC 0x40  /* subshell from a coproc pipeline */
+#define SUBSHELL_ASYNC 0x01  /* subshell caused by `command &' */
+#define SUBSHELL_PAREN 0x02  /* subshell caused by ( ... ) */
+#define SUBSHELL_COMSUB 0x04 /* subshell caused by `command` or $(command) */
+#define SUBSHELL_FORK 0x08   /* subshell caused by executing a disk command */
+#define SUBSHELL_PIPE 0x10   /* subshell from a pipeline element */
+#define SUBSHELL_PROCSUB                                                    \
+  0x20                       /* subshell caused by <(command) or >(command) \
+                                */
+#define SUBSHELL_COPROC 0x40 /* subshell from a coproc pipeline */
 #define SUBSHELL_RESETTRAP \
   0x80 /* subshell needs to reset trap strings on first call to trap */
 

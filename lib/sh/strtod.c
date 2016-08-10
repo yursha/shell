@@ -1,6 +1,5 @@
 /* strtod.c - convert string to double-precision floating-point value. */
 
-
 #if HAVE_CONFIG_H
 #include <config.h>
 #endif

@@ -4,7 +4,6 @@
 
 /* Original version by tromey@cns.caltech.edu,  Fri Feb  7 1992. */
 
-
 #include "config.h"
 
 #if defined(BRACE_EXPANSION) && defined(READLINE)

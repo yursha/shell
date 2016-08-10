@@ -1,7 +1,6 @@
 /* collsyms.h -- collating symbol names and their corresponding characters
                  (in ascii) as given by POSIX.2 in table 2.8. */
 
-
 /* The upper-case letters, lower-case letters, and digits are omitted from
    this table.  The digits are not included in the table in the POSIX.2
    spec.  The upper and lower case letters are translated by the code

@@ -1,6 +1,5 @@
 /* braces.c -- code for doing word expansion in curly braces. */
 
-
 /* Stuff in curly braces gets expanded before all other shell expansions. */
 
 #include "config.h"
@@ -270,8 +269,7 @@ int flags;
 
       tresult = strvec_mresize(result, lp + lr + 1);
       if (tresult == 0) {
-        internal_error("brace expansion: cannot allocate memory for %s",
-                       tem);
+        internal_error("brace expansion: cannot allocate memory for %s", tem);
         strvec_dispose(result);
         result = (char **)NULL;
         return result;
@@ -356,8 +354,8 @@ int type, width;
     return ((char **)NULL);
   result = strvec_mcreate(nelem + 1);
   if (result == 0) {
-    internal_error(
-        "brace expansion: failed to allocate memory for %d elements", nelem);
+    internal_error("brace expansion: failed to allocate memory for %d elements",
+                   nelem);
     return ((char **)NULL);
   }
 
@@ -394,8 +392,7 @@ int type, width;
       /* Easier to do this than mess around with various intmax_t printf
          formats (%ld? %lld? %jd?) and PRIdMAX. */
       p = inttostr(n, lbuf, sizeof(lbuf));
-      internal_error("brace expansion: failed to allocate memory for `%s'",
-                     p);
+      internal_error("brace expansion: failed to allocate memory for `%s'", p);
       strvec_dispose(result);
       return ((char **)NULL);
     }

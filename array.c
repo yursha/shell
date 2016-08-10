@@ -9,7 +9,6 @@
  * chet@ins.cwru.edu
  */
 
-
 #include "config.h"
 
 #if defined(ARRAY_VARS)

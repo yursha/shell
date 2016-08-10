@@ -1,6 +1,5 @@
 /* text.c -- text handling commands for readline. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

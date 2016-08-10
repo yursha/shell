@@ -1,6 +1,5 @@
 /* list.c - Functions for manipulating linked lists of objects. */
 
-
 #include "config.h"
 
 #if defined(HAVE_UNISTD_H)

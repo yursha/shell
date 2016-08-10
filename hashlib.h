@@ -8,7 +8,7 @@
 typedef struct bucket_contents {
   struct bucket_contents *next; /* Link to next hashed key in this bucket. */
   char *key;                    /* What we look up. */
-  void * data;                   /* What we really want. */
+  void *data;                   /* What we really want. */
   unsigned int khash;           /* What key hashes to */
   int times_found;              /* Number of times this item has been found. */
 } BUCKET_CONTENTS;

@@ -1,6 +1,5 @@
 /* redir.c -- Functions to perform input and output redirection. */
 
-
 #include "config.h"
 
 #if !defined(__GNUC__) && !defined(HAVE_ALLOCA_H) && defined(_AIX)
@@ -897,8 +896,7 @@ int flags;
         redirector =
             fcntl(redir_fd, F_DUPFD, SHELL_FD_BASE); /* XXX try this for now */
         r = errno;
-        if (redirector < 0)
-          sys_error("redirection error: cannot duplicate fd");
+        if (redirector < 0) sys_error("redirection error: cannot duplicate fd");
         REDIRECTION_ERROR(redirector, r, -1);
       }
 

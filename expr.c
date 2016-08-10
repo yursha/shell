@@ -1,6 +1,5 @@
 /* expr.c -- arithmetic expression evaluation. */
 
-
 /*
  All arithmetic is done as intmax_t integers with no checking for overflow
  (though division by 0 is caught and flagged as an error).

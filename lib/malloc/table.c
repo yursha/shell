@@ -1,6 +1,5 @@
 /* table.c - bookkeeping functions for allocated memory */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -23,8 +22,9 @@ extern int malloc_register;
 extern FILE *_imalloc_fopen(char *, char *, char *, char *, size_t);
 
 #define FIND_ALLOC 0x01 /* find slot for new allocation */
-#define FIND_EXIST 0x02 /* find slot for existing entry for free() or search \
-                           */
+#define FIND_EXIST                                          \
+  0x02 /* find slot for existing entry for free() or search \
+          */
 
 static int table_count = 0;
 static int table_allocated = 0;
@@ -43,7 +43,7 @@ static ma_table_t mlocation_table[REG_TABLE_SIZE];
 /*
  * NOTE: taken from dmalloc (http://dmalloc.com) and modified.
  */
-static unsigned int mt_hash(key) const void * key;
+static unsigned int mt_hash(key) const void *key;
 {
   unsigned int a, b, c;
   unsigned long x;
@@ -80,7 +80,7 @@ which_bucket (mem)
   ((mem == mem_table) ? mem_table + REG_TABLE_SIZE - 1 : mem - 1)
 #endif
 
-static mr_table_t *find_entry(mem, flags) void * mem;
+static mr_table_t *find_entry(mem, flags) void *mem;
 int flags;
 {
   unsigned int bucket;
@@ -113,10 +113,10 @@ int flags;
   return (mr_table_t *)NULL;
 }
 
-mr_table_t *mr_table_entry(mem) void * mem;
+mr_table_t *mr_table_entry(mem) void *mem;
 { return (find_entry(mem, FIND_EXIST)); }
 
-void mregister_describe_mem(mem, fp) void * mem;
+void mregister_describe_mem(mem, fp) void *mem;
 FILE *fp;
 {
   mr_table_t *entry;
@@ -130,7 +130,7 @@ FILE *fp;
 }
 
 void mregister_alloc(tag, mem, size, file, line) const char *tag;
-void * mem;
+void *mem;
 size_t size;
 const char *file;
 int line;
@@ -156,16 +156,14 @@ int line;
 
   if (tentry == 0) {
     /* oops.  table is full.  punt. */
-    fprintf(stderr,
-            "register_alloc: alloc table is full with FIND_ALLOC?\n");
+    fprintf(stderr, "register_alloc: alloc table is full with FIND_ALLOC?\n");
     if (blocked_sigs) _malloc_unblock_signals(&set, &oset);
     return;
   }
 
   if (tentry->flags & MT_ALLOC) {
     /* oops.  bad bookkeeping. ignore for now */
-    fprintf(stderr, "register_alloc: %p already in table as allocated?\n",
-            mem);
+    fprintf(stderr, "register_alloc: %p already in table as allocated?\n", mem);
   }
 
   tentry->mem = mem;
@@ -181,7 +179,7 @@ int line;
   if (blocked_sigs) _malloc_unblock_signals(&set, &oset);
 }
 
-void mregister_free(mem, size, file, line) void * mem;
+void mregister_free(mem, size, file, line) void *mem;
 int size;
 const char *file;
 int line;

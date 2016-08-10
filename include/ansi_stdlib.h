@@ -2,7 +2,6 @@
 /* A minimal stdlib.h containing extern declarations for those functions
    that bash uses. */
 
-
 #if !defined(_STDLIB_H_)
 #define _STDLIB_H_ 1
 
@@ -13,8 +12,8 @@ extern double atof();
 extern double strtod();
 
 /* Memory allocation functions. */
-extern void * malloc();
-extern void * realloc();
+extern void *malloc();
+extern void *realloc();
 extern void free();
 
 /* Other miscellaneous functions. */

@@ -1,6 +1,5 @@
 /* pcomplib.c - library functions for programmable completion. */
 
-
 #include <config.h>
 
 #if defined(PROGRAMMABLE_COMPLETION)
@@ -11,7 +10,6 @@
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
-
 
 #include "shell.h"
 #include "pcomplete.h"
@@ -90,7 +88,7 @@ void progcomp_create() {
 
 int progcomp_size() { return (HASH_ENTRIES(prog_completes)); }
 
-static void free_progcomp(data) void * data;
+static void free_progcomp(data) void *data;
 {
   COMPSPEC *cs;
 
@@ -128,8 +126,7 @@ COMPSPEC *cs;
 {
   register BUCKET_CONTENTS *item;
 
-  if (cs == NULL)
-    programming_error("progcomp_insert: %s: NULL COMPSPEC", cmd);
+  if (cs == NULL) programming_error("progcomp_insert: %s: NULL COMPSPEC", cmd);
 
   if (prog_completes == 0) progcomp_create();
 

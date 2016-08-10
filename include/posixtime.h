@@ -1,6 +1,5 @@
 /* posixtime.h -- wrapper for time.h, sys/times.h mess. */
 
-
 #ifndef _POSIXTIME_H_
 #define _POSIXTIME_H_
 

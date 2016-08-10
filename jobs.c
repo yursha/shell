@@ -4,7 +4,6 @@
 /* This file works with both POSIX and BSD systems.  It implements job
    control. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -906,8 +905,7 @@ static void delete_old_job(pid) pid_t pid;
       delete_job(job, DEL_NOBGPID);
     else {
 #ifdef DEBUG
-      internal_warning("forked pid %d appears in running job %d", pid,
-                       job + 1);
+      internal_warning("forked pid %d appears in running job %d", pid, job + 1);
 #endif
       if (p) p->pid = 0;
     }
@@ -2040,8 +2038,7 @@ int flags;
 
   if (child == 0) {
     if (flags & 1)
-      internal_error("wait: pid %ld is not a child of this shell",
-                     (long)pid);
+      internal_error("wait: pid %ld is not a child of this shell", (long)pid);
     return (127);
   }
 
@@ -2242,16 +2239,16 @@ int job_exit_status(job) int job;
 int job_exit_signal(job) int job;
 { return (process_exit_signal(raw_job_exit_status(job))); }
 
-#define FIND_CHILD(pid, child)                                            \
-  do {                                                                    \
-    child = find_pipeline(pid, 0, (int *)NULL);                           \
-    if (child == 0) {                                                     \
-      give_terminal_to(shell_pgrp, 0);                                    \
-      UNBLOCK_CHILD(oset);                                                \
+#define FIND_CHILD(pid, child)                                         \
+  do {                                                                 \
+    child = find_pipeline(pid, 0, (int *)NULL);                        \
+    if (child == 0) {                                                  \
+      give_terminal_to(shell_pgrp, 0);                                 \
+      UNBLOCK_CHILD(oset);                                             \
       internal_error("wait_for: No record of process %ld", (long)pid); \
-      restore_sigint_handler();                                           \
-      return (termination_state = 127);                                   \
-    }                                                                     \
+      restore_sigint_handler();                                        \
+      return (termination_state = 127);                                \
+    }                                                                  \
   } while (0)
 
 /* Wait for pid (one of our children) to terminate, then
@@ -2484,8 +2481,7 @@ if (job == NO_JOB)
            or until loop, act as if the shell received SIGINT as
            well, so the loop can be broken.  This doesn't call the
            SIGINT signal handler; maybe it should. */
-        if (signal_is_trapped(SIGINT) == 0 &&
-            (loop_level || (executing_list)))
+        if (signal_is_trapped(SIGINT) == 0 && (loop_level || (executing_list)))
           ADDINTERRUPT;
         /* Call any SIGINT trap handler if the shell is running a loop, so
            the loop can be broken.  This seems more useful and matches the
@@ -3487,8 +3483,7 @@ static void notify_of_job_status() {
             if (dir == 0) dir = current_working_directory();
             pretty_print_job(job, JLIST_STANDARD, stderr);
             if (dir && strcmp(dir, jobs[job]->wd) != 0)
-              fprintf(stderr, "(wd now: %s)\n",
-                      polite_directory_format(dir));
+              fprintf(stderr, "(wd now: %s)\n", polite_directory_format(dir));
           }
 
           jobs[job]->flags |= J_NOTIFIED;

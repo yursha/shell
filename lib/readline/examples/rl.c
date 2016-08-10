@@ -5,7 +5,6 @@
  * usage: rl [-p prompt] [-u unit] [-d default] [-n nchars]
  */
 
-
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif

@@ -1,6 +1,5 @@
 /* bashansi.h -- Typically included information required by picky compilers. */
 
-
 #if !defined(_BASHANSI_H_)
 #define _BASHANSI_H_
 

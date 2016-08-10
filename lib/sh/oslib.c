@@ -1,6 +1,5 @@
 /* oslib.c - functions present only in some unix versions. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

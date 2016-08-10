@@ -2,7 +2,6 @@
    for readline.  This should be included after any files that define
    system-specific constants like _POSIX_VERSION or USG. */
 
-
 #if !defined(_RLDEFS_H_)
 #define _RLDEFS_H_
 

@@ -1,7 +1,6 @@
 /* parser.h -- Everything you wanted to know about the parser, but were
    afraid to ask. */
 
-
 #if !defined(_PARSER_H_)
 #define _PARSER_H_
 
@@ -51,8 +50,9 @@ struct dstack {
 #define DOLBRACE_OP 0x02
 #define DOLBRACE_WORD 0x04
 
-#define DOLBRACE_QUOTE 0x40  /* single quote is special in double quotes */
-#define DOLBRACE_QUOTE2 0x80 /* single quote is semi-special in double quotes \
-                                */
+#define DOLBRACE_QUOTE 0x40 /* single quote is special in double quotes */
+#define DOLBRACE_QUOTE2                                 \
+  0x80 /* single quote is semi-special in double quotes \
+          */
 
 #endif /* _PARSER_H_ */

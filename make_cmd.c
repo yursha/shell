@@ -1,7 +1,6 @@
 /* make_cmd.c -- Functions for making instances of the various
    parser constructs. */
 
-
 #include "config.h"
 
 #include <stdio.h>
@@ -14,7 +13,6 @@
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
-
 
 #include "parser.h"
 #include "syntax.h"

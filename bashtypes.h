@@ -1,6 +1,5 @@
 /* bashtypes.h -- Bash system types. */
 
-
 #if !defined(_BASHTYPES_H_)
 #define _BASHTYPES_H_
 

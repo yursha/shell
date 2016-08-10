@@ -1,7 +1,6 @@
 /* strtol - convert string representation of a number into a long integer value.
  */
 
-
 #include <config.h>
 
 #if !defined(HAVE_STRTOL)

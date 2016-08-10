@@ -2,7 +2,6 @@
  * rename - rename a file
  */
 
-
 #include <config.h>
 
 #if !defined(HAVE_RENAME)

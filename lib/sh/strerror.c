@@ -1,6 +1,5 @@
 /* strerror.c - string corresponding to a particular value of errno. */
 
-
 #include <config.h>
 
 #if !defined(HAVE_STRERROR)

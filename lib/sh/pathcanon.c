@@ -1,6 +1,5 @@
 /* pathcanon.c -- canonicalize and manipulate pathnames. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

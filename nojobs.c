@@ -4,7 +4,6 @@
 /* This file works under BSD, System V, minix, and Posix systems.  It does
    not implement job control. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -24,7 +23,6 @@
 
 /* Need to include this up here for *_TTY_DRIVER definitions. */
 #include "shtty.h"
-
 
 #include "shell.h"
 #include "jobs.h"

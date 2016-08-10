@@ -1,6 +1,5 @@
 /* savestring.c - function version of savestring for backwards compatibility */
 
-
 #define READLINE_LIBRARY
 
 #include <config.h>

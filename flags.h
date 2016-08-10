@@ -1,7 +1,6 @@
 /* flags.h -- a list of all the flags that the shell knows about.  You add
    a flag to this program by adding the name here, and in flags.c. */
 
-
 #if !defined(_FLAGS_H_)
 #define _FLAGS_H_
 

@@ -1,6 +1,5 @@
 /* keymaps.c -- Functions and keymaps for the GNU Readline library. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

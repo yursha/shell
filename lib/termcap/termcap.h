@@ -1,6 +1,5 @@
 /* termcap.h - public declarations for termcap library. */
 
-
 #ifndef _TERMCAP_H
 #define _TERMCAP_H 1
 

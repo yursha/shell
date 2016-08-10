@@ -1,6 +1,5 @@
 /* ocache.h -- a minimal object caching implementation. */
 
-
 #if !defined(_OCACHE_H_)
 #define _OCACHE_H_ 1
 
@@ -43,7 +42,7 @@
   } while (0)
 
 typedef struct objcache {
-  void * data;
+  void *data;
   int cs; /* cache size, number of objects */
   int nc; /* number of cache entries */
 } sh_obj_cache_t;

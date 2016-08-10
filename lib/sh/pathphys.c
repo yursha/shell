@@ -1,6 +1,5 @@
 /* pathphys.c -- return pathname with all symlinks expanded. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

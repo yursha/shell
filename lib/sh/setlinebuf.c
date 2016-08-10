@@ -1,6 +1,5 @@
 /* setlinebuf.c - line-buffer a stdio stream. */
 
-
 #include <config.h>
 
 #include <stdio.h>

@@ -1,6 +1,5 @@
 /* rlshell.h -- utility functions normally provided by bash. */
 
-
 #if !defined(_RL_SHELL_H_)
 #define _RL_SHELL_H_
 

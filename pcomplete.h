@@ -1,7 +1,6 @@
 /* pcomplete.h - structure definitions and other stuff for programmable
                  completion. */
 
-
 #if !defined(_PCOMPLETE_H_)
 #define _PCOMPLETE_H_
 
@@ -71,7 +70,7 @@ typedef struct _list_of_items {
 
   /* These may or may not be used. */
   STRINGLIST
-      *genlist; /* for handing to the completion code one item at a time */
+  *genlist;     /* for handing to the completion code one item at a time */
   int genindex; /* index of item last handed to completion code */
 
 } ITEMLIST;

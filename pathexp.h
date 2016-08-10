@@ -1,6 +1,5 @@
 /* pathexp.h -- The shell interface to the globbing library. */
 
-
 #if !defined(_PATHEXP_H_)
 #define _PATHEXP_H_
 

@@ -1,6 +1,5 @@
 /* fmtullong.c - convert `long long int' to string */
 
-
 #include <config.h>
 
 #ifdef HAVE_LONG_LONG

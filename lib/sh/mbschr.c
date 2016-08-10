@@ -1,6 +1,5 @@
 /* mbschr.c - strchr(3) that handles multibyte characters. */
 
-
 #include <config.h>
 
 #ifdef HAVE_STDLIB_H

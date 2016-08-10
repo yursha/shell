@@ -1,6 +1,5 @@
 /* parens.c -- implementation of matching parentheses feature. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(__TANDEM)

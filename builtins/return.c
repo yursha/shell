@@ -1,9 +1,8 @@
 #include <config.h>
 
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
-
 
 #include "../shell.h"
 #include "common.h"
@@ -18,15 +17,14 @@ extern int return_builtin(WORD_LIST*);
    specified as an argument.  if no argument is given, then the last
    exit status is used. */
 int return_builtin(WORD_LIST* list) {
-  CHECK_HELPOPT (list);
+  CHECK_HELPOPT(list);
 
-  return_catch_value = get_exitstat (list);
+  return_catch_value = get_exitstat(list);
 
   if (return_catch_flag)
     siglongjmp(return_catch, 1);
-  else
-    {
-      builtin_error ("can only `return' from a function or sourced script");
-      return (EXECUTION_FAILURE);
-    }
+  else {
+    builtin_error("can only `return' from a function or sourced script");
+    return (EXECUTION_FAILURE);
+  }
 }

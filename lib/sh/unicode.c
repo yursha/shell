@@ -1,6 +1,5 @@
 /* unicode.c - functions to convert unicode characters */
 
-
 #include <config.h>
 
 #if defined(HANDLE_MULTIBYTE)

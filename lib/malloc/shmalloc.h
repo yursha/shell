@@ -4,16 +4,16 @@
 #ifndef _SH_MALLOC_H
 #define _SH_MALLOC_H
 
-extern void * sh_malloc(size_t, const char *, int);
-extern void * sh_realloc(void *, size_t, const char *, int);
+extern void *sh_malloc(size_t, const char *, int);
+extern void *sh_realloc(void *, size_t, const char *, int);
 extern void sh_free(void *, const char *, int);
 
-extern void * sh_memalign(size_t, size_t, const char *, int);
+extern void *sh_memalign(size_t, size_t, const char *, int);
 
-extern void * sh_calloc(size_t, size_t, const char *, int);
+extern void *sh_calloc(size_t, size_t, const char *, int);
 extern void sh_cfree(void *, const char *, int);
 
-extern void * sh_valloc(size_t, const char *, int);
+extern void *sh_valloc(size_t, const char *, int);
 
 /* trace.c */
 extern int malloc_set_trace(int);

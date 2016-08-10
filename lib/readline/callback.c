@@ -1,6 +1,5 @@
 /* callback.c -- functions to use readline as an X `callback' mechanism. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

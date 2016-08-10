@@ -1,6 +1,5 @@
 /* patchlevel.h -- current bash patch level */
 
-
 #if !defined(_PATCHLEVEL_H_)
 #define _PATCHLEVEL_H_
 

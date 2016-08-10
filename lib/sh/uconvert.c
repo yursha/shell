@@ -1,7 +1,6 @@
 /* uconvert - convert string representations of decimal numbers into whole
               number/fractional value pairs. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

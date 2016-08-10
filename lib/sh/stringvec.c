@@ -1,6 +1,5 @@
 /* stringvec.c - functions for managing arrays of strings. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

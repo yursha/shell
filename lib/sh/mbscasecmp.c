@@ -1,6 +1,5 @@
 /* mbscasecmp - case-insensitive multibyte string comparison. */
 
-
 #include <config.h>
 
 #if !defined(HAVE_MBSCASECMP) && defined(HANDLE_MULTIBYTE)

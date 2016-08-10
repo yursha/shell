@@ -1,6 +1,5 @@
 /* ltcap.h - Local declarations for termcap library. */
 
-
 #ifndef _LTCAP_H_
 #define _LTCAP_H_ 1
 

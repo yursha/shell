@@ -1,6 +1,5 @@
 /* strdup - return a copy of a string in newly-allocated memory. */
 
-
 #include <config.h>
 
 /* Get specification.  */

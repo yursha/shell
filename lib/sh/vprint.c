@@ -1,6 +1,5 @@
 /* vprint.c -- v[fs]printf() for 4.[23] BSD systems. */
 
-
 #include <config.h>
 
 #if defined(USE_VFPRINTF_EMULATION)

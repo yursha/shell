@@ -1,6 +1,5 @@
 /* xmalloc.c -- safe versions of malloc and realloc */
 
-
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
@@ -28,21 +27,19 @@ static void memory_error_and_abort(fname) char *fname;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-void *
-xmalloc(bytes) size_t bytes;
+void *xmalloc(bytes) size_t bytes;
 {
-  void * temp;
+  void *temp;
 
   temp = malloc(bytes);
   if (temp == 0) memory_error_and_abort("xmalloc");
   return (temp);
 }
 
-void *
-xrealloc(pointer, bytes) void * pointer;
+void *xrealloc(pointer, bytes) void *pointer;
 size_t bytes;
 {
-  void * temp;
+  void *temp;
 
   temp = pointer ? realloc(pointer, bytes) : malloc(bytes);
 
@@ -50,7 +47,7 @@ size_t bytes;
   return (temp);
 }
 
-void xfree(string) void * string;
+void xfree(string) void *string;
 {
   if (string) free(string);
 }

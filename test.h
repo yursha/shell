@@ -1,6 +1,5 @@
 /* test.h -- external interface to the conditional command code. */
 
-
 #ifndef _TEST_H_
 #define _TEST_H_
 

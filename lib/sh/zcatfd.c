@@ -1,6 +1,5 @@
 /* zcatfd - copy contents of file descriptor to another */
 
-
 #include <config.h>
 
 #include <sys/types.h>

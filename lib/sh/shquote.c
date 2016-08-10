@@ -1,6 +1,5 @@
 /* shquote - functions to quote and dequote strings */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

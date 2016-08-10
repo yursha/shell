@@ -1,6 +1,5 @@
 /* posixdir.h -- Posix directory reading includes and defines. */
 
-
 /* This file should be included instead of <dirent.h> or <sys/dir.h>. */
 
 #if !defined(_POSIXDIR_H_)

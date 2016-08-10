@@ -1,6 +1,5 @@
 /* tcap.h -- termcap library functions and variables. */
 
-
 #if !defined(_RLTCAP_H_)
 #define _RLTCAP_H_
 

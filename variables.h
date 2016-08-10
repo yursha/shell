@@ -1,6 +1,5 @@
 /* variables.h -- data structures for shell variables. */
 
-
 #if !defined(_VARIABLES_H_)
 #define _VARIABLES_H_
 
@@ -85,20 +84,22 @@ typedef struct _vlist {
 
 /* The various attributes that a given variable can have. */
 /* First, the user-visible attributes */
-#define att_exported 0x0000001  /* export to environment */
-#define att_readonly 0x0000002  /* cannot change */
-#define att_array 0x0000004     /* value is an array */
-#define att_function 0x0000008  /* value is a function */
-#define att_integer 0x0000010   /* internal representation is int */
-#define att_local 0x0000020     /* variable is local to a function */
-#define att_assoc 0x0000040     /* variable is an associative array */
-#define att_trace 0x0000080     /* function is traced with DEBUG trap */
-#define att_uppercase 0x0000100 /* word converted to uppercase on assignment \
-                                   */
-#define att_lowercase 0x0000200 /* word converted to lowercase on assignment \
-                                   */
-#define att_capcase 0x0000400   /* word capitalized on assignment */
-#define att_nameref 0x0000800   /* word is a name reference */
+#define att_exported 0x0000001 /* export to environment */
+#define att_readonly 0x0000002 /* cannot change */
+#define att_array 0x0000004    /* value is an array */
+#define att_function 0x0000008 /* value is a function */
+#define att_integer 0x0000010  /* internal representation is int */
+#define att_local 0x0000020    /* variable is local to a function */
+#define att_assoc 0x0000040    /* variable is an associative array */
+#define att_trace 0x0000080    /* function is traced with DEBUG trap */
+#define att_uppercase                                    \
+  0x0000100 /* word converted to uppercase on assignment \
+               */
+#define att_lowercase                                                      \
+  0x0000200                   /* word converted to lowercase on assignment \
+                                 */
+#define att_capcase 0x0000400 /* word capitalized on assignment */
+#define att_nameref 0x0000800 /* word is a name reference */
 
 #define user_attrs                                                     \
   (att_exported | att_readonly | att_integer | att_local | att_trace | \

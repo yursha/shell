@@ -1,6 +1,5 @@
 /* rlconf.h -- readline configuration definitions */
 
-
 #if !defined(_RLCONF_H_)
 #define _RLCONF_H_
 

@@ -1,7 +1,6 @@
 /* pcomplete.c - functions to generate lists of matches for programmable
  * completion. */
 
-
 #include <config.h>
 
 #if defined(PROGRAMMABLE_COMPLETION)
@@ -1453,8 +1452,7 @@ int start, end, *foundp;
     count++;
 
     if (count > 32) {
-      internal_warning("programmable_completion: %s: possible retry loop",
-                       cmd);
+      internal_warning("programmable_completion: %s: possible retry loop", cmd);
       break;
     }
   } while (retry);

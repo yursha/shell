@@ -1,6 +1,5 @@
 /* timeval.c - functions to perform operations on struct timevals */
 
-
 #include <config.h>
 
 #if defined(HAVE_TIMEVAL)

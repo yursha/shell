@@ -1,6 +1,5 @@
 /* posixwait.h -- job control definitions from POSIX 1003.1 */
 
-
 #if !defined(_POSIXWAIT_H_)
 #define _POSIXWAIT_H_
 

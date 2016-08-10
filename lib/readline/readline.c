@@ -1,13 +1,11 @@
 /* readline.c -- a general facility for reading lines of input
    with emacs style editing and completion. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
-
 
 #include <sys/types.h>
 #include "posixstat.h"

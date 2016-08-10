@@ -3,13 +3,13 @@
 #include "../bashtypes.h"
 #include "posixstat.h"
 #include "filecntl.h"
-#if defined (HAVE_SYS_FILE_H)
-#  include <sys/file.h>
+#if defined(HAVE_SYS_FILE_H)
+#include <sys/file.h>
 #endif
 #include <errno.h>
 
-#if defined (HAVE_UNISTD_H)
-#  include <unistd.h>
+#if defined(HAVE_UNISTD_H)
+#include <unistd.h>
 #endif
 
 #include "../bashansi.h"
@@ -21,14 +21,14 @@
 #include "bashgetopt.h"
 #include "../trap.h"
 
-#if !defined (errno)
+#if !defined(errno)
 extern int errno;
 #endif /* !errno */
 
 extern int posixly_correct;
 extern int last_command_exit_value;
 extern int executing_command_builtin;
-extern int source_builtin(WORD_LIST* list);
+extern int source_builtin(WORD_LIST *list);
 
 static void maybe_pop_dollar_vars(void);
 
@@ -45,93 +45,82 @@ int source_searches_cwd = 1;
    what we saved.  If the dollar vars are changed in the script, and we are
    not executing a shell function, we leave the new values alone and free
    the saved values. */
-static void
-maybe_pop_dollar_vars ()
-{
-  if (variable_context == 0 && (dollar_vars_changed () & ARGS_SETBLTIN))
-    dispose_saved_dollar_vars ();
+static void maybe_pop_dollar_vars() {
+  if (variable_context == 0 && (dollar_vars_changed() & ARGS_SETBLTIN))
+    dispose_saved_dollar_vars();
   else
-    pop_dollar_vars ();
-  if (debugging_mode)
-    pop_args ();	/* restore BASH_ARGC and BASH_ARGV */
-  set_dollar_vars_unchanged ();
-  invalidate_cached_quoted_dollar_at ();	/* just invalidate to be safe */
+    pop_dollar_vars();
+  if (debugging_mode) pop_args(); /* restore BASH_ARGC and BASH_ARGV */
+  set_dollar_vars_unchanged();
+  invalidate_cached_quoted_dollar_at(); /* just invalidate to be safe */
 }
 
 /* Read and execute commands from the file passed as argument.  Guess what.
    This cannot be done in a subshell, since things like variable assignments
    take place in there.  So, I open the file, place it into a large string,
    close the file, and then execute the string. */
-int source_builtin(WORD_LIST* list) {
+int source_builtin(WORD_LIST *list) {
   int result;
   char *filename, *debug_trap, *x;
 
-  if (no_options (list))
-    return (EX_USAGE);
+  if (no_options(list)) return (EX_USAGE);
   list = loptend;
 
-  if (list == 0)
-    {
-      builtin_error ("filename argument required");
-      builtin_usage ();
-      return (EX_USAGE);
-    }
+  if (list == 0) {
+    builtin_error("filename argument required");
+    builtin_usage();
+    return (EX_USAGE);
+  }
 
   filename = (char *)NULL;
   /* XXX -- should this be absolute_pathname? */
-  if (posixly_correct && strchr (list->word->word, '/'))
-    filename = savestring (list->word->word);
-  else if (absolute_pathname (list->word->word))
-    filename = savestring (list->word->word);
+  if (posixly_correct && strchr(list->word->word, '/'))
+    filename = savestring(list->word->word);
+  else if (absolute_pathname(list->word->word))
+    filename = savestring(list->word->word);
   else if (source_uses_path)
-    filename = find_path_file (list->word->word);
-  if (filename == 0)
-    {
-      if (source_searches_cwd == 0)
-	{
-	  x = printable_filename (list->word->word, 0);
-	  builtin_error ("%s: file not found", x);
-	  if (x != list->word->word)
-	    free (x);
-	  if (posixly_correct && interactive_shell == 0 && executing_command_builtin == 0)
-	    {
-	      last_command_exit_value = 1;
-	      jump_to_top_level (EXITPROG);
-	    }
-	  return (EXECUTION_FAILURE);
-	}
-      else
-	filename = savestring (list->word->word);
-    }
+    filename = find_path_file(list->word->word);
+  if (filename == 0) {
+    if (source_searches_cwd == 0) {
+      x = printable_filename(list->word->word, 0);
+      builtin_error("%s: file not found", x);
+      if (x != list->word->word) free(x);
+      if (posixly_correct && interactive_shell == 0 &&
+          executing_command_builtin == 0) {
+        last_command_exit_value = 1;
+        jump_to_top_level(EXITPROG);
+      }
+      return (EXECUTION_FAILURE);
+    } else
+      filename = savestring(list->word->word);
+  }
 
-  begin_unwind_frame ("source");
-  add_unwind_protect ((Function *)xfree, filename);
+  begin_unwind_frame("source");
+  add_unwind_protect((Function *)xfree, filename);
 
-  if (list->next)
-    {
-      push_dollar_vars ();
-      add_unwind_protect ((Function *)maybe_pop_dollar_vars, (char *)NULL);
-      remember_args (list->next, 1);
-      if (debugging_mode)
-	push_args (list->next);	/* Update BASH_ARGV and BASH_ARGC */
-    }
-  set_dollar_vars_unchanged ();
+  if (list->next) {
+    push_dollar_vars();
+    add_unwind_protect((Function *)maybe_pop_dollar_vars, (char *)NULL);
+    remember_args(list->next, 1);
+    if (debugging_mode)
+      push_args(list->next); /* Update BASH_ARGV and BASH_ARGC */
+  }
+  set_dollar_vars_unchanged();
 
   /* Don't inherit the DEBUG trap unless function_trace_mode (overloaded)
      is set.  XXX - should sourced files inherit the RETURN trap?  Functions
      don't. */
-  debug_trap = TRAP_STRING (DEBUG_TRAP);
-  if (debug_trap && function_trace_mode == 0)
-    {
-      debug_trap = savestring (debug_trap);
-      add_unwind_protect (xfree, debug_trap);
-      add_unwind_protect (maybe_set_debug_trap, debug_trap);
-      restore_default_signal (DEBUG_TRAP);
-    }
+  debug_trap = TRAP_STRING(DEBUG_TRAP);
+  if (debug_trap && function_trace_mode == 0) {
+    debug_trap = savestring(debug_trap);
+    add_unwind_protect(xfree, debug_trap);
+    add_unwind_protect(maybe_set_debug_trap, debug_trap);
+    restore_default_signal(DEBUG_TRAP);
+  }
 
-  result = source_file (filename, (list && list->next));
+  result = source_file(filename, (list && list->next));
 
-  run_unwind_frame ("source");
+  run_unwind_frame("source");
 
   return (result);
 }

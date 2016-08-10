@@ -1,6 +1,5 @@
 /* chardefs.h -- Character definitions for readline. */
 
-
 #ifndef _CHARDEFS_H_
 #define _CHARDEFS_H_
 

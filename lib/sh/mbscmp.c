@@ -1,6 +1,5 @@
 /* mbscmp - multibyte string comparison. */
 
-
 #include <config.h>
 
 #if !defined(HAVE_MBSCMP) && defined(HANDLE_MULTIBYTE)

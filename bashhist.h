@@ -1,6 +1,5 @@
 /* bashhist.h -- interface to the bash history functions in bashhist.c. */
 
-
 #if !defined(_BASHHIST_H_)
 #define _BASHHIST_H_
 

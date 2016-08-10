@@ -1,6 +1,5 @@
 /* gen-helpfiles - create files containing builtin help text */
 
-
 /* This links with a specially-generated version of builtins.c and takes
    the long_doc members of each struct builtin element and writes those to
    the file named by the `handle' member of the struct builtin element. */

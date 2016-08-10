@@ -1,6 +1,5 @@
 /* input.c -- character input functions for readline. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(__TANDEM)

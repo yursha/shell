@@ -1,6 +1,5 @@
 /* macro.c -- keyboard macros for readline. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

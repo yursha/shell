@@ -1,6 +1,5 @@
 /* filecntl.h - Definitions to set file descriptors to close-on-exec. */
 
-
 #if !defined(_FILECNTL_H_)
 #define _FILECNTL_H_
 

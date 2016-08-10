@@ -2,7 +2,6 @@
  * mksyntax.c - construct shell syntax table for fast char attribute lookup.
  */
 
-
 #include "config.h"
 
 #include <stdio.h>

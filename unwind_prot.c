@@ -3,7 +3,6 @@
 /* I can't stand it anymore!  Please can't we just write the
    whole Unix system in lisp or something? */
 
-
 /* **************************************************************** */
 /*								    */
 /*		      Unwind Protection Scheme for Bash		    */

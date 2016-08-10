@@ -17,7 +17,6 @@
 #include "chartypes.h"
 #include <errno.h>
 
-
 #include "shell.h"
 #include "test.h"
 #include "trap.h"

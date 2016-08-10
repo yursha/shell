@@ -1,6 +1,5 @@
 /* chartypes.h -- extend ctype.h */
 
-
 #ifndef _SH_CHARTYPES_H
 #define _SH_CHARTYPES_H
 

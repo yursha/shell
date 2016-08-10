@@ -1,6 +1,5 @@
 /* history.h -- the names of functions that you can call in history. */
 
-
 #ifndef _HISTORY_H_
 #define _HISTORY_H_
 

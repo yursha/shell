@@ -1,6 +1,5 @@
 /* syntax.h -- Syntax definitions for the shell */
 
-
 #ifndef _SYNTAX_H_
 #define _SYNTAX_H_
 
@@ -31,22 +30,23 @@
 
 /* Values for character flags in syntax tables */
 
-#define CWORD 0x0000     /* nothing special; an ordinary character */
-#define CSHMETA 0x0001   /* shell meta character */
-#define CSHBRK 0x0002    /* shell break character */
-#define CBACKQ 0x0004    /* back quote */
-#define CQUOTE 0x0008    /* shell quote character */
-#define CSPECL 0x0010    /* special character that needs quoting */
-#define CEXP 0x0020      /* shell expansion character */
-#define CBSDQUOTE 0x0040 /* characters escaped by backslash in double quotes \
-                            */
-#define CBSHDOC 0x0080   /* characters escaped by backslash in here doc */
-#define CGLOB 0x0100     /* globbing characters */
-#define CXGLOB 0x0200    /* extended globbing characters */
-#define CXQUOTE 0x0400   /* cquote + backslash */
-#define CSPECVAR 0x0800  /* single-character shell variable name */
-#define CSUBSTOP 0x1000  /* values of OP for ${word[:]OPstuff} */
-#define CBLANK 0x2000    /* whitespace (blank) character */
+#define CWORD 0x0000   /* nothing special; an ordinary character */
+#define CSHMETA 0x0001 /* shell meta character */
+#define CSHBRK 0x0002  /* shell break character */
+#define CBACKQ 0x0004  /* back quote */
+#define CQUOTE 0x0008  /* shell quote character */
+#define CSPECL 0x0010  /* special character that needs quoting */
+#define CEXP 0x0020    /* shell expansion character */
+#define CBSDQUOTE                                                           \
+  0x0040                /* characters escaped by backslash in double quotes \
+                           */
+#define CBSHDOC 0x0080  /* characters escaped by backslash in here doc */
+#define CGLOB 0x0100    /* globbing characters */
+#define CXGLOB 0x0200   /* extended globbing characters */
+#define CXQUOTE 0x0400  /* cquote + backslash */
+#define CSPECVAR 0x0800 /* single-character shell variable name */
+#define CSUBSTOP 0x1000 /* values of OP for ${word[:]OPstuff} */
+#define CBLANK 0x2000   /* whitespace (blank) character */
 
 /* Defines for use by the rest of the shell. */
 extern int sh_syntaxtab[];

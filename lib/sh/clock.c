@@ -1,6 +1,5 @@
 /* clock.c - operations on struct tms and clock_t's */
 
-
 #include <config.h>
 
 #if defined(HAVE_TIMES)

@@ -1,6 +1,5 @@
 /* strcasecmp.c - functions for case-insensitive string comparison. */
 
-
 #include <config.h>
 
 #if !defined(HAVE_STRCASECMP)

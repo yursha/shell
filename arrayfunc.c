@@ -1,7 +1,6 @@
 /* arrayfunc.c -- High-level array functions used by other parts of the shell.
  */
 
-
 #include "config.h"
 
 #if defined(ARRAY_VARS)
@@ -10,7 +9,6 @@
 #include <unistd.h>
 #endif
 #include <stdio.h>
-
 
 #include "shell.h"
 #include "pathexp.h"

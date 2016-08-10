@@ -1,6 +1,5 @@
 /* imalloc.h -- internal malloc definitions shared by source files. */
 
-
 /* Must be included *after* config.h */
 
 #ifndef _IMALLOC_H
@@ -46,7 +45,7 @@
     defined(PROTOTYPES)
 #defineprotos protos
 #else
-#defineprotos) (
+#defineprotos)(
 #endif
 #endif
 

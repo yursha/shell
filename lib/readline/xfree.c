@@ -1,6 +1,5 @@
 /* xfree.c -- safe version of free that ignores attempts to free NUL */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

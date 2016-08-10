@@ -1,6 +1,5 @@
 /* eval.c -- reading and evaluating commands. */
 
-
 #include "config.h"
 
 #if defined(HAVE_UNISTD_H)
@@ -11,7 +10,6 @@
 #include <stdio.h>
 
 #include <signal.h>
-
 
 #include "shell.h"
 #include "flags.h"

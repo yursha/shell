@@ -1,6 +1,5 @@
 /* itos.c -- Convert integer to string. */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

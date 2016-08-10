@@ -1,7 +1,6 @@
 /* strtrans.c - Translate and untranslate strings with ANSI-C escape sequences.
  */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

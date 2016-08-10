@@ -1,6 +1,5 @@
 /* subst.h -- Names of externally visible functions in subst.c. */
 
-
 #if !defined(_SUBST_H_)
 #define _SUBST_H_
 

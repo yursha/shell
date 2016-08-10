@@ -1,6 +1,5 @@
 /* sig.h -- header file for signal handler definitions. */
 
-
 /* Make sure that this is included *after* config.h! */
 
 #if !defined(_SIG_H_)

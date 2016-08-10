@@ -1,6 +1,5 @@
 /* keymaps.h -- Manipulation of readline keymaps. */
 
-
 #ifndef _KEYMAPS_H_
 #define _KEYMAPS_H_
 

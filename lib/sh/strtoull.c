@@ -1,7 +1,6 @@
 /* strtoull - convert string representation of a number into an unsigned long
  * long value. */
 
-
 #include <config.h>
 
 #if defined(HAVE_LONG_LONG) && !defined(HAVE_STRTOULL)

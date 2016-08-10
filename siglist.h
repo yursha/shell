@@ -1,6 +1,5 @@
 /* siglist.h -- encapsulate various definitions for sys_siglist */
 
-
 #if !defined(_SIGLIST_H_)
 #define _SIGLIST_H_
 

@@ -1,6 +1,5 @@
 /* bashline.c -- Bash's interface to the readline library. */
 
-
 #include "config.h"
 
 #if defined(READLINE)
@@ -3549,8 +3548,7 @@ char *qcp;
 /* Support for binding readline key sequences to Unix commands. */
 static Keymap cmd_xmap;
 
-static int
-    putx(c) int c;
+static int putx(c) int c;
 {
   int x;
   x = putc(c, rl_outstream);
@@ -3578,8 +3576,7 @@ int key;
 
   if (cmd == 0 || type != ISMACR) {
     rl_crlf();
-    internal_error(
-        "bash_execute_unix_command: cannot find keymap for command");
+    internal_error("bash_execute_unix_command: cannot find keymap for command");
     rl_forced_update_display();
     return 1;
   }

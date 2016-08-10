@@ -1,6 +1,5 @@
 /* termcap.c - Work-alike for termcap, plus extra features. */
 
-
 /* Emacs config.h may rename various library functions such as malloc.  */
 #ifdef HAVE_CONFIG_H
 

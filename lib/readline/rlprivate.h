@@ -1,7 +1,6 @@
 /* rlprivate.h -- functions and variables global to the readline library,
                   but not intended for use by applications. */
 
-
 #if !defined(_RL_PRIVATE_H_)
 #define _RL_PRIVATE_H_
 
@@ -9,7 +8,6 @@
 
 #include "rlconf.h" /* for VISIBLE_STATS */
 #include "rlstdc.h"
-
 
 /*************************************************************************
  *									 *

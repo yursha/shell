@@ -1,6 +1,5 @@
 /* jobs.h -- structures and definitions used by the jobs.c file. */
 
-
 #if !defined(_JOBS_H_)
 #define _JOBS_H_
 
@@ -85,12 +84,14 @@ typedef enum {
 /* Values for the FLAGS field in the JOB struct below. */
 #define J_FOREGROUND 0x01 /* Non-zero if this is running in the foreground. */
 #define J_NOTIFIED 0x02   /* Non-zero if already notified about job state.   */
-#define J_JOBCONTROL 0x04 /* Non-zero if this job started under job control. \
-                             */
-#define J_NOHUP 0x08      /* Don't send SIGHUP to job if shell gets SIGHUP. */
-#define J_STATSAVED 0x10  /* A process in this job had had status saved via $! \
-                             */
-#define J_ASYNC 0x20      /* Job was started asynchronously */
+#define J_JOBCONTROL                                                    \
+  0x04               /* Non-zero if this job started under job control. \
+                        */
+#define J_NOHUP 0x08 /* Don't send SIGHUP to job if shell gets SIGHUP. */
+#define J_STATSAVED                                                       \
+  0x10               /* A process in this job had had status saved via $! \
+                        */
+#define J_ASYNC 0x20 /* Job was started asynchronously */
 
 #define IS_FOREGROUND(j) ((jobs[j]->flags & J_FOREGROUND) != 0)
 #define IS_NOTIFIED(j) ((jobs[j]->flags & J_NOTIFIED) != 0)
@@ -106,7 +107,7 @@ typedef struct job {
 #if defined(JOB_CONTROL)
   COMMAND *deferred; /* Commands that will execute when this job is done. */
   sh_vptrfunc_t *j_cleanup; /* Cleanup function to call when job marked JDEAD */
-  void * cleanarg;           /* Argument passed to (*j_cleanup)() */
+  void *cleanarg;           /* Argument passed to (*j_cleanup)() */
 #endif                      /* JOB_CONTROL */
 } JOB;
 

@@ -1,6 +1,5 @@
 /* xmalloc.c -- safe versions of malloc and realloc */
 
-
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif
@@ -20,12 +19,11 @@
 
 #include "error.h"
 
-
 #if defined(HAVE_SBRK) && !HAVE_DECL_SBRK
 extern char *sbrk();
 #endif
 
-static void * lbreak;
+static void *lbreak;
 static int brkfound;
 static size_t allocated;
 
@@ -36,12 +34,12 @@ static size_t allocated;
 /* **************************************************************** */
 
 #if defined(HAVE_SBRK)
-#define FINDBRK()              \
-  do {                         \
-    if (brkfound == 0) {       \
+#define FINDBRK()               \
+  do {                          \
+    if (brkfound == 0) {        \
       lbreak = (void *)sbrk(0); \
-      brkfound++;              \
-    }                          \
+      brkfound++;               \
+    }                           \
   } while (0)
 
 static size_t findbrk() {
@@ -67,10 +65,9 @@ size_t bytes;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-void *
-xmalloc(bytes) size_t bytes;
+void *xmalloc(bytes) size_t bytes;
 {
-  void * temp;
+  void *temp;
 
 #if defined(DEBUG)
   if (bytes == 0) internal_warning("xmalloc: size argument is 0");
@@ -84,11 +81,10 @@ xmalloc(bytes) size_t bytes;
   return (temp);
 }
 
-void *
-xrealloc(pointer, bytes) void * pointer;
+void *xrealloc(pointer, bytes) void *pointer;
 size_t bytes;
 {
-  void * temp;
+  void *temp;
 
 #if defined(DEBUG)
   if (bytes == 0) internal_warning("xrealloc: size argument is 0");
@@ -104,7 +100,7 @@ size_t bytes;
 
 /* Use this as the function to call when adding unwind protects so we
    don't need to know what free() returns. */
-void xfree(string) void * string;
+void xfree(string) void *string;
 {
   if (string) free(string);
 }
@@ -127,12 +123,11 @@ int line;
 #endif /* !HAVE_SBRK */
 }
 
-void *
-sh_xmalloc(bytes, file, line) size_t bytes;
+void *sh_xmalloc(bytes, file, line) size_t bytes;
 char *file;
 int line;
 {
-  void * temp;
+  void *temp;
 
 #if defined(DEBUG)
   if (bytes == 0)
@@ -147,13 +142,12 @@ int line;
   return (temp);
 }
 
-void *
-sh_xrealloc(pointer, bytes, file, line) void * pointer;
+void *sh_xrealloc(pointer, bytes, file, line) void *pointer;
 size_t bytes;
 char *file;
 int line;
 {
-  void * temp;
+  void *temp;
 
 #if defined(DEBUG)
   if (bytes == 0)
@@ -169,7 +163,7 @@ int line;
   return (temp);
 }
 
-void sh_xfree(string, file, line) void * string;
+void sh_xfree(string, file, line) void *string;
 char *file;
 int line;
 {

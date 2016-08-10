@@ -1,6 +1,5 @@
 /* fnxform - use iconv(3) to transform strings to and from "filename" format */
 
-
 #include <config.h>
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h>

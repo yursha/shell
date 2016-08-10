@@ -1,6 +1,5 @@
 /* xmalloc.c -- safe versions of malloc and realloc */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)
@@ -23,7 +22,7 @@
 /*								    */
 /* **************************************************************** */
 
-static void memory_error_and_abort(fname) char *fname;
+static void memory_error_and_abort(fname) char* fname;
 {
   fprintf(stderr, "%s: out of virtual memory\n", fname);
   exit(2);
@@ -32,8 +31,7 @@ static void memory_error_and_abort(fname) char *fname;
 /* Return a pointer to free()able block of memory large enough
    to hold BYTES number of bytes.  If the memory cannot be allocated,
    print an error message and abort. */
-void*
-xmalloc(bytes) size_t bytes;
+void* xmalloc(bytes) size_t bytes;
 {
   void* temp;
 
@@ -42,8 +40,7 @@ xmalloc(bytes) size_t bytes;
   return (temp);
 }
 
-void*
-xrealloc(pointer, bytes) void* pointer;
+void* xrealloc(pointer, bytes) void* pointer;
 size_t bytes;
 {
   void* temp;

@@ -1,6 +1,5 @@
 /* rltypedefs.h -- Type declarations for readline functions. */
 
-
 #ifndef _RL_TYPEDEFS_H_
 #define _RL_TYPEDEFS_H_
 

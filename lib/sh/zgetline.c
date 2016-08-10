@@ -1,7 +1,6 @@
 /* zgetline - read a line of input from a specified file descriptor and return
               a pointer to a newly-allocated buffer containing the data. */
 
-
 #include <config.h>
 
 #include <sys/types.h>

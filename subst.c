@@ -4,7 +4,6 @@
 /* ``Have a little faith, there's magic in the night.  You ain't a
      beauty, but, hey, you're alright.'' */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -1266,8 +1265,7 @@ int flags;
   if (c == 0 && nesting_level) {
     if (no_longjmp_on_fatal_error == 0) {
       last_command_exit_value = EXECUTION_FAILURE;
-      report_error("bad substitution: no closing `%s' in %s", closer,
-                   string);
+      report_error("bad substitution: no closing `%s' in %s", closer, string);
       exp_jump_to_top_level(DISCARD);
     } else {
       *sindex = i;
@@ -1375,8 +1373,7 @@ int *sindex, quoted, flags;
     if (c == '\'') {
       /*itrace("extract_dollar_brace_string: c == single quote flags = %d quoted
        * = %d dolbrace_state = %d", flags, quoted, dolbrace_state);*/
-      if (posixly_correct &&
-          dolbrace_state != DOLBRACE_QUOTE &&
+      if (posixly_correct && dolbrace_state != DOLBRACE_QUOTE &&
           (quoted & (Q_HERE_DOCUMENT | Q_DOUBLE_QUOTES)))
         ADVANCE_CHAR(string, slen, i);
       else {
@@ -6647,9 +6644,9 @@ int quoted, pflags, flags;
        the entire expansion is double-quoted because the parser and string
        extraction functions treated quotes in the replacement string as
        special.  THIS IS NOT BACKWARDS COMPATIBLE WITH BASH-4.2. */
-      rep = expand_string_if_necessary(
-          rep, quoted & ~(Q_DOUBLE_QUOTES | Q_HERE_DOCUMENT),
-          expand_string_unsplit);
+    rep = expand_string_if_necessary(
+        rep, quoted & ~(Q_DOUBLE_QUOTES | Q_HERE_DOCUMENT),
+        expand_string_unsplit);
   }
 
   /* ksh93 doesn't allow the match specifier to be a part of the expanded
@@ -7306,8 +7303,8 @@ int *indexp, quoted, pflags, *quoted_dollar_atp, *contains_dollar_at;
       FREE(temp);
       free(name);
       return ((posixly_correct && interactive_shell == 0)
-                    ? &expand_wdesc_fatal
-                    : &expand_wdesc_error);
+                  ? &expand_wdesc_fatal
+                  : &expand_wdesc_error);
 
     case RBRACE:
       break;

@@ -1,6 +1,5 @@
 /* rltty.h - tty driver-related definitions used by some library files. */
 
-
 #if !defined(_RLTTY_H_)
 #define _RLTTY_H_
 

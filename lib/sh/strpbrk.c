@@ -1,6 +1,5 @@
 /* strpbrk.c - locate multiple characters in a string */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

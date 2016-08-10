@@ -76,7 +76,7 @@ extern char *this_command_name;
  */
 int shell_initialized = 0;
 
-COMMAND *global_command = (COMMAND*) NULL;
+COMMAND *global_command = (COMMAND *)NULL;
 
 /**
  * Information about the current user.
@@ -88,7 +88,7 @@ struct user_info current_user = {(uid_t)-1,   (uid_t)-1,    (gid_t)-1,
 /**
  * The current host's name.
  */
-char *current_host_name = (char*) NULL;
+char *current_host_name = (char *)NULL;
 
 /**
  * Non-zero means that this shell is a login shell.
@@ -305,7 +305,6 @@ static void shell_reinitialize(void);
 static void show_shell_usage(FILE *, int);
 
 int main(int argc, char **argv, char **env) {
-
   /* Catch early SIGINTs. */
   if (sigsetjmp(top_level, 0)) {
     exit(2);
@@ -347,7 +346,7 @@ int main(int argc, char **argv, char **env) {
   volatile int arg_index = 1;
 
   if (arg_index > argc) {
-      arg_index = argc;
+    arg_index = argc;
   }
 
   command_execution_string = (char *)NULL;
@@ -1530,9 +1529,9 @@ static void shell_initialize() {
   /* Initialize our interface to the tilde expander. */
   tilde_initialize();
 
-/* Initialize internal and environment variables.  Don't import shell
-   functions from the environment if we are running in privileged or
-   restricted mode or if the shell is running setuid. */
+  /* Initialize internal and environment variables.  Don't import shell
+     functions from the environment if we are running in privileged or
+     restricted mode or if the shell is running setuid. */
   initialize_shell_variables(shell_environment,
                              privileged_mode || running_setuid);
 
@@ -1544,10 +1543,10 @@ static void shell_initialize() {
 
   initialize_flags();
 
-/* Initialize the shell options.  Don't import the shell options
-   from the environment variables $SHELLOPTS or $BASHOPTS if we are
-   running in privileged or restricted mode or if the shell is running
-   setuid. */
+  /* Initialize the shell options.  Don't import the shell options
+     from the environment variables $SHELLOPTS or $BASHOPTS if we are
+     running in privileged or restricted mode or if the shell is running
+     setuid. */
   initialize_shell_options(privileged_mode || running_setuid);
   initialize_bashopts(privileged_mode || running_setuid);
 }
@@ -1607,18 +1606,17 @@ int extra;
   char *set_opts, *s, *t;
 
   if (extra)
-    fprintf(fp, "GNU bash, version %s-(%s)\n", get_shell_version(),
-            MACHTYPE);
-  fprintf(fp, "Usage:\t%s [GNU long option] [option] ...\n\t%s [GNU long "
-                "option] [option] script-file ...\n",
+    fprintf(fp, "GNU bash, version %s-(%s)\n", get_shell_version(), MACHTYPE);
+  fprintf(fp,
+          "Usage:\t%s [GNU long option] [option] ...\n\t%s [GNU long "
+          "option] [option] script-file ...\n",
           shell_name, shell_name);
   fputs("GNU long options:\n", fp);
   for (i = 0; long_args[i].name; i++)
     fprintf(fp, "\t--%s\n", long_args[i].name);
 
   fputs("Shell options:\n", fp);
-  fputs("\t-ilrsD or -c command or -O shopt_option\t\t(invocation only)\n",
-        fp);
+  fputs("\t-ilrsD or -c command or -O shopt_option\t\t(invocation only)\n", fp);
 
   for (i = 0, set_opts = 0; shell_builtins[i].name; i++)
     if (STREQ(shell_builtins[i].name, "set"))
@@ -1635,18 +1633,19 @@ int extra;
   }
 
   if (extra) {
-    fprintf(fp, "Type `%s -c \"help set\"' for more information about shell "
-                  "options.\n",
+    fprintf(fp,
+            "Type `%s -c \"help set\"' for more information about shell "
+            "options.\n",
             shell_name);
-    fprintf(fp, "Type `%s -c help' for more information about shell builtin "
-                  "commands.\n",
+    fprintf(fp,
+            "Type `%s -c help' for more information about shell builtin "
+            "commands.\n",
             shell_name);
     fprintf(fp, "Use the `bashbug' command to report bugs.\n");
     fprintf(fp, "\n");
     fprintf(fp, "bash home page: <http://www.gnu.org/software/bash>\n");
-    fprintf(
-        fp,
-        "General help using GNU software: <http://www.gnu.org/gethelp/>\n");
+    fprintf(fp,
+            "General help using GNU software: <http://www.gnu.org/gethelp/>\n");
   }
 }
 

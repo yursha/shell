@@ -1,6 +1,5 @@
 /* error.c -- Functions for handling errors. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -68,8 +67,7 @@ static void error_prolog(print_lineno) int print_lineno;
       (print_lineno && interactive_shell == 0) ? executing_line_number() : -1;
 
   if (line > 0)
-    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : " line ",
-            line);
+    fprintf(stderr, "%s:%s%d: ", ename, gnu_error_format ? "" : " line ", line);
   else
     fprintf(stderr, "%s: ", ename);
 }

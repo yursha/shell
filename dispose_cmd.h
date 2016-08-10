@@ -1,6 +1,5 @@
 /* dispose_cmd.h -- Functions appearing in dispose_cmd.c. */
 
-
 #if !defined(_DISPOSE_CMD_H_)
 #define _DISPOSE_CMD_H_
 

@@ -1,6 +1,5 @@
 /* watch.c - watchpoint functions for malloc */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -15,9 +14,9 @@
 #define WATCH_MAX 32
 
 int _malloc_nwatch;
-static void * _malloc_watch_list[WATCH_MAX];
+static void *_malloc_watch_list[WATCH_MAX];
 
-static void watch_warn(addr, file, line, type, data) void * addr;
+static void watch_warn(addr, file, line, type, data) void *addr;
 const char *file;
 int line, type;
 unsigned long data;
@@ -40,7 +39,7 @@ unsigned long data;
   fprintf(stderr, "from '%s:%d'\n", file ? file : "unknown", line);
 }
 
-void _malloc_ckwatch(addr, file, line, type, data) void * addr;
+void _malloc_ckwatch(addr, file, line, type, data) void *addr;
 const char *file;
 int line, type;
 unsigned long data;
@@ -56,11 +55,10 @@ unsigned long data;
 }
 #endif /* MALLOC_WATCH */
 
-void *
-malloc_watch(addr) void * addr;
+void *malloc_watch(addr) void *addr;
 {
   register int i;
-  void * ret;
+  void *ret;
 
   if (addr == 0) return addr;
   ret = (void *)0;
@@ -87,8 +85,7 @@ malloc_watch(addr) void * addr;
 /* Remove a watchpoint set on ADDR.  If ADDR is NULL, remove all
    watchpoints.  Returns ADDR if everything went OK, NULL if ADDR was
    not being watched. */
-void *
-malloc_unwatch(addr) void * addr;
+void *malloc_unwatch(addr) void *addr;
 {
 #ifdef MALLOC_WATCH
   register int i;

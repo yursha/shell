@@ -1,6 +1,5 @@
 /* findcmd.h - functions from findcmd.c. */
 
-
 #if !defined(_FINDCMD_H_)
 #define _FINDCMD_H_
 

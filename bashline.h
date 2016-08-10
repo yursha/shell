@@ -1,6 +1,5 @@
 /* bashline.h -- interface to the bash readline functions in bashline.c. */
 
-
 #if !defined(_BASHLINE_H_)
 #define _BASHLINE_H_
 

@@ -2,7 +2,6 @@
    primarily for making function definitions, but I'm not sure
    that anyone else will need it.  */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

@@ -1,6 +1,5 @@
 /* bind.c -- key binding and startup file support for the readline library. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(__TANDEM)

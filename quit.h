@@ -1,6 +1,5 @@
 /* quit.h -- How to handle SIGINT gracefully. */
 
-
 #if !defined(_QUIT_H_)
 #define _QUIT_H_
 

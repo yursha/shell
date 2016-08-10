@@ -1,6 +1,5 @@
 /* histlib.h -- internal definitions for the history library. */
 
-
 #if !defined(_HISTLIB_H_)
 #define _HISTLIB_H_
 

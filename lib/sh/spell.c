@@ -1,6 +1,5 @@
 /* spell.c -- spelling correction for pathnames. */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

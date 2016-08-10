@@ -1,6 +1,5 @@
 /* kill.c -- kill ring management. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

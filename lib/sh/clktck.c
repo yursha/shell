@@ -1,6 +1,5 @@
 /* clktck.c - get the value of CLK_TCK. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

@@ -1,7 +1,6 @@
 /* array.h -- definitions for the interface exported by array.c that allows
    the rest of the shell to manipulate array variables. */
 
-
 #ifndef _ARRAY_H_
 #define _ARRAY_H_
 

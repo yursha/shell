@@ -1,6 +1,5 @@
 /* psize.c - Find pipe size. */
 
-
 /*  Write output in 128-byte chunks until we get a sigpipe or write gets an
     EPIPE.  Then report how many bytes we wrote.  We assume that this is the
     pipe size. */

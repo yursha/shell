@@ -1,6 +1,5 @@
 /* stringlib.c - Miscellaneous string functions. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

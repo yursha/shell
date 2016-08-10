@@ -1,6 +1,5 @@
 /* histexamp.c - history library example program. */
 
-
 #include <stdio.h>
 
 #ifdef READLINE_LIBRARY

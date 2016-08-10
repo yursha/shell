@@ -1,6 +1,5 @@
 /* posixselect.h -- wrapper for select(2) includes and definitions */
 
-
 #ifndef _POSIXSELECT_H_
 #define _POSIXSELECT_H_
 

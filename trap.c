@@ -1,7 +1,6 @@
 /* trap.c -- Not the trap command, but useful functions for manipulating
    those objects.  The trap command is in builtins/trap.def. */
 
-
 #include "config.h"
 
 #if defined(HAVE_UNISTD_H)
@@ -13,7 +12,6 @@
 
 #include <stdio.h>
 #include <errno.h>
-
 
 #include <signal.h>
 
@@ -291,7 +289,8 @@ void run_pending_traps() {
     /* XXX this could be made into a counter by using
        while (pending_traps[sig]--) instead of the if statement. */
     if (pending_traps[sig]) {
-      if (running_trap == sig + 1) /*continue*/;
+      if (running_trap == sig + 1) /*continue*/
+        ;
 
       running_trap = sig + 1;
 
@@ -348,9 +347,10 @@ void run_pending_traps() {
         internal_warning("run_pending_traps: bad value in trap_list[%d]: %p",
                          sig, trap_list[sig]);
         if (trap_list[sig] == (char *)DEFAULT_SIG) {
-          internal_warning("run_pending_traps: signal handler is SIG_DFL, "
-                             "resending %d (%s) to myself",
-                           sig, signal_name(sig));
+          internal_warning(
+              "run_pending_traps: signal handler is SIG_DFL, "
+              "resending %d (%s) to myself",
+              sig, signal_name(sig));
           kill(getpid(), sig);
         }
       } else {

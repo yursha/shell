@@ -2,7 +2,6 @@
 
 /* Modified to run with the GNU shell Apr 25, 1988 by bfox. */
 
-
 /* Define PATTERN_MATCHING to get the csh-like =~ and !~ pattern-matching
    binary operators. */
 /* #define PATTERN_MATCHING */
@@ -34,7 +33,6 @@ extern int errno;
 #include "posixstat.h"
 #include "filecntl.h"
 #include "stat-time.h"
-
 
 #include "shell.h"
 #include "pathexp.h"
@@ -124,9 +122,7 @@ static void test_syntax_error(format, arg) char *format, *arg;
  * beyond - call when we're beyond the end of the argument list (an
  *	error condition)
  */
-static void beyond() {
-  test_syntax_error("argument expected", (char *)NULL);
-}
+static void beyond() { test_syntax_error("argument expected", (char *)NULL); }
 
 /* Syntax error for when an integer argument was expected, but
    something else was found. */

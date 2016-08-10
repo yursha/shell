@@ -1,6 +1,5 @@
 /* typemax.h -- encapsulate max values for long, long long, etc. */
 
-
 /*
  * NOTE:  This should be included after config.h, limits.h, stdint.h, and
  *	  inttypes.h

@@ -1,6 +1,5 @@
 /* bashgetopt.h -- extern declarations for stuff defined in bashgetopt.c. */
 
-
 /* See getopt.h for the explanation of these variables. */
 
 #if !defined(__BASH_GETOPT_H)

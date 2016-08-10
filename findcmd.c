@@ -1,6 +1,5 @@
 /* findcmd.c -- Functions to search for commands by name. */
 
-
 #include "config.h"
 
 #include <stdio.h>

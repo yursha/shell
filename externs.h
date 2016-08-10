@@ -1,7 +1,6 @@
 /* externs.h -- extern function declarations which do not appear in their
    own header file. */
 
-
 /* Make sure that this is included *after* config.h! */
 
 #if !defined(_EXTERNS_H_)

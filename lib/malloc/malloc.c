@@ -168,8 +168,8 @@ typedef union _malloc_guard {
 #define ALLOCATED_BYTES(n) \
   (((n) + MOVERHEAD + MSLOP + MALIGN_MASK) & ~MALIGN_MASK)
 
-#define ASSERT(p)                                                             \
-  do {                                                                        \
+#define ASSERT(p)                                                              \
+  do {                                                                         \
     if (!(p)) xbotch((void *)0, ERR_ASSERT_FAILED, CPP_STRING(p), file, line); \
   } while (0)
 
@@ -239,16 +239,16 @@ static const unsigned long binsizes[NBUCKETS] = {
 #define binsize(x) binsizes[(x)]
 
 /* Declarations for internal functions */
-static void * internal_malloc(size_t, const char *, int, int);
-static void * internal_realloc(void *, size_t, const char *, int, int);
+static void *internal_malloc(size_t, const char *, int, int);
+static void *internal_realloc(void *, size_t, const char *, int, int);
 static void internal_free(void *, const char *, int, int);
-static void * internal_memalign(size_t, size_t, const char *, int, int);
+static void *internal_memalign(size_t, size_t, const char *, int, int);
 #ifndef NO_CALLOC
-static void * internal_calloc(size_t, size_t, const char *, int, int);
+static void *internal_calloc(size_t, size_t, const char *, int, int);
 static void internal_cfree(void *, const char *, int, int);
 #endif
 #ifndef NO_VALLOC
-static void * internal_valloc(size_t, const char *, int, int);
+static void *internal_valloc(size_t, const char *, int, int);
 #endif
 
 #if defined(botch)
@@ -297,7 +297,7 @@ int line;
 
 /* print the file and line number that caused the assertion failure and
    call botch() to do whatever the application wants with the information */
-static void xbotch(mem, e, s, file, line) void * mem;
+static void xbotch(mem, e, s, file, line) void *mem;
 int e;
 const char *s;
 const char *file;
@@ -675,7 +675,7 @@ static int pagealign() {
   return 0;
 }
 
-static void * internal_malloc(n, file, line, flags) /* get a block */
+static void *internal_malloc(n, file, line, flags) /* get a block */
     size_t n;
 const char *file;
 int line, flags;
@@ -775,7 +775,7 @@ int line, flags;
   return (void *)(p + 1);
 }
 
-static void internal_free(mem, file, line, flags) void * mem;
+static void internal_free(mem, file, line, flags) void *mem;
 const char *file;
 int line, flags;
 {
@@ -802,11 +802,11 @@ int line, flags;
 
   if (p->mh_alloc != ISALLOC) {
     if (p->mh_alloc == ISFREE)
-      xbotch(mem, ERR_DUPFREE,
-             "free: called with already freed block argument", file, line);
+      xbotch(mem, ERR_DUPFREE, "free: called with already freed block argument",
+             file, line);
     else
-      xbotch(mem, ERR_UNALLOC,
-             "free: called with unallocated block argument", file, line);
+      xbotch(mem, ERR_UNALLOC, "free: called with unallocated block argument",
+             file, line);
   }
 
   ASSERT(p->mh_magic2 == MAGIC2);
@@ -894,7 +894,7 @@ free_return:; /* Empty statement in case this is the end of the function */
 #endif
 }
 
-static void * internal_realloc(mem, n, file, line, flags) void * mem;
+static void *internal_realloc(mem, n, file, line, flags) void *mem;
 register size_t n;
 const char *file;
 int line, flags;
@@ -922,8 +922,8 @@ int line, flags;
   ASSERT(nunits < NBUCKETS);
 
   if (p->mh_alloc != ISALLOC)
-    xbotch(mem, ERR_UNALLOC,
-           "realloc: called with unallocated block argument", file, line);
+    xbotch(mem, ERR_UNALLOC, "realloc: called with unallocated block argument",
+           file, line);
 
   ASSERT(p->mh_magic2 == MAGIC2);
   nbytes = ALLOCATED_BYTES(p->mh_nbytes);
@@ -938,15 +938,14 @@ int line, flags;
      original number of bytes requested. */
   if (IN_BUCKET(nbytes, nunits) == 0)
     xbotch(mem, ERR_UNDERFLOW,
-           "realloc: underflow detected; mh_nbytes out of range", file,
-           line);
+           "realloc: underflow detected; mh_nbytes out of range", file, line);
 
   m = (char *)mem + (tocopy = p->mh_nbytes);
   z = mg.s;
   *z++ = *m++, *z++ = *m++, *z++ = *m++, *z++ = *m++;
   if (mg.i != p->mh_nbytes)
-    xbotch(mem, ERR_ASSERT_FAILED,
-           "realloc: start and end chunk sizes differ", file, line);
+    xbotch(mem, ERR_ASSERT_FAILED, "realloc: start and end chunk sizes differ",
+           file, line);
 
 #ifdef MALLOC_WATCH
   if (_malloc_nwatch > 0) _malloc_ckwatch(p + 1, file, line, W_REALLOC, n);
@@ -1010,7 +1009,7 @@ int line, flags;
   return m;
 }
 
-static void * internal_memalign(alignment, size, file, line,
+static void *internal_memalign(alignment, size, file, line,
                                flags) size_t alignment;
 size_t size;
 const char *file;
@@ -1044,7 +1043,7 @@ int line, flags;
 #if !defined(NO_VALLOC)
 /* This runs into trouble with getpagesize on HPUX, and Multimax machines.
    Patching out seems cleaner than the ugly fix needed.  */
-static void * internal_valloc(size, file, line, flags) size_t size;
+static void *internal_valloc(size, file, line, flags) size_t size;
 const char *file;
 int line, flags;
 {
@@ -1054,12 +1053,12 @@ int line, flags;
 #endif /* !NO_VALLOC */
 
 #ifndef NO_CALLOC
-static void * internal_calloc(n, s, file, line, flags) size_t n, s;
+static void *internal_calloc(n, s, file, line, flags) size_t n, s;
 const char *file;
 int line, flags;
 {
   size_t total;
-  void * result;
+  void *result;
 
   total = n * s;
   result = internal_malloc(total, file, line, flags | MALLOC_INTERNAL);
@@ -1067,7 +1066,7 @@ int line, flags;
   return result;
 }
 
-static void internal_cfree(p, file, line, flags) void * p;
+static void internal_cfree(p, file, line, flags) void *p;
 const char *file;
 int line, flags;
 { internal_free(p, file, line, flags | MALLOC_INTERNAL); }
@@ -1087,47 +1086,42 @@ int malloc_free_blocks(size) int size;
 #endif
 
 #if defined(MALLOC_WRAPFUNCS)
-void *
-sh_malloc(bytes, file, line) size_t bytes;
+void *sh_malloc(bytes, file, line) size_t bytes;
 const char *file;
 int line;
 { return internal_malloc(bytes, file, line, MALLOC_WRAPPER); }
 
-void *
-sh_realloc(ptr, size, file, line) void * ptr;
+void *sh_realloc(ptr, size, file, line) void *ptr;
 size_t size;
 const char *file;
 int line;
 { return internal_realloc(ptr, size, file, line, MALLOC_WRAPPER); }
 
-void sh_free(mem, file, line) void * mem;
+void sh_free(mem, file, line) void *mem;
 const char *file;
 int line;
 { internal_free(mem, file, line, MALLOC_WRAPPER); }
 
-void *
-sh_memalign(alignment, size, file, line) size_t alignment;
+void *sh_memalign(alignment, size, file, line) size_t alignment;
 size_t size;
 const char *file;
 int line;
 { return internal_memalign(alignment, size, file, line, MALLOC_WRAPPER); }
 
 #ifndef NO_CALLOC
-void *
-sh_calloc(n, s, file, line) size_t n, s;
+void *sh_calloc(n, s, file, line) size_t n, s;
 const char *file;
 int line;
 { return internal_calloc(n, s, file, line, MALLOC_WRAPPER); }
 
-void sh_cfree(mem, file, line) void * mem;
+void sh_cfree(mem, file, line) void *mem;
 const char *file;
 int line;
 { internal_cfree(mem, file, line, MALLOC_WRAPPER); }
 #endif
 
 #ifndef NO_VALLOC
-void *
-sh_valloc(size, file, line) size_t size;
+void *sh_valloc(size, file, line) size_t size;
 const char *file;
 int line;
 { return internal_valloc(size, file, line, MALLOC_WRAPPER); }
@@ -1137,34 +1131,29 @@ int line;
 
 /* Externally-available functions that call their internal counterparts. */
 
-void *
-malloc(size) size_t size;
+void *malloc(size) size_t size;
 { return internal_malloc(size, (char *)NULL, 0, 0); }
 
-void *
-realloc(mem, nbytes) void * mem;
+void *realloc(mem, nbytes) void *mem;
 size_t nbytes;
 { return internal_realloc(mem, nbytes, (char *)NULL, 0, 0); }
 
-void free(mem) void * mem;
+void free(mem) void *mem;
 { internal_free(mem, (char *)NULL, 0, 0); }
 
-void *
-memalign(alignment, size) size_t alignment;
+void *memalign(alignment, size) size_t alignment;
 size_t size;
 { return internal_memalign(alignment, size, (char *)NULL, 0, 0); }
 
 #ifndef NO_VALLOC
-void *
-valloc(size) size_t size;
+void *valloc(size) size_t size;
 { return internal_valloc(size, (char *)NULL, 0, 0); }
 #endif
 
 #ifndef NO_CALLOC
-void *
-calloc(n, s) size_t n, s;
+void *calloc(n, s) size_t n, s;
 { return internal_calloc(n, s, (char *)NULL, 0, 0); }
 
-void cfree(mem) void * mem;
+void cfree(mem) void *mem;
 { internal_cfree(mem, (char *)NULL, 0, 0); }
 #endif

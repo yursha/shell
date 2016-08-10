@@ -1,6 +1,5 @@
 /* mailstat.c -- stat a mailbox file, handling maildir-type mail directories */
 
-
 #include <config.h>
 
 #include <stdio.h>

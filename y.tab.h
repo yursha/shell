@@ -31,10 +31,10 @@
    version 2.2 of Bison.  */
 
 #ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+#define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -42,57 +42,56 @@ extern int yydebug;
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
-# define YYTOKENTYPE
-  enum yytokentype
-  {
-    IF = 258,
-    THEN = 259,
-    ELSE = 260,
-    ELIF = 261,
-    FI = 262,
-    CASE = 263,
-    ESAC = 264,
-    FOR = 265,
-    SELECT = 266,
-    WHILE = 267,
-    UNTIL = 268,
-    DO = 269,
-    DONE = 270,
-    FUNCTION = 271,
-    COPROC = 272,
-    COND_START = 273,
-    COND_END = 274,
-    COND_ERROR = 275,
-    IN = 276,
-    BANG = 277,
-    TIME = 278,
-    TIMEOPT = 279,
-    TIMEIGN = 280,
-    WORD = 281,
-    ASSIGNMENT_WORD = 282,
-    REDIR_WORD = 283,
-    NUMBER = 284,
-    ARITH_CMD = 285,
-    ARITH_FOR_EXPRS = 286,
-    COND_CMD = 287,
-    AND_AND = 288,
-    OR_OR = 289,
-    GREATER_GREATER = 290,
-    LESS_LESS = 291,
-    LESS_AND = 292,
-    LESS_LESS_LESS = 293,
-    GREATER_AND = 294,
-    SEMI_SEMI = 295,
-    SEMI_AND = 296,
-    SEMI_SEMI_AND = 297,
-    LESS_LESS_MINUS = 298,
-    AND_GREATER = 299,
-    AND_GREATER_GREATER = 300,
-    LESS_GREATER = 301,
-    GREATER_BAR = 302,
-    BAR_AND = 303,
-    yacc_EOF = 304
-  };
+#define YYTOKENTYPE
+enum yytokentype {
+  IF = 258,
+  THEN = 259,
+  ELSE = 260,
+  ELIF = 261,
+  FI = 262,
+  CASE = 263,
+  ESAC = 264,
+  FOR = 265,
+  SELECT = 266,
+  WHILE = 267,
+  UNTIL = 268,
+  DO = 269,
+  DONE = 270,
+  FUNCTION = 271,
+  COPROC = 272,
+  COND_START = 273,
+  COND_END = 274,
+  COND_ERROR = 275,
+  IN = 276,
+  BANG = 277,
+  TIME = 278,
+  TIMEOPT = 279,
+  TIMEIGN = 280,
+  WORD = 281,
+  ASSIGNMENT_WORD = 282,
+  REDIR_WORD = 283,
+  NUMBER = 284,
+  ARITH_CMD = 285,
+  ARITH_FOR_EXPRS = 286,
+  COND_CMD = 287,
+  AND_AND = 288,
+  OR_OR = 289,
+  GREATER_GREATER = 290,
+  LESS_LESS = 291,
+  LESS_AND = 292,
+  LESS_LESS_LESS = 293,
+  GREATER_AND = 294,
+  SEMI_SEMI = 295,
+  SEMI_AND = 296,
+  SEMI_SEMI_AND = 297,
+  LESS_LESS_MINUS = 298,
+  AND_GREATER = 299,
+  AND_GREATER_GREATER = 300,
+  LESS_GREATER = 301,
+  GREATER_BAR = 302,
+  BAR_AND = 303,
+  yacc_EOF = 304
+};
 #endif
 /* Tokens.  */
 #define IF 258
@@ -144,14 +143,13 @@ extern int yydebug;
 #define yacc_EOF 304
 
 /* Value type.  */
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+#if !defined YYSTYPE && !defined YYSTYPE_IS_DECLARED
 
-union YYSTYPE
-{
+union YYSTYPE {
 #line 310 "./parse.y" /* yacc.c:1909  */
 
-  WORD_DESC *word;		/* the word that we read. */
-  int number;			/* the number that we read. */
+  WORD_DESC *word; /* the word that we read. */
+  int number;      /* the number that we read. */
   WORD_LIST *word_list;
   COMMAND *command;
   REDIRECT *redirect;
@@ -162,13 +160,12 @@ union YYSTYPE
 };
 
 typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
-# define YYSTYPE_IS_DECLARED 1
+#define YYSTYPE_IS_TRIVIAL 1
+#define YYSTYPE_IS_DECLARED 1
 #endif
-
 
 extern YYSTYPE yylval;
 
-int yyparse (void);
+int yyparse(void);
 
 #endif /* !YY_YY_Y_TAB_H_INCLUDED  */

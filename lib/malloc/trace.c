@@ -1,6 +1,5 @@
 /* trace.c - tracing functions for malloc */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -24,7 +23,7 @@ FILE *_mtrace_fp = NULL;
 extern char _malloc_trace_buckets[];
 
 void mtrace_alloc(tag, mem, size, file, line) const char *tag;
-void * mem;
+void *mem;
 size_t size;
 const char *file;
 int line;
@@ -39,7 +38,7 @@ int line;
             file ? file : "unknown", line);
 }
 
-void mtrace_free(mem, size, file, line) void * mem;
+void mtrace_free(mem, size, file, line) void *mem;
 int size;
 const char *file;
 int line;

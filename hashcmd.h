@@ -1,6 +1,5 @@
 /* hashcmd.h - Common defines for hashing filenames. */
 
-
 #include "stdc.h"
 #include "hashlib.h"
 

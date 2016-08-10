@@ -42,7 +42,7 @@
 #if defined(__GNUC__) || (defined(__STDC__) && __STDC__)
 #defineargs args
 #else
-#defineargs) (
+#defineargs)(
 #endif /* GCC.  */
 #endif /* Not __P.  */
 

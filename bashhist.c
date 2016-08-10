@@ -1,6 +1,5 @@
 /* bashhist.c -- bash interface to the GNU history library. */
 
-
 #include "config.h"
 
 #if defined(HISTORY)
@@ -15,7 +14,6 @@
 #include "bashansi.h"
 #include "posixstat.h"
 #include "filecntl.h"
-
 
 #if defined(SYSLOG_HISTORY)
 #include <syslog.h>

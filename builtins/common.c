@@ -716,7 +716,6 @@ void initialize_shell_builtins() {
 
 #if !defined(HELP_BUILTIN)
 void builtin_help() {
-  printf("%s: %s\n", this_command_name,
-         "help not available in this version");
+  printf("%s: %s\n", this_command_name, "help not available in this version");
 }
 #endif

@@ -1,6 +1,5 @@
 /* zmapfd - read contents of file descriptor into a newly-allocated buffer */
 
-
 #include <config.h>
 
 #include <sys/types.h>

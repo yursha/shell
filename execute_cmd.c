@@ -1,6 +1,5 @@
 /* execute_cmd.c -- Execute a COMMAND structure. */
 
-
 #include "config.h"
 
 #if !defined(__GNUC__) && !defined(HAVE_ALLOCA_H) && defined(_AIX)
@@ -3304,9 +3303,7 @@ static int execute_cond_node(cond) COND_COM *cond;
     if (ignore) comsub_ignore_return--;
     if (arg1 == 0) arg1 = nullstr;
     if (ignore) comsub_ignore_return++;
-    arg2 = cond_expand_word(
-        cond->right->op,
-        (rmatch) ? 2 : (patmatch ? 1 : 0));
+    arg2 = cond_expand_word(cond->right->op, (rmatch) ? 2 : (patmatch ? 1 : 0));
     if (ignore) comsub_ignore_return--;
     if (arg2 == 0) arg2 = nullstr;
 

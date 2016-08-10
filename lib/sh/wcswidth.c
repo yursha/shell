@@ -1,6 +1,5 @@
 /* wcswidth.c - compute display width of wide character string */
 
-
 #include <config.h>
 
 #if defined(HANDLE_MULTIBYTE) && !defined(HAVE_WCSWIDTH)

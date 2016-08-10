@@ -1,6 +1,5 @@
 /* zread - read data from file descriptor into buffer with retries */
 
-
 #include <config.h>
 
 #include <sys/types.h>

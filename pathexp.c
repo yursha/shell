@@ -1,6 +1,5 @@
 /* pathexp.c -- The shell interface to the globbing library. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

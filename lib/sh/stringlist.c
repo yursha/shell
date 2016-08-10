@@ -1,6 +1,5 @@
 /* stringlist.c - functions to handle a generic `list of strings' structure */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

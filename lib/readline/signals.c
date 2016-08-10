@@ -1,6 +1,5 @@
 /* signals.c -- signal handling support for readline. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

@@ -1,6 +1,5 @@
 /* mailcheck.h -- variables and function declarations for mail checking. */
 
-
 #if !defined(_MAILCHECK_H_)
 #define _MAILCHECK_H_
 

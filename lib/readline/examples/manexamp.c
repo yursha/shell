@@ -1,6 +1,5 @@
 /* manexamp.c -- The examples which appear in the documentation are here. */
 
-
 #include <stdio.h>
 #include <readline/readline.h>
 

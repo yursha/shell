@@ -1,7 +1,6 @@
 /* strmatch.c -- ksh-like extended pattern matching for the shell and filename
                 globbing. */
 
-
 #include <config.h>
 
 #include <stdio.h> /* for debugging */

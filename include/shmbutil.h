@@ -1,6 +1,5 @@
 /* shmbutil.h -- utility functions for multibyte characters. */
 
-
 #if !defined(_SH_MBUTIL_H_)
 #define _SH_MBUTIL_H_
 

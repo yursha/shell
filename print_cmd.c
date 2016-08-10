@@ -1,6 +1,5 @@
 /* print_command -- A way to make readable commands from a command tree. */
 
-
 #include "config.h"
 
 #include <stdio.h>
@@ -326,16 +325,13 @@ void xtrace_set(int fd, FILE *fp) {
     return;
   }
   if (fd >= 0 && fileno(fp) != fd)
-    internal_warning("xtrace fd (%d) != fileno xtrace fp (%d)", fd,
-                     fileno(fp));
+    internal_warning("xtrace fd (%d) != fileno xtrace fp (%d)", fd, fileno(fp));
 
   xtrace_fd = fd;
   xtrace_fp = fp;
 }
 
-void xtrace_init() {
-  xtrace_set(-1, stderr);
-}
+void xtrace_init() { xtrace_set(-1, stderr); }
 
 void xtrace_reset() {
   if (xtrace_fd >= 0 && xtrace_fp) {

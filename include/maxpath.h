@@ -1,6 +1,5 @@
 /* maxpath.h - Find out what this system thinks PATH_MAX and NAME_MAX are. */
 
-
 #if !defined(_MAXPATH_H_)
 #define _MAXPATH_H_
 

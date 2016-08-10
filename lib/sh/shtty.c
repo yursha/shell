@@ -2,7 +2,6 @@
  * shtty.c -- abstract interface to the terminal, focusing on capabilities.
  */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

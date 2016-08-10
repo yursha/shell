@@ -1,7 +1,6 @@
 /* vi_mode.c -- A vi emulation mode for Bash.
    Derived from code written by Jeff Sparkes (jsparkes@bnr.ca).  */
 
-
 #define READLINE_LIBRARY
 
 /* **************************************************************** */

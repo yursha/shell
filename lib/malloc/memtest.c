@@ -6,7 +6,6 @@
  * 	gcc -g -o x x.o xmalloc.o lib/malloc/libmalloc.a
  */
 
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>

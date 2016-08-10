@@ -1,6 +1,5 @@
 /* getcwd.c -- get pathname of current directory */
 
-
 #include <config.h>
 
 #if !defined(HAVE_GETCWD)
@@ -84,7 +83,7 @@ ino_t thisino;
    big as necessary.  */
 #if defined(__STDC__)
 char *getcwd(char *buf, size_t size)
-#else /* !__STDC__ */
+#else  /* !__STDC__ */
 char *getcwd(buf, size) char *buf;
 size_t size;
 #endif /* !__STDC__ */

@@ -1,6 +1,5 @@
 /* ufuncs - sleep and alarm functions that understand fractional values */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

@@ -1,6 +1,5 @@
 /* terminal.c -- controlling the terminal with termcap. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

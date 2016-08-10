@@ -1,6 +1,5 @@
 /* netconn.c -- is a particular file descriptor a network connection?. */
 
-
 #include <config.h>
 
 #include <bashtypes.h>

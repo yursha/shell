@@ -1,7 +1,6 @@
 /* arrayfunc.h -- declarations for miscellaneous array functions in arrayfunc.c
  */
 
-
 #if !defined(_ARRAYFUNC_H_)
 #define _ARRAYFUNC_H_
 

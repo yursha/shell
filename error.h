@@ -1,6 +1,5 @@
 /* error.h -- External declarations of functions appearing in error.c. */
 
-
 #if !defined(_ERROR_H_)
 #define _ERROR_H_
 

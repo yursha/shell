@@ -725,8 +725,7 @@ void adjust_shell_level(change) int change;
   if (shell_level < 0)
     shell_level = 0;
   else if (shell_level >= 1000) {
-    internal_warning("shell level (%d) too high, resetting to 1",
-                     shell_level);
+    internal_warning("shell level (%d) too high, resetting to 1", shell_level);
     shell_level = 1;
   }
 
@@ -1989,12 +1988,13 @@ SHELL_VAR *set_if_not(char *name, char *value) {
   SHELL_VAR *v;
 
   if (shell_variables == 0) {
-      create_variable_tables();
+    create_variable_tables();
   }
 
   v = find_variable(name);
   if (v == 0) {
-    v = bind_variable_internal(name, value, global_variables->table, HASH_NOSRCH, 0);
+    v = bind_variable_internal(name, value, global_variables->table,
+                               HASH_NOSRCH, 0);
   }
   return v;
 }
@@ -2046,8 +2046,7 @@ SHELL_VAR *make_local_variable(name) const char *name;
     if (vc_isfuncenv(vc) && vc->scope == variable_context) break;
 
   if (vc == 0) {
-    internal_error(
-        "make_local_variable: no function context at current scope");
+    internal_error("make_local_variable: no function context at current scope");
     return ((SHELL_VAR *)NULL);
   } else if (vc->table == 0)
     vc->table = hash_create(TEMPENV_HASH_BUCKETS);
@@ -2319,8 +2318,7 @@ int hflags, aflags;
       tname = array_variable_name(newval, (char **)0, (int *)0);
       if (tname && (tentry = find_variable_noref(tname)) && nameref_p(tentry)) {
         /* nameref variables can't be arrays */
-        internal_warning("%s: removing nameref attribute",
-                         name_cell(tentry));
+        internal_warning("%s: removing nameref attribute", name_cell(tentry));
         FREE(value_cell(tentry)); /* XXX - bash-4.3 compat */
         var_setvalue(tentry, (char *)NULL);
         VUNSETATTR(tentry, att_nameref);
@@ -2661,7 +2659,7 @@ FUNCTION_DEF *value;
     value->command = cmd;
 
     elt = hash_insert(savestring(name), shell_function_defs, HASH_NOSRCH);
-    elt->data = (void * *)entry;
+    elt->data = (void **)entry;
   }
 }
 #endif /* DEBUGGER */
@@ -3043,7 +3041,7 @@ void kill_all_local_variables() {
   vc->table = (HASH_TABLE *)NULL;
 }
 
-static void free_variable_hash_data(data) void * data;
+static void free_variable_hash_data(data) void *data;
 {
   SHELL_VAR *var;
 
@@ -3325,8 +3323,7 @@ SHELL_VAR **all_local_variables() {
     if (vc_isfuncenv(vc) && vc->scope == variable_context) break;
 
   if (vc == 0) {
-    internal_error(
-        "all_local_variables: no function context at current scope");
+    internal_error("all_local_variables: no function context at current scope");
     return (SHELL_VAR **)NULL;
   }
   if (vc->table == 0 || HASH_ENTRIES(vc->table) == 0 || vc_haslocals(vc) == 0)
@@ -3407,7 +3404,7 @@ int tvlist_ind;
 
 /* Push the variable described by (SHELL_VAR *)DATA down to the next
    variable context from the temporary environment. */
-static void push_temp_var(data) void * data;
+static void push_temp_var(data) void *data;
 {
   SHELL_VAR *var, *v;
   HASH_TABLE *binding_table;
@@ -3444,7 +3441,7 @@ static void push_temp_var(data) void * data;
   dispose_variable(var);
 }
 
-static void propagate_temp_var(data) void * data;
+static void propagate_temp_var(data) void *data;
 {
   SHELL_VAR *var;
 
@@ -3572,8 +3569,7 @@ static int valid_exportstr(v) SHELL_VAR *v;
   for (s = v->exportstr + 1; s && *s; s++) {
     if (*s == '=') break;
     if (legal_variable_char((unsigned char)*s) == 0) {
-      internal_error("invalid character %d in exportstr for %s", *s,
-                     v->name);
+      internal_error("invalid character %d in exportstr for %s", *s, v->name);
       return (0);
     }
   }
@@ -3912,7 +3908,7 @@ HASH_TABLE *tempvars;
   return (shell_variables = vc);
 }
 
-static void push_func_var(data) void * data;
+static void push_func_var(data) void *data;
 {
   SHELL_VAR *var, *v;
 
@@ -3997,7 +3993,7 @@ VAR_CONTEXT *push_scope(flags, tmpvars) int flags;
 HASH_TABLE *tmpvars;
 { return (push_var_context((char *)NULL, flags, tmpvars)); }
 
-static void push_exported_var(data) void * data;
+static void push_exported_var(data) void *data;
 {
   SHELL_VAR *var, *v;
 
@@ -4032,7 +4028,7 @@ void pop_scope(is_special) int is_special;
   if (vc_istempscope(vcxt) == 0) {
     internal_error(
         "pop_scope: head of shell_variables not a temporary environment "
-          "scope");
+        "scope");
     return;
   }
 

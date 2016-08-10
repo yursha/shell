@@ -1,7 +1,6 @@
 /* strcasestr.c - Find if one string appears as a substring of another string,
                   without regard to case. */
 
-
 #include <config.h>
 
 #include <bashansi.h>

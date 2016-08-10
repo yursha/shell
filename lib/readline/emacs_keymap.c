@@ -1,6 +1,5 @@
 /* emacs_keymap.c -- the keymap for emacs_mode in readline (). */
 
-
 #if !defined(BUFSIZ)
 #include <stdio.h>
 #endif /* !BUFSIZ */

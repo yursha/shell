@@ -1,7 +1,6 @@
 /* flags.c -- Everything about flags except the `set' command.  That
    is in builtins.c */
 
-
 #include "config.h"
 #if defined(HAVE_UNISTD_H)
 #include <unistd.h>
@@ -316,7 +315,6 @@ void reset_shell_flags() {
 #if defined(BRACE_EXPANSION)
   brace_expansion = 1;
 #endif
-
 }
 
 void initialize_flags() {

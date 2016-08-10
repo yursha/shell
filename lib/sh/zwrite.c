@@ -1,6 +1,5 @@
 /* zwrite - write contents of buffer to file descriptor, retrying on error */
 
-
 #include <config.h>
 
 #include <sys/types.h>

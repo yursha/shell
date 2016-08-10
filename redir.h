@@ -1,6 +1,5 @@
 /* redir.h - functions from redir.c. */
 
-
 #if !defined(_REDIR_H_)
 #define _REDIR_H_
 

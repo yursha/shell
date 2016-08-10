@@ -1,6 +1,5 @@
 /* xmbsrtowcs.c -- replacement function for mbsrtowcs */
 
-
 /* Ask for GNU extensions to get extern declaration for mbsnrtowcs if
    available via glibc. */
 #ifndef _GNU_SOURCE

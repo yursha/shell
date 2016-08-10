@@ -2,7 +2,6 @@
  * shmatch.c -- shell interface to posix regular expression matching.
  */
 
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

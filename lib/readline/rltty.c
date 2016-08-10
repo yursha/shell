@@ -1,7 +1,6 @@
 /* rltty.c -- functions to prepare and restore the terminal for readline's
    use. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

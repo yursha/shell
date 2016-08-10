@@ -1,7 +1,6 @@
 /* strtoll - convert string representation of a number into a long long value.
  */
 
-
 #include <config.h>
 
 #if defined(HAVE_LONG_LONG) && !defined(HAVE_STRTOLL)

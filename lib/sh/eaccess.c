@@ -1,7 +1,6 @@
 /* eaccess.c - eaccess replacement for the shell, plus other access functions.
  */
 
-
 #if defined(HAVE_CONFIG_H)
 #include <config.h>
 #endif

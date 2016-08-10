@@ -72,7 +72,7 @@ extern "C" {
 #define __ptr_t void *
 #else /* Not C++ or ANSI C.  */
 #undef __P
-#defineargs) (
+#defineargs)(
 #undef const
 #define const
 #undef __ptr_t
@@ -214,14 +214,14 @@ extern __ptr_t malloc_find_object_address(__ptr_t __ptr);
 
 /* Underlying allocation function; successive calls should
    return contiguous pieces of memory.  */
-extern __ptr_t(*__morecore)(__malloc_ptrdiff_t __size);
+extern __ptr_t (*__morecore)(__malloc_ptrdiff_t __size);
 
 /* Default value of `__morecore'.  */
 extern __ptr_t __default_morecore(__malloc_ptrdiff_t __size);
 
 /* If not NULL, this function is called after each time
    `__morecore' is called to increase the data size.  */
-extern void(*__after_morecore_hook)(void);
+extern void (*__after_morecore_hook)(void);
 
 /* Number of extra blocks to get each time we ask for more core.
    This reduces the frequency of calling `(*__morecore)'.  */
@@ -233,12 +233,12 @@ extern int __malloc_initialized;
 extern int __malloc_initialize(void);
 
 /* Hooks for debugging versions.  */
-extern void(*__malloc_initialize_hook)(void);
-extern void(*__free_hook)(__ptr_t __ptr);
-extern __ptr_t(*__malloc_hook)(__malloc_size_t __size);
-extern __ptr_t(*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
-extern __ptr_t(*__memalign_hook)
-   (__malloc_size_t __size, __malloc_size_t __alignment);
+extern void (*__malloc_initialize_hook)(void);
+extern void (*__free_hook)(__ptr_t __ptr);
+extern __ptr_t (*__malloc_hook)(__malloc_size_t __size);
+extern __ptr_t (*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
+extern __ptr_t (*__memalign_hook)(__malloc_size_t __size,
+                                  __malloc_size_t __alignment);
 
 /* Return values for `mprobe': these are the kinds of inconsistencies that
    `mcheck' enables detection of.  */
@@ -279,18 +279,18 @@ extern struct mstats mstats(void);
 
 /* Call WARNFUN with a warning message when memory usage is high.  */
 extern void memory_warnings __P((__ptr_t __start,
-                                 void(*__warnfun)(const char *)));
+                                 void (*__warnfun)(const char *)));
 
 /* Relocating allocator.  */
 
 /* Allocate SIZE bytes, and store the address in *HANDLEPTR.  */
-extern __ptr_t r_alloc(__ptr_t * __handleptr, __malloc_size_t __size);
+extern __ptr_t r_alloc(__ptr_t *__handleptr, __malloc_size_t __size);
 
 /* Free the storage allocated in HANDLEPTR.  */
-extern void r_alloc_free(__ptr_t * __handleptr);
+extern void r_alloc_free(__ptr_t *__handleptr);
 
 /* Adjust the block at HANDLEPTR to be SIZE bytes long.  */
-extern __ptr_t r_re_alloc(__ptr_t * __handleptr, __malloc_size_t __size);
+extern __ptr_t r_re_alloc(__ptr_t *__handleptr, __malloc_size_t __size);
 
 #ifdef __cplusplus
 }
@@ -326,10 +326,10 @@ extern __ptr_t r_re_alloc(__ptr_t * __handleptr, __malloc_size_t __size);
 #include <errno.h>
 
 /* How to really get more memory.  */
-__ptr_t(*__morecore)(ptrdiff_t __size) = __default_morecore;
+__ptr_t (*__morecore)(ptrdiff_t __size) = __default_morecore;
 
 /* Debugging hook for `malloc'.  */
-__ptr_t(*__malloc_hook)(__malloc_size_t __size);
+__ptr_t (*__malloc_hook)(__malloc_size_t __size);
 
 /* Pointer to the base of the first block.  */
 char *_heapbase;
@@ -360,8 +360,8 @@ int __malloc_initialized;
 
 __malloc_size_t __malloc_extra_blocks;
 
-void(*__malloc_initialize_hook)(void);
-void(*__after_morecore_hook)(void);
+void (*__malloc_initialize_hook)(void);
+void (*__after_morecore_hook)(void);
 
 /* Aligned allocation.  */
 static __ptr_t align(__malloc_size_t);
@@ -800,7 +800,7 @@ extern void __malloc_safe_bcopy(__ptr_t, __ptr_t, __malloc_size_t);
 #endif
 
 /* Debugging hook for free.  */
-void(*__free_hook)(__ptr_t __ptr);
+void (*__free_hook)(__ptr_t __ptr);
 
 /* List of blocks allocated by memalign.  */
 struct alignlist *_aligned_blocks = NULL;
@@ -1135,7 +1135,7 @@ __malloc_size_t size;
 #define min(A, B) ((A) < (B) ? (A) : (B))
 
 /* Debugging hook for realloc.  */
-__ptr_t(*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
+__ptr_t (*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
 
 /* Resize the given region to the new size, returning a pointer
    to the (possibly moved) region.  This is optimized for speed;
@@ -1309,7 +1309,7 @@ __ptr_t __default_morecore(increment) __malloc_ptrdiff_t increment;
 
 #else
 
-__ptr_t(*__memalign_hook)(size_t __size, size_t __alignment);
+__ptr_t (*__memalign_hook)(size_t __size, size_t __alignment);
 
 __ptr_t memalign(alignment, size) __malloc_size_t alignment;
 __malloc_size_t size;

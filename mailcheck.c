@@ -1,6 +1,5 @@
 /* mailcheck.c -- The check is in the mail... */
 
-
 #include "config.h"
 
 #include <stdio.h>
@@ -353,8 +352,7 @@ void check_mail() {
       int file_is_bigger;
 
       use_user_notification = mailfiles[i]->msg != (char *)NULL;
-      message =
-          mailfiles[i]->msg ? mailfiles[i]->msg : "You have mail in $_";
+      message = mailfiles[i]->msg ? mailfiles[i]->msg : "You have mail in $_";
 
       bind_variable("_", current_mail_file, 0);
 

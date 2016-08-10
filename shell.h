@@ -1,6 +1,5 @@
 /* shell.h -- The data structures used by the shell */
 
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

@@ -1,6 +1,5 @@
 /* getopt.h - declarations for getopt. */
 
-
 /* XXX THIS HAS BEEN MODIFIED FOR INCORPORATION INTO BASH XXX */
 
 #ifndef _SH_GETOPT_H

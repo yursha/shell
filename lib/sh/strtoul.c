@@ -1,7 +1,6 @@
 /* strtoul - convert string representation of a number into an unsigned long
  * value. */
 
-
 #include <config.h>
 
 #ifndef HAVE_STRTOUL

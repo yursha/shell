@@ -1,7 +1,6 @@
 /* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers.
  */
 
-
 #if !defined(_RL_STDC_H_)
 #define _RL_STDC_H_
 

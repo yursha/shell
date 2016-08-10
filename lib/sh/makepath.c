@@ -1,6 +1,5 @@
 /* makepath.c - glue PATH and DIR together into a full pathname. */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

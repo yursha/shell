@@ -1,6 +1,5 @@
 /* dispose_command.c -- dispose of a COMMAND structure. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

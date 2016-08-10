@@ -1,6 +1,5 @@
 /* locale.c - Miscellaneous internationalization functions. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"

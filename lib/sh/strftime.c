@@ -604,7 +604,7 @@ size_t strftime(char *s, size_t maxsize, const char *format,
         /* ADR: 4 August 2001, fixed this per gazelle@interaccess.com */
         off = -(daylight ? altzone : timezone) / 60;
 #endif
-#else /* !HAVE_TZNAME */
+#else  /* !HAVE_TZNAME */
         gettimeofday(&tv, &zone);
         off = -zone.tz_minuteswest;
 #endif /* !HAVE_TZNAME */

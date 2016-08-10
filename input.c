@@ -1,6 +1,5 @@
 /* input.c -- functions to perform buffered input with synchronization. */
 
-
 #include "config.h"
 
 #include "bashtypes.h"
@@ -221,17 +220,15 @@ int save_bash_input(fd, new_fd) int fd, new_fd;
   nfd = (new_fd == -1) ? fcntl(fd, F_DUPFD, 10) : new_fd;
   if (nfd == -1) {
     if (fcntl(fd, F_GETFD, 0) == 0)
-      sys_error(
-          "cannot allocate new file descriptor for bash input from fd %d",
-          fd);
+      sys_error("cannot allocate new file descriptor for bash input from fd %d",
+                fd);
     return -1;
   }
 
   if (nfd < nbuffers && buffers[nfd]) {
     /* What's this?  A stray buffer without an associated open file
        descriptor?  Free up the buffer and report the error. */
-    internal_error("save_bash_input: buffer already exists for new fd %d",
-                   nfd);
+    internal_error("save_bash_input: buffer already exists for new fd %d", nfd);
     free_buffered_stream(buffers[nfd]);
   }
 

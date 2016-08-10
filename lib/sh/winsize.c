@@ -1,6 +1,5 @@
 /* winsize.c - handle window size changes and information. */
 
-
 #include "config.h"
 
 #include <stdc.h>

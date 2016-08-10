@@ -1,6 +1,5 @@
 /* wcsdup.c - duplicate wide character string */
 
-
 #include <config.h>
 
 #if !defined(HAVE_WCSDUP) && defined(HANDLE_MULTIBYTE)

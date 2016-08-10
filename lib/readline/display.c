@@ -1,6 +1,5 @@
 /* display.c -- readline redisplay facility. */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

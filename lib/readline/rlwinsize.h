@@ -1,7 +1,6 @@
 /* rlwinsize.h -- an attempt to isolate some of the system-specific defines
    for `struct winsize' and TIOCGWINSZ. */
 
-
 #if !defined(_RLWINSIZE_H_)
 #define _RLWINSIZE_H_
 

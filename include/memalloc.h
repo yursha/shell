@@ -1,7 +1,6 @@
 /* memalloc.h -- consolidate code for including alloca.h or malloc.h and
    defining alloca. */
 
-
 #if !defined(_MEMALLOC_H_)
 #define _MEMALLOC_H_
 

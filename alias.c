@@ -1,7 +1,6 @@
 /* alias.c -- Not a full alias, but just the kind that we use in the
    shell.  Csh style alias is somewhere else (`over there, in a box'). */
 
-
 #include "config.h"
 
 #if defined(ALIAS)
@@ -113,7 +112,7 @@ void add_alias(name, value) char *name, *value;
 }
 
 /* Delete a single alias structure. */
-static void free_alias_data(data) void * data;
+static void free_alias_data(data) void *data;
 {
   register alias_t *a;
 

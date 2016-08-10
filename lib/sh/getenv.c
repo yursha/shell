@@ -1,7 +1,6 @@
 /* getenv.c - get environment variable value from the shell's variable
               list. */
 
-
 #include <config.h>
 
 #if defined(CAN_REDEFINE_GETENV)

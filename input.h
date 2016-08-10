@@ -1,6 +1,5 @@
 /* input.h -- Structures and unions used for reading input. */
 
-
 #if !defined(_INPUT_H_)
 #define _INPUT_H_
 

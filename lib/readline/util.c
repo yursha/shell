@@ -1,6 +1,5 @@
 /* util.c -- readline utility functions */
 
-
 #define READLINE_LIBRARY
 
 #if defined(HAVE_CONFIG_H)

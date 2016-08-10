@@ -1,6 +1,5 @@
 /* general.h -- defines that everybody likes to use. */
 
-
 #if !defined(_GENERAL_H_)
 #define _GENERAL_H_
 
@@ -193,7 +192,7 @@ typedef void sh_vmsg_func_t(const char *, ...); /* printf(3)-like */
 /* Specific function pointer typedefs.  Most of these could be done
    with #defines. */
 typedef void sh_sv_func_t(char *);    /* sh_vcpfunc_t */
-typedef void sh_free_func_t(void *);   /* sh_vptrfunc_t */
+typedef void sh_free_func_t(void *);  /* sh_vptrfunc_t */
 typedef void sh_resetsig_func_t(int); /* sh_vintfunc_t */
 
 typedef int sh_ignore_func_t(const char *); /* sh_icpfunc_t */

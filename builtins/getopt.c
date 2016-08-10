@@ -1,6 +1,5 @@
 /* getopt.c - getopt for Bash.  Used by the getopt builtin. */
 
-
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)
