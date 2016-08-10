@@ -1,6 +1,3 @@
-// int colon_builtin(char *ignore);
-// int false_builtin(char *ignore);
-
 /* Return a successful result. */
 int colon_builtin(char *ignore) { return 0; }
 

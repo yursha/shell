@@ -1,4 +1,3 @@
-/* history.c, created from history.def. */
 
 #include <config.h>
 

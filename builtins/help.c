@@ -1,4 +1,3 @@
-/* help.c, created from help.def. */
 
 #include <config.h>
 

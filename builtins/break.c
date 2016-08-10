@@ -1,4 +1,3 @@
-/* break.c, created from break.def. */
 
 #include <config.h>
 

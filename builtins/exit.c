@@ -1,4 +1,3 @@
-/* exit.c, created from exit.def. */
 
 #include <config.h>
 

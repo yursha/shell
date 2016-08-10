@@ -1,4 +1,3 @@
-/* hash.c, created from hash.def. */
 
 #include <config.h>
 

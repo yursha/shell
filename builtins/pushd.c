@@ -1,4 +1,3 @@
-/* pushd.c, created from pushd.def. */
 
 #include <config.h>
 

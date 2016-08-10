@@ -1,4 +1,3 @@
-/* mapfile.c, created from mapfile.def. */
 
 #include <config.h>
 

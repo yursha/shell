@@ -1,4 +1,3 @@
-/* times.c, created from times.def. */
 
 #include <config.h>
 

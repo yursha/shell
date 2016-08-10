@@ -1,4 +1,3 @@
-/* echo.c, created from echo.def. */
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

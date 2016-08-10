@@ -1,4 +1,3 @@
-/* builtin.c, created from builtin.def. */
 
 #include <config.h>
 

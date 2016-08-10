@@ -1,4 +1,3 @@
-/* enable.c, created from enable.def. */
 
 #include <config.h>
 

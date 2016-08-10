@@ -1,4 +1,3 @@
-/* complete.c, created from complete.def. */
 
 #include <config.h>
 

@@ -1,4 +1,3 @@
-/* let.c, created from let.def. */
 
 #include <config.h>
 

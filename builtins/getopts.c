@@ -1,4 +1,3 @@
-/* getopts.c, created from getopts.def. */
 
 #include <config.h>
 

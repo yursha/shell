@@ -1,4 +1,3 @@
-/* shift.c, created from shift.def. */
 
 #include <config.h>
 

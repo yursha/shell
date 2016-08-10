@@ -1,4 +1,3 @@
-/* set.c, created from set.def. */
 
 #include <config.h>
 

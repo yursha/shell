@@ -1,4 +1,3 @@
-/* suspend.c, created from suspend.def. */
 
 #include <config.h>
 

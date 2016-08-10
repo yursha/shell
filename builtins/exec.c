@@ -1,4 +1,3 @@
-/* exec.c, created from exec.def. */
 
 #include <config.h>
 

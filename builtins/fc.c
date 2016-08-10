@@ -1,4 +1,3 @@
-/* fc.c, created from fc.def. */
 
 #include <config.h>
 

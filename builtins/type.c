@@ -1,4 +1,3 @@
-/* type.c, created from type.def. */
 
 #include <config.h>
 

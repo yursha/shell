@@ -1,4 +1,3 @@
-/* bind.c, created from bind.def. */
 
 #include <config.h>
 

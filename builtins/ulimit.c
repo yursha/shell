@@ -1,4 +1,3 @@
-/* ulimit.c, created from ulimit.def. */
 #include <config.h>
 
 #include "../bashtypes.h"

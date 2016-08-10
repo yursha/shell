@@ -1,4 +1,3 @@
-/* trap.c, created from trap.def. */
 
 #include <config.h>
 

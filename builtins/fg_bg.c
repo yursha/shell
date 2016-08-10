@@ -1,4 +1,3 @@
-/* fg_bg.c, created from fg_bg.def. */
 
 #include <config.h>
 

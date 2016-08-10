@@ -1,4 +1,3 @@
-/* shopt.c, created from shopt.def. */
 
 #include <config.h>
 

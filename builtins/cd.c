@@ -1,4 +1,3 @@
-/* cd.c, created from cd.def. */
 #include <config.h>
 
 #if defined(HAVE_UNISTD_H)

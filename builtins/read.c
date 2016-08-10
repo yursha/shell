@@ -1,4 +1,3 @@
-/* read.c, created from read.def. */
 
 #include <config.h>
 

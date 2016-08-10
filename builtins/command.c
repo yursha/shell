@@ -1,4 +1,3 @@
-/* command.c, created from command.def. */
 
 #include <config.h>
 

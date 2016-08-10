@@ -1,4 +1,3 @@
-/* caller.c, created from caller.def. */
 
 #include <config.h>
 #include <stdio.h>

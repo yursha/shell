@@ -1,4 +1,3 @@
-/* wait.c, created from wait.def. */
 
 #include <config.h>
 

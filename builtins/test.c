@@ -1,4 +1,3 @@
-/* test.c, created from test.def. */
 
 #include <config.h>
 

@@ -1,4 +1,3 @@
-/* umask.c, created from umask.def. */
 
 #include <config.h>
 

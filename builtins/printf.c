@@ -1,4 +1,3 @@
-/* printf.c, created from printf.def. */
 
 #include <config.h>
 
