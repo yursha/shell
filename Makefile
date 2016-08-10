@@ -194,69 +194,23 @@ SHLIB_LIBRARY = ${SH_LIBDIR}/${SHLIB_LIBNAME}
 SHLIB_LDFLAGS = -L${SH_LIBDIR}
 SHLIB_DEP = ${SHLIB_LIBRARY}
 
-# we assume for now that readline source is being shipped with bash
-RL_LIBSRC = $(LIBSRC)/readline
-RL_LIBDOC = $(RL_LIBSRC)/doc
-RL_LIBDIR = ./$(LIBSUBDIR)/readline
+RL_LIBSRC = /usr/local/include/readline
+RL_LIBDIR = /usr/local/lib/readline
 RL_ABSSRC = ${topdir}/$(RL_LIBDIR)
 
 RL_INCLUDEDIR = 
 
 READLINE_LIB = -lreadline
-READLINE_LIBRARY = $(RL_LIBDIR)/libreadline.a
-#READLINE_LDFLAGS = -L${RL_LIBDIR}
+#READLINE_LIBRARY = $(RL_LIBDIR)/libreadline.a
 READLINE_LDFLAGS = -L/usr/local/lib
 READLINE_DEP = #$(READLINE_LIBRARY)
 
-# The source, object and documentation of the GNU Readline library.
-READLINE_SOURCE	= $(RL_LIBSRC)/rldefs.h $(RL_LIBSRC)/rlconf.h \
-		 $(RL_LIBSRC)/readline.h $(RL_LIBSRC)/tcap.h \
-		 $(RL_LIBSRC)/chardefs.h $(RL_LIBSRC)/keymaps.h \
-		 $(RL_LIBSRC)/history.h $(RL_LIBSRC)/histlib.h \
-		 $(RL_LIBSRC)/posixstat.h $(RL_LIBSRC)/tilde.h \
-		 $(RL_LIBSRC)/rlstdc.h ${RL_LIBSRC}/xmalloc.h \
-		 $(RL_LIBSRC)/rlshell.h ${RL_LIBSRC}/rlprivate.h \
-		 $(RL_LIBSRC)/colors.h $(RL_LIBSRC)/parse-colors.h \
-		 $(RL_LIBSRC)/funmap.c $(RL_LIBSRC)/emacs_keymap.c \
-		 $(RL_LIBSRC)/search.c $(RL_LIBSRC)/vi_keymap.c \
-		 $(RL_LIBSRC)/keymaps.c $(RL_LIBSRC)/parens.c \
-		 $(RL_LIBSRC)/vi_mode.c $(RL_LIBSRC)/callback.c \
-		 $(RL_LIBSRC)/readline.c $(RL_LIBSRC)/tilde.c \
-		 $(RL_LIBSRC)/rltty.c $(RL_LIBSRC)/complete.c \
-		 $(RL_LIBSRC)/bind.c $(RL_LIBSRC)/isearch.c \
-		 $(RL_LIBSRC)/display.c $(RL_LIBSRC)/signals.c \
-		 $(RL_LIBSRC)/util.c $(RL_LIBSRC)/kill.c $(RL_LIBSRC)/text.c \
-		 $(RL_LIBSRC)/undo.c $(RL_LIBSRC)/macro.c \
-		 $(RL_LIBSRC)/terminal.c $(RL_LIBSRC)/nls.c \
-		 $(RL_LIBSRC)/input.c $(RL_LIBSRC)/xmalloc.c \
-		 $(RL_LIBSRC)/shell.c $(RL_LIBSRC)/savestring.c \
-		 $(RL_LIBSRC)/colors.c $(RL_LIBSRC)/parse-colors.c \
-		 $(RL_LIBSRC)/misc.c $(RL_LIBSRC)/mbutil.c $(RL_LIBSRC)/compat.c \
-		 $(RL_LIBSRC)/histexpand.c $(RL_LIBSRC)/history.c \
-		 $(RL_LIBSRC)/histsearch.c $(RL_LIBSRC)/histfile.c
-
-READLINE_OBJ	= $(RL_LIBDIR)/readline.o $(RL_LIBDIR)/funmap.o \
-		 $(RL_LIBDIR)/parens.o $(RL_LIBDIR)/search.o \
-		 $(RL_LIBDIR)/keymaps.o $(RL_LIBDIR)/xmalloc.o \
-		 $(RL_LIBDIR)/rltty.o $(RL_LIBDIR)/complete.o \
-		 $(RL_LIBDIR)/bind.o $(RL_LIBDIR)/isearch.o \
-		 $(RL_LIBDIR)/display.o $(RL_LIBDIR)/signals.o \
-		 $(RL_LIBDIR)/tilde.o $(RL_LIBDIR)/util.o \
-		 $(RL_LIBDIR)/kill.o $(RL_LIBDIR)/undo.o $(RL_LIBDIR)/nls.o \
-		 $(RL_LIBDIR)/macro.o $(RL_LIBDIR)/input.o \
-		 $(RL_LIBDIR)/terminal.o $(RL_LIBDIR)/callback.o \
-		 $(RL_LIBDIR)/shell.o $(RL_LIBDIR)/savestring.o \
-		 $(RL_LIBDIR)/mbutil.o $(RL_LIBDIR)/compat.o \
-		 $(RL_LIBDIR)/history.o $(RL_LIBDIR)/histexpand.o \
-		 $(RL_LIBDIR)/histsearch.o $(RL_LIBDIR)/histfile.o \
-		 $(RL_LIBDIR)/colors.o $(RL_LIBDIR)/parse-colors.o
-
-HIST_LIBSRC = $(LIBSRC)/readline
-HIST_LIBDIR = ./$(LIBSUBDIR)/readline
+HIST_LIBSRC = /usr/local/include/readline
+HIST_LIBDIR = /usr/local/lib/readline
 HIST_ABSSRC = ${topdir}/$(HIST_LIBDIR)
 
 HISTORY_LIB = -lhistory
-HISTORY_LIBRARY = $(HIST_LIBDIR)/libhistory.a
+#HISTORY_LIBRARY = $(HIST_LIBDIR)/libhistory.a
 HISTORY_LDFLAGS = -L$(HIST_LIBDIR)
 HISTORY_DEP = $(HISTORY_LIBRARY)
 
@@ -529,11 +483,6 @@ y.tab.h: y.tab.c
 # so just force top level sanity before we descend.
 $(LIBDEP): .build
 #$(LIBDEP): version.h
-
-$(READLINE_LIBRARY): config.h $(READLINE_SOURCE)
-	@echo making $@ in ${RL_LIBDIR}
-	@( { test "${RL_LIBDIR}" = "${libdir}" && exit 0; } || \
-		cd ${RL_LIBDIR} && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} libreadline.a) || exit 1
 
 $(HISTORY_LIBRARY): config.h $(HISTORY_SOURCE) $(READLINE_DEP)
 	@echo making $@ in ${HIST_LIBDIR}
