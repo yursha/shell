@@ -46,7 +46,7 @@ static void initialize_group_array(void);
 
 /* A standard error message to use when getcwd() returns NULL. */
 const char *const bash_getcwd_errstr =
-    N_("getcwd: cannot access parent directories");
+    "getcwd: cannot access parent directories";
 
 /* Do whatever is necessary to initialize `Posix mode'. */
 void posix_initialize(on) int on;

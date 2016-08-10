@@ -25,6 +25,7 @@
 #endif /* _AIX && RISC6000 && !__GNUC__ */
 
 #include <stdio.h>
+#include <locale.h>
 #include "chartypes.h"
 #include "bashtypes.h"
 #if defined(HAVE_SYS_FILE_H)

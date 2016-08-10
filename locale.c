@@ -26,6 +26,8 @@
 #include <unistd.h>
 #endif
 
+#include <locale.h>
+
 #if HAVE_LANGINFO_CODESET
 #include <langinfo.h>
 #endif

@@ -431,10 +431,10 @@ va_dcl
 /* **************************************************************** */
 
 static const char *const cmd_error_table[] = {
-    N_("unknown command error"), /* CMDERR_DEFAULT */
-    N_("bad command type"),      /* CMDERR_BADTYPE */
-    N_("bad connector"),         /* CMDERR_BADCONN */
-    N_("bad jump"),              /* CMDERR_BADJUMP */
+    "unknown command error", /* CMDERR_DEFAULT */
+    "bad command type",      /* CMDERR_BADTYPE */
+    "bad connector",         /* CMDERR_BADCONN */
+    "bad jump",              /* CMDERR_BADJUMP */
     0};
 
 void command_error(func, code, e, flags) const char *func;
