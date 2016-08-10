@@ -174,14 +174,14 @@ int line;
   if (tentry == 0) {
     /* oops.  table is full.  punt. */
     fprintf(stderr,
-            _("register_alloc: alloc table is full with FIND_ALLOC?\n"));
+            "register_alloc: alloc table is full with FIND_ALLOC?\n");
     if (blocked_sigs) _malloc_unblock_signals(&set, &oset);
     return;
   }
 
   if (tentry->flags & MT_ALLOC) {
     /* oops.  bad bookkeeping. ignore for now */
-    fprintf(stderr, _("register_alloc: %p already in table as allocated?\n"),
+    fprintf(stderr, "register_alloc: %p already in table as allocated?\n",
             mem);
   }
 
@@ -229,7 +229,7 @@ int line;
   }
   if (tentry->flags & MT_FREE) {
     /* oops.  bad bookkeeping. ignore for now */
-    fprintf(stderr, _("register_free: %p already in table as free?\n"), mem);
+    fprintf(stderr, "register_free: %p already in table as free?\n", mem);
   }
 
   tentry->flags = MT_FREE;

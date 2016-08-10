@@ -12,7 +12,6 @@
 #  include <unistd.h>
 #endif
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../jobs.h"
@@ -103,7 +102,7 @@ fg_bg (list, foreground)
   if (INVALID_JOB (job))
     {
       if (job != DUP_JOB)
-	sh_badjob (list ? list->word->word : _("current"));
+	sh_badjob (list ? list->word->word : "current");
 
       goto failure;
     }
@@ -112,7 +111,7 @@ fg_bg (list, foreground)
   /* Or if j->pgrp == shell_pgrp. */
   if (IS_JOBCONTROL (job) == 0)
     {
-      builtin_error (_("job %d started without job control"), job + 1);
+      builtin_error ("job %d started without job control", job + 1);
       goto failure;
     }
 

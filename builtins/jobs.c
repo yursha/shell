@@ -8,7 +8,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../jobs.h"
@@ -56,7 +55,7 @@ int jobs_builtin(WORD_LIST* list) {
 	case 'x':
 	  if (form != JLIST_STANDARD)
 	    {
-	      builtin_error (_("no other options allowed with `-x'"));
+	      builtin_error ("no other options allowed with `-x'");
 	      return (EXECUTION_FAILURE);
 	    }
 	  execute++;
@@ -212,7 +211,7 @@ int disown_builtin(WORD_LIST* list) {
 
       if (job == NO_JOB || jobs == 0 || INVALID_JOB (job))
 	{
-	  sh_badjob (list ? list->word->word : _("current"));
+	  sh_badjob (list ? list->word->word : "current");
 	  retval = EXECUTION_FAILURE;
 	}
       else if (nohup_only)

@@ -15,7 +15,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../execute_cmd.h"
@@ -105,9 +104,9 @@ int exec_builtin(WORD_LIST* list) {
       if (file_isdir (args[0]))
 	{
 #if defined (EISDIR)
-	  builtin_error (_("%s: cannot execute: %s"), args[0], strerror (EISDIR));
+	  builtin_error ("%s: cannot execute: %s", args[0], strerror (EISDIR));
 #else
-	  builtin_error (_("%s: cannot execute: %s"), args[0], strerror (errno));
+	  builtin_error ("%s: cannot execute: %s", args[0], strerror (errno));
 #endif
 	  exit_value = EX_NOEXEC;
 	}
@@ -184,7 +183,7 @@ int exec_builtin(WORD_LIST* list) {
     goto failed_exec;
   else if (executable_file (command) == 0)
     {
-      builtin_error (_("%s: cannot execute: %s"), command, strerror (errno));
+      builtin_error ("%s: cannot execute: %s", command, strerror (errno));
       exit_value = EX_NOEXEC;	/* As per Posix.2, 3.14.6 */
     }
   else

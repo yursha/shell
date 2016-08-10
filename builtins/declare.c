@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../flags.h"
@@ -33,7 +32,7 @@ int local_builtin(register WORD_LIST* list) {
     return (declare_internal (list, 1));
   else
     {
-      builtin_error (_("can only be used in a function"));
+      builtin_error ("can only be used in a function");
       return (EXECUTION_FAILURE);
     }
 }
@@ -238,7 +237,7 @@ declare_internal (list, local_var)
 #if defined (ARRAY_VARS)
 	  if (valid_array_reference (name, 0))
 	    {
-	      builtin_error (_("%s: reference variable cannot be an array"), name);
+	      builtin_error ("%s: reference variable cannot be an array", name);
 	      assign_error++;
 	      NEXT_VARIABLE ();
 	    }
@@ -249,17 +248,17 @@ declare_internal (list, local_var)
 	    {
 	      if (variable_context == 0)
 		{
-		  builtin_error (_("%s: nameref variable self references not allowed"), name);
+		  builtin_error ("%s: nameref variable self references not allowed", name);
 		  assign_error++;
 		  NEXT_VARIABLE ();
 		}
 	      else
-		builtin_warning (_("%s: circular name reference"), name);
+		builtin_warning ("%s: circular name reference", name);
 	    }
 #if 1
 	  if (value && *value && (aflags & ASS_APPEND) == 0 && valid_nameref_value (value, 1) == 0)
 	    {
-	      builtin_error (_("`%s': invalid variable name for name reference"), value);
+	      builtin_error ("`%s': invalid variable name for name reference", value);
 	      assign_error++;
 	      NEXT_VARIABLE ();
 	    }
@@ -369,7 +368,7 @@ restart_new_var_name:
 	{
 	  if (offset)	/* declare -f [-rix] foo=bar */
 	    {
-	      builtin_error (_("cannot use `-f' to make functions"));
+	      builtin_error ("cannot use `-f' to make functions");
 	      free (name);
 	      return (EXECUTION_FAILURE);
 	    }
@@ -381,7 +380,7 @@ restart_new_var_name:
 		{
 		  if (readonly_p (var) && (flags_off & att_readonly))
 		    {
-		      builtin_error (_("%s: readonly function"), name);
+		      builtin_error ("%s: readonly function", name);
 		      any_failed++;
 		      NEXT_VARIABLE ();
 		    }
@@ -480,7 +479,7 @@ restart_new_var_name:
 	      var = mkglobal ? find_global_variable_noref (name) : find_variable_noref (name);
 	      if (var && nameref_p (var))
 		{
-		  internal_warning (_("%s: removing nameref attribute"), name);
+		  internal_warning ("%s: removing nameref attribute", name);
 		  FREE (value_cell (var));		/* XXX - bash-4.3 compat */
 		  var_setvalue (var, (char *)NULL);
 		  VUNSETATTR (var, att_nameref);
@@ -591,13 +590,13 @@ restart_new_var_name:
 	  /* Can't take an existing array variable and make it a nameref */
 	  else if ((array_p (var) || assoc_p (var)) && (flags_on & att_nameref))
 	    {
-	      builtin_error (_("%s: reference variable cannot be an array"), name);
+	      builtin_error ("%s: reference variable cannot be an array", name);
 	      assign_error++;
 	      NEXT_VARIABLE ();
 	    }
 	  else if (nameref_p (var) && (flags_on & att_nameref) == 0 && (flags_off & att_nameref) == 0 && offset && valid_nameref_value (value, 1) == 0)
 	    {
-	      builtin_error (_("`%s': invalid variable name for name reference"), value);
+	      builtin_error ("`%s': invalid variable name for name reference", value);
 	      any_failed++;
 	      NEXT_VARIABLE ();
 	    }
@@ -608,7 +607,7 @@ restart_new_var_name:
 		 part of the declare word to override existing value */
 	      if (nameref_p (var) == 0 && var_isset (var) && offset == 0 && valid_nameref_value (value_cell (var), 0) == 0)
 		{
-		  builtin_error (_("`%s': invalid variable name for name reference"), value_cell (var));
+		  builtin_error ("`%s': invalid variable name for name reference", value_cell (var));
 		  any_failed++;
 		  NEXT_VARIABLE ();
 		}
@@ -659,7 +658,7 @@ restart_new_var_name:
 		     creating_array to allow things like
 		     declare -a foo$bar='(abc)' to work. */		     
 		  if (array_exists == 0 && creating_array == 0)
-		    internal_warning (_("%s: quoted compound array assignment deprecated"), list->word->word);
+		    internal_warning ("%s: quoted compound array assignment deprecated", list->word->word);
 		  compound_array_assign = array_exists || creating_array;
 		  simple_array_assign = making_array_special;
 		}
@@ -673,20 +672,20 @@ restart_new_var_name:
 	     array variable. */
 	  if (((flags_off & att_array) && array_p (var)) || ((flags_off & att_assoc) && assoc_p (var)))
 	    {
-	      builtin_error (_("%s: cannot destroy array variables in this way"), name);
+	      builtin_error ("%s: cannot destroy array variables in this way", name);
 	      any_failed++;
 	      NEXT_VARIABLE ();
 	    }
 
 	  if ((flags_on & att_array) && assoc_p (var))
 	    {
-	      builtin_error (_("%s: cannot convert associative to indexed array"), name);
+	      builtin_error ("%s: cannot convert associative to indexed array", name);
 	      any_failed++;
 	      NEXT_VARIABLE ();
 	    }
 	  if ((flags_on & att_assoc) && array_p (var))
 	    {
-	      builtin_error (_("%s: cannot convert indexed to associative array"), name);
+	      builtin_error ("%s: cannot convert indexed to associative array", name);
 	      any_failed++;
 	      NEXT_VARIABLE ();
 	    }

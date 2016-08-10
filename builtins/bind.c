@@ -20,7 +20,6 @@ extern int errno;
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../bashline.h"
@@ -59,10 +58,10 @@ int bind_builtin(WORD_LIST* list) {
   if (no_line_editing)
     {
 #if 0
-      builtin_error (_("line editing not enabled"));
+      builtin_error ("line editing not enabled");
       return (EXECUTION_FAILURE);
 #else
-      builtin_warning (_("line editing not enabled"));
+      builtin_warning ("line editing not enabled");
 #endif
     }
 
@@ -149,7 +148,7 @@ int bind_builtin(WORD_LIST* list) {
       kmap = rl_get_keymap_by_name (map_name);
       if (kmap == 0)
 	{
-	  builtin_error (_("`%s': invalid keymap name"), map_name);
+	  builtin_error ("`%s': invalid keymap name", map_name);
 	  BIND_RETURN (EXECUTION_FAILURE);
 	}
     }
@@ -189,7 +188,7 @@ int bind_builtin(WORD_LIST* list) {
       if (rl_read_init_file (initfile) != 0)
 	{
 	  t = printable_filename (initfile, 0);
-	  builtin_error (_("%s: cannot read: %s"), t, strerror (errno));
+	  builtin_error ("%s: cannot read: %s", t, strerror (errno));
 	  if (t != initfile)
 	    free (t);
 	  BIND_RETURN (EXECUTION_FAILURE);
@@ -206,7 +205,7 @@ int bind_builtin(WORD_LIST* list) {
     {
       if (rl_bind_keyseq (remove_seq, (rl_command_func_t *)NULL) != 0)
 	{
-	  builtin_error (_("`%s': cannot unbind"), remove_seq);
+	  builtin_error ("`%s': cannot unbind", remove_seq);
 	  BIND_RETURN (EXECUTION_FAILURE);
 	}
     }
@@ -244,7 +243,7 @@ query_bindings (name)
   function = rl_named_function (name);
   if (function == 0)
     {
-      builtin_error (_("`%s': unknown function name"), name);
+      builtin_error ("`%s': unknown function name", name);
       return EXECUTION_FAILURE;
     }
 
@@ -252,11 +251,11 @@ query_bindings (name)
 
   if (!keyseqs)
     {
-      printf (_("%s is not bound to any keys.\n"), name);
+      printf ("%s is not bound to any keys.\n", name);
       return EXECUTION_FAILURE;
     }
 
-  printf (_("%s can be invoked via "), name);
+  printf ("%s can be invoked via ", name);
   for (j = 0; j < 5 && keyseqs[j]; j++)
     printf ("\"%s\"%s", keyseqs[j], keyseqs[j + 1] ? ", " : ".\n");
   if (keyseqs[j])
@@ -274,7 +273,7 @@ unbind_command (name)
   function = rl_named_function (name);
   if (function == 0)
     {
-      builtin_error (_("`%s': unknown function name"), name);
+      builtin_error ("`%s': unknown function name", name);
       return EXECUTION_FAILURE;
     }
 

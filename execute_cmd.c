@@ -25,6 +25,7 @@
 #endif /* _AIX && RISC6000 && !__GNUC__ */
 
 #include <stdio.h>
+#include <locale.h>
 #include "chartypes.h"
 #include "bashtypes.h"
 #if defined(HAVE_SYS_FILE_H)
@@ -61,7 +62,6 @@ extern int errno;
 #define NEED_SH_SETLINEBUF_DECL
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "memalloc.h"
 #include "shell.h"
@@ -486,7 +486,7 @@ static void async_redirect_stdin() {
     dup2(fd, 0);
     close(fd);
   } else if (fd < 0)
-    internal_error(_("cannot redirect standard input from /dev/null: %s"),
+    internal_error("cannot redirect standard input from /dev/null: %s",
                    strerror(errno));
 }
 
@@ -1181,7 +1181,7 @@ int ssf, cpu;
       else if (*s == 'S')
         len = mkfmt(ts, prec, lng, ss, ssf);
       else {
-        internal_error(_("TIMEFORMAT: `%c': invalid format character"), *s);
+        internal_error("TIMEFORMAT: `%c': invalid format character", *s);
         free(str);
         return;
       }
@@ -2062,7 +2062,7 @@ struct fd_bitmap *fds_to_close;
 /* XXX -- can be removed after changes to handle multiple coprocs */
 #if !MULTIPLE_COPROCS
   if (sh_coproc.c_pid != NO_PID)
-    internal_warning(_("execute_coproc: coproc [%d:%s] still exists"),
+    internal_warning("execute_coproc: coproc [%d:%s] still exists",
                      sh_coproc.c_pid, sh_coproc.c_name);
   coproc_init(&sh_coproc);
 #endif
@@ -2157,7 +2157,7 @@ struct fd_bitmap *fds_to_close;
          cmd->value.Connection->connector == '|') {
     /* Make a pipeline between the two commands. */
     if (pipe(fildes) < 0) {
-      sys_error(_("pipe error"));
+      sys_error("pipe error");
 #if defined(JOB_CONTROL)
       terminate_current_pipeline();
       kill_current_pipeline();
@@ -4020,7 +4020,7 @@ int flags, subshell;
 
   if (subshell == 0 && builtin == eval_builtin) {
     if (evalnest_max > 0 && evalnest >= evalnest_max) {
-      internal_error(_("eval: maximum eval nesting level exceeded (%d)"),
+      internal_error("eval: maximum eval nesting level exceeded (%d)",
                      evalnest);
       evalnest = 0;
       jump_to_top_level(DISCARD);
@@ -4030,7 +4030,7 @@ int flags, subshell;
     evalnest++; /* execute_subshell_builtin_or_function sets this to 0 */
   } else if (subshell == 0 && builtin == source_builtin) {
     if (sourcenest_max > 0 && sourcenest >= sourcenest_max) {
-      internal_error(_("%s: maximum source nesting level exceeded (%d)"),
+      internal_error("%s: maximum source nesting level exceeded (%d)",
                      this_command_name, sourcenest);
       sourcenest = 0;
       jump_to_top_level(DISCARD);
@@ -4128,7 +4128,7 @@ int async, subshell;
   SHELL_VAR *gv;
 
   if (funcnest_max > 0 && funcnest >= funcnest_max) {
-    internal_error(_("%s: maximum function nesting level exceeded (%d)"),
+    internal_error("%s: maximum function nesting level exceeded (%d)",
                    var->name, funcnest);
     funcnest = 0; /* XXX - should we reset it somewhere else? */
     jump_to_top_level(DISCARD);
@@ -4673,7 +4673,7 @@ int cmdflags;
       if (hookf == 0) {
         /* Make sure filenames are displayed using printable characters */
         pathname = printable_filename(pathname, 0);
-        internal_error(_("%s: command not found"), pathname);
+        internal_error("%s: command not found", pathname);
         exit(EX_NOTFOUND); /* Posix.2 says the exit status is 127 */
       }
 
@@ -4890,9 +4890,9 @@ char **args, **env;
             : EX_NOEXEC; /* XXX Posix.2 says that exit status is 126 */
     if (file_isdir(command))
 #if defined(EISDIR)
-      internal_error(_("%s: %s"), command, strerror(EISDIR));
+      internal_error("%s: %s", command, strerror(EISDIR));
 #else
-      internal_error(_("%s: is a directory"), command);
+      internal_error("%s: is a directory", command);
 #endif
     else if (executable_file(command) == 0) {
       errno = i;
@@ -4921,7 +4921,7 @@ char **args, **env;
           interp[ilen] = 'M';
           interp[ilen + 1] = '\0';
         }
-        sys_error(_("%s: %s: bad interpreter"), command, interp ? interp : "");
+        sys_error("%s: %s: bad interpreter", command, interp ? interp : "");
         FREE(interp);
         return (EX_NOEXEC);
       }
@@ -4955,7 +4955,7 @@ char **args, **env;
     else
 #endif
         if (check_binary_file(sample, sample_len)) {
-      internal_error(_("%s: cannot execute binary file: %s"), command,
+      internal_error("%s: cannot execute binary file: %s", command,
                      strerror(i));
       errno = i;
       return (EX_BINARY_FILE);
@@ -5020,14 +5020,14 @@ FUNCTION_DEF *funcdef;
 
   /* Posix interpretation 383 */
   if (posixly_correct && find_special_builtin(name->word)) {
-    internal_error(_("`%s': is a special builtin"), name->word);
+    internal_error("`%s': is a special builtin", name->word);
     last_command_exit_value = EX_BADUSAGE;
     jump_to_top_level(interactive_shell ? DISCARD : ERREXIT);
   }
 
   var = find_function(name->word);
   if (var && (readonly_p(var) || noassign_p(var))) {
-    if (readonly_p(var)) internal_error(_("%s: readonly function"), var->name);
+    if (readonly_p(var)) internal_error("%s: readonly function", var->name);
     return (EXECUTION_FAILURE);
   }
 
@@ -5060,7 +5060,7 @@ static void close_pipes(in, out) int in, out;
 }
 
 static void dup_error(oldd, newd) int oldd, newd;
-{ sys_error(_("cannot duplicate fd %d to fd %d"), oldd, newd); }
+{ sys_error("cannot duplicate fd %d to fd %d", oldd, newd); }
 
 /* Redirect input and output to be from and to the specified pipes.
    NO_PIPE and REDIRECT_BOTH are handled correctly. */

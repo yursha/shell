@@ -16,7 +16,6 @@
 #include <errno.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../builtins.h"
@@ -46,7 +45,7 @@ int hash_builtin(WORD_LIST* list) {
 
   if (hashing_enabled == 0)
     {
-      builtin_error (_("hashing disabled"));
+      builtin_error ("hashing disabled");
       return (EXECUTION_FAILURE);
     }
 
@@ -93,7 +92,7 @@ int hash_builtin(WORD_LIST* list) {
     {
       opt = print_hashed_commands (list_portably);
       if (opt == 0 && posixly_correct == 0)
-	printf (_("%s: hash table empty\n"), this_command_name);
+	printf ("%s: hash table empty\n", this_command_name);
 
       return (EXECUTION_SUCCESS);
     }
@@ -119,7 +118,7 @@ int hash_builtin(WORD_LIST* list) {
 #ifdef EISDIR
 	      builtin_error ("%s: %s", pathname, strerror (EISDIR));
 #else
-	      builtin_error (_("%s: is a directory"), pathname);
+	      builtin_error ("%s: is a directory", pathname);
 #endif
 	      opt = EXECUTION_FAILURE;
 	    }
@@ -201,7 +200,7 @@ print_hashed_commands (fmt)
     return (0);
 
   if (fmt == 0)
-    printf (_("hits\tcommand\n"));
+    printf ("hits\tcommand\n");
   hash_walk (hashed_filenames, fmt ? print_portable_hash_info : print_hash_info);
   return (1);
 }

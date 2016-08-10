@@ -8,7 +8,6 @@
 #  include <unistd.h>
 #endif
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "common.h"
@@ -43,7 +42,7 @@ int break_builtin(WORD_LIST* list) {
 
   if (newbreak <= 0)
     {
-      sh_erange (list->word->word, _("loop count"));
+      sh_erange (list->word->word, "loop count");
       breaking = loop_level;
       return (EXECUTION_FAILURE);
     }
@@ -72,7 +71,7 @@ int continue_builtin(WORD_LIST* list) {
 
   if (newcont <= 0)
     {
-      sh_erange (list->word->word, _("loop count"));
+      sh_erange (list->word->word, "loop count");
       breaking = loop_level;
       return (EXECUTION_FAILURE);
     }
@@ -92,7 +91,7 @@ check_loop_level ()
 {
 #if defined (BREAK_COMPLAINS)
   if (loop_level == 0 && posixly_correct == 0)
-    builtin_error (_("only meaningful in a `for', `while', or `until' loop"));
+    builtin_error ("only meaningful in a `for', `while', or `until' loop");
 #endif /* BREAK_COMPLAINS */
 
   return (loop_level);

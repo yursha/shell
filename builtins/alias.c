@@ -7,7 +7,6 @@
 #endif
 
 #  include "../bashansi.h"
-#  include "../bashintl.h"
 
 #  include <stdio.h>
 #  include "../shell.h"
@@ -84,7 +83,7 @@ int alias_builtin(WORD_LIST* list) {
 
 	  if (legal_alias_name (name, 0) == 0)
 	    {
-	      builtin_error (_("`%s': invalid alias name"), name);
+	      builtin_error ("`%s': invalid alias name", name);
 	      any_failed++;
 	    }
 	  else

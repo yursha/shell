@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <chartypes.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "posixstat.h"
@@ -74,7 +73,7 @@ int umask_builtin(WORD_LIST* list) {
 	     is lousy. */
 	  if (umask_value == -1)
 	    {
-	      sh_erange (list->word->word, _("octal number"));
+	      sh_erange (list->word->word, "octal number");
 	      return (EXECUTION_FAILURE);
 	    }
 	}
@@ -191,7 +190,7 @@ parse_symbolic_mode (mode, initial_bits)
 	case '=':
 	  break;
 	default:
-	  builtin_error (_("`%c': invalid symbolic mode operator"), op);
+	  builtin_error ("`%c': invalid symbolic mode operator", op);
 	  return (-1);
 	}
 
@@ -246,7 +245,7 @@ parse_symbolic_mode (mode, initial_bits)
 	}
       else
 	{
-	  builtin_error (_("`%c': invalid symbolic mode character"), *s);
+	  builtin_error ("`%c': invalid symbolic mode character", *s);
 	  return (-1);
 	}
     }

@@ -33,7 +33,6 @@
 #endif
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "flags.h"
@@ -276,7 +275,7 @@ static void make_command_string_internal(command) COMMAND *command;
             break;
 
           default:
-            cprintf(_("print_command: bad connector `%d'"),
+            cprintf("print_command: bad connector `%d'",
                     command->value.Connection->connector);
             break;
         }
@@ -336,15 +335,15 @@ char *separator;
 
 void xtrace_set(int fd, FILE *fp) {
   if (fd >= 0 && sh_validfd(fd) == 0) {
-    internal_error(_("xtrace_set: %d: invalid file descriptor"), fd);
+    internal_error("xtrace_set: %d: invalid file descriptor", fd);
     return;
   }
   if (fp == 0) {
-    internal_error(_("xtrace_set: NULL file pointer"));
+    internal_error("xtrace_set: NULL file pointer");
     return;
   }
   if (fd >= 0 && fileno(fp) != fd)
-    internal_warning(_("xtrace fd (%d) != fileno xtrace fp (%d)"), fd,
+    internal_warning("xtrace fd (%d) != fileno xtrace fp (%d)", fd,
                      fileno(fp));
 
   xtrace_fd = fd;
@@ -1320,7 +1319,7 @@ va_dcl
           break;
 
         default:
-          programming_error(_("cprintf: `%c': invalid format character"), c);
+          programming_error("cprintf: `%c': invalid format character", c);
           /*NOTREACHED*/
       }
     }

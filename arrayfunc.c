@@ -28,7 +28,6 @@
 #endif
 #include <stdio.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "pathexp.h"
@@ -54,7 +53,7 @@ static void quote_array_assignment_chars(WORD_LIST *);
 static char *array_value_internal(char *, int, int, int *, arrayind_t *);
 
 /* Standard error message to use when encountering an invalid array subscript */
-const char *const bash_badsub_errmsg = N_("bad array subscript");
+const char *const bash_badsub_errmsg = "bad array subscript";
 
 /* **************************************************************** */
 /*								    */
@@ -328,7 +327,7 @@ int flags;
        created yet. */
     var = find_variable_last_nameref(name, 1);
     if (var && nameref_p(var) && invisible_p(var)) {
-      internal_warning(_("%s: removing nameref attribute"), name);
+      internal_warning("%s: removing nameref attribute", name);
       VUNSETATTR(var, att_nameref);
     }
     if (var && nameref_p(var)) {
@@ -349,7 +348,7 @@ int flags;
     return ((SHELL_VAR *)NULL);
   } else if ((flags & 2) && array_p(var)) {
     last_command_exit_value = 1;
-    report_error(_("%s: cannot convert indexed to associative array"), name);
+    report_error("%s: cannot convert indexed to associative array", name);
     return ((SHELL_VAR *)NULL);
   } else if (array_p(var) == 0 && assoc_p(var) == 0)
     var = convert_var_to_array(var);
@@ -511,9 +510,9 @@ int flags;
       if (ALL_ELEMENT_SUB(w[1]) && len == 2) {
         last_command_exit_value = 1;
         if (assoc_p(var))
-          report_error(_("%s: invalid associative array key"), w);
+          report_error("%s: invalid associative array key", w);
         else
-          report_error(_("%s: cannot assign to non-numeric index"), w);
+          report_error("%s: cannot assign to non-numeric index", w);
         continue;
       }
 
@@ -550,7 +549,7 @@ int flags;
     } else if (assoc_p(var)) {
       last_command_exit_value = 1;
       report_error(
-          _("%s: %s: must use subscript when assigning associative array"),
+          "%s: %s: must use subscript when assigning associative array",
           var->name, w);
       continue;
     } else /* No [ind]=value, just a stray `=' */
@@ -680,7 +679,7 @@ char *sub;
 
   len = skipsubscript(sub, 0, (var && assoc_p(var)));
   if (sub[len] != ']' || len == 0) {
-    builtin_error("%s[%s: %s", var->name, sub, _(bash_badsub_errmsg));
+    builtin_error("%s[%s: %s", var->name, sub, bash_badsub_errmsg);
     return -1;
   }
   sub[len] = '\0';
@@ -696,7 +695,7 @@ char *sub;
   if (assoc_p(var)) {
     akey = expand_assignment_string_to_string(sub, 0); /* [ */
     if (akey == 0 || *akey == 0) {
-      builtin_error("[%s]: %s", sub, _(bash_badsub_errmsg));
+      builtin_error("[%s]: %s", sub, bash_badsub_errmsg);
       FREE(akey);
       return -1;
     }
@@ -707,7 +706,7 @@ char *sub;
     /* negative subscripts to indexed arrays count back from end */
     if (ind < 0) ind = array_max_index(array_cell(var)) + 1 + ind;
     if (ind < 0) {
-      builtin_error("[%s]: %s", sub, _(bash_badsub_errmsg));
+      builtin_error("[%s]: %s", sub, bash_badsub_errmsg);
       return -1;
     }
     ae = array_remove(array_cell(var), ind);

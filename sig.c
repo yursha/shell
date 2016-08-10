@@ -29,7 +29,6 @@
 #include <stdio.h>
 #include <signal.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #if defined(JOB_CONTROL)
@@ -645,7 +644,7 @@ sigprocmask(operation, newset, oldset) int operation, *newset, *oldset;
       break;
 
     default:
-      internal_error(_("sigprocmask: %d: invalid operation"), operation);
+      internal_error("sigprocmask: %d: invalid operation", operation);
   }
 
   if (oldset) *oldset = old;

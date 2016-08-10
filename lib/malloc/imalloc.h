@@ -204,7 +204,6 @@
     while (0)
 
 #if defined(SHELL)
-#include "bashintl.h"
 #else
 #define _(x) x
 #endif

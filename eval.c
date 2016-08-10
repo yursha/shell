@@ -29,7 +29,6 @@
 
 #include <signal.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "flags.h"
@@ -180,7 +179,7 @@ int reader_loop() {
 
 static sighandler alrm_catcher(i) int i;
 {
-  printf(_("\007timed out waiting for input: auto-logout\n"));
+  printf("\007timed out waiting for input: auto-logout\n");
   fflush(stdout);
   bash_logout(); /* run ~/.bash_logout if this is a login shell */
   jump_to_top_level(EXITPROG);

@@ -24,7 +24,6 @@
 #include <pwd.h>
 #endif
 #include "bashansi.h"
-#include "bashintl.h"
 
 #define NEED_XTRACE_SET_DECL
 
@@ -378,7 +377,7 @@ int privmode;
           array_needs_making = 1;
         }
         last_command_exit_value = 1;
-        report_error(_("error importing function definition for `%s'"), tname);
+        report_error("error importing function definition for `%s'", tname);
       }
 
       /* Restore original suffix */
@@ -726,7 +725,7 @@ void adjust_shell_level(change) int change;
   if (shell_level < 0)
     shell_level = 0;
   else if (shell_level >= 1000) {
-    internal_warning(_("shell level (%d) too high, resetting to 1"),
+    internal_warning("shell level (%d) too high, resetting to 1",
                      shell_level);
     shell_level = 1;
   }
@@ -1648,7 +1647,7 @@ SHELL_VAR *find_variable_nameref(v) SHELL_VAR *v;
     /* We don't handle array subscripts here. */
     v = find_variable_internal(newname, flags);
     if (v == orig || v == oldv) {
-      internal_warning(_("%s: circular name reference"), orig->name);
+      internal_warning("%s: circular name reference", orig->name);
       return ((SHELL_VAR *)0);
     }
   }
@@ -1782,7 +1781,7 @@ int flags;
      created yet. */
   var = find_variable_last_nameref(name, 1);
   if ((flags & 1) && var && nameref_p(var) && invisible_p(var)) {
-    internal_warning(_("%s: removing nameref attribute"), name);
+    internal_warning("%s: removing nameref attribute", name);
     VUNSETATTR(var, att_nameref);
   }
   if (var && nameref_p(var)) {
@@ -1804,7 +1803,7 @@ int flags;
   var = find_variable_last_nameref(name, 1);
   if (var && nameref_p(var) && invisible_p(var)) /* XXX - flags */
       {
-    internal_warning(_("%s: removing nameref attribute"), name);
+    internal_warning("%s: removing nameref attribute", name);
     VUNSETATTR(var, att_nameref);
   }
   if (var && nameref_p(var)) {
@@ -2048,7 +2047,7 @@ SHELL_VAR *make_local_variable(name) const char *name;
 
   if (vc == 0) {
     internal_error(
-        _("make_local_variable: no function context at current scope"));
+        "make_local_variable: no function context at current scope");
     return ((SHELL_VAR *)NULL);
   } else if (vc->table == 0)
     vc->table = hash_create(TEMPENV_HASH_BUCKETS);
@@ -2065,7 +2064,7 @@ SHELL_VAR *make_local_variable(name) const char *name;
     if (readonly_p(old_var))
       sh_readonly(name);
     else if (noassign_p(old_var))
-      builtin_error(_("%s: variable may not be assigned value"), name);
+      builtin_error("%s: variable may not be assigned value", name);
 #if 0
       /* Let noassign variables through with a warning */
       if (readonly_p (old_var))
@@ -2320,7 +2319,7 @@ int hflags, aflags;
       tname = array_variable_name(newval, (char **)0, (int *)0);
       if (tname && (tentry = find_variable_noref(tname)) && nameref_p(tentry)) {
         /* nameref variables can't be arrays */
-        internal_warning(_("%s: removing nameref attribute"),
+        internal_warning("%s: removing nameref attribute",
                          name_cell(tentry));
         FREE(value_cell(tentry)); /* XXX - bash-4.3 compat */
         var_setvalue(tentry, (char *)NULL);
@@ -2446,7 +2445,7 @@ int flags;
               return (bind_variable_internal(nameref_cell(nv), value,
                                              nvc->table, 0, flags));
           } else if (nv == &nameref_maxloop_value) {
-            internal_warning(_("%s: circular name reference"), v->name);
+            internal_warning("%s: circular name reference", v->name);
 #if 0
 		      return (bind_variable_value (v, value, flags|ASS_NAMEREF));
 #else
@@ -2455,7 +2454,7 @@ int flags;
           } else
             v = nv;
         } else if (nv == &nameref_maxloop_value) {
-          internal_warning(_("%s: circular name reference"), v->name);
+          internal_warning("%s: circular name reference", v->name);
 #if 0
 		  return (bind_variable_value (v, value, flags|ASS_NAMEREF));
 #else
@@ -2514,9 +2513,9 @@ int aflags;
     if ((aflags & (ASS_NAMEREF | ASS_FORCE)) == ASS_NAMEREF &&
         check_selfref(name_cell(var), t, 0)) {
       if (variable_context)
-        internal_warning(_("%s: circular name reference"), name_cell(var));
+        internal_warning("%s: circular name reference", name_cell(var));
       else {
-        internal_error(_("%s: nameref variable self references not allowed"),
+        internal_error("%s: nameref variable self references not allowed",
                        name_cell(var));
         free(t);
         if (invis) VSETATTR(var, att_invisible); /* XXX */
@@ -2588,7 +2587,7 @@ SHELL_VAR *bind_int_variable(lhs, rhs) char *lhs, *rhs;
   }
 
   if (v && nameref_p(v))
-    internal_warning(_("%s: assigning integer to name reference"), lhs);
+    internal_warning("%s: assigning integer to name reference", lhs);
 
   return (v);
 }
@@ -2884,7 +2883,7 @@ int check_unbind_variable(name) const char *name;
 
   v = find_variable(name);
   if (v && readonly_p(v)) {
-    internal_error(_("%s: cannot unset: readonly %s"), name, "variable");
+    internal_error("%s: cannot unset: readonly %s", name, "variable");
     return -1;
   }
   return (unbind_variable(name));
@@ -3327,7 +3326,7 @@ SHELL_VAR **all_local_variables() {
 
   if (vc == 0) {
     internal_error(
-        _("all_local_variables: no function context at current scope"));
+        "all_local_variables: no function context at current scope");
     return (SHELL_VAR **)NULL;
   }
   if (vc->table == 0 || HASH_ENTRIES(vc->table) == 0 || vc_haslocals(vc) == 0)
@@ -3563,23 +3562,23 @@ static int valid_exportstr(v) SHELL_VAR *v;
 
   s = v->exportstr;
   if (s == 0) {
-    internal_error(_("%s has null exportstr"), v->name);
+    internal_error("%s has null exportstr", v->name);
     return (0);
   }
   if (legal_variable_starter((unsigned char)*s) == 0) {
-    internal_error(_("invalid character %d in exportstr for %s"), *s, v->name);
+    internal_error("invalid character %d in exportstr for %s", *s, v->name);
     return (0);
   }
   for (s = v->exportstr + 1; s && *s; s++) {
     if (*s == '=') break;
     if (legal_variable_char((unsigned char)*s) == 0) {
-      internal_error(_("invalid character %d in exportstr for %s"), *s,
+      internal_error("invalid character %d in exportstr for %s", *s,
                      v->name);
       return (0);
     }
   }
   if (*s != '=') {
-    internal_error(_("no `=' in exportstr for %s"), v->name);
+    internal_error("no `=' in exportstr for %s", v->name);
     return (0);
   }
   return (1);
@@ -3960,7 +3959,7 @@ void pop_var_context() {
   vcxt = shell_variables;
   if (vc_isfuncenv(vcxt) == 0) {
     internal_error(
-        _("pop_var_context: head of shell_variables not a function context"));
+        "pop_var_context: head of shell_variables not a function context");
     return;
   }
 
@@ -3970,7 +3969,7 @@ void pop_var_context() {
     if (vcxt->table) hash_flush(vcxt->table, push_func_var);
     dispose_var_context(vcxt);
   } else
-    internal_error(_("pop_var_context: no global_variables context"));
+    internal_error("pop_var_context: no global_variables context");
 }
 
 /* Delete the HASH_TABLEs for all variable contexts beginning at VCXT, and
@@ -4032,8 +4031,8 @@ void pop_scope(is_special) int is_special;
   vcxt = shell_variables;
   if (vc_istempscope(vcxt) == 0) {
     internal_error(
-        _("pop_scope: head of shell_variables not a temporary environment "
-          "scope"));
+        "pop_scope: head of shell_variables not a temporary environment "
+          "scope");
     return;
   }
 
@@ -4744,11 +4743,11 @@ void sv_xtracefd(name) char *name;
     if (e != t && *e == '\0' && sh_validfd(fd)) {
       fp = fdopen(fd, "w");
       if (fp == 0)
-        internal_error(_("%s: %s: cannot open as FILE"), name, value_cell(v));
+        internal_error("%s: %s: cannot open as FILE", name, value_cell(v));
       else
         xtrace_set(fd, fp);
     } else
-      internal_error(_("%s: %s: invalid value for trace file descriptor"), name,
+      internal_error("%s: %s: invalid value for trace file descriptor", name,
                      value_cell(v));
   }
 }
@@ -4784,7 +4783,7 @@ void sv_shcompat(name) char *name;
     compatval = tens * 10 + ones;
   } else {
   compat_error:
-    internal_error(_("%s: %s: compatibility value out of range"), name, val);
+    internal_error("%s: %s: compatibility value out of range", name, val);
     set_compatibility_opts();
     return;
   }

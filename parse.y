@@ -22,7 +22,6 @@
 
 #include "memalloc.h"
 
-#include "bashintl.h"
 
 #define NEED_STRFTIME_DECL	/* used in externs.h */
 
@@ -2299,7 +2298,7 @@ shell_getc (remove_quoted_newline)
 	      if (n <= 2)	/* we have to save 1 for the newline added below */
 		{
 		  if (truncating == 0)
-		    internal_warning(_("shell_getc: shell_input_line_size (%zu) exceeds SIZE_MAX (%lu): line truncated"), shell_input_line_size, (unsigned long)SIZE_MAX);
+		    internal_warning("shell_getc: shell_input_line_size (%zu) exceeds SIZE_MAX (%lu): line truncated", shell_input_line_size, (unsigned long)SIZE_MAX);
 		  shell_input_line[i] = '\0';
 		  truncating = 1;
 		}
@@ -2675,7 +2674,7 @@ push_heredoc (r)
     {
       last_command_exit_value = EX_BADUSAGE;
       need_here_doc = 0;
-      report_syntax_error (_("maximum here-document count exceeded"));
+      report_syntax_error ("maximum here-document count exceeded");
       reset_parser ();
       exit_shell (last_command_exit_value);
     }
@@ -3365,7 +3364,7 @@ parse_matched_pair (qc, open, close, lenp, flags)
       if (ch == EOF)
 	{
 	  free (ret);
-	  parser_error (start_lineno, _("unexpected EOF while looking for matching `%c'"), close);
+	  parser_error (start_lineno, "unexpected EOF while looking for matching `%c'", close);
 	  EOF_Reached = 1;	/* XXX */
 	  return (&matched_pair_error);
 	}
@@ -3723,7 +3722,7 @@ comsub_readchar:
 eof_error:
 	  free (ret);
 	  FREE (heredelim);
-	  parser_error (start_lineno, _("unexpected EOF while looking for matching `%c'"), close);
+	  parser_error (start_lineno, "unexpected EOF while looking for matching `%c'", close);
 	  EOF_Reached = 1;	/* XXX */
 	  return (&matched_pair_error);
 	}
@@ -4385,16 +4384,16 @@ cond_error ()
   char *etext;
 
   if (EOF_Reached && cond_token != COND_ERROR)		/* [[ */
-    parser_error (cond_lineno, _("unexpected EOF while looking for `]]'"));
+    parser_error (cond_lineno, "unexpected EOF while looking for `]]'");
   else if (cond_token != COND_ERROR)
     {
       if (etext = error_token_from_token (cond_token))
 	{
-	  parser_error (cond_lineno, _("syntax error in conditional expression: unexpected token `%s'"), etext);
+	  parser_error (cond_lineno, "syntax error in conditional expression: unexpected token `%s'", etext);
 	  free (etext);
 	}
       else
-	parser_error (cond_lineno, _("syntax error in conditional expression"));
+	parser_error (cond_lineno, "syntax error in conditional expression");
     }
 }
 
@@ -4472,11 +4471,11 @@ cond_term ()
 	    dispose_cond_node (term);		/* ( */
 	  if (etext = error_token_from_token (cond_token))
 	    {
-	      parser_error (lineno, _("unexpected token `%s', expected `)'"), etext);
+	      parser_error (lineno, "unexpected token `%s', expected `)'", etext);
 	      free (etext);
 	    }
 	  else
-	    parser_error (lineno, _("expected `)'"));
+	    parser_error (lineno, "expected `)'");
 	  COND_RETURN_ERROR ();
 	}
       term = make_cond_node (COND_EXPR, (WORD_DESC *)NULL, term, (COND_COM *)NULL);
@@ -4504,11 +4503,11 @@ cond_term ()
 	  dispose_word (op);
 	  if (etext = error_token_from_token (tok))
 	    {
-	      parser_error (line_number, _("unexpected argument `%s' to conditional unary operator"), etext);
+	      parser_error (line_number, "unexpected argument `%s' to conditional unary operator", etext);
 	      free (etext);
 	    }
 	  else
-	    parser_error (line_number, _("unexpected argument to conditional unary operator"));
+	    parser_error (line_number, "unexpected argument to conditional unary operator");
 	  COND_RETURN_ERROR ();
 	}
 
@@ -4554,11 +4553,11 @@ cond_term ()
 	{
 	  if (etext = error_token_from_token (tok))
 	    {
-	      parser_error (line_number, _("unexpected token `%s', conditional binary operator expected"), etext);
+	      parser_error (line_number, "unexpected token `%s', conditional binary operator expected", etext);
 	      free (etext);
 	    }
 	  else
-	    parser_error (line_number, _("conditional binary operator expected"));
+	    parser_error (line_number, "conditional binary operator expected");
 	  dispose_cond_node (tleft);
 	  COND_RETURN_ERROR ();
 	}
@@ -4580,11 +4579,11 @@ cond_term ()
 	{
 	  if (etext = error_token_from_token (tok))
 	    {
-	      parser_error (line_number, _("unexpected argument `%s' to conditional binary operator"), etext);
+	      parser_error (line_number, "unexpected argument `%s' to conditional binary operator", etext);
 	      free (etext);
 	    }
 	  else
-	    parser_error (line_number, _("unexpected argument to conditional binary operator"));
+	    parser_error (line_number, "unexpected argument to conditional binary operator");
 	  dispose_cond_node (tleft);
 	  dispose_word (op);
 	  COND_RETURN_ERROR ();
@@ -4595,14 +4594,14 @@ cond_term ()
   else
     {
       if (tok < 256)
-	parser_error (line_number, _("unexpected token `%c' in conditional command"), tok);
+	parser_error (line_number, "unexpected token `%c' in conditional command", tok);
       else if (etext = error_token_from_token (tok))
 	{
-	  parser_error (line_number, _("unexpected token `%s' in conditional command"), etext);
+	  parser_error (line_number, "unexpected token `%s' in conditional command", etext);
 	  free (etext);
 	}
       else
-	parser_error (line_number, _("unexpected token %d in conditional command"), tok);
+	parser_error (line_number, "unexpected token %d in conditional command", tok);
       COND_RETURN_ERROR ();
     }
   return (term);
@@ -5970,7 +5969,7 @@ report_syntax_error (message)
 	  free (msg);
 	  msg = p;
 	}
-      parser_error (line_number, _("syntax error near unexpected token `%s'"), msg);
+      parser_error (line_number, "syntax error near unexpected token `%s'", msg);
       free (msg);
 
       if (interactive == 0)
@@ -5988,7 +5987,7 @@ report_syntax_error (message)
       msg = error_token_from_text ();
       if (msg)
 	{
-	  parser_error (line_number, _("syntax error near `%s'"), msg);
+	  parser_error (line_number, "syntax error near `%s'", msg);
 	  free (msg);
 	}
 
@@ -5998,7 +5997,7 @@ report_syntax_error (message)
     }
   else
     {
-      msg = EOF_Reached ? _("syntax error: unexpected end of file") : _("syntax error");
+      msg = EOF_Reached ? "syntax error: unexpected end of file" : "syntax error";
       parser_error (line_number, "%s", msg);
       /* When the shell is interactive, this file uses EOF_Reached
 	 only for error reporting.  Other mechanisms are used to
@@ -6060,7 +6059,7 @@ handle_eof_input_unit ()
 	{
 	  if (eof_encountered < eof_encountered_limit)
 	    {
-	      fprintf (stderr, _("Use \"%s\" to leave the shell.\n"),
+	      fprintf (stderr, "Use \"%s\" to leave the shell.\n",
 		       login_shell ? "logout" : "exit");
 	      eof_encountered++;
 	      /* Reset the parsing state. */
@@ -6222,7 +6221,7 @@ parse_compound_assignment (retlenp)
 	{
 	  current_token = tok;	/* for error reporting */
 	  if (tok == yacc_EOF)	/* ( */
-	    parser_error (orig_line_number, _("unexpected EOF while looking for matching `)'"));
+	    parser_error (orig_line_number, "unexpected EOF while looking for matching `)'");
 	  else
 	    yyerror(NULL);	/* does the right thing */
 	  if (wl)

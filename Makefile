@@ -123,7 +123,7 @@ CCFLAGS_FOR_BUILD = $(BASE_CCFLAGS) $(CPPFLAGS_FOR_BUILD) $(CFLAGS_FOR_BUILD)
 LDFLAGS = $(STATIC_LD) $(LOCAL_LDFLAGS) $(PROFILE_FLAGS) $(CFLAGS)
 LDFLAGS_FOR_BUILD = $(LDFLAGS) $(LOCAL_LDFLAGS) $(CFLAGS_FOR_BUILD)
 
-INCLUDES = -I. -I$(srcdir) -I$(BASHINCDIR) -I$(LIBSRC) $(INTL_INC)
+INCLUDES = -I. -I$(srcdir) -I$(BASHINCDIR) -I$(LIBSRC)
 
 # Maybe add: -Wextra
 GCC_LINT_FLAGS = -O -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wno-parentheses \
@@ -144,9 +144,6 @@ LIBSRC = $(srcdir)/$(LIBSUBDIR)
 LIBBUILD = ${BUILD_DIR}/${LIBSUBDIR}
 
 SUBDIR_INCLUDES = -I. -I$(topdir) -I$(topdir)/$(LIBSUBDIR)
-
-BUILD_INCLUDED_LIBINTL = no
-USE_INCLUDED_LIBINTL = no
 
 # the bash library
 # the library is a mix of functions that the C library does not provide on
@@ -315,27 +312,8 @@ TILDE_DEP = $(TILDE_LIBRARY)
 TILDE_SOURCE	= $(TILDE_LIBSRC)/tilde.c $(TILDE_LIBSRC)/tilde.h
 TILDE_OBJ	= $(TILDE_LIBDIR)/tilde.o
 
-# libintl
-INTL_LIBSRC = $(LIBSRC)/intl
-INTL_LIBDIR = ./$(LIBSUBDIR)/intl
-INTL_ABSSRC = ${topdir}/$(INTL_LIB)
-INTL_BUILDDIR = ${LIBBUILD}/intl
-
-INTL_LIB   = 
-INTL_LIBRARY = $(INTL_LIBDIR)/libintl.a
-INTL_DEP = 
-INTL_INC = 
-
-LIBINTL_H = 
-
 # libiconv
 LIBICONV = 
-
-# tests
-LIBINTL = 
-LTLIBINTL = 
-INTLLIBS = 
-INTLOBJS = 
 
 # Our malloc.
 MALLOC_TARGET = malloc
@@ -378,9 +356,9 @@ BASHINCFILES =	 $(BASHINCDIR)/posixstat.h $(BASHINCDIR)/ansi_stdlib.h \
 		 $(BASHINCDIR)/ocache.h
 
 LIBRARIES = $(GLOB_LIB) $(SHLIB_LIB) $(READLINE_LIB) $(HISTORY_LIB) $(TERMCAP_LIB) \
-	  $(TILDE_LIB) $(MALLOC_LIB) $(INTL_LIB) $(LIBICONV) $(LOCAL_LIBS)
+	  $(TILDE_LIB) $(MALLOC_LIB) $(LIBICONV) $(LOCAL_LIBS)
 
-LIBDEP = $(GLOB_DEP) $(SHLIB_DEP) $(INTL_DEP) $(READLINE_DEP) $(HISTORY_DEP) $(TERMCAP_DEP) \
+LIBDEP = $(GLOB_DEP) $(SHLIB_DEP) $(READLINE_DEP) $(HISTORY_DEP) $(TERMCAP_DEP) \
 	 $(TILDE_DEP) $(MALLOC_DEP)
 
 LIBRARY_LDFLAGS = $(READLINE_LDFLAGS) $(HISTORY_LDFLAGS) $(GLOB_LDFLAGS) \
@@ -405,7 +383,7 @@ HSOURCES = shell.h flags.h trap.h hashcmd.h hashlib.h jobs.h builtins.h \
 	quit.h unwind_prot.h syntax.h ${GRAM_H} \
 	command.h input.h error.h bashansi.h dispose_cmd.h make_cmd.h \
 	subst.h externs.h siglist.h bashhist.h bashline.h bashtypes.h \
-	array.h arrayfunc.h sig.h mailcheck.h bashintl.h bashjmp.h \
+	array.h arrayfunc.h sig.h mailcheck.h bashjmp.h \
 	execute_cmd.h parser.h pathexp.h pathnames.h pcomplete.h assoc.h \
 	$(BASHINCFILES)
 
@@ -416,12 +394,12 @@ INSTALLED_HEADERS = shell.h bashjmp.h command.h syntax.h general.h error.h \
 		  variables.h array.h assoc.h arrayfunc.h quit.h dispose_cmd.h \
 		  make_cmd.h subst.h sig.h externs.h builtins.h \
 		  bashtypes.h xmalloc.h config-top.h config-bot.h \
-		  bashintl.h bashansi.h bashjmp.h alias.h hashlib.h \
+		  bashansi.h bashjmp.h alias.h hashlib.h \
 		  conftypes.h unwind_prot.h jobs.h siglist.h
 INSTALLED_BUILTINS_HEADERS = bashgetopt.h common.h getopt.h
 INSTALLED_INCFILES =	 posixstat.h ansi_stdlib.h filecntl.h posixdir.h \
 	memalloc.h stdc.h posixwait.h posixtime.h systimes.h \
-	unionwait.h maxpath.h shtty.h typemax.h ocache.h chartypes.h gettext.h \
+	unionwait.h maxpath.h shtty.h typemax.h ocache.h chartypes.h \
 	posixstat.h shmbchar.h shmbutil.h stat-time.h
 
 SIGNAMES_H = lsignames.h
@@ -581,13 +559,6 @@ $(SHLIB_LIBRARY): config.h ${SHLIB_SOURCE}
 	@(cd ${SH_LIBDIR} && \
 		$(MAKE) $(MFLAGS) DEBUG=${DEBUG} ${SHLIB_LIBNAME}) || exit 1
 
-${INTL_LIBRARY}: config.h ${INTL_LIBDIR}/Makefile
-	@echo making $@ in ${INTL_LIBDIR}
-	@(cd ${INTL_LIBDIR} && \
-		$(MAKE) $(MFLAGS) all) || exit 1
-
-${LIBINTL_H}:	${INTL_DEP}
-
 mksyntax:	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
 	rm -f $@
 	${CC_FOR_BUILD} ${CCFLAGS_FOR_BUILD} ${LDFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
@@ -692,7 +663,7 @@ uninstall:	.made
 .PHONY: clean
 
 LIB_SUBDIRS = ${RL_LIBDIR} ${HIST_LIBDIR} ${TERM_LIBDIR} ${GLOB_LIBDIR} \
-		${INTL_LIBDIR} ${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
+		${TILDE_LIBDIR} ${ALLOC_LIBDIR} ${SH_LIBDIR}
 
 clean:
 	rm -f $(OBJECTS) bash
@@ -710,7 +681,7 @@ depend:	depends
 
 #### PRIVATE TARGETS ####
 hashtest:	hashlib.c
-	$(CC) -DTEST_HASHING $(CCFLAGS) $(TEST_NBUCKETS) -o $@ $(srcdir)/hashlib.c xmalloc.o $(INTL_LIB)
+	$(CC) -DTEST_HASHING $(CCFLAGS) $(TEST_NBUCKETS) -o $@ $(srcdir)/hashlib.c xmalloc.o
 
 ############################ DEPENDENCIES ###############################
 
@@ -807,7 +778,7 @@ list.o: shell.h syntax.h config.h bashjmp.h command.h ${BASHINCDIR}/stdc.h error
 list.o: general.h xmalloc.h bashtypes.h variables.h arrayfunc.h conftypes.h array.h hashlib.h
 list.o: quit.h ${BASHINCDIR}/maxpath.h unwind_prot.h dispose_cmd.h
 list.o: make_cmd.h subst.h sig.h pathnames.h externs.h 
-locale.o: config.h bashtypes.h bashintl.h ${LIBINTL_H} bashansi.h ${BASHINCDIR}/ansi_stdlib.h
+locale.o: config.h bashtypes.h bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 locale.o: shell.h syntax.h config.h bashjmp.h command.h ${BASHINCDIR}/stdc.h error.h
 locale.o: general.h xmalloc.h bashtypes.h variables.h arrayfunc.h conftypes.h array.h hashlib.h
 locale.o: quit.h ${BASHINCDIR}/maxpath.h unwind_prot.h dispose_cmd.h
@@ -1029,36 +1000,6 @@ mailcheck.o: $(TILDE_LIBSRC)/tilde.h
 shell.o: $(TILDE_LIBSRC)/tilde.h
 subst.o: $(TILDE_LIBSRC)/tilde.h
 variables.o: $(TILDE_LIBSRC)/tilde.h
-
-# libintl dependencies
-arrayfunc.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-bashhist.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-bashline.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-braces.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-error.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-eval.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-execute_cmd.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-expr.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-general.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-input.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-jobs.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-mailcheck.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-make_cmd.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-nojobs.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-y.tab.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-pcomplete.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-pcomplib.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-print_cmd.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-redir.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-shell.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-sig.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-siglist.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-subst.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-test.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-trap.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-variables.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-version.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-xmalloc.o: bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 
 signames.o: config.h bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 
@@ -1293,43 +1234,6 @@ builtins/mapfile.o: command.h config.h ${BASHINCDIR}/memalloc.h error.h general.
 builtins/mapfile.o: quit.h dispose_cmd.h make_cmd.h subst.h externs.h ${BASHINCDIR}/stdc.h
 builtins/mapfile.o: shell.h syntax.h bashjmp.h sig.h unwind_prot.h variables.h arrayfunc.h conftypes.h 
 builtins/mapfile.o: pathnames.h
-
-# libintl dependencies
-builtins/bind.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/break.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/caller.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/cd.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/common.c: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/complete.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/declare.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/enable.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/evalfile.c: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/exec.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/exit.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/fc.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/fg_bg.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/getopt.c: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/hash.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/help.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/history.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/inlib.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/jobs.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/kill.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/let.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/mapfile.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/printf.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/pushd.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/read.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/return.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/set.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/setattr.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/shift.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/shopt.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/source.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/suspend.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/type.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/ulimit.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
-builtins/umask.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 
 # builtin library dependencies
 builtins/bind.o: $(RL_LIBSRC)/chardefs.h $(RL_LIBSRC)/readline.h

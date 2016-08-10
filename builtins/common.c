@@ -20,7 +20,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #define NEED_FPURGE_DECL
 
@@ -75,7 +74,7 @@ static void builtin_error_prolog() {
   fprintf(stderr, "%s: ", name);
 
   if (interactive_shell == 0)
-    fprintf(stderr, _("line %d: "), executing_line_number());
+    fprintf(stderr, "line %d: ", executing_line_number());
 
   if (this_command_name && *this_command_name)
     fprintf(stderr, "%s: ", this_command_name);
@@ -111,7 +110,7 @@ va_dcl
   va_list args;
 
   builtin_error_prolog();
-  fprintf(stderr, _("warning: "));
+  fprintf(stderr, "warning: ");
 
   SH_VA_START(args, format);
 
@@ -123,8 +122,8 @@ va_dcl
 /* Print a usage summary for the currently-executing builtin command. */
 void builtin_usage() {
   if (this_command_name && *this_command_name)
-    fprintf(stderr, _("%s: usage: "), this_command_name);
-  fprintf(stderr, "%s\n", _(current_builtin->short_doc));
+    fprintf(stderr, "%s: usage: ", this_command_name);
+  fprintf(stderr, "%s\n", current_builtin->short_doc);
   fflush(stderr);
 }
 
@@ -133,7 +132,7 @@ void builtin_usage() {
 void no_args(list) WORD_LIST *list;
 {
   if (list) {
-    builtin_error(_("too many arguments"));
+    builtin_error("too many arguments");
     top_level_cleanup();
     jump_to_top_level(DISCARD);
   }
@@ -158,84 +157,84 @@ int no_options(list) WORD_LIST *list;
 }
 
 void sh_needarg(s) char *s;
-{ builtin_error(_("%s: option requires an argument"), s); }
+{ builtin_error("%s: option requires an argument", s); }
 
 void sh_neednumarg(s) char *s;
-{ builtin_error(_("%s: numeric argument required"), s); }
+{ builtin_error("%s: numeric argument required", s); }
 
 void sh_notfound(s) char *s;
-{ builtin_error(_("%s: not found"), s); }
+{ builtin_error("%s: not found", s); }
 
 /* Function called when one of the builtin commands detects an invalid
    option. */
 void sh_invalidopt(s) char *s;
-{ builtin_error(_("%s: invalid option"), s); }
+{ builtin_error("%s: invalid option", s); }
 
 void sh_invalidoptname(s) char *s;
-{ builtin_error(_("%s: invalid option name"), s); }
+{ builtin_error("%s: invalid option name", s); }
 
 void sh_invalidid(s) char *s;
-{ builtin_error(_("`%s': not a valid identifier"), s); }
+{ builtin_error("`%s': not a valid identifier", s); }
 
 void sh_invalidnum(s) char *s;
 {
   char *msg;
 
   if (*s == '0' && isdigit((unsigned char)s[1]))
-    msg = _("invalid octal number");
+    msg = "invalid octal number";
   else if (*s == '0' && s[1] == 'x')
-    msg = _("invalid hex number");
+    msg = "invalid hex number";
   else
-    msg = _("invalid number");
+    msg = "invalid number";
   builtin_error("%s: %s", s, msg);
 }
 
 void sh_invalidsig(s) char *s;
-{ builtin_error(_("%s: invalid signal specification"), s); }
+{ builtin_error("%s: invalid signal specification", s); }
 
 void sh_badpid(s) char *s;
-{ builtin_error(_("`%s': not a pid or valid job spec"), s); }
+{ builtin_error("`%s': not a pid or valid job spec", s); }
 
 void sh_readonly(s) const char *s;
-{ builtin_error(_("%s: readonly variable"), s); }
+{ builtin_error("%s: readonly variable", s); }
 
 void sh_erange(s, desc) char *s, *desc;
 {
   if (s)
-    builtin_error(_("%s: %s out of range"), s, desc ? desc : _("argument"));
+    builtin_error("%s: %s out of range", s, desc ? desc : "argument");
   else
-    builtin_error(_("%s out of range"), desc ? desc : _("argument"));
+    builtin_error("%s out of range", desc ? desc : "argument");
 }
 
 #if defined(JOB_CONTROL)
 void sh_badjob(s) char *s;
-{ builtin_error(_("%s: no such job"), s); }
+{ builtin_error("%s: no such job", s); }
 
 void sh_nojobs(s) char *s;
 {
   if (s)
-    builtin_error(_("%s: no job control"), s);
+    builtin_error("%s: no job control", s);
   else
-    builtin_error(_("no job control"));
+    builtin_error("no job control");
 }
 #endif
 
 void sh_notbuiltin(s) char *s;
-{ builtin_error(_("%s: not a shell builtin"), s); }
+{ builtin_error("%s: not a shell builtin", s); }
 
 void sh_wrerror() {
 #if defined(DONT_REPORT_BROKEN_PIPE_WRITE_ERRORS) && defined(EPIPE)
   if (errno != EPIPE)
 #endif /* DONT_REPORT_BROKEN_PIPE_WRITE_ERRORS && EPIPE */
-    builtin_error(_("write error: %s"), strerror(errno));
+    builtin_error("write error: %s", strerror(errno));
 }
 
 void sh_ttyerror(set) int set;
 {
   if (set)
-    builtin_error(_("error setting terminal attributes: %s"), strerror(errno));
+    builtin_error("error setting terminal attributes: %s", strerror(errno));
   else
-    builtin_error(_("error getting terminal attributes: %s"), strerror(errno));
+    builtin_error("error getting terminal attributes: %s", strerror(errno));
 }
 
 int sh_chkwrite(s) int s;
@@ -439,9 +438,9 @@ char *get_working_directory(for_whom) char *for_whom;
     the_current_working_directory = getcwd(0, 0);
 #endif
     if (the_current_working_directory == 0) {
-      fprintf(stderr, _("%s: error retrieving current directory: %s: %s\n"),
+      fprintf(stderr, "%s: error retrieving current directory: %s: %s\n",
               (for_whom && *for_whom) ? for_whom : get_name_for_error(),
-              _(bash_getcwd_errstr), strerror(errno));
+              bash_getcwd_errstr, strerror(errno));
       return (char *)NULL;
     }
   }
@@ -493,9 +492,9 @@ int flags;
         return i; /* return first match */
       else if (job != NO_JOB) {
         if (this_shell_builtin)
-          builtin_error(_("%s: ambiguous job spec"), name);
+          builtin_error("%s: ambiguous job spec", name);
         else
-          internal_error(_("%s: ambiguous job spec"), name);
+          internal_error("%s: ambiguous job spec", name);
         return (DUP_JOB);
       } else
         job = i;
@@ -718,6 +717,6 @@ void initialize_shell_builtins() {
 #if !defined(HELP_BUILTIN)
 void builtin_help() {
   printf("%s: %s\n", this_command_name,
-         _("help not available in this version"));
+         "help not available in this version");
 }
 #endif

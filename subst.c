@@ -41,7 +41,6 @@
 
 #include "bashansi.h"
 #include "posixstat.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "parser.h"
@@ -1284,7 +1283,7 @@ int flags;
   if (c == 0 && nesting_level) {
     if (no_longjmp_on_fatal_error == 0) {
       last_command_exit_value = EXECUTION_FAILURE;
-      report_error(_("bad substitution: no closing `%s' in %s"), closer,
+      report_error("bad substitution: no closing `%s' in %s", closer,
                    string);
       exp_jump_to_top_level(DISCARD);
     } else {
@@ -1429,7 +1428,7 @@ int *sindex, quoted, flags;
   if (c == 0 && nesting_level) {
     if (no_longjmp_on_fatal_error == 0) {/* { */
       last_command_exit_value = EXECUTION_FAILURE;
-      report_error(_("bad substitution: no closing `%s' in %s"), "}", string);
+      report_error("bad substitution: no closing `%s' in %s", "}", string);
       exp_jump_to_top_level(DISCARD);
     } else {
       *sindex = i;
@@ -2762,7 +2761,7 @@ int expand;
   if (t = mbschr(name, '[')) /*]*/
       {
     if (assign_list) {
-      report_error(_("%s: cannot assign list to array member"), name);
+      report_error("%s: cannot assign list to array member", name);
       ASSIGN_RETURN(0);
     }
     entry = assign_array_element(name, value, aflags);
@@ -4966,7 +4965,7 @@ int open_for_read_in_child;
   pathname = make_named_pipe();
 #else  /* HAVE_DEV_FD */
   if (pipe(fildes) < 0) {
-    sys_error("%s", _("cannot make pipe for process substitution"));
+    sys_error("%s", "cannot make pipe for process substitution");
     return ((char *)NULL);
   }
   /* If OPEN_FOR_READ_IN_CHILD == 1, we want to use the write end of
@@ -4981,7 +4980,7 @@ int open_for_read_in_child;
 #endif /* HAVE_DEV_FD */
 
   if (pathname == 0) {
-    sys_error("%s", _("cannot make pipe for process substitution"));
+    sys_error("%s", "cannot make pipe for process substitution");
     return ((char *)NULL);
   }
 
@@ -5023,7 +5022,7 @@ int open_for_read_in_child;
 #endif /* JOB_CONTROL */
 
   if (pid < 0) {
-    sys_error("%s", _("cannot make child for process substitution"));
+    sys_error("%s", "cannot make child for process substitution");
     free(pathname);
 #if defined(HAVE_DEV_FD)
     close(parent_pipe_fd);
@@ -5070,15 +5069,15 @@ int open_for_read_in_child;
   if (fd < 0) {
     /* Two separate strings for ease of translation. */
     if (open_for_read_in_child)
-      sys_error(_("cannot open named pipe %s for reading"), pathname);
+      sys_error("cannot open named pipe %s for reading", pathname);
     else
-      sys_error(_("cannot open named pipe %s for writing"), pathname);
+      sys_error("cannot open named pipe %s for writing", pathname);
 
     exit(127);
   }
   if (open_for_read_in_child) {
     if (sh_unset_nodelay_mode(fd) < 0) {
-      sys_error(_("cannot reset nodelay mode for fd %d"), fd);
+      sys_error("cannot reset nodelay mode for fd %d", fd);
       exit(127);
     }
   }
@@ -5091,7 +5090,7 @@ int open_for_read_in_child;
   if (open_for_read_in_child == 0) fpurge(stdout);
 
   if (dup2(fd, open_for_read_in_child ? 0 : 1) < 0) {
-    sys_error(_("cannot duplicate named pipe %s as fd %d"), pathname,
+    sys_error("cannot duplicate named pipe %s as fd %d", pathname,
               open_for_read_in_child ? 0 : 1);
     exit(127);
   }
@@ -5170,7 +5169,7 @@ int *rflag;
     if (c == 0) {
 #if 1
       internal_warning("%s",
-                       _("command substitution: ignored null byte in input"));
+                       "command substitution: ignored null byte in input");
 #endif
       continue;
     }
@@ -5280,7 +5279,7 @@ int quoted;
 
   /* Pipe the output of executing STRING into the current shell. */
   if (pipe(fildes) < 0) {
-    sys_error("%s", _("cannot make pipe for command substitution"));
+    sys_error("%s", "cannot make pipe for command substitution");
     goto error_exit;
   }
 
@@ -5319,7 +5318,7 @@ int quoted;
 #endif /* JOB_CONTROL */
 
   if (pid < 0) {
-    sys_error(_("cannot make child for command substitution"));
+    sys_error("cannot make child for command substitution");
   error_exit:
 
     last_made_pid = old_pid;
@@ -5343,7 +5342,7 @@ int quoted;
     fpurge(stdout);
 
     if (dup2(fildes[1], 1) < 0) {
-      sys_error("%s", _("command_substitute: cannot duplicate pipe as fd 1"));
+      sys_error("%s", "command_substitute: cannot duplicate pipe as fd 1");
       exit(EXECUTION_FAILURE);
     }
 
@@ -5722,7 +5721,7 @@ arrayind_t *indp;
            */
         if (temp && *temp && legal_identifier(temp) == 0) {
       last_command_exit_value = EXECUTION_FAILURE;
-      report_error(_("%s: invalid variable name for name reference"), temp);
+      report_error("%s: invalid variable name for name reference", temp);
       temp = &expand_param_error;
     } else
       temp = (char *)NULL;
@@ -5800,7 +5799,7 @@ int *quoted_dollar_atp, *contains_dollar_at;
   if (t == 0) return (WORD_DESC *)NULL;
 
   if (valid_brace_expansion_word(t, SPECIAL_VAR(t, 0)) == 0) {
-    report_error(_("%s: bad substitution"), t);
+    report_error("%s: bad substitution", t);
     free(t);
     w = alloc_word_desc();
     w->word = &expand_param_error;
@@ -5927,13 +5926,13 @@ int c, quoted, pflags, *qdollaratp, *hasdollarat;
     vname =
         parameter_brace_find_indir(name + 1, SPECIAL_VAR(name, 1), quoted, 1);
     if (vname == 0 || *vname == 0) {
-      report_error(_("%s: invalid indirect expansion"), name);
+      report_error("%s: invalid indirect expansion", name);
       free(vname);
       dispose_word(w);
       return &expand_wdesc_error;
     }
     if (legal_identifier(vname) == 0) {
-      report_error(_("%s: invalid variable name"), vname);
+      report_error("%s: invalid variable name", vname);
       free(vname);
       dispose_word(w);
       return &expand_wdesc_error;
@@ -5975,7 +5974,7 @@ static void parameter_brace_expand_error(name, value) char *name, *value;
     FREE(temp);
     dispose_words(l);
   } else
-    report_error(_("%s: parameter null or not set"), name);
+    report_error("%s: parameter null or not set", name);
 
   /* Free the data we have allocated during this expansion, since we
      are about to longjmp out. */
@@ -6191,7 +6190,7 @@ intmax_t *e1p, *e2p;
     if (vtype == VT_ARRAYVAR && *e2p < 0)
 #endif
         {
-      internal_error(_("%s: substring expression < 0"), t);
+      internal_error("%s: substring expression < 0", t);
       return (0);
     }
 #if defined(ARRAY_VARS)
@@ -6204,7 +6203,7 @@ intmax_t *e1p, *e2p;
       if (*e2p < 0) {
         *e2p += len;
         if (*e2p < 0 || *e2p < *e1p) {
-          internal_error(_("%s: substring expression < 0"), t);
+          internal_error("%s: substring expression < 0", t);
           return (0);
         }
       } else
@@ -7319,7 +7318,7 @@ int *indexp, quoted, pflags, *quoted_dollar_atp, *contains_dollar_at;
     case '\0':
     bad_substitution:
       last_command_exit_value = EXECUTION_FAILURE;
-      report_error(_("%s: bad substitution"), string ? string : "??");
+      report_error("%s: bad substitution", string ? string : "??");
       FREE(value);
       FREE(temp);
       free(name);
@@ -7338,7 +7337,7 @@ int *indexp, quoted, pflags, *quoted_dollar_atp, *contains_dollar_at;
       free(name);
       if (temp1 == &expand_param_error || temp1 == &expand_param_fatal) {
         last_command_exit_value = EXECUTION_FAILURE;
-        report_error(_("%s: bad substitution"), string ? string : "??");
+        report_error("%s: bad substitution", string ? string : "??");
         return (temp1 == &expand_param_error ? &expand_wdesc_error
                                              : &expand_wdesc_fatal);
       }
@@ -7411,7 +7410,7 @@ int *indexp, quoted, pflags, *quoted_dollar_atp, *contains_dollar_at;
         temp = (char *)NULL;
         if (c == '=' && var_is_special) {
           last_command_exit_value = EXECUTION_FAILURE;
-          report_error(_("$%s: cannot assign in this way"), name);
+          report_error("$%s: cannot assign in this way", name);
           free(name);
           free(value);
           return &expand_wdesc_error;
@@ -7737,7 +7736,7 @@ int *quoted_dollar_at_p, *had_quoted_null_p, pflags;
         if (chk_arithsub(temp2, t_index) == 0) {
           free(temp2);
 #if 0
-	      internal_warning (_("future versions of the shell will force evaluation as an arithmetic substitution"));
+	      internal_warning ("future versions of the shell will force evaluation as an arithmetic substitution");
 #endif
           goto comsub;
         }
@@ -7862,7 +7861,7 @@ int *quoted_dollar_at_p, *had_quoted_null_p, pflags;
                */
             if (temp && *temp && legal_identifier(temp) == 0) {
           last_command_exit_value = EXECUTION_FAILURE;
-          report_error(_("%s: invalid variable name for name reference"), temp);
+          report_error("%s: invalid variable name for name reference", temp);
           return (&expand_wdesc_error); /* XXX */
         } else
           temp = (char *)NULL;
@@ -8242,7 +8241,7 @@ int *expanded_something;
             goto add_character;
           }
           last_command_exit_value = EXECUTION_FAILURE;
-          report_error(_("bad substitution: no closing \"`\" in %s"),
+          report_error("bad substitution: no closing \"`\" in %s",
                        string + t_index);
           free(string);
           free(istring);
@@ -9076,7 +9075,7 @@ int eflags;
         PREPEND_LIST(tlist, disposables);
       } else if (fail_glob_expansion != 0) {
         last_command_exit_value = EXECUTION_FAILURE;
-        report_error(_("no match: %s"), tlist->word->word);
+        report_error("no match: %s", tlist->word->word);
         exp_jump_to_top_level(DISCARD);
       } else if (allow_null_glob_expansion == 0) {
         /* Failed glob expressions are left unchanged. */

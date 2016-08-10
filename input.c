@@ -34,7 +34,6 @@
 #endif
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "command.h"
 #include "general.h"
@@ -91,7 +90,7 @@ int getc_with_restart(stream) FILE *stream;
         return EOF;
       } else if (errno == X_EAGAIN || errno == X_EWOULDBLOCK) {
         if (sh_unset_nodelay_mode(fileno(stream)) < 0) {
-          sys_error(_("cannot reset nodelay mode for fd %d"), fileno(stream));
+          sys_error("cannot reset nodelay mode for fd %d", fileno(stream));
           local_index = local_bufused = 0;
           return EOF;
         }
@@ -240,7 +239,7 @@ int save_bash_input(fd, new_fd) int fd, new_fd;
   if (nfd == -1) {
     if (fcntl(fd, F_GETFD, 0) == 0)
       sys_error(
-          _("cannot allocate new file descriptor for bash input from fd %d"),
+          "cannot allocate new file descriptor for bash input from fd %d",
           fd);
     return -1;
   }
@@ -248,7 +247,7 @@ int save_bash_input(fd, new_fd) int fd, new_fd;
   if (nfd < nbuffers && buffers[nfd]) {
     /* What's this?  A stray buffer without an associated open file
        descriptor?  Free up the buffer and report the error. */
-    internal_error(_("save_bash_input: buffer already exists for new fd %d"),
+    internal_error("save_bash_input: buffer already exists for new fd %d",
                    nfd);
     free_buffered_stream(buffers[nfd]);
   }

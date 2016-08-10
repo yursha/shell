@@ -13,7 +13,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../flags.h"
@@ -73,7 +72,7 @@ int source_builtin(WORD_LIST* list) {
 
   if (list == 0)
     {
-      builtin_error (_("filename argument required"));
+      builtin_error ("filename argument required");
       builtin_usage ();
       return (EX_USAGE);
     }
@@ -91,7 +90,7 @@ int source_builtin(WORD_LIST* list) {
       if (source_searches_cwd == 0)
 	{
 	  x = printable_filename (list->word->word, 0);
-	  builtin_error (_("%s: file not found"), x);
+	  builtin_error ("%s: file not found", x);
 	  if (x != list->word->word)
 	    free (x);
 	  if (posixly_correct && interactive_shell == 0 && executing_command_builtin == 0)

@@ -44,7 +44,6 @@
 #include <chartypes.h>
 #include <errno.h>
 
-#include <bashintl.h>
 
 #include "stdc.h"
 
@@ -95,7 +94,7 @@ int flags;
   if (base < 2 || base > 64) {
 #if 1
     /* XXX - truncation possible with long translation */
-    strncpy(buf, _("invalid base"), len - 1);
+    strncpy(buf, "invalid base", len - 1);
     buf[len - 1] = '\0';
     errno = EINVAL;
     return (p = buf);

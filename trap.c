@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include "bashintl.h"
 
 #include <signal.h>
 
@@ -215,7 +214,7 @@ char *signal_name(sig) int sig;
 
   /* on cygwin32, signal_names[sig] could be null */
   ret = (sig >= BASH_NSIG || sig < 0 || signal_names[sig] == NULL)
-            ? _("invalid signal number")
+            ? "invalid signal number"
             : signal_names[sig];
 
   return ret;
@@ -363,11 +362,11 @@ void run_pending_traps() {
            Unless we catch this, the subshell will dump core when
            trap_list[SIGTERM] == DEFAULT_SIG, because DEFAULT_SIG is
            usually 0x0. */
-        internal_warning(_("run_pending_traps: bad value in trap_list[%d]: %p"),
+        internal_warning("run_pending_traps: bad value in trap_list[%d]: %p",
                          sig, trap_list[sig]);
         if (trap_list[sig] == (char *)DEFAULT_SIG) {
-          internal_warning(_("run_pending_traps: signal handler is SIG_DFL, "
-                             "resending %d (%s) to myself"),
+          internal_warning("run_pending_traps: signal handler is SIG_DFL, "
+                             "resending %d (%s) to myself",
                            sig, signal_name(sig));
           kill(getpid(), sig);
         }
@@ -419,7 +418,7 @@ sighandler trap_handler(sig) int sig;
 
   if ((sig >= NSIG) || (trap_list[sig] == (char *)DEFAULT_SIG) ||
       (trap_list[sig] == (char *)IGNORE_SIG))
-    programming_error(_("trap_handler: bad signal %d"), sig);
+    programming_error("trap_handler: bad signal %d", sig);
   else {
     oerrno = errno;
 #if defined(MUST_REINSTALL_SIGHANDLERS)

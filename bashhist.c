@@ -33,7 +33,6 @@
 #include "posixstat.h"
 #include "filecntl.h"
 
-#include "bashintl.h"
 
 #if defined(SYSLOG_HISTORY)
 #include <syslog.h>
@@ -379,7 +378,7 @@ int maybe_append_history(filename) char *filename;
     if (stat(filename, &buf) == -1 && errno == ENOENT) {
       fd = open(filename, O_WRONLY | O_CREAT, 0600);
       if (fd < 0) {
-        builtin_error(_("%s: cannot create: %s"), filename, strerror(errno));
+        builtin_error("%s: cannot create: %s", filename, strerror(errno));
         return (EXECUTION_FAILURE);
       }
       close(fd);

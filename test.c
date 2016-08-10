@@ -52,7 +52,6 @@ extern int errno;
 #include "filecntl.h"
 #include "stat-time.h"
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "pathexp.h"
@@ -143,13 +142,13 @@ static void test_syntax_error(format, arg) char *format, *arg;
  *	error condition)
  */
 static void beyond() {
-  test_syntax_error(_("argument expected"), (char *)NULL);
+  test_syntax_error("argument expected", (char *)NULL);
 }
 
 /* Syntax error for when an integer argument was expected, but
    something else was found. */
 static void integer_expected_error(pch) char *pch;
-{ test_syntax_error(_("%s: integer expression expected"), pch); }
+{ test_syntax_error("%s: integer expression expected", pch); }
 
 /* Increment our position in the argument list.  Check that we're not
    past the end of the argument list.  This check is suppressed if the
@@ -254,9 +253,9 @@ static int term() {
     advance(1);
     value = expr();
     if (argv[pos] == 0) /* ( */
-      test_syntax_error(_("`)' expected"), (char *)NULL);
+      test_syntax_error("`)' expected", (char *)NULL);
     else if (argv[pos][0] != ')' || argv[pos][1]) /* ( */
-      test_syntax_error(_("`)' expected, found %s"), argv[pos]);
+      test_syntax_error("`)' expected, found %s", argv[pos]);
     advance(0);
     return (value);
   }
@@ -269,7 +268,7 @@ static int term() {
     if (test_unop(argv[pos]))
       value = unary_operator();
     else
-      test_syntax_error(_("%s: unary operator expected"), argv[pos]);
+      test_syntax_error("%s: unary operator expected", argv[pos]);
   } else {
     value = argv[pos][0] != '\0';
     advance(0);
@@ -435,7 +434,7 @@ static int binary_operator() {
 #endif
 
   if ((w[0] != '-' || w[3] != '\0') || test_binop(w) == 0) {
-    test_syntax_error(_("%s: binary operator expected"), w);
+    test_syntax_error("%s: binary operator expected", w);
     /* NOTREACHED */
     return (FALSE);
   }
@@ -703,9 +702,9 @@ static int two_arguments() {
     if (test_unop(argv[pos]))
       return (unary_operator());
     else
-      test_syntax_error(_("%s: unary operator expected"), argv[pos]);
+      test_syntax_error("%s: unary operator expected", argv[pos]);
   } else
-    test_syntax_error(_("%s: unary operator expected"), argv[pos]);
+    test_syntax_error("%s: unary operator expected", argv[pos]);
 
   return (0);
 }
@@ -735,7 +734,7 @@ static int three_arguments() {
     value = ONE_ARG_TEST(argv[pos + 1]);
     pos = argc;
   } else
-    test_syntax_error(_("%s: binary operator expected"), argv[pos + 1]);
+    test_syntax_error("%s: binary operator expected", argv[pos + 1]);
 
   return (value);
 }
@@ -807,7 +806,7 @@ char **margv;
     --margc;
 
     if (margv[margc] && (margv[margc][0] != ']' || margv[margc][1]))
-      test_syntax_error(_("missing `]'"), (char *)NULL);
+      test_syntax_error("missing `]'", (char *)NULL);
 
     if (margc < 2) test_exit(SHELL_BOOLEAN(FALSE));
   }
@@ -820,7 +819,7 @@ char **margv;
   noeval = 0;
   value = posixtest();
 
-  if (pos != argc) test_syntax_error(_("too many arguments"), (char *)NULL);
+  if (pos != argc) test_syntax_error("too many arguments", (char *)NULL);
 
   test_exit(SHELL_BOOLEAN(value));
 }

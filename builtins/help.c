@@ -17,7 +17,6 @@
 #include <filecntl.h>
 #include <stddef.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../builtins.h"
@@ -126,7 +125,7 @@ int help_builtin(WORD_LIST* list) {
 		      continue;
 		    }
 
-	          printf ("%s: %s\n", name, _(shell_builtins[i].short_doc));
+	          printf ("%s: %s\n", name, shell_builtins[i].short_doc);
 
 	          if (sflag == 0)
 		    show_longdoc (i);
@@ -139,7 +138,7 @@ int help_builtin(WORD_LIST* list) {
 
   if (match_found == 0)
     {
-      builtin_error (_("no help topics match `%s'.  Try `help help' or `man -k %s' or `info %s'."), pattern, pattern, pattern);
+      builtin_error ("no help topics match `%s'.  Try `help help' or `man -k %s' or `info %s'.", pattern, pattern, pattern);
       return (EXECUTION_FAILURE);
     }
 
@@ -165,7 +164,7 @@ builtin_help ()
   ind = (int)d / sizeof (struct builtin);
 #endif
 
-  printf ("%s: %s\n", this_command_name, _(shell_builtins[ind].short_doc));
+  printf ("%s: %s\n", this_command_name, shell_builtins[ind].short_doc);
   show_longdoc (ind);  
 }
 
@@ -178,7 +177,7 @@ open_helpfile (name)
   fd = open (name, O_RDONLY);
   if (fd == -1)
     {
-      builtin_error (_("%s: cannot open: %s"), name, strerror (errno));
+      builtin_error ("%s: cannot open: %s", name, strerror (errno));
       return -1;
     }
   return fd;
@@ -207,7 +206,7 @@ show_longdoc (i)
     }
   else if (doc)
     for (j = 0; doc[j]; j++)
-      printf ("%*s%s\n", BASE_INDENT, " ", _(doc[j]));
+      printf ("%*s%s\n", BASE_INDENT, " ", doc[j]);
 }
 
 static void
@@ -269,7 +268,7 @@ show_manpage (name, i)
       close (fd);
     }
   else
-    line = doc ? _(doc[0]) : (char *)NULL;
+    line = doc ? doc[0] : (char *)NULL;
 
   /* NAME */
   printf ("NAME\n");
@@ -284,14 +283,14 @@ show_manpage (name, i)
 
   /* SYNOPSIS */
   printf ("SYNOPSIS\n");
-  printf ("%*s%s\n\n", BASE_INDENT, " ", _(shell_builtins[i].short_doc));
+  printf ("%*s%s\n\n", BASE_INDENT, " ", shell_builtins[i].short_doc);
 
   /* DESCRIPTION */
   printf ("DESCRIPTION\n");
   if (usefile == 0)
     {
       for (j = 0; doc[j]; j++)
-        printf ("%*s%s\n", BASE_INDENT, " ", _(doc[j]));
+        printf ("%*s%s\n", BASE_INDENT, " ", doc[j]);
     }
   else
     {
@@ -330,7 +329,7 @@ dispcolumn (i, buf, bufsize, width, height)
   char *helpdoc;
 
   /* first column */
-  helpdoc = _(shell_builtins[i].short_doc);
+  helpdoc = shell_builtins[i].short_doc;
 
   buf[0] = (shell_builtins[i].flags & BUILTIN_ENABLED) ? ' ' : '*';
   strncpy (buf + 1, helpdoc, width - 2);
@@ -349,7 +348,7 @@ dispcolumn (i, buf, bufsize, width, height)
     putc (' ', stdout);
 
   /* second column */
-  helpdoc = _(shell_builtins[i+height].short_doc);
+  helpdoc = shell_builtins[i+height].short_doc;
 
   buf[0] = (shell_builtins[i+height].flags & BUILTIN_ENABLED) ? ' ' : '*';
   strncpy (buf + 1, helpdoc, width - 3);
@@ -375,7 +374,7 @@ wdispcolumn (i, buf, bufsize, width, height)
   int wclen;
 
   /* first column */
-  helpdoc = _(shell_builtins[i].short_doc);
+  helpdoc = shell_builtins[i].short_doc;
 
   wcstr = 0;
   slen = mbstowcs ((wchar_t *)0, helpdoc, 0);
@@ -424,7 +423,7 @@ wdispcolumn (i, buf, bufsize, width, height)
     putc (' ', stdout);
 
   /* second column */
-  helpdoc = _(shell_builtins[i+height].short_doc);
+  helpdoc = shell_builtins[i+height].short_doc;
   slen = mbstowcs ((wchar_t *)0, helpdoc, 0);
   if (slen == -1)
     {
@@ -474,13 +473,13 @@ show_builtin_command_help ()
   char *t, blurb[128];
 
   printf (
-_("These shell commands are defined internally.  Type `help' to see this list.\n\
+"These shell commands are defined internally.  Type `help' to see this list.\n\
 Type `help name' to find out more about the function `name'.\n\
 Use `info bash' to find out more about the shell in general.\n\
 Use `man -k' or `info' to find out more about commands not in this list.\n\
 \n\
 A star (*) next to a name means that the command is disabled.\n\
-\n"));
+\n");
 
   t = get_string_value ("COLUMNS");
   width = (t && *t) ? atoi (t) : 80;

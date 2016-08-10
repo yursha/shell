@@ -10,7 +10,6 @@
 #include "filecntl.h"
 #include <pwd.h>
 #include <unistd.h>
-#include "bashintl.h"
 
 #define NEED_SH_SETLINEBUF_DECL /* used in externs.h */
 
@@ -420,7 +419,7 @@ int main(int argc, char **argv, char **env) {
   if (want_pending_command) {
     command_execution_string = argv[arg_index];
     if (command_execution_string == 0) {
-      report_error(_("%s: option requires an argument"), "-c");
+      report_error("%s: option requires an argument", "-c");
       exit(EX_BADUSAGE);
     }
     arg_index++;
@@ -683,7 +682,7 @@ int arg_start, arg_end;
         if (long_args[i].type == Int)
           *long_args[i].int_value = 1;
         else if (argv[++arg_index] == 0) {
-          report_error(_("%s: option requires an argument"), long_args[i].name);
+          report_error("%s: option requires an argument", long_args[i].name);
           exit(EX_BADUSAGE);
         } else
           *long_args[i].char_value = argv[arg_index];
@@ -693,7 +692,7 @@ int arg_start, arg_end;
     }
     if (long_args[i].name == 0) {
       if (longarg) {
-        report_error(_("%s: invalid option"), argv[arg_index]);
+        report_error("%s: invalid option", argv[arg_index]);
         show_shell_usage(stderr, 0);
         exit(EX_BADUSAGE);
       }
@@ -774,7 +773,7 @@ int arg_start, arg_end;
 
         default:
           if (change_flag(arg_character, on_or_off) == FLAG_ERROR) {
-            report_error(_("%c%c: invalid option"), on_or_off, arg_character);
+            report_error("%c%c: invalid option", on_or_off, arg_character);
             show_shell_usage(stderr, 0);
             exit(EX_BADUSAGE);
           }
@@ -1052,14 +1051,14 @@ void disable_priv_mode() {
 
   if (setuid(current_user.uid) < 0) {
     e = errno;
-    sys_error(_("cannot set uid to %d: effective uid %d"), current_user.uid,
+    sys_error("cannot set uid to %d: effective uid %d", current_user.uid,
               current_user.euid);
 #if defined(EXIT_ON_SETUID_FAILURE)
     if (e == EAGAIN) exit(e);
 #endif
   }
   if (setgid(current_user.gid) < 0)
-    sys_error(_("cannot set gid to %d: effective gid %d"), current_user.gid,
+    sys_error("cannot set gid to %d: effective gid %d", current_user.gid,
               current_user.egid);
 
   current_user.euid = current_user.uid;
@@ -1204,7 +1203,7 @@ static void start_debugger() {
 
   r = force_execute_file(DEBUGGER_START_FILE, 1);
   if (r < 0) {
-    internal_warning(_("cannot start debugger; debugging mode disabled"));
+    internal_warning("cannot start debugger; debugging mode disabled");
     debugging_mode = 0;
   }
   error_trace_mode = function_trace_mode = debugging_mode;
@@ -1301,7 +1300,7 @@ static int open_shell_script(script_name) char *script_name;
         errno = EISDIR;
         file_error(filename);
 #else
-        internal_error(_("%s: Is a directory"), filename);
+        internal_error("%s: Is a directory", filename);
 #endif
       } else {
         errno = e;
@@ -1309,7 +1308,7 @@ static int open_shell_script(script_name) char *script_name;
       }
       exit(EX_NOEXEC);
     } else if (sample_len > 0 && (check_binary_file(sample, sample_len))) {
-      internal_error(_("%s: cannot execute binary file"), filename);
+      internal_error("%s: cannot execute binary file", filename);
       exit(EX_BINARY_FILE);
     }
     /* Now rewind the file back to the beginning. */
@@ -1480,7 +1479,7 @@ void get_current_user_info() {
                                : savestring("/bin/sh");
       current_user.home_dir = savestring(entry->pw_dir);
     } else {
-      current_user.user_name = _("I have no name!");
+      current_user.user_name = "I have no name!";
       current_user.user_name = savestring(current_user.user_name);
       current_user.shell = savestring("/bin/sh");
       current_user.home_dir = savestring("/");
@@ -1608,17 +1607,17 @@ int extra;
   char *set_opts, *s, *t;
 
   if (extra)
-    fprintf(fp, _("GNU bash, version %s-(%s)\n"), get_shell_version(),
+    fprintf(fp, "GNU bash, version %s-(%s)\n", get_shell_version(),
             MACHTYPE);
-  fprintf(fp, _("Usage:\t%s [GNU long option] [option] ...\n\t%s [GNU long "
-                "option] [option] script-file ...\n"),
+  fprintf(fp, "Usage:\t%s [GNU long option] [option] ...\n\t%s [GNU long "
+                "option] [option] script-file ...\n",
           shell_name, shell_name);
-  fputs(_("GNU long options:\n"), fp);
+  fputs("GNU long options:\n", fp);
   for (i = 0; long_args[i].name; i++)
     fprintf(fp, "\t--%s\n", long_args[i].name);
 
-  fputs(_("Shell options:\n"), fp);
-  fputs(_("\t-ilrsD or -c command or -O shopt_option\t\t(invocation only)\n"),
+  fputs("Shell options:\n", fp);
+  fputs("\t-ilrsD or -c command or -O shopt_option\t\t(invocation only)\n",
         fp);
 
   for (i = 0, set_opts = 0; shell_builtins[i].name; i++)
@@ -1631,23 +1630,23 @@ int extra;
       ;
     t = strchr(s, ']');
     if (t) *t = '\0';
-    fprintf(fp, _("\t-%s or -o option\n"), s);
+    fprintf(fp, "\t-%s or -o option\n", s);
     free(set_opts);
   }
 
   if (extra) {
-    fprintf(fp, _("Type `%s -c \"help set\"' for more information about shell "
-                  "options.\n"),
+    fprintf(fp, "Type `%s -c \"help set\"' for more information about shell "
+                  "options.\n",
             shell_name);
-    fprintf(fp, _("Type `%s -c help' for more information about shell builtin "
-                  "commands.\n"),
+    fprintf(fp, "Type `%s -c help' for more information about shell builtin "
+                  "commands.\n",
             shell_name);
-    fprintf(fp, _("Use the `bashbug' command to report bugs.\n"));
+    fprintf(fp, "Use the `bashbug' command to report bugs.\n");
     fprintf(fp, "\n");
-    fprintf(fp, _("bash home page: <http://www.gnu.org/software/bash>\n"));
+    fprintf(fp, "bash home page: <http://www.gnu.org/software/bash>\n");
     fprintf(
         fp,
-        _("General help using GNU software: <http://www.gnu.org/gethelp/>\n"));
+        "General help using GNU software: <http://www.gnu.org/gethelp/>\n");
   }
 }
 

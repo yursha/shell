@@ -26,7 +26,6 @@
 
 #include <stdio.h>
 #include "memalloc.h"
-#include "../bashintl.h"
 #include "../shell.h"
 #include "getopt.h"
 
@@ -104,9 +103,9 @@ int sh_badopt = 0;
    ARGV-element, is returned in `sh_optarg'. */
 
 /* 1003.2 specifies the format of this message.  */
-#define BADOPT(x) fprintf(stderr, _("%s: illegal option -- %c\n"), argv[0], x)
+#define BADOPT(x) fprintf(stderr, "%s: illegal option -- %c\n", argv[0], x)
 #define NEEDARG(x) \
-  fprintf(stderr, _("%s: option requires an argument -- %c\n"), argv[0], x)
+  fprintf(stderr, "%s: option requires an argument -- %c\n", argv[0], x)
 
 int sh_getopt(argc, argv, optstring) int argc;
 char *const *argv;

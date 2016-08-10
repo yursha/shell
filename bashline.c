@@ -42,7 +42,6 @@
 #include <stdio.h>
 #include "chartypes.h"
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "input.h"
@@ -3597,7 +3596,7 @@ int key;
   if (cmd == 0 || type != ISMACR) {
     rl_crlf();
     internal_error(
-        _("bash_execute_unix_command: cannot find keymap for command"));
+        "bash_execute_unix_command: cannot find keymap for command");
     rl_forced_update_display();
     return 1;
   }
@@ -3681,7 +3680,7 @@ int ind, need_dquote, *startp;
     ;
   /* NEED_DQUOTE means that the first non-white character *must* be `"'. */
   if (need_dquote && string[i] != '"') {
-    builtin_error(_("%s: first non-whitespace character is not `\"'"), string);
+    builtin_error("%s: first non-whitespace character is not `\"'", string);
     return -1;
   }
 
@@ -3704,7 +3703,7 @@ int ind, need_dquote, *startp;
   }
 
   if (delim && string[i] != delim) {
-    builtin_error(_("no closing `%c' in %s"), delim, string);
+    builtin_error("no closing `%c' in %s", delim, string);
     return -1;
   }
 
@@ -3733,7 +3732,7 @@ int bind_keyseq_to_unix_command(line) char *line;
   for (; line[i] && line[i] != ':'; i++)
     ;
   if (line[i] != ':') {
-    builtin_error(_("%s: missing colon separator"), line);
+    builtin_error("%s: missing colon separator", line);
     FREE(kseq);
     return -1;
   }

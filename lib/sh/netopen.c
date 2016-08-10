@@ -5,24 +5,6 @@
  * chet@ins.CWRU.Edu
  */
 
-/* Copyright (C) 1987-2002 Free Software Foundation, Inc.
-
-   This file is part of GNU Bash, the Bourne Again SHell.
-
-   Bash is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Bash is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Bash.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #include <config.h>
 
 #if defined(HAVE_NETWORK)
@@ -51,7 +33,6 @@
 #endif
 
 #include <bashansi.h>
-#include <bashintl.h>
 
 #include <errno.h>
 
@@ -148,13 +129,13 @@ int typ;
   int s, e;
 
   if (_getaddr(host, &ina) == 0) {
-    internal_error(_("%s: host unknown"), host);
+    internal_error("%s: host unknown", host);
     errno = EINVAL;
     return -1;
   }
 
   if (_getserv(serv, typ, &p) == 0) {
-    internal_error(_("%s: invalid service"), serv);
+    internal_error("%s: invalid service", serv);
     errno = EINVAL;
     return -1;
   }
@@ -270,7 +251,7 @@ int netopen(path) char *path;
   s = np + 9;
   t = strchr(s, '/');
   if (t == 0) {
-    internal_error(_("%s: bad network path specification"), path);
+    internal_error("%s: bad network path specification", path);
     return -1;
   }
   *t++ = '\0';
@@ -308,7 +289,7 @@ udpopen (host, serv)
 
 int netopen(path) char *path;
 {
-  internal_error(_("network operations not supported"));
+  internal_error("network operations not supported");
   return -1;
 }
 

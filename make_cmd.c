@@ -32,7 +32,6 @@
 #include <unistd.h>
 #endif
 
-#include "bashintl.h"
 
 #include "parser.h"
 #include "syntax.h"
@@ -290,10 +289,10 @@ int lineno;
 
   if (nsemi != 3) {
     if (nsemi < 3)
-      parser_error(lineno, _("syntax error: arithmetic expression required"));
+      parser_error(lineno, "syntax error: arithmetic expression required");
     else
-      parser_error(lineno, _("syntax error: `;' unexpected"));
-    parser_error(lineno, _("syntax error: `((%s))'"), exprs->word->word);
+      parser_error(lineno, "syntax error: `;' unexpected");
+    parser_error(lineno, "syntax error: `((%s))'", exprs->word->word);
     free(init);
     free(test);
     free(step);
@@ -512,7 +511,7 @@ int lineno;
 
   if (temp->instruction != r_deblank_reading_until &&
       temp->instruction != r_reading_until) {
-    internal_error(_("make_here_document: bad instruction type %d"),
+    internal_error("make_here_document: bad instruction type %d",
                    temp->instruction);
     return;
   }
@@ -592,7 +591,7 @@ int lineno;
 
   if (full_line == 0)
     internal_warning(
-        _("here-document at line %d delimited by end-of-file (wanted `%s')"),
+        "here-document at line %d delimited by end-of-file (wanted `%s')",
         lineno, redir_word);
 
 document_done:
@@ -692,7 +691,7 @@ int flags;
 
     default:
       programming_error(
-          _("make_redirection: redirection instruction `%d' out of range"),
+          "make_redirection: redirection instruction `%d' out of range",
           instruction);
       abort();
       break;

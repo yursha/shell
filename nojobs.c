@@ -42,7 +42,6 @@
 /* Need to include this up here for *_TTY_DRIVER definitions. */
 #include "shtty.h"
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "jobs.h"
@@ -565,7 +564,7 @@ int wait_for_single_pid(pid) pid_t pid;
   pstatus = find_status_by_pid(pid);
 
   if (pstatus == PROC_BAD) {
-    internal_error(_("wait: pid %ld is not a child of this shell"), (long)pid);
+    internal_error("wait: pid %ld is not a child of this shell", (long)pid);
     return (127);
   }
 
@@ -772,7 +771,7 @@ int wait_for(pid) pid_t pid;
   if ((WIFSTOPPED(status) == 0) && WIFSIGNALED(status) &&
       REPORTSIG(WTERMSIG(status))) {
     fprintf(stderr, "%s", j_strsignal(WTERMSIG(status)));
-    if (WIFCORED(status)) fprintf(stderr, _(" (core dumped)"));
+    if (WIFCORED(status)) fprintf(stderr, " (core dumped)");
     fprintf(stderr, "\n");
   }
 

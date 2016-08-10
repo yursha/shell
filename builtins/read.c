@@ -24,7 +24,6 @@
 #  include <io.h>
 #endif
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "common.h"
@@ -189,7 +188,7 @@ int read_builtin(WORD_LIST* list) {
 	  code = uconvert (list_optarg, &ival, &uval);
 	  if (code == 0 || ival < 0 || uval < 0)
 	    {
-	      builtin_error (_("%s: invalid timeout specification"), list_optarg);
+	      builtin_error ("%s: invalid timeout specification", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
@@ -216,14 +215,14 @@ int read_builtin(WORD_LIST* list) {
 	  code = legal_number (list_optarg, &intval);
 	  if (code == 0 || intval < 0 || intval != (int)intval)
 	    {
-	      builtin_error (_("%s: invalid file descriptor specification"), list_optarg);
+	      builtin_error ("%s: invalid file descriptor specification", list_optarg);
 	      return (EXECUTION_FAILURE);
 	    }
 	  else
 	    fd = intval;
 	  if (sh_validfd (fd) == 0)
 	    {
-	      builtin_error (_("%d: invalid file descriptor: %s"), fd, strerror (errno));
+	      builtin_error ("%d: invalid file descriptor: %s", fd, strerror (errno));
 	      return (EXECUTION_FAILURE);
 	    }
 	  break;
@@ -606,7 +605,7 @@ add_char:
     {
       t_errno = errno;
       if (errno != EINTR)
-	builtin_error (_("read error: %d: %s"), fd, strerror (errno));
+	builtin_error ("read error: %d: %s", fd, strerror (errno));
       run_unwind_frame ("read_builtin");
       return ((t_errno != EINTR) ? EXECUTION_FAILURE : 128+lastsig);
     }
@@ -661,7 +660,7 @@ assign_vars:
 	}
       if (assoc_p (var))
 	{
-          builtin_error (_("%s: cannot convert associative to indexed array"), arrayname);
+          builtin_error ("%s: cannot convert associative to indexed array", arrayname);
 	  xfree (input_string);
 	  return EXECUTION_FAILURE;	/* existing associative array */
 	}

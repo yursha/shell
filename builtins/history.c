@@ -19,7 +19,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../bashhist.h"
@@ -98,7 +97,7 @@ int history_builtin(WORD_LIST* list) {
   opt = flags & (AFLAG|RFLAG|WFLAG|NFLAG);
   if (opt && opt != AFLAG && opt != RFLAG && opt != WFLAG && opt != NFLAG)
     {
-      builtin_error (_("cannot use more than one of -anrw"));
+      builtin_error ("cannot use more than one of -anrw");
       return (EXECUTION_FAILURE);
     }
 
@@ -130,7 +129,7 @@ int history_builtin(WORD_LIST* list) {
 	  || (delete_offset < history_base)
 	  || (delete_offset > (history_base + history_length)))
 	{
-	  sh_erange (delete_arg, _("history position"));
+	  sh_erange (delete_arg, "history position");
 	  return (EXECUTION_FAILURE);
 	}
       opt = delete_offset;
@@ -207,7 +206,7 @@ histtime (hlist, histtimefmt)
   if (t)
     strftime (timestr, sizeof (timestr), histtimefmt, localtime (&t));
   else if (hlist->timestamp && hlist->timestamp[0])
-    snprintf (timestr, sizeof (timestr), _("%s: invalid timestamp"),
+    snprintf (timestr, sizeof (timestr), "%s: invalid timestamp",
 	(hlist->timestamp[0] == '#') ? hlist->timestamp + 1: hlist->timestamp);
   else
     strcpy (timestr, "??");
@@ -318,7 +317,7 @@ expand_and_print_history (list)
       r = history_expand (list->word->word, &s);
       if (r < 0)
 	{
-	  builtin_error (_("%s: history expansion failed"), list->word->word);
+	  builtin_error ("%s: history expansion failed", list->word->word);
 	  result = EXECUTION_FAILURE;
 	}
       else

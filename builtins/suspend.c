@@ -12,7 +12,6 @@
 
 #include "../bashtypes.h"
 #include <signal.h>
-#include "../bashintl.h"
 #include "../shell.h"
 #include "../jobs.h"
 #include "common.h"
@@ -61,7 +60,7 @@ int suspend_builtin(WORD_LIST* list) {
 
   if (job_control == 0)
     {
-      sh_nojobs (_("cannot suspend"));
+      sh_nojobs ("cannot suspend");
       return (EXECUTION_FAILURE);
     }
 
@@ -71,7 +70,7 @@ int suspend_builtin(WORD_LIST* list) {
 
       if (login_shell)
 	{
-	  builtin_error (_("cannot suspend a login shell"));
+	  builtin_error ("cannot suspend a login shell");
 	  return (EXECUTION_FAILURE);
 	}
     }

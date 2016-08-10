@@ -31,7 +31,6 @@
 
 #include "posixtime.h"
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #define NEED_STRFTIME_DECL
 
@@ -357,7 +356,7 @@ int printf_builtin(WORD_LIST* list) {
 	    
 	  if (*fmt == 0)
 	    {
-	      builtin_error (_("`%s': missing format character"), start);
+	      builtin_error ("`%s': missing format character", start);
 	      PRETURN (EXECUTION_FAILURE);
 	    }
 
@@ -412,7 +411,7 @@ int printf_builtin(WORD_LIST* list) {
 		*t = '\0';
 		if (*++fmt != 'T')
 		  {
-		    builtin_warning (_("`%c': invalid time format specification"), *fmt);
+		    builtin_warning ("`%c': invalid time format specification", *fmt);
 		    fmt = start;
 		    free (timefmt);
 		    PC (*fmt);
@@ -614,7 +613,7 @@ int printf_builtin(WORD_LIST* list) {
 	    /* We don't output unrecognized format characters; we print an
 	       error message and return a failure exit status. */
 	    default:
-	      builtin_error (_("`%c': invalid format character"), convch);
+	      builtin_error ("`%c': invalid format character", convch);
 	      PRETURN (EXECUTION_FAILURE);
 	    }
 
@@ -640,7 +639,7 @@ static void
 printf_erange (s)
      char *s;
 {
-  builtin_error (_("warning: %s: %s"), s, strerror(ERANGE));
+  builtin_error ("warning: %s: %s", s, strerror(ERANGE));
 }
 
 /* We duplicate a lot of what printf(3) does here. */
@@ -726,7 +725,7 @@ printstr (fmt, string, len, fieldwidth, precision)
   /* If we remove this, get rid of `s'. */
   if (*fmt != 'b' && *fmt != 'q')
     {
-      internal_error (_("format parsing problem: %s"), s);
+      internal_error ("format parsing problem: %s", s);
       fw = pr = 0;
     }
 #endif
@@ -823,7 +822,7 @@ tescape (estart, cp, lenp, sawc)
 	  evalue = (evalue * 16) + HEXVALUE (*p);
 	if (p == estart + 1)
 	  {
-	    builtin_error (_("missing hex digit for \\x"));
+	    builtin_error ("missing hex digit for \\x");
 	    *cp = '\\';
 	    return 0;
 	  }
@@ -838,7 +837,7 @@ tescape (estart, cp, lenp, sawc)
 	  uvalue = (uvalue * 16) + HEXVALUE (*p);
 	if (p == estart + 1)
 	  {
-	    builtin_error (_("missing unicode digit for \\%c"), c);
+	    builtin_error ("missing unicode digit for \\%c", c);
 	    *cp = '\\';
 	    return 0;
 	  }

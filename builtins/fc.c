@@ -23,7 +23,6 @@
 #include <chartypes.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 #include <errno.h>
 
 #include "../shell.h"
@@ -218,7 +217,7 @@ int fc_builtin(WORD_LIST* list) {
 
       if (command == NULL)
 	{
-	  builtin_error (_("no command found"));
+	  builtin_error ("no command found");
 	  if (rlist)
 	    FREE_RLIST ();
 
@@ -276,7 +275,7 @@ int fc_builtin(WORD_LIST* list) {
       last_hist--;
   if (last_hist < 0)
     {
-      sh_erange ((char *)NULL, _("history specification"));
+      sh_erange ((char *)NULL, "history specification");
       return (EXECUTION_FAILURE);
     }
 
@@ -325,7 +324,7 @@ int fc_builtin(WORD_LIST* list) {
   /* We print error messages for line specifications out of range. */
   if ((histbeg < 0) || (histend < 0))
     {
-      sh_erange ((char *)NULL, _("history specification"));
+      sh_erange ((char *)NULL, "history specification");
       return (EXECUTION_FAILURE);
     }
 
@@ -346,7 +345,7 @@ int fc_builtin(WORD_LIST* list) {
       stream = sh_mktmpfp ("bash-fc", MT_USERANDOM|MT_USETMPDIR, &fn);
       if (stream == 0)
 	{
-	  builtin_error (_("%s: cannot open temp file: %s"), fn ? fn : "", strerror (errno));
+	  builtin_error ("%s: cannot open temp file: %s", fn ? fn : "", strerror (errno));
 	  FREE (fn);
 	  return (EXECUTION_FAILURE);
 	}

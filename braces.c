@@ -31,7 +31,6 @@
 #include <errno.h>
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #if defined(SHELL)
 #include "shell.h"
@@ -288,7 +287,7 @@ int flags;
 
       tresult = strvec_mresize(result, lp + lr + 1);
       if (tresult == 0) {
-        internal_error(_("brace expansion: cannot allocate memory for %s"),
+        internal_error("brace expansion: cannot allocate memory for %s",
                        tem);
         strvec_dispose(result);
         result = (char **)NULL;
@@ -375,7 +374,7 @@ int type, width;
   result = strvec_mcreate(nelem + 1);
   if (result == 0) {
     internal_error(
-        _("brace expansion: failed to allocate memory for %d elements"), nelem);
+        "brace expansion: failed to allocate memory for %d elements", nelem);
     return ((char **)NULL);
   }
 
@@ -412,7 +411,7 @@ int type, width;
       /* Easier to do this than mess around with various intmax_t printf
          formats (%ld? %lld? %jd?) and PRIdMAX. */
       p = inttostr(n, lbuf, sizeof(lbuf));
-      internal_error(_("brace expansion: failed to allocate memory for `%s'"),
+      internal_error("brace expansion: failed to allocate memory for `%s'",
                      p);
       strvec_dispose(result);
       return ((char **)NULL);

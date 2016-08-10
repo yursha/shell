@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../builtins.h"
@@ -90,7 +89,7 @@ int enable_builtin(WORD_LIST* list) {
 	  filename = list_optarg;
 	  break;
 #else
-	  builtin_error (_("dynamic loading not available"));
+	  builtin_error ("dynamic loading not available");
 	  return (EX_USAGE);
 #endif
 #if defined (HAVE_DLCLOSE)
@@ -98,7 +97,7 @@ int enable_builtin(WORD_LIST* list) {
 	  flags |= DFLAG;
 	  break;
 #else
-	  builtin_error (_("dynamic loading not available"));
+	  builtin_error ("dynamic loading not available");
 	  return (EX_USAGE);
 #endif /* HAVE_DLCLOSE */
 	CASE_HELPOPT;
@@ -274,7 +273,7 @@ dyn_load_builtin (list, flags, filename)
   if (handle == 0)
     {
       name = printable_filename (filename, 0);
-      builtin_error (_("cannot open shared object %s: %s"), name, dlerror ());
+      builtin_error ("cannot open shared object %s: %s", name, dlerror ());
       if (name != filename)
 	free (name);
       return (EXECUTION_FAILURE);
@@ -300,7 +299,7 @@ dyn_load_builtin (list, flags, filename)
       if (b == 0)
 	{
 	  name = printable_filename (filename, 0);
-	  builtin_error (_("cannot find %s in shared object %s: %s"),
+	  builtin_error ("cannot find %s in shared object %s: %s",
 			  struct_name, name, dlerror ());
 	  if (name != filename)
 	    free (name);
@@ -318,7 +317,7 @@ dyn_load_builtin (list, flags, filename)
 	  r = (*loadfunc) (name);
 	  if (r == 0)
 	    {
-	      builtin_error (_("load function for %s returns failure (%d): not loaded"), name, r);
+	      builtin_error ("load function for %s returns failure (%d): not loaded", name, r);
 	      free (funcname);
 	      continue;
 	    }
@@ -443,7 +442,7 @@ dyn_unload_builtin (name)
     }
   if (b->flags & STATIC_BUILTIN)
     {
-      builtin_error (_("%s: not dynamically loaded"), name);
+      builtin_error ("%s: not dynamically loaded", name);
       return (EXECUTION_FAILURE);
     }
 
@@ -469,7 +468,7 @@ dyn_unload_builtin (name)
      using it drops to zero. */
   if (ref == 1 && local_dlclose (handle) != 0)
     {
-      builtin_error (_("%s: cannot delete: %s"), name, dlerror ());
+      builtin_error ("%s: cannot delete: %s", name, dlerror ());
       return (EXECUTION_FAILURE);
     }
 

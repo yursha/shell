@@ -20,7 +20,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include <errno.h>
 
@@ -89,7 +88,7 @@ int pushd_builtin(WORD_LIST* list) {
     {
       if (directory_list_offset == 0)
 	{
-	  builtin_error (_("no other directory"));
+	  builtin_error ("no other directory");
 	  return (EXECUTION_FAILURE);
 	}
 
@@ -247,7 +246,7 @@ int popd_builtin(WORD_LIST* list) {
 	}
       else if (*list->word->word)
 	{
-	  builtin_error (_("%s: invalid argument"), list->word->word);
+	  builtin_error ("%s: invalid argument", list->word->word);
 	  builtin_usage ();
 	  return (EX_USAGE);
 	}
@@ -359,7 +358,7 @@ int dirs_builtin(WORD_LIST* list) {
     {
       temp = get_working_directory ("dirs");
       if (temp == 0)
-	temp = savestring (_("<no current directory>"));
+	temp = savestring ("<no current directory>");
       if (vflag & 2)
 	printf ("%2d  %s", 0, DIRSTACK_FORMAT (temp));
       else
@@ -403,9 +402,9 @@ pushd_error (offset, arg)
      char *arg;
 {
   if (offset == 0)
-    builtin_error (_("directory stack empty"));
+    builtin_error ("directory stack empty");
   else
-    sh_erange (arg, _("directory stack index"));
+    sh_erange (arg, "directory stack index");
 }
 
 static void
