@@ -103,7 +103,7 @@ LIBS = $(BUILTINS_LIB) $(LIBRARIES) -ldl
 LIBS_FOR_BUILD = 
 
 STATIC_LD = 
-LOCAL_LDFLAGS = -rdynamic
+LOCAL_LDFLAGS = -rdynamic -L/usr/local/lib
 
 SYSTEM_FLAGS = -DPROGRAM='"bash"' -DCONF_HOSTTYPE='"$(Machine)"' -DCONF_OSTYPE='"$(OS)"' -DCONF_MACHTYPE='"$(MACHTYPE)"' -DCONF_VENDOR='"$(VENDOR)"' $(LOCALE_DEFS)
 
@@ -189,14 +189,11 @@ SHLIB_DEP = ${SHLIB_LIBRARY}
 
 READLINE_HEADERS = /usr/local/include/readline
 READLINE_LIB = -lreadline
-READLINE_LDFLAGS = -L/usr/local/lib
 
 HISTORY_HEADERS = /usr/local/include/readline
 HIST_LIBDIR = /usr/local/lib/readline
 
 HISTORY_LIB = -lhistory
-HISTORY_LDFLAGS = -L$(HIST_LIBDIR)
-HISTORY_DEP = $(HISTORY_LIBRARY)
 
 # The source, object and documentation of the history library.
 HISTORY_SOURCE	= $(HISTORY_HEADERS)/history.c $(HISTORY_HEADERS)/histexpand.c \
@@ -293,10 +290,10 @@ BASHINCFILES =	 $(BASHINCDIR)/posixstat.h $(BASHINCDIR)/ansi_stdlib.h \
 LIBRARIES = $(GLOB_LIB) $(SHLIB_LIB) $(READLINE_LIB) $(HISTORY_LIB) $(TERMCAP_LIB) \
 	  $(TILDE_LIB) $(MALLOC_LIB) $(LIBICONV) $(LOCAL_LIBS)
 
-LIBDEP = $(GLOB_DEP) $(SHLIB_DEP) $(HISTORY_DEP) $(TERMCAP_DEP) \
+LIBDEP = $(GLOB_DEP) $(SHLIB_DEP) $(TERMCAP_DEP) \
 	 $(TILDE_DEP) $(MALLOC_DEP)
 
-LIBRARY_LDFLAGS = $(READLINE_LDFLAGS) $(HISTORY_LDFLAGS) $(GLOB_LDFLAGS) \
+LIBRARY_LDFLAGS = $(GLOB_LDFLAGS) \
 		 $(TILDE_LDFLAGS) $(MALLOC_LDFLAGS) $(SHLIB_LDFLAGS)
 
 #
@@ -462,11 +459,6 @@ y.tab.h: y.tab.c
 # so just force top level sanity before we descend.
 $(LIBDEP): .build
 #$(LIBDEP): version.h
-
-$(HISTORY_LIBRARY): config.h $(HISTORY_SOURCE) $(READLINE_DEP)
-	@echo making $@ in ${HIST_LIBDIR}
-	@( { test "${HIST_LIBDIR}" = "${libdir}" && exit 0; } || \
-		cd ${HIST_LIBDIR} && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} libhistory.a) || exit 1
 
 $(GLOB_LIBRARY): config.h $(GLOB_SOURCE)
 	@echo making $@ in ${GLOB_LIBDIR}
