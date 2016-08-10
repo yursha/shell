@@ -1,7 +1,5 @@
 /* caller.c, created from caller.def. */
-#line 23 "./caller.def"
 
-#line 41 "./caller.def"
 
 #include <config.h>
 #include <stdio.h>

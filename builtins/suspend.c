@@ -1,7 +1,5 @@
 /* suspend.c, created from suspend.def. */
-#line 22 "./suspend.def"
 
-#line 38 "./suspend.def"
 
 #include <config.h>
 

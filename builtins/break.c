@@ -1,7 +1,5 @@
 /* break.c, created from break.def. */
-#line 22 "./break.def"
 
-#line 34 "./break.def"
 #include <config.h>
 
 #if defined (HAVE_UNISTD_H)
@@ -55,7 +53,6 @@ int break_builtin(WORD_LIST* list) {
   return (EXECUTION_SUCCESS);
 }
 
-#line 100 "./break.def"
 
 /* Set up to continue x levels, where x defaults to 1, but can be specified
    as the first argument. */

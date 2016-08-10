@@ -1,7 +1,5 @@
 /* umask.c, created from umask.def. */
-#line 22 "./umask.def"
 
-#line 41 "./umask.def"
 
 #include <config.h>
 

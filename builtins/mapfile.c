@@ -1,9 +1,6 @@
 /* mapfile.c, created from mapfile.def. */
-#line 23 "./mapfile.def"
 
-#line 59 "./mapfile.def"
 
-#line 67 "./mapfile.def"
 
 #include <config.h>
 

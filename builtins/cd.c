@@ -1,5 +1,4 @@
 /* cd.c, created from cd.def. */
-#line 22 "./cd.def"
 #include <config.h>
 
 #if defined (HAVE_UNISTD_H)
@@ -52,7 +51,6 @@ static int eflag;	/* file scope so bindpwd() can see it */
 static int xattrflag;	/* O_XATTR support for openat */
 static int xattrfd = -1;
 
-#line 114 "./cd.def"
 
 /* Just set $PWD, don't change OLDPWD.  Used by `pwd -P' in posix mode. */
 static int
@@ -382,7 +380,6 @@ int cd_builtin(WORD_LIST* list) {
   return (EXECUTION_FAILURE);
 }
 
-#line 461 "./cd.def"
 
 /* Non-zero means that pwd always prints the physical directory, without
    symbolic links. */

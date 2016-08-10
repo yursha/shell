@@ -1,9 +1,7 @@
 /* bind.c, created from bind.def. */
-#line 22 "./bind.def"
 
 #include <config.h>
 
-#line 63 "./bind.def"
 
 #if defined (READLINE)
 

@@ -1,7 +1,5 @@
 /* read.c, created from read.def. */
-#line 22 "./read.def"
 
-#line 69 "./read.def"
 
 #include <config.h>
 

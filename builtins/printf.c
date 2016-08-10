@@ -1,7 +1,5 @@
 /* printf.c, created from printf.def. */
-#line 22 "./printf.def"
 
-#line 55 "./printf.def"
 
 #include <config.h>
 

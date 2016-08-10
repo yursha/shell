@@ -1,5 +1,4 @@
 /* echo.c, created from echo.def. */
-#line 22 "./echo.def"
 #include <config.h>
 
 #if defined (HAVE_UNISTD_H)
@@ -13,9 +12,7 @@
 
 #include "common.h"
 
-#line 69 "./echo.def"
 
-#line 84 "./echo.def"
 
 #if defined (V9_ECHO)
 #  define VALID_ECHO_OPTIONS "neE"

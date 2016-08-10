@@ -1,7 +1,5 @@
 /* exit.c, created from exit.def. */
-#line 22 "./exit.def"
 
-#line 31 "./exit.def"
 
 #include <config.h>
 
@@ -43,7 +41,6 @@ int exit_builtin(WORD_LIST* list) {
   return (exit_or_logout (list));
 }
 
-#line 82 "./exit.def"
 
 /* How to logout. */
 int logout_builtin(WORD_LIST* list) {

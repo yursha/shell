@@ -1,7 +1,5 @@
 /* fg_bg.c, created from fg_bg.def. */
-#line 22 "./fg_bg.def"
 
-#line 36 "./fg_bg.def"
 
 #include <config.h>
 
@@ -52,7 +50,6 @@ int fg_builtin(WORD_LIST* list) {
 }
 #endif /* JOB_CONTROL */
 
-#line 101 "./fg_bg.def"
 
 #if defined (JOB_CONTROL)
 /* How to put a job into the background. */

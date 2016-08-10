@@ -159,7 +159,6 @@ execute_list_with_replacements (list)
 }
 #endif /* JOB_CONTROL */
 
-#line 231 "./jobs.def"
 
 extern int disown_builtin(WORD_LIST* list);
 #if defined (JOB_CONTROL)

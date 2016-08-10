@@ -1,7 +1,5 @@
 /* help.c, created from help.def. */
-#line 22 "./help.def"
 
-#line 45 "./help.def"
 
 #include <config.h>
 

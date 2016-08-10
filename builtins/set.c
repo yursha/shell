@@ -1,5 +1,4 @@
 /* set.c, created from set.def. */
-#line 22 "./set.def"
 
 #include <config.h>
 
@@ -36,7 +35,6 @@ extern int no_line_editing;
 
 extern int unset_builtin(WORD_LIST* list);
 
-#line 157 "./set.def"
 
 typedef int setopt_set_func_t __P((int, char *));
 typedef int setopt_get_func_t __P((char *));
@@ -657,7 +655,6 @@ int set_builtin(WORD_LIST* list) {
   return (rv);
 }
 
-#line 799 "./set.def"
 
 #define NEXT_VARIABLE()	any_failed++; list = list->next; continue;
 

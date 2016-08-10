@@ -1,7 +1,5 @@
 /* enable.c, created from enable.def. */
-#line 22 "./enable.def"
 
-#line 50 "./enable.def"
 
 #include <config.h>
 

@@ -1,7 +1,5 @@
 /* getopts.c, created from getopts.def. */
-#line 22 "./getopts.def"
 
-#line 64 "./getopts.def"
 
 #include <config.h>
 

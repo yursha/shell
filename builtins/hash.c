@@ -1,7 +1,5 @@
 /* hash.c, created from hash.def. */
-#line 22 "./hash.def"
 
-#line 46 "./hash.def"
 
 #include <config.h>
 

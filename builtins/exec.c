@@ -1,7 +1,5 @@
 /* exec.c, created from exec.def. */
-#line 22 "./exec.def"
 
-#line 43 "./exec.def"
 
 #include <config.h>
 

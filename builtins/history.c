@@ -1,7 +1,5 @@
 /* history.c, created from history.def. */
-#line 22 "./history.def"
 
-#line 57 "./history.def"
 
 #include <config.h>
 

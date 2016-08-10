@@ -1,7 +1,5 @@
 /* builtin.c, created from builtin.def. */
-#line 22 "./builtin.def"
 
-#line 36 "./builtin.def"
 #include <config.h>
 
 #if defined (HAVE_UNISTD_H)

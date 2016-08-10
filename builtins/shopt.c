@@ -1,7 +1,5 @@
 /* shopt.c, created from shopt.def. */
-#line 22 "./shopt.def"
 
-#line 43 "./shopt.def"
 
 #include <config.h>
 

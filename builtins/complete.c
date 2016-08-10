@@ -1,7 +1,5 @@
 /* complete.c, created from complete.def. */
-#line 22 "./complete.def"
 
-#line 49 "./complete.def"
 
 #include <config.h>
 
@@ -605,7 +603,6 @@ print_cmd_completions (list)
   return (sh_chkwrite (ret));
 }
 
-#line 668 "./complete.def"
 
 extern int compgen_builtin(WORD_LIST* list);
 int compgen_builtin(WORD_LIST* list) {
@@ -689,7 +686,6 @@ int compgen_builtin(WORD_LIST* list) {
   return (rval);
 }
 
-#line 782 "./complete.def"
 
 extern int compopt_builtin(WORD_LIST* list);
 int compopt_builtin(WORD_LIST* list) {

@@ -1,11 +1,7 @@
 /* pushd.c, created from pushd.def. */
-#line 22 "./pushd.def"
 
-#line 55 "./pushd.def"
 
-#line 84 "./pushd.def"
 
-#line 115 "./pushd.def"
 
 #include <config.h>
 

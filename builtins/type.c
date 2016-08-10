@@ -1,7 +1,5 @@
 /* type.c, created from type.def. */
-#line 22 "./type.def"
 
-#line 52 "./type.def"
 
 #include <config.h>
 

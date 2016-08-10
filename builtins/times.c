@@ -1,7 +1,5 @@
 /* times.c, created from times.def. */
-#line 22 "./times.def"
 
-#line 34 "./times.def"
 
 #include <config.h>
 

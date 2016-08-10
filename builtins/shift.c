@@ -1,5 +1,4 @@
 /* shift.c, created from shift.def. */
-#line 22 "./shift.def"
 
 #include <config.h>
 
@@ -12,7 +11,6 @@
 #include "../shell.h"
 #include "common.h"
 
-#line 46 "./shift.def"
 
 int print_shift_error;
 extern int shift_builtin(WORD_LIST* list);

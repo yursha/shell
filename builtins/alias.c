@@ -107,7 +107,6 @@ int alias_builtin(WORD_LIST* list) {
 }
 #endif /* ALIAS */
 
-#line 165 "./alias.def"
 
 #if defined (ALIAS)
 /* Remove aliases named in LIST from the aliases database. */

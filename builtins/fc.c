@@ -1,7 +1,5 @@
 /* fc.c, created from fc.def. */
-#line 22 "./fc.def"
 
-#line 51 "./fc.def"
 
 #include <config.h>
 

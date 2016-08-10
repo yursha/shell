@@ -1,7 +1,5 @@
 /* wait.c, created from wait.def. */
-#line 41 "./wait.def"
 
-#line 56 "./wait.def"
 
 #include <config.h>
 

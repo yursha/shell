@@ -1,7 +1,5 @@
 /* trap.c, created from trap.def. */
-#line 22 "./trap.def"
 
-#line 58 "./trap.def"
 
 #include <config.h>
 

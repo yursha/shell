@@ -1,7 +1,5 @@
 /* command.c, created from command.def. */
-#line 22 "./command.def"
 
-#line 41 "./command.def"
 
 #include <config.h>
 

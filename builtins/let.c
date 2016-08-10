@@ -1,5 +1,4 @@
 /* let.c, created from let.def. */
-#line 66 "./let.def"
 
 #include <config.h>
 
