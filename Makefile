@@ -204,8 +204,9 @@ RL_INCLUDEDIR =
 
 READLINE_LIB = -lreadline
 READLINE_LIBRARY = $(RL_LIBDIR)/libreadline.a
-READLINE_LDFLAGS = -L${RL_LIBDIR}
-READLINE_DEP = $(READLINE_LIBRARY)
+#READLINE_LDFLAGS = -L${RL_LIBDIR}
+READLINE_LDFLAGS = -L/usr/local/lib
+READLINE_DEP = #$(READLINE_LIBRARY)
 
 # The source, object and documentation of the GNU Readline library.
 READLINE_SOURCE	= $(RL_LIBSRC)/rldefs.h $(RL_LIBSRC)/rlconf.h \
