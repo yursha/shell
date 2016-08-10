@@ -191,7 +191,7 @@ READLINE_HEADERS = /usr/local/include/readline
 READLINE_LIB = -lreadline
 READLINE_LDFLAGS = -L/usr/local/lib
 
-HIST_LIBSRC = /usr/local/include/readline
+HISTORY_HEADERS = /usr/local/include/readline
 HIST_LIBDIR = /usr/local/lib/readline
 
 HISTORY_LIB = -lhistory
@@ -199,10 +199,10 @@ HISTORY_LDFLAGS = -L$(HIST_LIBDIR)
 HISTORY_DEP = $(HISTORY_LIBRARY)
 
 # The source, object and documentation of the history library.
-HISTORY_SOURCE	= $(HIST_LIBSRC)/history.c $(HIST_LIBSRC)/histexpand.c \
-		 $(HIST_LIBSRC)/histsearch.c $(HIST_LIBSRC)/histfile.c \
-		 $(HIST_LIBSRC)/shell.c \
-		 $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/histlib.h
+HISTORY_SOURCE	= $(HISTORY_HEADERS)/history.c $(HISTORY_HEADERS)/histexpand.c \
+		 $(HISTORY_HEADERS)/histsearch.c $(HISTORY_HEADERS)/histfile.c \
+		 $(HISTORY_HEADERS)/shell.c \
+		 $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/histlib.h
 HISTORY_OBJ	= $(HIST_LIBDIR)/history.o $(HIST_LIBDIR)/histexpand.o \
 		 $(HIST_LIBDIR)/histsearch.o $(HIST_LIBDIR)/histfile.o \
 		 $(HIST_LIBDIR)/shell.o
@@ -889,11 +889,11 @@ y.tab.o: $(READLINE_HEADERS)/readline.h $(READLINE_HEADERS)/rlstdc.h
 subst.o: $(READLINE_HEADERS)/keymaps.h $(READLINE_HEADERS)/chardefs.h
 subst.o: $(READLINE_HEADERS)/readline.h $(READLINE_HEADERS)/rlstdc.h
 
-shell.o: $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/rlstdc.h
-subst.o: $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/rlstdc.h
-bashline.o: $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/rlstdc.h
-bashhist.o: $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/rlstdc.h
-y.tab.o: $(HIST_LIBSRC)/history.h $(HIST_LIBSRC)/rlstdc.h
+shell.o: $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/rlstdc.h
+subst.o: $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/rlstdc.h
+bashline.o: $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/rlstdc.h
+bashhist.o: $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/rlstdc.h
+y.tab.o: $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/rlstdc.h
 
 execute_cmd.o: $(TILDE_LIBSRC)/tilde.h
 general.o: $(TILDE_LIBSRC)/tilde.h
@@ -1140,9 +1140,9 @@ builtins/mapfile.o: pathnames.h
 builtins/bind.o: $(READLINE_HEADERS)/chardefs.h $(READLINE_HEADERS)/readline.h
 builtins/bind.o: $(READLINE_HEADERS)/keymaps.h $(READLINE_HEADERS)/rlstdc.h
 
-builtins/bind.o: $(HIST_LIBSRC)/history.h $(READLINE_HEADERS)/rlstdc.h
-builtins/fc.o: $(HIST_LIBSRC)/history.h $(READLINE_HEADERS)/rlstdc.h
-builtins/history.o: $(HIST_LIBSRC)/history.h $(READLINE_HEADERS)/rlstdc.h
+builtins/bind.o: $(HISTORY_HEADERS)/history.h $(READLINE_HEADERS)/rlstdc.h
+builtins/fc.o: $(HISTORY_HEADERS)/history.h $(READLINE_HEADERS)/rlstdc.h
+builtins/history.o: $(HISTORY_HEADERS)/history.h $(READLINE_HEADERS)/rlstdc.h
 
 builtins/common.o: $(TILDE_LIBSRC)/tilde.h
 builtins/cd.o: $(TILDE_LIBSRC)/tilde.h 
