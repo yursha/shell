@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include <errno.h>
 
-#include "bashintl.h"
 
 #include <signal.h>
 

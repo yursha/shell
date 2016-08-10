@@ -10,7 +10,6 @@
 #include "filecntl.h"
 #include <pwd.h>
 #include <unistd.h>
-#include "bashintl.h"
 
 #define NEED_SH_SETLINEBUF_DECL /* used in externs.h */
 

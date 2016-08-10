@@ -27,7 +27,6 @@
 #include "bashtypes.h"
 
 #include "stdc.h"
-#include "bashintl.h"
 #include <xmalloc.h>
 
 #if defined(HAVE_ICONV)

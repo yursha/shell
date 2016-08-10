@@ -26,7 +26,6 @@
 
 #include <stdio.h>
 #include "memalloc.h"
-#include "../bashintl.h"
 #include "../shell.h"
 #include "getopt.h"
 

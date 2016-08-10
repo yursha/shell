@@ -37,7 +37,6 @@
 
 #include "error.h"
 
-#include "bashintl.h"
 
 #if defined(HAVE_SBRK) && !HAVE_DECL_SBRK
 extern char *sbrk();

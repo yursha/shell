@@ -76,7 +76,6 @@
 #endif
 
 #include "chartypes.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "typemax.h" /* INTMAX_MAX, INTMAX_MIN */

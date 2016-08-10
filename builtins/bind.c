@@ -20,7 +20,6 @@ extern int errno;
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../bashline.h"

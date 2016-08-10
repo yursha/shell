@@ -32,7 +32,6 @@
 #include <unistd.h>
 #endif
 
-#include "bashintl.h"
 
 #include "parser.h"
 #include "syntax.h"

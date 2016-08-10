@@ -13,7 +13,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../flags.h"

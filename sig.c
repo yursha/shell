@@ -29,7 +29,6 @@
 #include <stdio.h>
 #include <signal.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #if defined(JOB_CONTROL)

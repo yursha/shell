@@ -20,7 +20,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include <errno.h>
 

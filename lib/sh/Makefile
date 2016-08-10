@@ -1,22 +1,3 @@
-#
-# Makefile for the Bash library
-#
-#
-# Copyright (C) 1998-2010 Free Software Foundation, Inc.
-
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 PACKAGE = shell
 VERSION = 0.1.0-SNAPSHOT
 
@@ -338,7 +319,6 @@ netopen.o: ${topdir}/array.h ${topdir}/hashlib.h ${topdir}/quit.h
 netopen.o: ${topdir}/unwind_prot.h ${topdir}/dispose_cmd.h
 netopen.o: ${topdir}/make_cmd.h ${topdir}/subst.h ${topdir}/sig.h
 netopen.o: ${BUILD_DIR}/pathnames.h ${topdir}/externs.h
-netopen.o: ${topdir}/bashintl.h ${LIBINTL_H} $(BASHINCDIR)/gettext.h
 #netopen.o: ${BUILD_DIR}/version.h
 
 oslib.o: ${topdir}/bashtypes.h ${topdir}/bashansi.h ${BASHINCDIR}/maxpath.h
@@ -541,21 +521,18 @@ fmtulong.o: ${BASHINCDIR}/ansi_stdlib.h
 fmtulong.o: ${BASHINCDIR}/chartypes.h
 fmtulong.o: ${BASHINCDIR}/stdc.h
 fmtulong.o: ${BASHINCDIR}/typemax.h
-fmtulong.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 fmtullong.o: ${topdir}/bashansi.h
 fmtullong.o: ${BASHINCDIR}/ansi_stdlib.h
 fmtullong.o: ${BASHINCDIR}/chartypes.h
 fmtullong.o: ${BASHINCDIR}/stdc.h
 fmtullong.o: ${BASHINCDIR}/typemax.h
-fmtullong.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 fmtumax.o: ${topdir}/bashansi.h
 fmtumax.o: ${BASHINCDIR}/ansi_stdlib.h
 fmtumax.o: ${BASHINCDIR}/chartypes.h
 fmtumax.o: ${BASHINCDIR}/stdc.h
 fmtumax.o: ${BASHINCDIR}/typemax.h
-fmtumax.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 wcsdup.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 wcsdup.o: ${BASHINCDIR}/stdc.h
@@ -589,7 +566,6 @@ casemod.o: ${BASHINCDIR}/stdc.h
 casemod.o: ${topdir}/xmalloc.h
 casemod.o: ${topdir}/bashtypes.h
 casemod.o: ${BASHINCDIR}/shmbutil.h ${BASHINCDIR}/shmbchar.h
-casemod.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 dprintf.o: ${BASHINCDIR}/stdc.h
 
@@ -603,7 +579,6 @@ mktime.o: ${BASHINCDIR}/stdc.h
 fnxform.o: ${topdir}/bashansi.h ${BASHINCDIR}/ansi_stdlib.h
 fnxform.o: ${BASHINCDIR}/stdc.h
 fnxform.o: ${topdir}/bashtypes.h
-fnxform.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 shmbchar.o: ${BASHINCDIR}/shmbchar.h
 shmbchar.o: ${BASHINCDIR}/shmbutil.h

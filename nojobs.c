@@ -42,7 +42,6 @@
 /* Need to include this up here for *_TTY_DRIVER definitions. */
 #include "shtty.h"
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "jobs.h"

@@ -61,7 +61,6 @@ extern int errno;
 #define NEED_SH_SETLINEBUF_DECL
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "memalloc.h"
 #include "shell.h"

@@ -22,7 +22,6 @@
 
 #include "memalloc.h"
 
-#include "bashintl.h"
 
 #define NEED_STRFTIME_DECL	/* used in externs.h */
 

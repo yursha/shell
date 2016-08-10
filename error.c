@@ -41,7 +41,6 @@ extern int errno;
 #endif /* !errno */
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "flags.h"

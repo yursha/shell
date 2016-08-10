@@ -52,7 +52,6 @@ extern int errno;
 #include "filecntl.h"
 #include "stat-time.h"
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "pathexp.h"

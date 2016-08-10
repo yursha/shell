@@ -17,7 +17,6 @@
 #include <filecntl.h>
 #include <stddef.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../builtins.h"

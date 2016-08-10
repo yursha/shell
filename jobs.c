@@ -68,7 +68,6 @@
 #endif /* hpux && !TERMIOS_TTY_DRIVER */
 
 #include "bashansi.h"
-#include "bashintl.h"
 #include "shell.h"
 #include "jobs.h"
 #include "execute_cmd.h"

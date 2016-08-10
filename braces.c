@@ -31,7 +31,6 @@
 #include <errno.h>
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #if defined(SHELL)
 #include "shell.h"

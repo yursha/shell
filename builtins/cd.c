@@ -17,7 +17,6 @@
 #include <stdio.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include <errno.h>
 #include <tilde/tilde.h>

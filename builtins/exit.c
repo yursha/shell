@@ -12,7 +12,6 @@
 #  include <unistd.h>
 #endif
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../jobs.h"

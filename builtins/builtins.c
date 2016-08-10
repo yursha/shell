@@ -17,7 +17,6 @@
 #include "../builtins.h"
 #include "../variables.h"
 #include "builtext.h"
-#include "bashintl.h"
 #include "common.h"
 
 struct builtin *shell_builtins = static_shell_builtins;

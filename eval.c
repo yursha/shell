@@ -29,7 +29,6 @@
 
 #include <signal.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "flags.h"

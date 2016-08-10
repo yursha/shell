@@ -14,7 +14,6 @@
 
 #include <errno.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "common.h"

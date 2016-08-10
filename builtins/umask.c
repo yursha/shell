@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <chartypes.h>
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "posixstat.h"

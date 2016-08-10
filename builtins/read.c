@@ -24,7 +24,6 @@
 #  include <io.h>
 #endif
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "common.h"

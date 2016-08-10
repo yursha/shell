@@ -42,7 +42,6 @@
 #include <stdio.h>
 #include "chartypes.h"
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "input.h"

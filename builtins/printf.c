@@ -31,7 +31,6 @@
 
 #include "posixtime.h"
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #define NEED_STRFTIME_DECL
 

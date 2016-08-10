@@ -15,12 +15,10 @@
 #endif
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include <stdio.h>
 #include <errno.h>
 
-#include "../bashintl.h"
 #include "../shell.h"
 #include "common.h"
 #include "bashgetopt.h"

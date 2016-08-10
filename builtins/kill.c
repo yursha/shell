@@ -7,7 +7,6 @@
 #endif
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include <signal.h>
 

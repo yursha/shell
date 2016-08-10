@@ -34,7 +34,6 @@
 #endif
 
 #include "bashansi.h"
-#include "bashintl.h"
 
 #include "command.h"
 #include "general.h"

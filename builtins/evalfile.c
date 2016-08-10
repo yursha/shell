@@ -33,7 +33,6 @@
 #include <errno.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../jobs.h"

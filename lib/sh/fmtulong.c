@@ -44,7 +44,6 @@
 #include <chartypes.h>
 #include <errno.h>
 
-#include <bashintl.h>
 
 #include "stdc.h"
 

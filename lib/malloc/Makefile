@@ -123,11 +123,6 @@ trace.o: ${srcdir}/imalloc.h
 table.o: ${srcdir}/imalloc.h ${srcdir}/table.h
 watch.o: ${srcdir}/imalloc.h ${srcdir}/watch.h
 
-malloc.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
-stats.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
-trace.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
-table.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
-watch.o: ${topdir}/bashintl.h ${LIBINTL_H} ${BASHINCDIR}/gettext.h
 
 # Rules for deficient makes, like SunOS and Solaris
 stub.o: stub.c

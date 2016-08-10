@@ -24,7 +24,6 @@
 #include <pwd.h>
 #endif
 #include "bashansi.h"
-#include "bashintl.h"
 
 #define NEED_XTRACE_SET_DECL
 

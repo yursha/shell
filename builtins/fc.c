@@ -23,7 +23,6 @@
 #include <chartypes.h>
 
 #include "../bashansi.h"
-#include "../bashintl.h"
 #include <errno.h>
 
 #include "../shell.h"

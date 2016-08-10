@@ -28,7 +28,6 @@
 #endif
 #include <stdio.h>
 
-#include "bashintl.h"
 
 #include "shell.h"
 #include "pathexp.h"

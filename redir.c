@@ -43,7 +43,6 @@ extern int errno;
 #endif
 
 #include "bashansi.h"
-#include "bashintl.h"
 #include "memalloc.h"
 
 #define NEED_FPURGE_DECL

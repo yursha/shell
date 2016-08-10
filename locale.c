@@ -30,7 +30,6 @@
 #include <langinfo.h>
 #endif
 
-#include "bashintl.h"
 #include "bashansi.h"
 #include <stdio.h>
 #include "chartypes.h"

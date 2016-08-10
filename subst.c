@@ -41,7 +41,6 @@
 
 #include "bashansi.h"
 #include "posixstat.h"
-#include "bashintl.h"
 
 #include "shell.h"
 #include "parser.h"

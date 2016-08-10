@@ -40,7 +40,6 @@
 #include "../execute_cmd.h"
 #include "../redir.h"
 #include "../trap.h"
-#include "../bashintl.h"
 
 #include <y.tab.h>
 

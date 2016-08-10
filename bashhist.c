@@ -33,7 +33,6 @@
 #include "posixstat.h"
 #include "filecntl.h"
 
-#include "bashintl.h"
 
 #if defined(SYSLOG_HISTORY)
 #include <syslog.h>

@@ -13,7 +13,6 @@
 
 #include "version.h"
 
-#include "../bashintl.h"
 
 #include "../shell.h"
 #include "../flags.h"

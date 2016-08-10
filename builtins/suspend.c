@@ -12,7 +12,6 @@
 
 #include "../bashtypes.h"
 #include <signal.h>
-#include "../bashintl.h"
 #include "../shell.h"
 #include "../jobs.h"
 #include "common.h"
