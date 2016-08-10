@@ -17,7 +17,7 @@
 /* Flags for print_alias */
 #define AL_REUSABLE	0x01
 
-static void print_alias __P((alias_t *, int));
+static void print_alias(alias_t *, int);
 
 extern int posixly_correct;
 extern int alias_builtin(WORD_LIST* list);

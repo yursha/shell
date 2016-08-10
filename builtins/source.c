@@ -30,7 +30,7 @@ extern int last_command_exit_value;
 extern int executing_command_builtin;
 extern int source_builtin(WORD_LIST* list);
 
-static void maybe_pop_dollar_vars __P((void));
+static void maybe_pop_dollar_vars(void);
 
 /* If non-zero, `.' uses $PATH to look up the script to be sourced. */
 int source_uses_path = 1;

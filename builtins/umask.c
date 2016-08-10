@@ -28,8 +28,8 @@
 /*                                                                  */
 /* **************************************************************** */
 
-static void print_symbolic_umask __P((mode_t));
-static int symbolic_umask __P((WORD_LIST *));
+static void print_symbolic_umask(mode_t);
+static int symbolic_umask(WORD_LIST *);
 extern int umask_builtin(WORD_LIST* list);
 
 /* Set or display the mask used by the system when creating files.  Flag

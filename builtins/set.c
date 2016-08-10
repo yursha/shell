@@ -36,22 +36,22 @@ extern int no_line_editing;
 extern int unset_builtin(WORD_LIST* list);
 
 
-typedef int setopt_set_func_t __P((int, char *));
-typedef int setopt_get_func_t __P((char *));
+typedef int setopt_set_func_t(int, char *);
+typedef int setopt_get_func_t(char *);
 
-static void print_minus_o_option __P((char *, int, int));
-static void print_all_shell_variables __P((void));
+static void print_minus_o_option(char *, int, int);
+static void print_all_shell_variables(void);
 
-static int set_ignoreeof __P((int, char *));
-static int set_posix_mode __P((int, char *));
+static int set_ignoreeof(int, char *);
+static int set_posix_mode(int, char *);
 
 #if defined (READLINE)
-static int set_edit_mode __P((int, char *));
-static int get_edit_mode __P((char *));
+static int set_edit_mode(int, char *);
+static int get_edit_mode(char *);
 #endif
 
 #if defined (HISTORY)
-static int bash_set_history __P((int, char *));
+static int bash_set_history(int, char *);
 #endif
 
 static const char * const on = "on";

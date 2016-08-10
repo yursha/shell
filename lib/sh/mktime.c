@@ -40,9 +40,9 @@
 
 #ifndef __P
 #if defined(__GNUC__) || (defined(__STDC__) && __STDC__)
-#define __P(args) args
+#defineargs args
 #else
-#define __P(args) ()
+#defineargs) (
 #endif /* GCC.  */
 #endif /* Not __P.  */
 
@@ -82,12 +82,12 @@ const unsigned short int __mon_yday[2][13] = {
     /* Leap years.  */
     {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}};
 
-static time_t ydhms_tm_diff __P((int, int, int, int, int, const struct tm *));
+static time_t ydhms_tm_diff(int, int, int, int, int, const struct tm *);
 time_t __mktime_internal __P((struct tm *,
                               struct tm *(*)(const time_t *, struct tm *),
                               time_t *));
 
-static struct tm *my_localtime_r __P((const time_t *, struct tm *));
+static struct tm *my_localtime_r(const time_t *, struct tm *);
 static struct tm *my_localtime_r(t, tp) const time_t *t;
 struct tm *tp;
 {

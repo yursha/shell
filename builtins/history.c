@@ -32,10 +32,10 @@ extern int current_command_line_count;
 extern int force_append_history;	/* shopt -s histappend */
 extern int history_builtin(WORD_LIST* list);
 
-static char *histtime __P((HIST_ENTRY *, const char *));
-static int display_history __P((WORD_LIST *));
-static void push_history __P((WORD_LIST *));
-static int expand_and_print_history __P((WORD_LIST *));
+static char *histtime(HIST_ENTRY *, const char *);
+static int display_history(WORD_LIST *);
+static void push_history(WORD_LIST *);
+static int expand_and_print_history(WORD_LIST *);
 
 #define AFLAG	0x01
 #define RFLAG	0x02

@@ -44,7 +44,7 @@
 extern int errno;
 #endif
 
-extern void run_pending_traps __P((void));
+extern void run_pending_traps(void);
 
 extern int posixly_correct;
 extern int trapped_signal_received;
@@ -56,20 +56,20 @@ struct ttsave
 };
 
 #if defined (READLINE)
-static void reset_attempted_completion_function __P((char *));
-static int set_itext __P((void));
-static char *edit_line __P((char *, char *));
-static void set_eol_delim __P((int));
-static void reset_eol_delim __P((char *));
+static void reset_attempted_completion_function(char *);
+static int set_itext(void);
+static char *edit_line(char *, char *);
+static void set_eol_delim(int);
+static void reset_eol_delim(char *);
 #endif
-static SHELL_VAR *bind_read_variable __P((char *, char *));
+static SHELL_VAR *bind_read_variable(char *, char *);
 #if defined (HANDLE_MULTIBYTE)
-static int read_mbchar __P((int, char *, int, int, int));
+static int read_mbchar(int, char *, int, int, int);
 #endif
-static void ttyrestore __P((struct ttsave *));
+static void ttyrestore(struct ttsave *);
 
-static sighandler sigalrm __P((int));
-static void reset_alarm __P((void));
+static sighandler sigalrm(int);
+static void reset_alarm(void);
 
 /* Try this to see what the rest of the shell can do with the information. */
 sigjmp_buf alrmbuf;

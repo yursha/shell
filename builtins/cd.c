@@ -34,13 +34,13 @@ extern int posixly_correct;
 extern int array_needs_making;
 extern const char * const bash_getcwd_errstr;
 
-static int bindpwd __P((int));
-static int setpwd __P((char *));
-static char *resetpwd __P((char *));
-static int change_to_directory __P((char *, int, int));
+static int bindpwd(int);
+static int setpwd(char *);
+static char *resetpwd(char *);
+static int change_to_directory(char *, int, int);
 
-static int cdxattr __P((char *, char **));
-static void resetxattr __P((void));
+static int cdxattr(char *, char **);
+static void resetxattr(void);
 
 /* Change this to 1 to get cd spelling correction by default. */
 int cdspelling = 0;

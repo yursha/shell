@@ -24,8 +24,8 @@ extern int errno;
 #include "bashgetopt.h"
 #include "common.h"
 
-static int query_bindings __P((char *));
-static int unbind_command __P((char *));
+static int query_bindings(char *);
+static int unbind_command(char *);
 
 extern int no_line_editing;
 

@@ -87,7 +87,7 @@ extern int errno;
 
 /* Cope with systems lacking `memmove'.    */
 #if !defined(HAVE_MEMMOVE) && !defined(memmove)
-static void malloc_safe_bcopy __P((genptr_t, genptr_t, size_t));
+static void malloc_safe_bcopy(genptr_t, genptr_t, size_t);
 #define memmove(to, from, size) malloc_safe_bcopy((from), (to), (size))
 #endif
 
@@ -141,23 +141,23 @@ struct hdr {
 
 /* Functions exported by this library. */
 /* Allocate SIZE bytes of memory.  */
-extern genptr_t malloc __P((size_t __size));
+extern genptr_t malloc(size_t __size);
 
 /* Re-allocate the previously allocated block
    in genptr_t, making the new block SIZE bytes long.  */
-extern genptr_t realloc __P((genptr_t __ptr, size_t __size));
+extern genptr_t realloc(genptr_t __ptr, size_t __size);
 
 /* Allocate NMEMB elements of SIZE bytes each, all initialized to 0.  */
-extern genptr_t calloc __P((size_t __nmemb, size_t __size));
+extern genptr_t calloc(size_t __nmemb, size_t __size);
 
 /* Free a block allocated by `malloc', `realloc' or `calloc'.  */
-extern void free __P((genptr_t __ptr));
+extern void free(genptr_t __ptr);
 
 /* Allocate SIZE bytes allocated to ALIGNMENT bytes.  */
-extern genptr_t memalign __P((size_t __alignment, size_t __size));
+extern genptr_t memalign(size_t __alignment, size_t __size);
 
 /* Pick up the current statistics. */
-extern struct mstats mstats __P((void));
+extern struct mstats mstats(void);
 
 #ifdef RCHECK
 extern enum mcheck_status mprobe(genptr_t ptr);
@@ -249,17 +249,17 @@ static struct alignlist *_aligned_blocks = NULL;
 
 /* Internal versions of `malloc', `realloc', and `free'
    used when these functions need to call each other. */
-static genptr_t imalloc __P((size_t __size));
-static genptr_t irealloc __P((genptr_t __ptr, size_t __size));
-static void ifree __P((genptr_t __ptr));
+static genptr_t imalloc(size_t __size);
+static genptr_t irealloc(genptr_t __ptr, size_t __size);
+static void ifree(genptr_t __ptr);
 
 /* Given an address in the middle of a malloc'd object,
    return the address of the beginning of the object.  */
-static genptr_t malloc_find_object_address __P((genptr_t __ptr));
+static genptr_t malloc_find_object_address(genptr_t __ptr);
 
 /* Underlying allocation function; successive calls should
    return contiguous pieces of memory.  */
-static genptr_t default_morecore __P((ptrdiff_t __size));
+static genptr_t default_morecore(ptrdiff_t __size);
 
 /* Number of extra blocks to get each time we ask for more core.
    This reduces the frequency of calling `default_morecore'.  */
@@ -268,7 +268,7 @@ static size_t malloc_extra_blocks;
 /* Nonzero if `malloc' has been called and done its initialization.  */
 static int malloc_initialized;
 /* Function called to initialize malloc data structures.  */
-static int malloc_initialize __P((void));
+static int malloc_initialize(void);
 
 #ifdef RCHECK
 static void zmemset(genptr_t, int, size_t);

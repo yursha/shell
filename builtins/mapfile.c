@@ -26,7 +26,7 @@ extern int errno;
 
 #if defined (ARRAY_VARS)
 
-static int run_callback __P((const char *, unsigned int, const char *));
+static int run_callback(const char *, unsigned int, const char *);
 
 #define DEFAULT_ARRAY_NAME	"MAPFILE"
 #define DEFAULT_VARIABLE_NAME	"MAPLINE"	/* not used right now */

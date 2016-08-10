@@ -15,7 +15,7 @@
 #include "common.h"
 #include "bashgetopt.h"
 
-static sighandler suspend_continue __P((int));
+static sighandler suspend_continue(int);
 
 static SigHandler *old_cont;
 #if 0

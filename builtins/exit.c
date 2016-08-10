@@ -26,7 +26,7 @@ extern sh_builtin_func_t *last_shell_builtin;
 extern int exit_builtin(WORD_LIST* list);
 extern int logout_builtin(WORD_LIST* list);
 
-static int exit_or_logout __P((WORD_LIST *));
+static int exit_or_logout(WORD_LIST *);
 static int sourced_logout;
 
 int exit_builtin(WORD_LIST* list) {

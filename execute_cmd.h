@@ -26,7 +26,7 @@ extern int execute_command_internal(COMMAND *, int, int, int,
                                     struct fd_bitmap *);
 extern int shell_execve(char *, char **, char **);
 extern void setup_async_signals(void);
-extern void dispose_exec_redirects __P((void));
+extern void dispose_exec_redirects(void);
 
 extern int execute_shell_function(SHELL_VAR *, WORD_LIST *);
 

@@ -45,12 +45,12 @@ static int directory_list_size;
 /* Offset to the end of the list. */
 static int directory_list_offset;
 
-static void pushd_error __P((int, char *));
-static void clear_directory_stack __P((void));
-static int cd_to_string __P((char *));
-static int change_to_temp __P((char *));
-static void add_dirstack_element __P((char *));
-static int get_dirstack_index __P((intmax_t, int, int *));
+static void pushd_error(int, char *);
+static void clear_directory_stack(void);
+static int cd_to_string(char *);
+static int change_to_temp(char *);
+static void add_dirstack_element(char *);
+static int get_dirstack_index(intmax_t, int, int *);
 
 extern int pushd_builtin(WORD_LIST* list);
 extern int popd_builtin(WORD_LIST* list);

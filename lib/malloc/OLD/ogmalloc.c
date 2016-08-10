@@ -67,12 +67,12 @@ extern "C" {
 
 #if defined(__cplusplus) || (defined(__STDC__) && __STDC__)
 #undef __P
-#define __P(args) args
+#defineargs args
 #undef __ptr_t
 #define __ptr_t void *
 #else /* Not C++ or ANSI C.  */
 #undef __P
-#define __P(args) ()
+#defineargs) (
 #undef const
 #define const
 #undef __ptr_t
@@ -93,14 +93,14 @@ extern "C" {
 #endif
 
 /* Allocate SIZE bytes of memory.  */
-extern __ptr_t malloc __P((__malloc_size_t __size));
+extern __ptr_t malloc(__malloc_size_t __size);
 /* Re-allocate the previously allocated block
    in __ptr_t, making the new block SIZE bytes long.  */
-extern __ptr_t realloc __P((__ptr_t __ptr, __malloc_size_t __size));
+extern __ptr_t realloc(__ptr_t __ptr, __malloc_size_t __size);
 /* Allocate NMEMB elements of SIZE bytes each, all initialized to 0.  */
-extern __ptr_t calloc __P((__malloc_size_t __nmemb, __malloc_size_t __size));
+extern __ptr_t calloc(__malloc_size_t __nmemb, __malloc_size_t __size);
 /* Free a block allocated by `malloc', `realloc' or `calloc'.  */
-extern void free __P((__ptr_t __ptr));
+extern void free(__ptr_t __ptr);
 
 /* Allocate SIZE bytes allocated to ALIGNMENT bytes.  */
 #if !(defined(_MALLOC_INTERNAL) && __DJGPP__ - 0 == 1) /* Avoid conflict.  */
@@ -110,7 +110,7 @@ extern __ptr_t memalign __P((__malloc_size_t __alignment,
 
 /* Allocate SIZE bytes on a page boundary.  */
 #if !(defined(_MALLOC_INTERNAL) && defined(emacs)) /* Avoid conflict.  */
-extern __ptr_t valloc __P((__malloc_size_t __size));
+extern __ptr_t valloc(__malloc_size_t __size);
 #endif
 
 #ifdef _MALLOC_INTERNAL
@@ -202,26 +202,26 @@ extern __malloc_size_t _bytes_free;
 /* Internal versions of `malloc', `realloc', and `free'
    used when these functions need to call each other.
    They are the same but don't call the hooks.  */
-extern __ptr_t _malloc_internal __P((__malloc_size_t __size));
-extern __ptr_t _realloc_internal __P((__ptr_t __ptr, __malloc_size_t __size));
-extern void _free_internal __P((__ptr_t __ptr));
+extern __ptr_t _malloc_internal(__malloc_size_t __size);
+extern __ptr_t _realloc_internal(__ptr_t __ptr, __malloc_size_t __size);
+extern void _free_internal(__ptr_t __ptr);
 
 #endif /* _MALLOC_INTERNAL.  */
 
 /* Given an address in the middle of a malloc'd object,
    return the address of the beginning of the object.  */
-extern __ptr_t malloc_find_object_address __P((__ptr_t __ptr));
+extern __ptr_t malloc_find_object_address(__ptr_t __ptr);
 
 /* Underlying allocation function; successive calls should
    return contiguous pieces of memory.  */
-extern __ptr_t(*__morecore) __P((__malloc_ptrdiff_t __size));
+extern __ptr_t(*__morecore)(__malloc_ptrdiff_t __size);
 
 /* Default value of `__morecore'.  */
-extern __ptr_t __default_morecore __P((__malloc_ptrdiff_t __size));
+extern __ptr_t __default_morecore(__malloc_ptrdiff_t __size);
 
 /* If not NULL, this function is called after each time
    `__morecore' is called to increase the data size.  */
-extern void(*__after_morecore_hook) __P((void));
+extern void(*__after_morecore_hook)(void);
 
 /* Number of extra blocks to get each time we ask for more core.
    This reduces the frequency of calling `(*__morecore)'.  */
@@ -230,15 +230,15 @@ extern __malloc_size_t __malloc_extra_blocks;
 /* Nonzero if `malloc' has been called and done its initialization.  */
 extern int __malloc_initialized;
 /* Function called to initialize malloc data structures.  */
-extern int __malloc_initialize __P((void));
+extern int __malloc_initialize(void);
 
 /* Hooks for debugging versions.  */
-extern void(*__malloc_initialize_hook) __P((void));
-extern void(*__free_hook) __P((__ptr_t __ptr));
-extern __ptr_t(*__malloc_hook) __P((__malloc_size_t __size));
-extern __ptr_t(*__realloc_hook) __P((__ptr_t __ptr, __malloc_size_t __size));
+extern void(*__malloc_initialize_hook)(void);
+extern void(*__free_hook)(__ptr_t __ptr);
+extern __ptr_t(*__malloc_hook)(__malloc_size_t __size);
+extern __ptr_t(*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
 extern __ptr_t(*__memalign_hook)
-    __P((__malloc_size_t __size, __malloc_size_t __alignment));
+   (__malloc_size_t __size, __malloc_size_t __alignment);
 
 /* Return values for `mprobe': these are the kinds of inconsistencies that
    `mcheck' enables detection of.  */
@@ -254,16 +254,16 @@ enum mcheck_status {
    before `malloc' is ever called.  ABORTFUNC is called with an error code
    (see enum above) when an inconsistency is detected.  If ABORTFUNC is
    null, the standard function prints on stderr and then calls `abort'.  */
-extern int mcheck __P((void(*__abortfunc) __P((enum mcheck_status))));
+extern int mcheck(void(*__abortfunc) __P((enum mcheck_status)));
 
 /* Check for aberrations in a particular malloc'd block.  You must have
    called `mcheck' already.  These are the same checks that `mcheck' does
    when you free or reallocate a block.  */
-extern enum mcheck_status mprobe __P((__ptr_t __ptr));
+extern enum mcheck_status mprobe(__ptr_t __ptr);
 
 /* Activate a standard collection of tracing hooks.  */
-extern void mtrace __P((void));
-extern void muntrace __P((void));
+extern void mtrace(void);
+extern void muntrace(void);
 
 /* Statistics available to the user.  */
 struct mstats {
@@ -275,22 +275,22 @@ struct mstats {
 };
 
 /* Pick up the current statistics. */
-extern struct mstats mstats __P((void));
+extern struct mstats mstats(void);
 
 /* Call WARNFUN with a warning message when memory usage is high.  */
 extern void memory_warnings __P((__ptr_t __start,
-                                 void(*__warnfun) __P((const char *))));
+                                 void(*__warnfun)(const char *)));
 
 /* Relocating allocator.  */
 
 /* Allocate SIZE bytes, and store the address in *HANDLEPTR.  */
-extern __ptr_t r_alloc __P((__ptr_t * __handleptr, __malloc_size_t __size));
+extern __ptr_t r_alloc(__ptr_t * __handleptr, __malloc_size_t __size);
 
 /* Free the storage allocated in HANDLEPTR.  */
-extern void r_alloc_free __P((__ptr_t * __handleptr));
+extern void r_alloc_free(__ptr_t * __handleptr);
 
 /* Adjust the block at HANDLEPTR to be SIZE bytes long.  */
-extern __ptr_t r_re_alloc __P((__ptr_t * __handleptr, __malloc_size_t __size));
+extern __ptr_t r_re_alloc(__ptr_t * __handleptr, __malloc_size_t __size);
 
 #ifdef __cplusplus
 }
@@ -326,10 +326,10 @@ extern __ptr_t r_re_alloc __P((__ptr_t * __handleptr, __malloc_size_t __size));
 #include <errno.h>
 
 /* How to really get more memory.  */
-__ptr_t(*__morecore) __P((ptrdiff_t __size)) = __default_morecore;
+__ptr_t(*__morecore)(ptrdiff_t __size) = __default_morecore;
 
 /* Debugging hook for `malloc'.  */
-__ptr_t(*__malloc_hook) __P((__malloc_size_t __size));
+__ptr_t(*__malloc_hook)(__malloc_size_t __size);
 
 /* Pointer to the base of the first block.  */
 char *_heapbase;
@@ -360,11 +360,11 @@ int __malloc_initialized;
 
 __malloc_size_t __malloc_extra_blocks;
 
-void(*__malloc_initialize_hook) __P((void));
-void(*__after_morecore_hook) __P((void));
+void(*__malloc_initialize_hook)(void);
+void(*__after_morecore_hook)(void);
 
 /* Aligned allocation.  */
-static __ptr_t align __P((__malloc_size_t));
+static __ptr_t align(__malloc_size_t);
 static __ptr_t align(size) __malloc_size_t size;
 {
   __ptr_t result;
@@ -389,7 +389,7 @@ static __ptr_t align(size) __malloc_size_t size;
 /* Get SIZE bytes, if we can get them starting at END.
    Return the address of the space we got.
    If we cannot get space at END, fail and return -1.  */
-static __ptr_t get_contiguous_space __P((__malloc_ptrdiff_t, __ptr_t));
+static __ptr_t get_contiguous_space(__malloc_ptrdiff_t, __ptr_t);
 static __ptr_t get_contiguous_space(size, position) __malloc_ptrdiff_t size;
 __ptr_t position;
 {
@@ -417,7 +417,7 @@ __ptr_t position;
 /* This is called when `_heapinfo' and `heapsize' have just
    been set to describe a new info table.  Set up the table
    to describe itself and account for it in the statistics.  */
-static void register_heapinfo __P((void));
+static void register_heapinfo(void);
 #ifdef __GNUC__
 __inline__
 #endif
@@ -465,7 +465,7 @@ static int morecore_recursing;
 
 /* Get neatly aligned memory, initializing or
    growing the heap info table as necessary. */
-static __ptr_t morecore __P((__malloc_size_t));
+static __ptr_t morecore(__malloc_size_t);
 static __ptr_t morecore(size) __malloc_size_t size;
 {
   __ptr_t result;
@@ -794,13 +794,13 @@ not, write to the Free Software Foundation, Inc.,
 #define __malloc_safe_bcopy safe_bcopy
 #endif
 /* This function is defined in realloc.c.  */
-extern void __malloc_safe_bcopy __P((__ptr_t, __ptr_t, __malloc_size_t));
+extern void __malloc_safe_bcopy(__ptr_t, __ptr_t, __malloc_size_t);
 #define memmove(to, from, size) __malloc_safe_bcopy((from), (to), (size))
 #endif
 #endif
 
 /* Debugging hook for free.  */
-void(*__free_hook) __P((__ptr_t __ptr));
+void(*__free_hook)(__ptr_t __ptr);
 
 /* List of blocks allocated by memalign.  */
 struct alignlist *_aligned_blocks = NULL;
@@ -1126,7 +1126,7 @@ __malloc_size_t size;
 #endif /* emacs */
 
 #ifndef memmove
-    extern void __malloc_safe_bcopy __P((__ptr_t, __ptr_t, __malloc_size_t));
+    extern void __malloc_safe_bcopy(__ptr_t, __ptr_t, __malloc_size_t);
 #define memmove(to, from, size) __malloc_safe_bcopy((from), (to), (size))
 #endif
 
@@ -1135,7 +1135,7 @@ __malloc_size_t size;
 #define min(A, B) ((A) < (B) ? (A) : (B))
 
 /* Debugging hook for realloc.  */
-__ptr_t(*__realloc_hook) __P((__ptr_t __ptr, __malloc_size_t __size));
+__ptr_t(*__realloc_hook)(__ptr_t __ptr, __malloc_size_t __size);
 
 /* Resize the given region to the new size, returning a pointer
    to the (possibly moved) region.  This is optimized for speed;
@@ -1280,7 +1280,7 @@ register __malloc_size_t size;
    systems with potentially hostile include files.  */
 
 #include <stddef.h>
-extern __ptr_t __sbrk __P((ptrdiff_t increment));
+extern __ptr_t __sbrk(ptrdiff_t increment);
 #endif
 
 #ifndef NULL
@@ -1309,7 +1309,7 @@ __ptr_t __default_morecore(increment) __malloc_ptrdiff_t increment;
 
 #else
 
-__ptr_t(*__memalign_hook) __P((size_t __size, size_t __alignment));
+__ptr_t(*__memalign_hook)(size_t __size, size_t __alignment);
 
 __ptr_t memalign(alignment, size) __malloc_size_t alignment;
 __malloc_size_t size;

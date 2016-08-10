@@ -19,7 +19,7 @@
 #if defined (JOB_CONTROL)
 extern char *this_command_name;
 
-static int fg_bg __P((WORD_LIST *, int));
+static int fg_bg(WORD_LIST *, int);
 extern int fg_builtin(WORD_LIST* list);
 extern int bg_builtin(WORD_LIST* list);
 

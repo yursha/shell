@@ -24,7 +24,7 @@
 #include "common.h"
 #include "bashgetopt.h"
 
-extern int find_reserved_word __P((char *));
+extern int find_reserved_word(char *);
 
 extern char *this_command_name;
 extern int expand_aliases, posixly_correct;

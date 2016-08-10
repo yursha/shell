@@ -20,7 +20,7 @@
 #define JSTATE_STOPPED	0x2
 extern int jobs_builtin(WORD_LIST* list);
 
-static int execute_list_with_replacements __P((WORD_LIST *));
+static int execute_list_with_replacements(WORD_LIST *);
 
 /* The `jobs' command.  Prints outs a list of active jobs.  If the
    argument `-l' is given, then the process id's are printed also.

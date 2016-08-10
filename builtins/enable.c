@@ -33,13 +33,13 @@
 #define SFLAG	0x20
 
 #if defined (HAVE_DLOPEN) && defined (HAVE_DLSYM)
-static int dyn_load_builtin __P((WORD_LIST *, int, char *));
+static int dyn_load_builtin(WORD_LIST *, int, char *);
 #endif
 
 #if defined (HAVE_DLCLOSE)
-static int dyn_unload_builtin __P((char *));
-static void delete_builtin __P((struct builtin *));
-static int local_dlclose __P((void *));
+static int dyn_unload_builtin(char *);
+static void delete_builtin(struct builtin *);
+static int local_dlclose(void *);
 #endif
 extern int enable_builtin(WORD_LIST* list);
 
@@ -48,8 +48,8 @@ extern int enable_builtin(WORD_LIST* list);
 #define LOAD_SUFFIX	"_builtin_load"
 #define UNLOAD_SUFFIX	"_builtin_unload"
 
-static void list_some_builtins __P((int));
-static int enable_shell_command __P((char *, int));
+static void list_some_builtins(int);
+static int enable_shell_command(char *, int);
 
 /* Enable/disable shell commands present in LIST.  If list is not specified,
    then print out a list of shell commands showing which are enabled and

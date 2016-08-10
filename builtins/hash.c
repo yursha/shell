@@ -28,11 +28,11 @@ extern int dot_found_in_search;
 extern char *this_command_name;
 extern int hash_builtin(WORD_LIST* list);
 
-static int add_hashed_command __P((char *, int));
-static int print_hash_info __P((BUCKET_CONTENTS *));
-static int print_portable_hash_info __P((BUCKET_CONTENTS *));
-static int print_hashed_commands __P((int));
-static int list_hashed_filename_targets __P((WORD_LIST *, int));
+static int add_hashed_command(char *, int);
+static int print_hash_info(BUCKET_CONTENTS *);
+static int print_portable_hash_info(BUCKET_CONTENTS *);
+static int print_hashed_commands(int);
+static int list_hashed_filename_targets(WORD_LIST *, int);
 
 /* Print statistics on the current state of hashed commands.  If LIST is
    not empty, then rehash (or hash in the first place) the specified

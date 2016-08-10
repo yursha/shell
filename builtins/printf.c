@@ -131,26 +131,26 @@ extern int errno;
 extern time_t shell_start_time;
 
 #if !HAVE_ASPRINTF
-extern int asprintf __P((char **, const char *, ...)) __attribute__((__format__ (printf, 2, 3)));
+extern int asprintf(char **, const char *, ...) __attribute__((__format__ (printf, 2, 3)));
 #endif
 
 #if !HAVE_VSNPRINTF
-extern int vsnprintf __P((char *, size_t, const char *, va_list)) __attribute__((__format__ (printf, 3, 0)));
+extern int vsnprintf(char *, size_t, const char *, va_list) __attribute__((__format__ (printf, 3, 0)));
 #endif
 
-static void printf_erange __P((char *));
-static int printstr __P((char *, char *, int, int, int));
-static int tescape __P((char *, char *, int *, int *));
-static char *bexpand __P((char *, int, int *, int *));
-static char *vbadd __P((char *, int));
-static int vbprintf __P((const char *, ...)) __attribute__((__format__ (printf, 1, 2)));
-static char *mklong __P((char *, char *, size_t));
-static int getchr __P((void));
-static char *getstr __P((void));
-static int  getint __P((void));
-static intmax_t getintmax __P((void));
-static uintmax_t getuintmax __P((void));
-static SHELL_VAR *bind_printf_variable __P((char *, char *, int));
+static void printf_erange(char *);
+static int printstr(char *, char *, int, int, int);
+static int tescape(char *, char *, int *, int *);
+static char *bexpand(char *, int, int *, int *);
+static char *vbadd(char *, int);
+static int vbprintf(const char *, ...) __attribute__((__format__ (printf, 1, 2)));
+static char *mklong(char *, char *, size_t);
+static int getchr(void);
+static char *getstr(void);
+static int  getint(void);
+static intmax_t getintmax(void);
+static uintmax_t getuintmax(void);
+static SHELL_VAR *bind_printf_variable(char *, char *, int);
 
 #if defined (HAVE_LONG_DOUBLE) && HAVE_DECL_STRTOLD && !defined(STRTOLD_BROKEN)
 typedef long double floatmax_t;
@@ -161,9 +161,9 @@ typedef double floatmax_t;
 #  define FLOATMAX_CONV	""
 #  define strtofltmax	strtod
 #endif
-static floatmax_t getfloatmax __P((void));
+static floatmax_t getfloatmax(void);
 
-static intmax_t asciicode __P((void));
+static intmax_t asciicode(void);
 
 static WORD_LIST *garglist;
 static int retval;

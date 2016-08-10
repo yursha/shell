@@ -51,7 +51,7 @@
 #if defined (JOB_CONTROL)
 #  include "jobs.h"
 #else
-extern int cleanup_dead_jobs __P((void));
+extern int cleanup_dead_jobs(void);
 #endif /* JOB_CONTROL */
 
 #if defined (ALIAS)
@@ -117,89 +117,89 @@ extern int errno;
 /* **************************************************************** */
 
 #ifdef DEBUG
-static void debug_parser __P((int));
+static void debug_parser(int);
 #endif
 
-static int yy_getc __P((void));
-static int yy_ungetc __P((int));
+static int yy_getc(void);
+static int yy_ungetc(int);
 
 #if defined (READLINE)
-static int yy_readline_get __P((void));
-static int yy_readline_unget __P((int));
+static int yy_readline_get(void);
+static int yy_readline_unget(int);
 #endif
 
-static int yy_string_get __P((void));
-static int yy_string_unget __P((int));
-static void rewind_input_string __P((void));
-static int yy_stream_get __P((void));
-static int yy_stream_unget __P((int));
+static int yy_string_get(void);
+static int yy_string_unget(int);
+static void rewind_input_string(void);
+static int yy_stream_get(void);
+static int yy_stream_unget(int);
 
-static int shell_getc __P((int));
-static void shell_ungetc __P((int));
-static void discard_until __P((int));
+static int shell_getc(int);
+static void shell_ungetc(int);
+static void discard_until(int);
 
 #if defined (ALIAS) || defined (DPAREN_ARITHMETIC)
-static void push_string __P((char *, int, alias_t *));
-static void pop_string __P((void));
-static void free_string_list __P((void));
+static void push_string(char *, int, alias_t *);
+static void pop_string(void);
+static void free_string_list(void);
 #endif
 
-static char *read_a_line __P((int));
+static char *read_a_line(int);
 
-static int reserved_word_acceptable __P((int));
-static int yylex __P((void));
+static int reserved_word_acceptable(int);
+static int yylex(void);
 
-static void push_heredoc __P((REDIRECT *));
-static char *mk_alexpansion __P((char *));
-static int alias_expand_token __P((char *));
-static int time_command_acceptable __P((void));
-static int special_case_tokens __P((char *));
-static int read_token __P((int));
-static char *parse_matched_pair __P((int, int, int, int *, int));
-static char *parse_comsub __P((int, int, int, int *, int));
+static void push_heredoc(REDIRECT *);
+static char *mk_alexpansion(char *);
+static int alias_expand_token(char *);
+static int time_command_acceptable(void);
+static int special_case_tokens(char *);
+static int read_token(int);
+static char *parse_matched_pair(int, int, int, int *, int);
+static char *parse_comsub(int, int, int, int *, int);
 #if defined (ARRAY_VARS)
-static char *parse_compound_assignment __P((int *));
+static char *parse_compound_assignment(int *);
 #endif
 #if defined (DPAREN_ARITHMETIC) || defined (ARITH_FOR_COMMAND)
-static int parse_dparen __P((int));
-static int parse_arith_cmd __P((char **, int));
+static int parse_dparen(int);
+static int parse_arith_cmd(char **, int);
 #endif
 #if defined (COND_COMMAND)
-static void cond_error __P((void));
-static COND_COM *cond_expr __P((void));
-static COND_COM *cond_or __P((void));
-static COND_COM *cond_and __P((void));
-static COND_COM *cond_term __P((void));
-static int cond_skip_newlines __P((void));
-static COMMAND *parse_cond_command __P((void));
+static void cond_error(void);
+static COND_COM *cond_expr(void);
+static COND_COM *cond_or(void);
+static COND_COM *cond_and(void);
+static COND_COM *cond_term(void);
+static int cond_skip_newlines(void);
+static COMMAND *parse_cond_command(void);
 #endif
 #if defined (ARRAY_VARS)
-static int token_is_assignment __P((char *, int));
-static int token_is_ident __P((char *, int));
+static int token_is_assignment(char *, int);
+static int token_is_ident(char *, int);
 #endif
-static int read_token_word __P((int));
-static void discard_parser_constructs __P((int));
+static int read_token_word(int);
+static void discard_parser_constructs(int);
 
-static char *error_token_from_token __P((int));
-static char *error_token_from_text __P((void));
-static void print_offending_line __P((void));
-static void report_syntax_error __P((char *));
+static char *error_token_from_token(int);
+static char *error_token_from_text(void);
+static void print_offending_line(void);
+static void report_syntax_error(char *);
 
-static void handle_eof_input_unit __P((void));
-static void prompt_again __P((void));
+static void handle_eof_input_unit(void);
+static void prompt_again(void);
 #if 0
-static void reset_readline_prompt __P((void));
+static void reset_readline_prompt(void);
 #endif
-static void print_prompt __P((void));
+static void print_prompt(void);
 
 #if defined (HANDLE_MULTIBYTE)
-static void set_line_mbstate __P((void));
+static void set_line_mbstate(void);
 static char *shell_input_line_property = NULL;
 #else
 #  define set_line_mbstate()
 #endif
 
-extern int yyerror __P((const char *));
+extern int yyerror(const char *);
 
 #ifdef DEBUG
 extern int yydebug;

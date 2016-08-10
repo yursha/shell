@@ -18,8 +18,8 @@
 #include "bashgetopt.h"
 
 extern int trap_builtin(WORD_LIST* list);
-static void showtrap __P((int));
-static int display_traps __P((WORD_LIST *));
+static void showtrap(int);
+static int display_traps(WORD_LIST *);
 
 /* The trap command:
 

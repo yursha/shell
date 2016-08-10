@@ -34,18 +34,18 @@ struct _optflags {
   int Eflag;
 };
 
-static int find_compact __P((char *));
-static int find_compopt __P((char *));
+static int find_compact(char *);
+static int find_compopt(char *);
 
-static int build_actions __P((WORD_LIST *, struct _optflags *, unsigned long *, unsigned long *));
+static int build_actions(WORD_LIST *, struct _optflags *, unsigned long *, unsigned long *);
 
-static int remove_cmd_completions __P((WORD_LIST *));
+static int remove_cmd_completions(WORD_LIST *);
 
-static int print_one_completion __P((char *, COMPSPEC *));
-static int print_compitem __P((BUCKET_CONTENTS *));
-static void print_compopts __P((const char *, COMPSPEC *, int));
-static void print_all_completions __P((void));
-static int print_cmd_completions __P((WORD_LIST *));
+static int print_one_completion(char *, COMPSPEC *);
+static int print_compitem(BUCKET_CONTENTS *);
+static void print_compopts(const char *, COMPSPEC *, int);
+static void print_all_completions(void);
+static int print_cmd_completions(WORD_LIST *);
 
 static char *Garg, *Warg, *Parg, *Sarg, *Xarg, *Farg, *Carg;
 

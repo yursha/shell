@@ -18,7 +18,7 @@
 extern int array_needs_making;
 extern int posixly_correct;
 
-static int declare_internal __P((register WORD_LIST *, int));
+static int declare_internal(register WORD_LIST *, int);
 extern int declare_builtin(WORD_LIST* list);
 extern int local_builtin(WORD_LIST* list);
 

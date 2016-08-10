@@ -42,9 +42,9 @@ extern int literal_history;
 extern int posixly_correct;
 extern int subshell_environment, interactive_shell;
 
-extern int unlink __P((const char *));
+extern int unlink(const char *);
 
-extern FILE *sh_mktmpfp __P((char *, int, char **));
+extern FILE *sh_mktmpfp(char *, int, char **);
 
 /* **************************************************************** */
 /*								    */
@@ -100,14 +100,14 @@ typedef struct repl {
 		} \
 	} while (0)
 
-static char *fc_dosubs __P((char *, REPL *));
-static char *fc_gethist __P((char *, HIST_ENTRY **));
-static int fc_gethnum __P((char *, HIST_ENTRY **));
-static int fc_number __P((WORD_LIST *));
-static void fc_replhist __P((char *));
+static char *fc_dosubs(char *, REPL *);
+static char *fc_gethist(char *, HIST_ENTRY **);
+static int fc_gethnum(char *, HIST_ENTRY **);
+static int fc_number(WORD_LIST *);
+static void fc_replhist(char *);
 #ifdef INCLUDE_UNUSED
-static char *fc_readline __P((FILE *));
-static void fc_addhist __P((char *));
+static char *fc_readline(FILE *);
+static void fc_addhist(char *);
 #endif
 
 static void

@@ -23,9 +23,9 @@
 extern char *this_command_name;
 extern int getopts_builtin(WORD_LIST* list);
 
-static int getopts_unbind_variable __P((char *));
-static int getopts_bind_variable __P((char *, char *));
-static int dogetopts __P((int, char **));
+static int getopts_unbind_variable(char *);
+static int getopts_bind_variable(char *, char *);
+static int dogetopts(int, char **);
 
 /* getopts_reset is magic code for when OPTIND is reset.  N is the
    value that has just been assigned to OPTIND. */

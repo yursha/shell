@@ -16,12 +16,12 @@
 #include "common.h"
 
 #if defined (_CS_PATH) && defined (HAVE_CONFSTR) && !HAVE_DECL_CONFSTR
-extern size_t confstr __P((int, char *, size_t));
+extern size_t confstr(int, char *, size_t);
 #endif
 
 extern int subshell_environment;
 
-static void restore_path __P((char *));
+static void restore_path(char *);
 extern int command_builtin(WORD_LIST* list);
 
 /* Run the commands mentioned in LIST without paying attention to shell

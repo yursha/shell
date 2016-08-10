@@ -44,9 +44,9 @@
 #if !defined(__P)
 #if defined(__STDC__) || defined(__GNUC__) || defined(__cplusplus) || \
     defined(PROTOTYPES)
-#define __P(protos) protos
+#defineprotos protos
 #else
-#define __P(protos) ()
+#defineprotos) (
 #endif
 #endif
 

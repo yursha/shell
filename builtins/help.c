@@ -35,11 +35,11 @@ extern const char * const bash_license;
 extern char *this_command_name;
 extern struct builtin *current_builtin;
 
-static void show_builtin_command_help __P((void));
-static int open_helpfile __P((char *));
-static void show_desc __P((char *, int));
-static void show_manpage __P((char *, int));
-static void show_longdoc __P((int));
+static void show_builtin_command_help(void);
+static int open_helpfile(char *);
+static void show_desc(char *, int);
+static void show_manpage(char *, int);
+static void show_longdoc(int);
 extern int help_builtin(WORD_LIST* list);
 
 /* Print out a list of the known functions in the shell, and what they do.

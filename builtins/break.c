@@ -13,7 +13,7 @@
 extern char *this_command_name;
 extern int posixly_correct;
 
-static int check_loop_level __P((void));
+static int check_loop_level(void);
 
 /* The depth of while's and until's. */
 int loop_level = 0;

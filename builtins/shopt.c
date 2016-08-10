@@ -59,7 +59,7 @@ extern int force_fignore;
 extern int dircomplete_spelling, dircomplete_expand;
 extern int complete_fullquote;
 
-extern int enable_hostname_completion __P((int));
+extern int enable_hostname_completion(int);
 #endif
 
 #if defined (PROGRAMMABLE_COMPLETION)
@@ -70,17 +70,17 @@ extern int prog_completion_enabled;
 extern int debugging_mode;
 #endif
 
-static void shopt_error __P((char *));
+static void shopt_error(char *);
 
-static int set_shellopts_after_change __P((char *, int));
-static int shopt_enable_hostname_completion __P((char *, int));
-static int set_compatibility_level __P((char *, int));
+static int set_shellopts_after_change(char *, int);
+static int shopt_enable_hostname_completion(char *, int);
+static int set_compatibility_level(char *, int);
 
 #if defined (READLINE)
-static int shopt_set_complete_direxpand __P((char *, int));
+static int shopt_set_complete_direxpand(char *, int);
 #endif
 
-static int shopt_set_debug_mode __P((char *, int));
+static int shopt_set_debug_mode(char *, int);
 
 static int shopt_login_shell;
 static int shopt_compat31;
@@ -90,7 +90,7 @@ static int shopt_compat41;
 static int shopt_compat42;
 static int shopt_compat43;
 
-typedef int shopt_set_func_t __P((char *, int));
+typedef int shopt_set_func_t(char *, int);
 
 /* If you add a new variable name here, make sure to set the default value
    appropriately in reset_shopt_options. */
@@ -179,14 +179,14 @@ static struct {
 static const char * const on = "on";
 static const char * const off = "off";
 
-static int find_shopt __P((char *));
-static int toggle_shopts __P((int, WORD_LIST *, int));
-static void print_shopt __P((char *, int, int));
-static int list_shopts __P((WORD_LIST *, int));
-static int list_some_shopts __P((int, int));
-static int list_shopt_o_options __P((WORD_LIST *, int));
-static int list_some_o_options __P((int, int));
-static int set_shopt_o_options __P((int, WORD_LIST *, int));
+static int find_shopt(char *);
+static int toggle_shopts(int, WORD_LIST *, int);
+static void print_shopt(char *, int, int);
+static int list_shopts(WORD_LIST *, int);
+static int list_some_shopts(int, int);
+static int list_shopt_o_options(WORD_LIST *, int);
+static int list_some_o_options(int, int);
+static int set_shopt_o_options(int, WORD_LIST *, int);
 
 #define SFLAG	0x01
 #define UFLAG	0x02

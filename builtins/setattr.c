@@ -18,7 +18,7 @@ extern char *this_command_name;
 extern sh_builtin_func_t *this_shell_builtin;
 
 #ifdef ARRAY_VARS
-extern int declare_builtin __P((WORD_LIST *));
+extern int declare_builtin(WORD_LIST *);
 #endif
 extern int export_builtin(register WORD_LIST* list);
 extern int readonly_builtin(WORD_LIST* list);

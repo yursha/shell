@@ -131,22 +131,22 @@ extern int errno;
 
 extern int posixly_correct;
 
-static int _findlim __P((int));
+static int _findlim(int);
 
-static int ulimit_internal __P((int, char *, int, int));
+static int ulimit_internal(int, char *, int, int);
 
-static int get_limit __P((int, RLIMTYPE *, RLIMTYPE *));
-static int set_limit __P((int, RLIMTYPE, int));
+static int get_limit(int, RLIMTYPE *, RLIMTYPE *);
+static int set_limit(int, RLIMTYPE, int);
 
-static void printone __P((int, RLIMTYPE, int));
-static void print_all_limits __P((int));
+static void printone(int, RLIMTYPE, int);
+static void print_all_limits(int);
 
-static int set_all_limits __P((int, RLIMTYPE));
+static int set_all_limits(int, RLIMTYPE);
 
-static int filesize __P((RLIMTYPE *));
-static int pipesize __P((RLIMTYPE *));
-static int getmaxuprc __P((RLIMTYPE *));
-static int getmaxvm __P((RLIMTYPE *, RLIMTYPE *));
+static int filesize(RLIMTYPE *);
+static int pipesize(RLIMTYPE *);
+static int getmaxuprc(RLIMTYPE *);
+static int getmaxvm(RLIMTYPE *, RLIMTYPE *);
 
 typedef struct {
   int  option;			/* The ulimit option for this limit. */
