@@ -191,18 +191,7 @@ READLINE_HEADERS = /usr/local/include/readline
 READLINE_LIB = -lreadline
 
 HISTORY_HEADERS = /usr/local/include/readline
-HIST_LIBDIR = /usr/local/lib/readline
-
 HISTORY_LIB = -lhistory
-
-# The source, object and documentation of the history library.
-HISTORY_SOURCE	= $(HISTORY_HEADERS)/history.c $(HISTORY_HEADERS)/histexpand.c \
-		 $(HISTORY_HEADERS)/histsearch.c $(HISTORY_HEADERS)/histfile.c \
-		 $(HISTORY_HEADERS)/shell.c \
-		 $(HISTORY_HEADERS)/history.h $(HISTORY_HEADERS)/histlib.h
-HISTORY_OBJ	= $(HIST_LIBDIR)/history.o $(HIST_LIBDIR)/histexpand.o \
-		 $(HIST_LIBDIR)/histsearch.o $(HIST_LIBDIR)/histfile.o \
-		 $(HIST_LIBDIR)/shell.o
 
 # You only need termcap (or curses) if you are linking with GNU Readline.
 TERM_LIBSRC = $(LIBSRC)/termcap
