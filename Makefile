@@ -187,23 +187,12 @@ SHLIB_LIBRARY = ${SH_LIBDIR}/${SHLIB_LIBNAME}
 SHLIB_LDFLAGS = -L${SH_LIBDIR}
 SHLIB_DEP = ${SHLIB_LIBRARY}
 
+# readline, history and termcap libraries
 READLINE_HEADERS = /usr/local/include/readline
-READLINE_LIB = -lreadline
-
 HISTORY_HEADERS = /usr/local/include/readline
+READLINE_LIB = -lreadline
 HISTORY_LIB = -lhistory
-
-# You only need termcap (or curses) if you are linking with GNU Readline.
-TERM_LIBSRC = $(LIBSRC)/termcap
-TERM_LIBDIR = ./$(LIBSUBDIR)/termcap
-
 TERMCAP_LIB = -ltermcap
-TERMCAP_LIBRARY = $(TERM_LIBDIR)/libtermcap.a
-TERMCAP_LDFLAGS = -L$(TERM_LIBDIR)
-TERMCAP_DEP = 
-
-TERMCAP_SOURCE	= $(TERM_LIBSRC)/termcap.c $(TERM_LIBSRC)/tparam.c
-TERMCAP_OBJ	= $(TERM_LIBDIR)/termcap.o $(TERM_LIBDIR)/tparam.o
 
 GLOB_LIBSRC = $(LIBSRC)/glob
 GLOB_LIBDIR = ./$(LIBSUBDIR)/glob
@@ -442,12 +431,10 @@ y.tab.c: parse.y
 y.tab.h: y.tab.c
 	@true
 
- 
 # Subdirs will often times want version.h, so they'll change back up to
 # the top level and try to create it. This causes parallel build issues
 # so just force top level sanity before we descend.
 $(LIBDEP): .build
-#$(LIBDEP): version.h
 
 $(GLOB_LIBRARY): config.h $(GLOB_SOURCE)
 	@echo making $@ in ${GLOB_LIBDIR}
@@ -458,11 +445,6 @@ $(TILDE_LIBRARY): config.h $(TILDE_SOURCE)
 	@echo making $@ in ${TILDE_LIBDIR}
 	@(cd ${TILDE_LIBDIR} && \
 		$(MAKE) $(MFLAGS) libtilde.a) || exit 1
-
-$(TERMCAP_LIBRARY): config.h ${TERMCAP_SOURCE}
-	@echo making $@ in ${TERM_LIBDIR}	
-	@(cd ${TERM_LIBDIR} && \
-		$(MAKE) $(MFLAGS) libtermcap.a) || exit 1
 
 $(SHLIB_LIBRARY): config.h ${SHLIB_SOURCE}
 	@echo making $@ in ${SH_LIBDIR}
