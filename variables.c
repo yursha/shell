@@ -470,6 +470,8 @@ int privmode;
     set_if_not("PS2", secondary_prompt);
   }
 
+  bind_variable("LOVE", "MARIA", 0);
+
   if (current_user.euid == 0)
     bind_variable("PS4", "+ ", 0);
   else
