@@ -203,11 +203,7 @@ int dump_po_strings;           /* Dump strings in $"..." in po format */
 int wordexp_only = 0;          /* Do word expansion only */
 int protected_mode = 0;        /* No command substitution with --wordexp */
 
-#if defined(STRICT_POSIX)
-int posixly_correct = 1; /* Non-zero means posix.2 superset. */
-#else
 int posixly_correct = 0; /* Non-zero means posix.2 superset. */
-#endif
 
 /* Some long-winded argument names.  These are obviously new. */
 #define Int 1

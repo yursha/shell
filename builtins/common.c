@@ -637,9 +637,7 @@ int forcecols;
    is disabled or has no function associated with it, return NULL.
    Return the address of the builtin.
    DISABLED_OKAY means find it even if the builtin is disabled. */
-struct builtin *builtin_address_internal(name, disabled_okay) char *name;
-int disabled_okay;
-{
+struct builtin *builtin_address_internal(char *name, int disabled_okay) {
   int hi, lo, mid, j;
 
   hi = num_shell_builtins - 1;
@@ -672,16 +670,14 @@ int disabled_okay;
 }
 
 /* Return the pointer to the function implementing builtin command NAME. */
-sh_builtin_func_t *find_shell_builtin(name) char *name;
-{
+sh_builtin_func_t *find_shell_builtin(char *name) {
   current_builtin = builtin_address_internal(name, 0);
   return (current_builtin ? current_builtin->function
                           : (sh_builtin_func_t *)NULL);
 }
 
 /* Return the address of builtin with NAME, whether it is enabled or not. */
-sh_builtin_func_t *builtin_address(name) char *name;
-{
+sh_builtin_func_t *builtin_address(char *name) {
   current_builtin = builtin_address_internal(name, 1);
   return (current_builtin ? current_builtin->function
                           : (sh_builtin_func_t *)NULL);

@@ -1811,14 +1811,6 @@ struct builtin static_shell_builtins[] = {
     {"local", local_builtin,
      BUILTIN_ENABLED | STATIC_BUILTIN | ASSIGNMENT_BUILTIN | LOCALVAR_BUILTIN,
      local_doc, "local [option] name[=value] ...", (char *)NULL},
-#if defined(V9_ECHO)
-    {"echo", echo_builtin, BUILTIN_ENABLED | STATIC_BUILTIN, echo_doc,
-     "echo [-neE] [arg ...]", (char *)NULL},
-#endif /* V9_ECHO */
-#if !defined(V9_ECHO)
-    {"echo", echo_builtin, BUILTIN_ENABLED | STATIC_BUILTIN, echo_doc,
-     "echo [-n] [arg ...]", (char *)NULL},
-#endif /* !V9_ECHO */
     {"enable", enable_builtin, BUILTIN_ENABLED | STATIC_BUILTIN, enable_doc,
      "enable [-a] [-dnps] [-f filename] [name ...]", (char *)NULL},
     {"eval", eval_builtin, BUILTIN_ENABLED | STATIC_BUILTIN | SPECIAL_BUILTIN,

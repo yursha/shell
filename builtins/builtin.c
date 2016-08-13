@@ -24,11 +24,7 @@ int builtin_builtin(WORD_LIST *list) {
   if (list == 0) return (EXECUTION_SUCCESS);
 
   command = list->word->word;
-#if defined(DISABLED_BUILTINS)
-  function = builtin_address(command);
-#else  /* !DISABLED_BUILTINS */
   function = find_shell_builtin(command);
-#endif /* !DISABLED_BUILTINS */
 
   if (!function) {
     sh_notbuiltin(command);

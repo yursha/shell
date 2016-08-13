@@ -297,7 +297,7 @@ HSOURCES = shell.h flags.h trap.h hashcmd.h hashlib.h jobs.h builtins.h \
 	execute_cmd.h parser.h pathexp.h pathnames.h pcomplete.h assoc.h \
 	$(BASHINCFILES)
 
-SOURCES = $(CSOURCES) $(HSOURCES) $(BUILTIN_DEFS)
+SOURCES = $(CSOURCES) $(HSOURCES) $(BUILTIN_SOURCES)
 
 # headers in top-level source directory that get installed by install-headers
 INSTALLED_HEADERS = shell.h bashjmp.h command.h syntax.h general.h error.h \
@@ -333,11 +333,11 @@ DEFSRC=$(BUILTIN_SRCDIR)
 DEFDIR = ./builtins
 DEBUGGER_DIR = ./debugger
 
-BUILTIN_DEFS = $(DEFSRC)/alias.c $(DEFSRC)/bind.c $(DEFSRC)/break.c \
+BUILTIN_SOURCES = $(DEFSRC)/alias.c $(DEFSRC)/bind.c $(DEFSRC)/break.c \
 	    $(DEFSRC)/builtin.c $(DEFSRC)/cd.c $(DEFSRC)/colon.c \
 	    $(DEFSRC)/command.c ${DEFSRC}/complete.c \
 	    $(DEFSRC)/caller.c $(DEFSRC)/declare.c \
-	    $(DEFSRC)/echo.c $(DEFSRC)/enable.c $(DEFSRC)/eval.c \
+	    $(DEFSRC)/enable.c $(DEFSRC)/eval.c \
 	    $(DEFSRC)/exec.c $(DEFSRC)/exit.c $(DEFSRC)/fc.c \
 	    $(DEFSRC)/fg_bg.c $(DEFSRC)/hash.c $(DEFSRC)/help.c \
 	    $(DEFSRC)/history.c $(DEFSRC)/jobs.c $(DEFSRC)/kill.c \
@@ -469,7 +469,7 @@ syntax.c:	mksyntax${EXEEXT} $(srcdir)/syntax.h
 	rm -f $@
 	./mksyntax -o $@
 
-$(BUILTINS_LIBRARY): $(BUILTIN_DEFS) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h $(DEFDIR)/builtext.h version.h
+$(BUILTINS_LIBRARY): $(BUILTIN_SOURCES) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h $(DEFDIR)/builtext.h version.h
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG}) || exit 1
 
 # these require special rules to circumvent make builtin rules
@@ -479,7 +479,7 @@ ${DEFDIR}/common.o:	$(BUILTIN_SRCDIR)/common.c
 ${DEFDIR}/bashgetopt.o:	$(BUILTIN_SRCDIR)/bashgetopt.c
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} bashgetopt.o) || exit 1
 
-${DEFDIR}/builtext.h: $(BUILTIN_DEFS)
+${DEFDIR}/builtext.h: $(BUILTIN_SOURCES)
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) builtext.h ) || exit 1
 
 # For the justification of the following Makefile rules, see node

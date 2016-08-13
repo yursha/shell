@@ -449,11 +449,7 @@ void reset_shell_options() {
   pipefail_opt = 0;
   ignoreeof = 0;
 
-#if defined(STRICT_POSIX)
-  posixly_correct = 1;
-#else
   posixly_correct = 0;
-#endif
 #if defined(HISTORY)
   dont_save_function_defs = 0;
   remember_on_history = enable_history_list = 1;

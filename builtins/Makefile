@@ -72,10 +72,10 @@ HELPSTRINGS =
 	$(RM) $@
 	$(CC) -c $(CCFLAGS) $<
 
-DEFSRC =  $(srcdir)/alias.c $(srcdir)/bind.c $(srcdir)/break.c \
+BUILTIN_SOURCES = $(srcdir)/alias.c $(srcdir)/bind.c $(srcdir)/break.c \
 	  $(srcdir)/builtin.c $(srcdir)/caller.c \
 	  $(srcdir)/cd.c $(srcdir)/colon.c \
-	  $(srcdir)/command.c $(srcdir)/declare.c $(srcdir)/echo.c \
+	  $(srcdir)/command.c $(srcdir)/declare.c \
 	  $(srcdir)/enable.c $(srcdir)/eval.c $(srcdir)/getopts.c \
 	  $(srcdir)/exec.c $(srcdir)/exit.c $(srcdir)/fc.c \
 	  $(srcdir)/fg_bg.c $(srcdir)/hash.c $(srcdir)/help.c \
@@ -93,7 +93,7 @@ STATIC_SOURCE = common.c evalstring.c evalfile.c getopt.c bashgetopt.c \
 
 OFILES = builtins.o \
 	alias.o bind.o break.o builtin.o caller.o cd.o colon.o command.o \
-	common.o declare.o echo.o enable.o eval.o evalfile.o \
+	common.o declare.o enable.o eval.o evalfile.o \
 	evalstring.o exec.o exit.o fc.o fg_bg.o hash.o help.o history.o \
 	jobs.o kill.o let.o mapfile.o \
 	pushd.o read.o return.o set.o setattr.o shift.o source.o \

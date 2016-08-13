@@ -36,7 +36,6 @@ extern int extended_quote;
 extern int check_window_size;
 extern int glob_ignore_case, match_ignore_case;
 extern int hup_on_exit;
-extern int xpg_echo;
 extern int gnu_error_format;
 extern int check_jobs_at_exit;
 extern int autocd;
@@ -167,7 +166,6 @@ static struct {
     {"promptvars", &promptvars, (shopt_set_func_t *)NULL},
     {"shift_verbose", &print_shift_error, (shopt_set_func_t *)NULL},
     {"sourcepath", &source_uses_path, (shopt_set_func_t *)NULL},
-    {"xpg_echo", &xpg_echo, (shopt_set_func_t *)NULL},
     {(char *)0, (int *)0, (shopt_set_func_t *)NULL}};
 
 #define N_SHOPT_OPTIONS (sizeof(shopt_vars) / sizeof(shopt_vars[0]))
@@ -288,11 +286,7 @@ void reset_shopt_options() {
   force_fignore = 1;
   hist_verify = history_reediting = 0;
   perform_hostname_completion = 1;
-#if DIRCOMPLETE_EXPAND_DEFAULT
-  dircomplete_expand = 1;
-#else
   dircomplete_expand = 0;
-#endif
   dircomplete_spelling = 0;
   no_empty_command_completion = 0;
 #endif
@@ -300,12 +294,6 @@ void reset_shopt_options() {
 #if defined(PROGRAMMABLE_COMPLETION)
   prog_completion_enabled = 1;
 #endif
-
-#if defined(DEFAULT_ECHO_TO_XPG) || defined(STRICT_POSIX)
-  xpg_echo = 1;
-#else
-  xpg_echo = 0;
-#endif /* DEFAULT_ECHO_TO_XPG */
 
   shopt_login_shell = login_shell;
 }

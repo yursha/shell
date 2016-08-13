@@ -108,11 +108,7 @@ int hashing_enabled = 1;
 #if defined(BANG_HISTORY)
 /* Non-zero means that we are doing history expansion.  The default.
    This means !22 gets the 22nd line of history. */
-#if defined(STRICT_POSIX)
-int history_expansion = 0;
-#else
 int history_expansion = 1;
-#endif
 #endif /* BANG_HISTORY */
 
 /* Non-zero means that we allow comments to appear in interactive commands. */
@@ -305,11 +301,7 @@ void reset_shell_flags() {
 #endif
 
 #if defined(BANG_HISTORY)
-#if defined(STRICT_POSIX)
-  history_expansion = 0;
-#else
   history_expansion = 1;
-#endif /* STRICT_POSIX */
 #endif
 
 #if defined(BRACE_EXPANSION)

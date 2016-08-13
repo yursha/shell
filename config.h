@@ -43,24 +43,13 @@
 #define BRACE_COMPLETION
 #endif /* BRACE_EXPANSION */
 
-/* Define DEFAULT_ECHO_TO_XPG if you want the echo builtin to interpret
-   the backslash-escape characters by default, like the XPG Single Unix
-   Specification V2 for echo.
-   This requires that V9_ECHO be defined. */
-/* #undef DEFAULT_ECHO_TO_XPG */
-
 /* Define HELP_BUILTIN if you want the `help' shell builtin and the long
    documentation strings compiled into the shell. */
 #define HELP_BUILTIN 1
 
-/* Define DISABLED_BUILTINS if you want "builtin foo" to always run the
-   shell builtin "foo", even if it has been disabled with "enable -n foo". */
-/* #undef DISABLED_BUILTINS */
-
 /* Define PROCESS_SUBSTITUTION if you want the K*rn shell-like process
    substitution features "<(file)". */
-/* Right now, you cannot do this on machines without fully operational
-   FIFO support.  This currently include NeXT and Alliant. */
+/* This feature requires fully operational FIFO support. */
 #define PROCESS_SUBSTITUTION 1
 
 /* Define PROMPT_STRING_DECODE if you want the backslash-escaped special
@@ -116,17 +105,9 @@
    and the complete builtin. */
 #define PROGRAMMABLE_COMPLETION 1
 
-/* Define NO_MULTIBYTE_SUPPORT to not compile in support for multibyte
-   characters, even if the OS supports them. */
-/* #undef NO_MULTIBYTE_SUPPORT */
-
 /* Define DEBUGGER if you want to compile in some features used only by the
    bash debugger. */
 #define DEBUGGER 1
-
-/* Define STRICT_POSIX if you want bash to be strictly posix.2 conformant by
-   default (except for echo; that is controlled separately). */
-/* #undef STRICT_POSIX */
 
 /* Define MEMSCRAMBLE if you want the bash malloc and free to scramble
    memory contents on malloc() and free(). */
@@ -139,16 +120,11 @@
 /* Define for case-modifying word expansions */
 #define CASEMOD_EXPANSIONS 1
 
-/* Define to make the `direxpand' shopt option enabled by default. */
-/* #undef DIRCOMPLETE_EXPAND_DEFAULT */
-
 /* Define to make the `globasciiranges' shopt option enabled by default. */
 #define GLOBASCII_DEFAULT 0
 
 /* Define to allow functions to be imported from the environment. */
 #define FUNCTION_IMPORT 1
-
-#define ENABLE_NLS 1
 
 /* End of configuration settings controllable by autoconf. */
 

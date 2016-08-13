@@ -98,10 +98,6 @@
 #undef PROGRAMMABLE_COMPLETION
 #endif
 
-#if !defined(V9_ECHO)
-#undef DEFAULT_ECHO_TO_XPG
-#endif
-
 #if !defined(PROMPT_STRING_DECODE)
 #undef PPROMPT
 #define PPROMPT "$ "
@@ -130,12 +126,6 @@
 /* system is supposed to support XPG5 */
 #define HANDLE_MULTIBYTE 1
 #endif
-#endif
-
-/* If we don't want multibyte chars even on a system that supports them, let
-   the configuring user turn multibyte support off. */
-#if defined(NO_MULTIBYTE_SUPPORT)
-#undef HANDLE_MULTIBYTE
 #endif
 
 /* Some systems, like BeOS, have multibyte encodings but lack mbstate_t.  */

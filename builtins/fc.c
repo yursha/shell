@@ -110,11 +110,7 @@ static void set_verbose_flag() { echo_input_at_read = verbose_flag; }
 
 /* String to execute on a file that we want to edit. */
 #define FC_EDIT_COMMAND "${FCEDIT:-${EDITOR:-vi}}"
-#if defined(STRICT_POSIX)
-#define POSIX_FC_EDIT_COMMAND "${FCEDIT:-ed}"
-#else
 #define POSIX_FC_EDIT_COMMAND "${FCEDIT:-${EDITOR:-ed}}"
-#endif
 
 int fc_builtin(WORD_LIST *list) {
   register int i;

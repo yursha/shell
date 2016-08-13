@@ -86,7 +86,6 @@ extern int trap_builtin(WORD_LIST *list);
 extern int exit_builtin(WORD_LIST *list);
 extern int logout_builtin(WORD_LIST *list);
 extern int getopts_builtin(WORD_LIST *list);
-extern int echo_builtin(WORD_LIST *list);
 extern int fc_builtin(WORD_LIST *list);
 extern int hash_builtin(WORD_LIST *list);
 extern int let_builtin(WORD_LIST *list);

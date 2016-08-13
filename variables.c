@@ -560,13 +560,6 @@ int privmode;
   }
 #endif /* HISTORY */
 
-#if defined(READLINE) && defined(STRICT_POSIX)
-  /* POSIXLY_CORRECT will only be 1 here if the shell was compiled
-     -DSTRICT_POSIX */
-  if (interactive_shell && posixly_correct && no_line_editing == 0)
-    rl_prefer_env_winsize = 1;
-#endif /* READLINE && STRICT_POSIX */
-
 /*
  * 24 October 2001
  *
@@ -4190,9 +4183,6 @@ static struct name_and_function special_vars[] = {
 #endif
 
 #if defined(READLINE)
-#if defined(STRICT_POSIX)
-    {"COLUMNS", sv_winsize},
-#endif
     {"COMP_WORDBREAKS", sv_comp_wordbreaks},
 #endif
 
@@ -4228,10 +4218,6 @@ static struct name_and_function special_vars[] = {
     {"LC_MESSAGES", sv_locale},
     {"LC_NUMERIC", sv_locale},
     {"LC_TIME", sv_locale},
-
-#if defined(READLINE) && defined(STRICT_POSIX)
-    {"LINES", sv_winsize},
-#endif
 
     {"MAIL", sv_mail},
     {"MAILCHECK", sv_mail},
@@ -4403,34 +4389,6 @@ void sv_hostfile(name) char *name;
   else
     hostname_list_initialized = 0;
 }
-
-#if defined(STRICT_POSIX)
-/* In strict posix mode, we allow assignments to LINES and COLUMNS (and values
-   found in the initial environment) to override the terminal size reported by
-   the kernel. */
-void sv_winsize(name) char *name;
-{
-  SHELL_VAR *v;
-  intmax_t xd;
-  int d;
-
-  if (posixly_correct == 0 || interactive_shell == 0 || no_line_editing) return;
-
-  v = find_variable(name);
-  if (v == 0 || var_isset(v) == 0)
-    rl_reset_screen_size();
-  else {
-    if (legal_number(value_cell(v), &xd) == 0) return;
-    winsize_assignment = 1;
-    d = xd;             /* truncate */
-    if (name[0] == 'L') /* LINES */
-      rl_set_screen_size(d, -1);
-    else /* COLUMNS */
-      rl_set_screen_size(-1, d);
-    winsize_assignment = 0;
-  }
-}
-#endif /* STRICT_POSIX */
 #endif /* READLINE */
 
 /* Update the value of HOME in the export environment so tilde expansion will
